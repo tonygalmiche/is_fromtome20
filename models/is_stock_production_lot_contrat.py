@@ -14,7 +14,7 @@ class is_stock_production_lot_contrat(models.Model):
     company_id     = fields.Many2one('res.company', 'Société')
     product_id      = fields.Many2one('product.product', "Article")
     product_tmpl_id = fields.Many2one('product.template', "Modèle d'article")
-    lot_id          = fields.Many2one('stock.production.lot', 'Lot')
+    lot_id          = fields.Many2one('stock.lot', 'Lot')
     product_uom_id  = fields.Many2one('uom.uom', 'Unité')
     partner_id      = fields.Many2one('res.partner', 'Client')
     contrat_id      = fields.Many2one('contrat.date.client', 'Contrat date')
@@ -33,12 +33,10 @@ class is_stock_production_lot_contrat(models.Model):
                     l.product_id,
                     pp.product_tmpl_id,
                     l.id as lot_id,
-                    l.product_uom_id,
-                    -- l.life_date,
-                    -- l.use_date,
+                    l.uom_id as product_uom_id,
                     c.partner_id,
                     c.id as contrat_id
-                from stock_production_lot l join product_product pp on l.product_id=pp.id 
+                from stock_lot l join product_product pp on l.product_id=pp.id
                                             join product_template pt on pp.product_tmpl_id=pt.id
                                             join contrat_date_client c on c.product_id=pp.product_tmpl_id
                 where l.active='t'

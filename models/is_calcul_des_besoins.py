@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _   # type: ignore
-from odoo.exceptions import Warning       # type: ignore
+from odoo.exceptions import UserError     # type: ignore
 import codecs
 import unicodedata
 import base64
@@ -238,10 +238,11 @@ class is_calcul_des_besoins(models.Model):
             ],
         }
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.calcul.des.besoins')
-        res = super(is_calcul_des_besoins, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.calcul.des.besoins')
+        res = super(is_calcul_des_besoins, self).create(vals_list)
         return res
 
 
@@ -348,14 +349,14 @@ class is_calcul_des_besoins(models.Model):
                         s1_lines_data.append((line.product_id.id, line.order_id.partner_id.id, line.qty_delivered))
                         s1_partner_ids.add(line.order_id.partner_id.id)
                 if s1_partner_ids:
-                    first_order_groups = self.env['sale.order'].read_group(
+                    first_order_groups = self.env['sale.order']._read_group(
                         [('partner_id', 'in', list(s1_partner_ids)), ('state', 'in', ('sale', 'done'))],
-                        ['partner_id', 'is_date_livraison:min'],
                         ['partner_id'],
+                        ['is_date_livraison:min'],
                     )
                     first_order_date_by_partner = {
-                        g['partner_id'][0]: g['is_date_livraison']
-                        for g in first_order_groups if g['partner_id']
+                        partner.id: date_min
+                        for partner, date_min in first_order_groups if partner
                     }
                     new_client_partner_ids = {
                         partner_id for partner_id, first_date in first_order_date_by_partner.items()
@@ -390,7 +391,7 @@ class is_calcul_des_besoins(models.Model):
                     #***********************************************************
 
                     #Convertir la quantité en UA en US *************************
-                    purchase_qty = product.uom_po_id._compute_quantity(purchase_qty, product.uom_id, round=True, rounding_method='UP', raise_if_failure=True)
+                    purchase_qty = product.uom_id._compute_quantity(purchase_qty, product.uom_id, round=True, rounding_method='UP', raise_if_failure=True)
                     if obj.calcul_en_colis:
                         purchase_qty = product.product_tmpl_id.uom2colis(purchase_qty)
                     #***********************************************************
@@ -546,7 +547,7 @@ class is_calcul_des_besoins(models.Model):
                                             'product_id': line.product_id.id,
                                             'name': line.product_id.name,
                                             'product_qty': 0,
-                                            'product_uom': line.product_id.uom_po_id.id,
+                                            'uom_id': line.product_id.uom_id.id,
                                             'date_planned': date_planned,
                                             'price_unit': 0,
                                         }
@@ -557,8 +558,8 @@ class is_calcul_des_besoins(models.Model):
                                             order_line.is_nb_colis = qty_to_order
                                             order_line.onchange_is_nb_colis()
                                         else:
-                                            # Conversion uom_id -> uom_po_id
-                                            qty_po = line.uom_id._compute_quantity(qty_to_order, line.product_id.uom_po_id)
+                                            # Conversion vers l'unité de l'article (unité d'achat supprimée en v20)
+                                            qty_po = line.uom_id._compute_quantity(qty_to_order, line.product_id.uom_id)
                                             order_line.product_qty = qty_po
                                             order_line.onchange_product_qty_fromtome()
                                         
@@ -570,7 +571,7 @@ class is_calcul_des_besoins(models.Model):
                                             order_line.is_nb_colis += qty_to_order
                                             order_line.onchange_is_nb_colis()
                                         else:
-                                            qty_po = line.uom_id._compute_quantity(qty_to_order, line.product_id.uom_po_id)
+                                            qty_po = line.uom_id._compute_quantity(qty_to_order, line.product_id.uom_id)
                                             order_line.product_qty += qty_po
                                             order_line.onchange_product_qty_fromtome()
                                 

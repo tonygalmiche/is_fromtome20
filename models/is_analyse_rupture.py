@@ -14,10 +14,10 @@ class IsAnalyseRuptureLigne(models.Model):
     line_id        = fields.Many2one('sale.order.line', 'Ligne de commande')
     partner_id     = fields.Many2one('res.partner', 'Client')
     enseigne_id    = fields.Many2one('is.enseigne.commerciale', 'Enseigne')
-    demande_client = fields.Float("Demande client", digits='Product Unit of Measure')
-    demande_totale = fields.Float("Demande totale", digits='Product Unit of Measure')
-    stock          = fields.Float("Stock actuel"  , digits='Product Unit of Measure')
-    manque         = fields.Float("Manque"        , digits='Product Unit of Measure')
+    demande_client = fields.Float("Demande client", digits='Product Unit')
+    demande_totale = fields.Float("Demande totale", digits='Product Unit')
+    stock          = fields.Float("Stock actuel"  , digits='Product Unit')
+    manque         = fields.Float("Manque"        , digits='Product Unit')
 
 
 class IsAnalyseRupture(models.Model):

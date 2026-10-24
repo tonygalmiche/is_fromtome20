@@ -83,10 +83,11 @@ class IsAnalyseMargeLot(models.Model):
     ecart_marge_brute      = fields.Float('Écart marge brute'    , readonly=True, copy=False, help="Marge brute lot - Marge brute comptable")
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.analyse.marge.lot')
-        res = super(IsAnalyseMargeLot, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.analyse.marge.lot')
+        res = super(IsAnalyseMargeLot, self).create(vals_list)
         return res
 
 
@@ -303,7 +304,7 @@ class IsAnalyseMargeLot(models.Model):
         for i in range(0, len(line_ids), 5000):
             ids = tuple(line_ids[i:i+5000])
             sql = """
-                SELECT rel.invoice_line_id, sml.lot_id, sml.picking_id, spt.code, sum(sml.qty_done/u1.factor*u2.factor)
+                SELECT rel.invoice_line_id, sml.lot_id, sml.picking_id, spt.code, sum(sml.quantity*u1.factor/u2.factor)
                 FROM sale_order_line_invoice_rel rel join account_move_line aml  on aml.id=rel.invoice_line_id
                                                      join stock_move sm          on sm.sale_line_id=rel.order_line_id
                                                      join stock_move_line sml    on sml.move_id=sm.id
@@ -311,7 +312,7 @@ class IsAnalyseMargeLot(models.Model):
                                                      join stock_picking_type spt on spt.id=sp.picking_type_id
                                                      join product_product pp     on pp.id=aml.product_id
                                                      join product_template pt    on pt.id=pp.product_tmpl_id
-                                                     join uom_uom u1             on u1.id=sml.product_uom_id
+                                                     join uom_uom u1             on u1.id=sml.uom_id
                                                      join uom_uom u2             on u2.id=pt.uom_id
                 WHERE
                     rel.invoice_line_id in %s and
@@ -602,7 +603,7 @@ class IsAnalyseMargeLot(models.Model):
         for i in range(0, len(purchase_line_ids), 5000):
             ids = tuple(purchase_line_ids[i:i+5000])
             sql = """
-                SELECT sm.purchase_line_id, sml.lot_id, spt.code, sum(sml.qty_done)
+                SELECT sm.purchase_line_id, sml.lot_id, spt.code, sum(sml.quantity)
                 FROM stock_move sm join stock_move_line sml    on sml.move_id=sm.id
                                    join stock_picking sp       on sp.id=sml.picking_id
                                    join stock_picking_type spt on spt.id=sp.picking_type_id
@@ -865,16 +866,16 @@ class IsAnalyseMargeLotLigne(models.Model):
     date            = fields.Date("Date", help="Date facture, avoir ou rebut")
     invoice_id      = fields.Many2one('account.move', 'Facture')
     invoice_line_id = fields.Many2one('account.move.line', 'Ligne de facture')
-    scrap_id        = fields.Many2one('stock.scrap', 'Rebut')
+    scrap_id        = fields.Many2one('stock.move', 'Rebut')
     partner_id      = fields.Many2one('res.partner', 'Client')
     user_id         = fields.Many2one('res.users', 'Commercial')
     enseigne_id     = fields.Many2one('is.enseigne.commerciale', 'Enseigne')
     product_id      = fields.Many2one('product.product', 'Article')
     categ_id        = fields.Many2one('product.category', 'Catégorie', related='product_id.categ_id', store=True)
     product_uom_id  = fields.Many2one('uom.uom', 'Unité')
-    lot_id          = fields.Many2one('stock.production.lot', 'Lot')
+    lot_id          = fields.Many2one('stock.lot', 'Lot')
     libelle         = fields.Text('Libellé')
-    quantity        = fields.Float("Quantité", digits='Product Unit of Measure')
+    quantity        = fields.Float("Quantité", digits='Product Unit')
     price_unit      = fields.Float("Prix de vente", digits='Product Price')
     discount        = fields.Float("Remise", digits='Discount')
     montant_vente   = fields.Float("Vente", help="Montant de vente HT")

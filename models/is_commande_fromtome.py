@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _   # type: ignore
-from odoo.exceptions import Warning       # type: ignore
+from odoo.exceptions import UserError     # type: ignore
 import codecs
 import unicodedata
 import base64
@@ -46,10 +46,11 @@ class IsCommandeFromtome(models.Model):
     calcul_en_colis = fields.Boolean("Calcul en colis", default=False, help="Le résultat affiché sera en colis")
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.commande.fromtome')
-        res = super(IsCommandeFromtome, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.commande.fromtome')
+        res = super(IsCommandeFromtome, self).create(vals_list)
         return res
 
 
@@ -59,7 +60,7 @@ class IsCommandeFromtome(models.Model):
         for obj in self:
 
             if obj.order_id and obj.order_id.state!='draft':
-                raise Warning(u"La commande Fromtome associée est déjà validée. Le calcul n'est pas autorisé !")
+                raise UserError(u"La commande Fromtome associée est déjà validée. Le calcul n'est pas autorisé !")
 
             obj.ligne_ids.unlink()
 
@@ -139,7 +140,7 @@ class IsCommandeFromtome(models.Model):
 
 
                     #Convertir la quantité en UA en US *************************
-                    purchase_qty = product.uom_po_id._compute_quantity(purchase_qty, product.uom_id, round=True, rounding_method='UP', raise_if_failure=True)
+                    purchase_qty = product.uom_id._compute_quantity(purchase_qty, product.uom_id, round=True, rounding_method='UP', raise_if_failure=True)
                     if obj.calcul_en_colis:
                         purchase_qty = product.product_tmpl_id.uom2colis(purchase_qty)
                     #***********************************************************
@@ -193,7 +194,7 @@ class IsCommandeFromtome(models.Model):
                             'product_id'  : product.id,
                             'name'        : product.name,
                             'product_qty' : 0,
-                            'product_uom' : product.uom_po_id.id,
+                            'uom_id'      : product.uom_id.id,
                             'date_planned': str(now)+' 08:00:00',
                             'price_unit'  : 0,
                         }

@@ -15,17 +15,17 @@ class is_preparation_transfert_entrepot_ligne(models.Model):
     designation    = fields.Char("Désignation" )
     is_colisage    = fields.Selection(related="product_id.is_colisage")
     default_code   = fields.Char("Référence interne")
-    stock_mini     = fields.Float("Stock mini FT", digits='Product Unit of Measure')
-    stock_mini_lc  = fields.Float("Stock mini LC", digits='Product Unit of Measure')
-    stock_ft       = fields.Float("Stock FT"     , digits='Product Unit of Measure')
-    reception_ft   = fields.Float("Réception FT" , digits='Product Unit of Measure')
-    livraison_ft   = fields.Float("Livraison FT" , digits='Product Unit of Measure')
-    solde_ft       = fields.Float("Solde FT"     , digits='Product Unit of Measure')
-    stock_lc       = fields.Float("Stock LC"     , digits='Product Unit of Measure')
-    reception_lc   = fields.Float("Réception LC" , digits='Product Unit of Measure')
-    livraison_lc   = fields.Float("Livraison LC" , digits='Product Unit of Measure')
-    solde_lc       = fields.Float("Solde LC"     , digits='Product Unit of Measure')
-    solde          = fields.Float("Solde total"  , digits='Product Unit of Measure')
+    stock_mini     = fields.Float("Stock mini FT", digits='Product Unit')
+    stock_mini_lc  = fields.Float("Stock mini LC", digits='Product Unit')
+    stock_ft       = fields.Float("Stock FT"     , digits='Product Unit')
+    reception_ft   = fields.Float("Réception FT" , digits='Product Unit')
+    livraison_ft   = fields.Float("Livraison FT" , digits='Product Unit')
+    solde_ft       = fields.Float("Solde FT"     , digits='Product Unit')
+    stock_lc       = fields.Float("Stock LC"     , digits='Product Unit')
+    reception_lc   = fields.Float("Réception LC" , digits='Product Unit')
+    livraison_lc   = fields.Float("Livraison LC" , digits='Product Unit')
+    solde_lc       = fields.Float("Solde LC"     , digits='Product Unit')
+    solde          = fields.Float("Solde total"  , digits='Product Unit')
 
     uom_id              = fields.Many2one('uom.uom', "Unité article")
     nb_pieces_par_colis = fields.Integer(string='PCB')
@@ -139,7 +139,7 @@ class is_preparation_transfert_entrepot(models.Model):
                     ]
                     pickings=self.env['stock.picking'].search(filtre)
                     for picking in pickings:
-                        for move in picking.move_ids_without_package:
+                        for move in picking.move_ids:
                             if move.state not in ['done','cancel'] and move.product_id==product:
                                 if warehouse.code=='LC':
                                     reception_lc+=move.product_qty
@@ -160,7 +160,7 @@ class is_preparation_transfert_entrepot(models.Model):
                     ]
                     pickings=self.env['stock.picking'].search(filtre)
                     for picking in pickings:
-                        for move in picking.move_ids_without_package:
+                        for move in picking.move_ids:
                             if move.state not in ['done','cancel'] and move.product_id==product:
                                 if warehouse.code=='LC':
                                     livraison_lc+=move.product_qty
@@ -241,9 +241,9 @@ class is_preparation_transfert_entrepot(models.Model):
                 vals={
                     'sequence'         : sequence,
                     'product_id'       : line.product_id.id,
-                    'name'             : line.product_id.name,
+                    'description_picking': line.product_id.name,
                     'product_uom_qty'  : product_uom_qty,
-                    'product_uom'      : line.product_id.uom_po_id.id,
+                    'uom_id'           : line.product_id.uom_id.id,
                 }
                 move_ids.append([0,0,vals])
                 sequence+=1
@@ -253,7 +253,7 @@ class is_preparation_transfert_entrepot(models.Model):
                 'picking_type_id'         : picking_type_id,
                 'location_id'             : location_id,
                 'location_dest_id'        : location_dest_id,
-                'move_ids_without_package': move_ids,
+                'move_ids': move_ids,
             }
             picking=self.env['stock.picking'].create(vals)
 

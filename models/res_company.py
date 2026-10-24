@@ -1,4 +1,5 @@
 from odoo import api, fields, models  # type: ignore
+from odoo.exceptions import UserError  # type: ignore
 from email.policy import default
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, Color, Fill, Alignment,PatternFill
@@ -81,7 +82,7 @@ class Company(models.Model):
             alertes=[]
             product_ids=[]
             for attachment in obj.is_import_excel_ids:
-                xlsxfile=base64.b64decode(attachment.datas)
+                xlsxfile=attachment.raw
 
                 path = '/tmp/sale_order-'+str(obj.id)+'.xlsx'
                 f = open(path,'wb')
@@ -96,7 +97,7 @@ class Company(models.Model):
                     cells = list(ws)
                     row_count = ws.max_row
                 except:
-                    raise Warning(u"Le fichier "+attachment.name+u" n'est pas un fichier xlsx")
+                    raise UserError(u"Le fichier "+attachment.name+u" n'est pas un fichier xlsx")
                 #*******************************************************************
 
                 lig=0

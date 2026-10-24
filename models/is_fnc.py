@@ -24,7 +24,7 @@ class IsFNC(models.Model):
     partner_id        = fields.Many2one('res.partner', 'Partenaire', required=True, help="Client ou fournisseur")
     picking_id        = fields.Many2one('stock.picking', 'Livraison/Réception', required=True)
     product_id        = fields.Many2one('product.product', 'Produit', required=True)
-    lot_id            = fields.Many2one('stock.production.lot', 'N° de lot')
+    lot_id            = fields.Many2one('stock.lot', 'N° de lot')
     dlc_ddm           = fields.Date('DLC/DDM')
     status_move       = fields.Selection(string='Statut', selection=[('receptionne', 'Réceptionné'),('manquant', 'Manquant'), ('abime', 'Abimé'), ('autre', 'Autre')], required=True)
     description       = fields.Text('Description de la non-conformité')
@@ -72,10 +72,11 @@ class IsFNC(models.Model):
     fnc_associees_ids = fields.One2many('is.fnc', 'fnc_origine_id', 'FNC associées', copy=False)
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.fnc')
-        res = super(IsFNC, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.fnc')
+        res = super(IsFNC, self).create(vals_list)
         return res
 
 

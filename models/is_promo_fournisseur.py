@@ -28,10 +28,11 @@ class IsPromoFournisseur(models.Model):
                 raise ValidationError("Le taux de remise doit-être supérieur à 0")
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.promo.fournisseur')
-        res = super(IsPromoFournisseur, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.promo.fournisseur')
+        res = super(IsPromoFournisseur, self).create(vals_list)
         res.remove_doublons()
         return res
 

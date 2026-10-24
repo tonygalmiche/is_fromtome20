@@ -49,8 +49,8 @@ class is_sale_order_line(models.Model):
     is_colis_cde_origine      = fields.Float(string='Colis Cde'  , digits=(14,2), readonly=True, help="Ce champ permet de mémoriser la valeur du champ 'Colis Prépa' au moment de la validation de la commande")
     is_default_code           = fields.Char(string='Réf Fromtome'   , compute='_compute_ref', readonly=True, store=True)
     is_ref_fournisseur        = fields.Char(string='Réf Fournisseur', compute='_compute_ref', readonly=True, store=True)
-    is_qt_cde                 = fields.Float(string='Qt Cde', digits='Product Unit of Measure',readonly=True,help="Ce champ permet de mémoriser la valeur du champ product_uom_qty au moment de la validation de la commande")
-    is_ecart_qt_cde_prepa     = fields.Float(string='Qt Prépa - Qt Cde', digits='Product Unit of Measure', compute='_compute_is_ecart_qt_cde_prepa', readonly=True, store=True)
+    is_qt_cde                 = fields.Float(string='Qt Cde', digits='Product Unit',readonly=True,help="Ce champ permet de mémoriser la valeur du champ product_uom_qty au moment de la validation de la commande")
+    is_ecart_qt_cde_prepa     = fields.Float(string='Qt Prépa - Qt Cde', digits='Product Unit', compute='_compute_is_ecart_qt_cde_prepa', readonly=True, store=True)
     is_colis_liv              = fields.Float(string='Colis Liv', digits=(14,2))
     is_colis_manquant         = fields.Float(string='Manquant', digits=(14,2), help="Nombre de colis manquants : max(Colis Prépa, Colis Cde) - Colis Liv")
 
@@ -73,7 +73,7 @@ class is_sale_order_line(models.Model):
                     so.partner_id, 
                     sol.product_id, 
                     pp.barcode,
-                    sol.product_uom,
+                    sol.product_uom_id as product_uom,
                     sol.name as description,
                     sol.product_uom_qty,
                     sol.qty_delivered,

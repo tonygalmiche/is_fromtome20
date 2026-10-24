@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 
 class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+    _inherit = "stock.lot"
 
     is_article_actif = fields.Boolean('Article actif', related='product_id.active')
     is_dlc_ddm       = fields.Date('DLC / DDM', required=True,tracking=True)
@@ -27,14 +27,12 @@ class StockProductionLot(models.Model):
             ('name', 'in', self.mapped('name')),
             ('is_dlc_ddm', 'in', self.mapped('is_dlc_ddm')),
         ]
-        fields = ['company_id' , 'product_id', 'name', 'is_dlc_ddm']
         groupby = ['company_id', 'product_id', 'name', 'is_dlc_ddm']
-        records = self.read_group(domain, fields, groupby, lazy=False)
+        records = self._read_group(domain, groupby, ['__count'])
         error_message_lines = []
-        for rec in records:
-            if rec['__count'] != 1:
-                product_name = self.env['product.product'].browse(rec['product_id'][0]).display_name
-                error_message_lines.append(_(" - Product: %s, Serial Number: %s", product_name, rec['name']))
+        for company, product, name, dlc_ddm, count in records:
+            if count != 1:
+                error_message_lines.append(_(" - Product: %s, Serial Number: %s", product.display_name, name))
         if error_message_lines:
             raise ValidationError(_('The combination of serial number and product must be unique across a company.\nFollowing combination contains duplicates:\n') + '\n'.join(error_message_lines))
 
@@ -82,7 +80,7 @@ class StockMove(models.Model):
                     if cle not in lots:
                         dlc = (line.is_dlc_ddm and line.is_dlc_ddm.strftime('%d/%m/%Y')) or ''
                         lots[cle]=[(line.lot_id.name or ''),(line.is_type_tracabilite or '').upper(),dlc,0,0,0]
-                    lots[cle][3]+=line.qty_done
+                    lots[cle][3]+=line.quantity
                     lots[cle][4]+=line.is_nb_colis
                     lots[cle][5]+=line.is_poids_net_reel
             t=[]
@@ -93,7 +91,7 @@ class StockMove(models.Model):
             obj.is_lots = "\n".join(t)
 
 
-    @api.depends('move_line_ids','move_line_ids.is_nb_colis','move_line_ids.is_poids_net_reel','quantity_done')
+    @api.depends('move_line_ids','move_line_ids.is_nb_colis','move_line_ids.is_poids_net_reel','quantity')
     def _compute_is_nb_colis_poids(self):
         for obj in self:
             nb=0
@@ -105,14 +103,14 @@ class StockMove(models.Model):
             if nb==0:
                 nb        = obj.product_id.is_nb_pieces_par_colis
                 poids_net = obj.product_id.is_poids_net_colis
-                unite     = obj.product_uom.category_id.name
+                unite     = obj.uom_id.category_id.name
                 nb_colis  = 0
                 if unite=="Poids":
                     if poids_net>0:
-                        nb_colis = obj.quantity_done/poids_net
+                        nb_colis = obj.quantity/poids_net
                 else:
                     if nb>0:
-                        nb_colis = obj.quantity_done / nb
+                        nb_colis = obj.quantity / nb
                 nb=nb_colis
                 poids = nb_colis * poids_net
             obj.is_nb_colis       = nb
@@ -124,7 +122,7 @@ class StockMove(models.Model):
         for obj in self:
             nb        = obj.product_id.is_nb_pieces_par_colis
             poids_net = obj.product_id.is_poids_net_colis
-            unite     = obj.product_uom.category_id.name
+            unite     = obj.uom_id.category_id.name
             nb_colis  = 0
             if unite=="Poids":
                 if poids_net>0:
@@ -204,17 +202,17 @@ class StockMove(models.Model):
     is_bio_id                  = fields.Many2one('is.bio', 'BIO', copy=False)
 
 
-    @api.depends('product_uom_qty','quantity_done')
+    @api.depends('product_uom_qty','quantity')
     def _compute_is_ecart_demande_fait(self):
         for obj in self:
-            ecart = round((obj.product_uom_qty or 0.0) - (obj.quantity_done or 0.0),4)
+            ecart = round((obj.product_uom_qty or 0.0) - (obj.quantity or 0.0),4)
             obj.is_ecart_demande_fait = ecart
 
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         """Lors de la création d'un mouvement, recopie is_bio_id depuis l'article"""
-        res = super(StockMove, self).create(vals)
+        res = super(StockMove, self).create(vals_list)
         for move in res:
             if move.product_id and move.product_id.is_bio_id:
                 move.is_bio_id = move.product_id.is_bio_id.id
@@ -224,7 +222,7 @@ class StockMove(models.Model):
     def get_nb_colis(self):
         nb        = self.product_id.is_nb_pieces_par_colis
         poids_net = self.product_id.is_poids_net_colis
-        unite     = self.product_uom.category_id.name
+        unite     = self.uom_id.category_id.name
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
@@ -251,30 +249,31 @@ class StockMove(models.Model):
 
 
 
-class StockScrap(models.Model):
-    _inherit = "stock.scrap"
-
-    @api.depends('product_id','lot_id','scrap_qty')
-    def _compute_is_dernier_prix_achat(self):
-        cr,uid,context,su = self.env.args
-        for obj in self:
-            x = 0
-            montant = 0
-            SQL="""
-                SELECT get_prix_achat(product_id,lot_id)
-                FROM stock_scrap
-                WHERE id=%s
-            """
-            cr.execute(SQL,[obj.id])
-            for row in cr.fetchall():
-                x=row[0] or 0
-                montant = obj.scrap_qty * x
-            obj.is_dernier_prix_achat = x
-            obj.is_montant_rebut      = montant
-  
-
-    is_dernier_prix_achat = fields.Float(string="Dernier prix d'achat", compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
-    is_montant_rebut      = fields.Float(string="Montant des rebuts"  , compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
+# stock.scrap supprimé en v20 (rebut = stock.move avec is_scrap) : à réécrire sur stock.move (étape « rebuts sur stock.move »)
+# class StockScrap(models.Model):
+#     _inherit = "stock.scrap"
+#
+#     @api.depends('product_id','lot_id','scrap_qty')
+#     def _compute_is_dernier_prix_achat(self):
+#         cr,uid,context,su = self.env.args
+#         for obj in self:
+#             x = 0
+#             montant = 0
+#             SQL="""
+#                 SELECT get_prix_achat(product_id,lot_id)
+#                 FROM stock_scrap
+#                 WHERE id=%s
+#             """
+#             cr.execute(SQL,[obj.id])
+#             for row in cr.fetchall():
+#                 x=row[0] or 0
+#                 montant = obj.scrap_qty * x
+#             obj.is_dernier_prix_achat = x
+#             obj.is_montant_rebut      = montant
+#
+#
+#     is_dernier_prix_achat = fields.Float(string="Dernier prix d'achat", compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
+#     is_montant_rebut      = fields.Float(string="Montant des rebuts"  , compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
 
 
 

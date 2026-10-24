@@ -41,10 +41,11 @@ class IsListingPrixClient(models.Model):
             self.pricelist_id = self.partner_id.property_product_pricelist.id
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.listing.prix.client')
-        res = super(IsListingPrixClient, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.listing.prix.client')
+        res = super(IsListingPrixClient, self).create(vals_list)
         return res
 
 

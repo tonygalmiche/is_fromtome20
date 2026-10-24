@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from itertools import product
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 import codecs
 import unicodedata
 import base64
@@ -31,7 +32,7 @@ class IsImportLeCellier(models.Model):
     def importation_excel_action(self):
         for obj in self:
             for attachment in obj.file_ids:
-                xlsxfile=base64.b64decode(attachment.datas)
+                xlsxfile=attachment.raw
 
                 path = '/tmp/is_import_le_cellier-'+str(obj.id)+'.xlsx'
                 f = open(path,'wb')
@@ -42,7 +43,7 @@ class IsImportLeCellier(models.Model):
                 try:
                     wb    = openpyxl.load_workbook(filename = path, data_only=True)
                 except:
-                    raise Warning("Le fichier "+attachment.name+u" n'est pas un fichier xlsx")
+                    raise UserError("Le fichier "+attachment.name+u" n'est pas un fichier xlsx")
                 #**************************************************************
 
             ws = wb['Sheet1']

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _                                      # type: ignore
-from odoo.exceptions import UserError, ValidationError, Warning              # type: ignore
+from odoo.exceptions import UserError, ValidationError                       # type: ignore
 from odoo.tools.float_utils import float_compare, float_is_zero, float_round # type: ignore
-from odoo.osv import expression                                              # type: ignore
 import time
 from openpyxl import Workbook, load_workbook, utils
 from openpyxl.styles import Font, Color, Fill, Alignment,PatternFill
@@ -167,15 +166,14 @@ class IsModeleCommande(models.Model):
     def actualiser_modele_excel_action(self):
         for obj in self:
             if not obj.enseigne_id:
-                raise Warning("Enseigne obligatoire pour générer la commande Excel !")
+                raise UserError("Enseigne obligatoire pour générer la commande Excel !")
             for line in obj.ligne_ids:
                 line._compute()
             for modele in obj.enseigne_id.modele_commande_ids:
                 name = obj.name
 
                 #** Enregistrement du modèle en local *************************
-                res = modele.datas
-                res = base64.b64decode(res)
+                res = modele.raw
                 path="/tmp/modele-commande-%s.xlsx"%obj.id
                 f = open(path,'wb')
                 f.write(res)
@@ -257,13 +255,12 @@ class IsModeleCommande(models.Model):
                 name="%s.xlsx"%(obj.name)
                 model=self._name
                 file = open(path,'rb').read()
-                datas = base64.b64encode(file)
                 vals = {
                     'name':        name,
                     'type':        'binary',
                     'res_model':   model,
                     'res_id':      obj.id,
-                    'datas':       datas,
+                    'raw':         file,
                 }
                 if len(attachments):
                     attachment=attachments[0]

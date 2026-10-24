@@ -11,10 +11,10 @@ class StockQuant(models.Model):
 
     is_dlc_ddm         = fields.Date('DLC / DDM', related="lot_id.is_dlc_ddm")
     is_fournisseur_id  = fields.Many2one('res.partner', 'Fournisseur par défaut', related="product_id.product_tmpl_id.is_fournisseur_id", store=True)
-    inventory_quantity = fields.Float(digits="Product Unit of Measure")
-    available_quantity = fields.Float(digits="Product Unit of Measure")
-    quantity           = fields.Float(digits="Product Unit of Measure")
-    reserved_quantity  = fields.Float(digits="Product Unit of Measure")
+    inventory_quantity = fields.Float(digits="Product Unit")
+    available_quantity = fields.Float(digits="Product Unit")
+    quantity           = fields.Float(digits="Product Unit")
+    reserved_quantity  = fields.Float(digits="Product Unit")
 
 
     #Tony le 03/11/2023 : J'ai supprimé ce verrou car il bloquait les livraisons

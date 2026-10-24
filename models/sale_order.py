@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _                                      # type: ignore
-from odoo.exceptions import UserError, ValidationError, Warning              # type: ignore
+from odoo.exceptions import UserError, ValidationError                       # type: ignore
 from odoo.tools.float_utils import float_compare, float_is_zero, float_round # type: ignore
-from odoo.osv import expression                                              # type: ignore
 import time
 from openpyxl import Workbook, load_workbook, utils
 from openpyxl.styles import Font, Color, Fill, Alignment,PatternFill
@@ -19,7 +18,7 @@ class SaleOrderLine(models.Model):
     def get_nb_colis(self):
         nb        = self.product_id.is_nb_pieces_par_colis
         poids_net = self.product_id.is_poids_net_colis
-        unite     = self.product_uom.category_id.name
+        unite     = self.product_uom_id.category_id.name
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
@@ -88,7 +87,7 @@ class SaleOrderLine(models.Model):
         for obj in self:
             nb_colis = obj.get_nb_colis()
             obj.is_nb_colis = nb_colis
-            unite = obj.product_uom.category_id.name
+            unite = obj.product_uom_id.category_id.name
             if unite=="Poids":
                 poids = obj.product_uom_qty
             else:
@@ -149,8 +148,8 @@ class SaleOrderLine(models.Model):
     is_default_code           = fields.Char(string='Réf Fromtome'   , compute='_compute_ref', readonly=True, store=True)
     is_ref_fournisseur        = fields.Char(string='Réf Fournisseur', compute='_compute_ref', readonly=True, store=True)
     is_colis_liv              = fields.Float(string='Colis Liv', digits=(14,2), compute='_compute_is_colis_liv', readonly=True, store=True)
-    is_qt_cde                 = fields.Float(string='Qt Cde', digits='Product Unit of Measure',readonly=True,help="Ce champ permet de mémoriser la valeur du champ product_uom_qty au moment de la validation de la commande")
-    is_ecart_qt_cde_prepa     = fields.Float(string='Qt Prépa - Qt Cde', digits='Product Unit of Measure', compute='_compute_is_ecart_qt_cde_prepa', readonly=True, store=True)
+    is_qt_cde                 = fields.Float(string='Qt Cde', digits='Product Unit',readonly=True,help="Ce champ permet de mémoriser la valeur du champ product_uom_qty au moment de la validation de la commande")
+    is_ecart_qt_cde_prepa     = fields.Float(string='Qt Prépa - Qt Cde', digits='Product Unit', compute='_compute_is_ecart_qt_cde_prepa', readonly=True, store=True)
     is_colis_manquant         = fields.Float(string='Manquant', digits=(14,2), compute='_compute_is_colis_manquant', readonly=True, store=True, help="Nombre de colis manquants : max(Colis Prépa, Colis Cde) - Colis Liv")
     is_calcul_besoins_purchase_line_id = fields.Many2one('purchase.order.line', compute='_compute_is_calcul_besoins_purchase_line_id', string="Ligne achat (Calcul)")
 
@@ -209,27 +208,6 @@ class SaleOrderLine(models.Model):
         return res
 
 
-    @api.onchange('product_uom_qty')
-    def _onchange_product_uom_qty(self):
-        # When modifying a one2many, _origin doesn't guarantee that its values will be the ones
-        # in database. Hence, we need to explicitly read them from there.
-        if self._origin:
-            product_uom_qty_origin = self._origin.read(["product_uom_qty"])[0]["product_uom_qty"]
-        else:
-            product_uom_qty_origin = 0
-
-        if self.state == 'sale' and self.product_id.type in ['product', 'consu'] and self.product_uom_qty < product_uom_qty_origin:
-            # Do not display this warning if the new quantity is below the delivered
-            # one; the `write` will raise an `UserError` anyway.
-            if self.product_uom_qty < self.qty_delivered:
-                return {}
-        if self.product_packaging:
-            return self._check_package()
-        return {}
-
-
-
-
     def get_fournisseur_par_defaut(self):
         now = datetime.date.today()
         suppliers=self.env['product.supplierinfo'].search([('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)])
@@ -243,7 +221,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('is_colis_cde')
     def onchange_is_colis_cde(self):
-        unite = self.product_uom.category_id.name
+        unite = self.product_uom_id.category_id.name
         if unite=="Poids":
             self.product_uom_qty =  self.is_colis_cde * self.product_id.is_poids_net_colis
         else:
@@ -387,11 +365,12 @@ class SaleOrder(models.Model):
         return
 
 
-    @api.model
-    def create(self, vals):
-        order = super(SaleOrder, self).create(vals)
-        order.ajout_frais_de_port()
-        return order
+    @api.model_create_multi
+    def create(self, vals_list):
+        orders = super(SaleOrder, self).create(vals_list)
+        for order in orders:
+            order.ajout_frais_de_port()
+        return orders
 
 
     def write(self, vals):
@@ -522,7 +501,7 @@ class SaleOrder(models.Model):
                     'order_id'    : obj.id,
                     'sequence'    : sequence,
                     'product_id'  : line.product_id.id,
-                    'name'        : line.product_id.name_get()[0][1],
+                    'name'        : line.product_id.display_name,
                     'product_uom_qty': 0,
                     'is_date_reception': date_reception,
                 }
@@ -573,7 +552,7 @@ class SaleOrder(models.Model):
                 all_moves = self.env['stock.move'].search([
                     ('sale_line_id', 'in', [l.id for l in lines]),
                     ('state', '=', 'done'),
-                    ('scrapped', '=', False),
+                    ('is_scrap', '=', False),
                     ('location_dest_id.usage', '=', 'customer'),
                 ])
                 if not all_moves:
@@ -584,9 +563,9 @@ class SaleOrder(models.Model):
                 remaining = lines_sorted[line_idx].product_uom_qty
 
                 for move in all_moves:
-                    move_qty = move.product_uom._compute_quantity(
+                    move_qty = move.uom_id._compute_quantity(
                         move.product_uom_qty,
-                        lines_sorted[line_idx].product_uom,
+                        lines_sorted[line_idx].product_uom_id,
                         rounding_method='HALF-UP',
                     )
                     # Passer à la ligne suivante si la capacité est épuisée
@@ -637,12 +616,12 @@ class SaleOrder(models.Model):
         company = self.env.user.company_id
         for obj in self:
             if not len(obj.order_line):
-                raise Warning(u"Il n'y a aucune ligne de commandes à traiter !")
+                raise UserError(u"Il n'y a aucune ligne de commandes à traiter !")
             for line in obj.order_line:
                 if not line.is_date_reception:
                     print(line, line.product_id, line.product_id.categ_id.name)
                     if line.product_id.categ_id.name!='TRANSPORT':
-                        raise Warning(u"La date de réception n'est pas renseignée sur toutes les lignes")
+                        raise UserError(u"La date de réception n'est pas renseignée sur toutes les lignes")
             now = datetime.date.today()
             for line in obj.order_line:
                 if line.product_id.categ_id.name!='TRANSPORT':
@@ -656,12 +635,12 @@ class SaleOrder(models.Model):
                                 supplierinfo=s
                                 break
                         if not supplierinfo:
-                            raise Warning("Fournisseur non trouvé pour article '%s'"%(line.product_id.display_name))
+                            raise UserError("Fournisseur non trouvé pour article '%s'"%(line.product_id.display_name))
                         if supplierinfo:
                             if not supplierinfo.name.active:
-                                raise Warning("Fournisseur '%s' désactivé pour l'article '%s'"%(supplierinfo.name.name,line.product_id.display_name))
+                                raise UserError("Fournisseur '%s' désactivé pour l'article '%s'"%(supplierinfo.name.name,line.product_id.display_name))
                             if not supplierinfo.name.is_warehouse_id:
-                                raise Warning("Entrepôt non renseigné pour le fournisseur '%s' de l'article '%s'"%(supplierinfo.name.name,line.product_id.display_name))
+                                raise UserError("Entrepôt non renseigné pour le fournisseur '%s' de l'article '%s'"%(supplierinfo.name.name,line.product_id.display_name))
                             if supplierinfo.name.is_heure_envoi_id==obj.is_heure_envoi_id or obj.is_heure_envoi_id.id==False:
                                 partner_id = supplierinfo.name.id
                                 date_reception = str(line.is_date_reception)
@@ -711,7 +690,7 @@ class SaleOrder(models.Model):
                                             'product_id'  : line.product_id.id,
                                             'name'        : line.name,
                                             'product_qty' : line.product_uom_qty,
-                                            'product_uom' : line.product_uom.id,
+                                            'uom_id'      : line.product_uom_id.id,
                                             'date_planned': date_planned,
                                             'price_unit'  : line.price_unit,
                                         }
@@ -746,7 +725,7 @@ class SaleOrder(models.Model):
         for obj in self:
             alertes=[]
             for attachment in obj.is_import_excel_ids:
-                xlsxfile=base64.b64decode(attachment.datas)
+                xlsxfile=attachment.raw
 
                 path = '/tmp/sale_order-'+str(obj.id)+'.xlsx'
                 f = open(path,'wb')
@@ -760,7 +739,7 @@ class SaleOrder(models.Model):
                     ws    = wb.active
                     cells = list(ws)
                 except:
-                    raise Warning(u"Le fichier "+attachment.name+u" n'est pas un fichier xlsx")
+                    raise UserError(u"Le fichier "+attachment.name+u" n'est pas un fichier xlsx")
                 #*******************************************************************
 
                 lig=0
@@ -793,7 +772,7 @@ class SaleOrder(models.Model):
                                         "product_id"       : product.id,
                                         "sequence"         : lig,
                                         "is_colis_cde"     : qty,
-                                        "product_uom"      : product.uom_id.id,
+                                        "product_uom_id"   : product.uom_id.id,
                                         "is_date_reception": datetime.date.today()+datetime.timedelta(days=2),
                                     }
                                     res = self.env['sale.order.line'].create(vals)
@@ -936,7 +915,7 @@ class SaleOrder(models.Model):
                                 'product_id'  : line.product_id.id,
                                 'name'        : line.name,
                                 'product_uom_qty' : line.product_uom_qty,
-                                'product_uom' : line.product_uom.id,
+                                'product_uom_id' : line.product_uom_id.id,
                             }
                             order_line=self.env['sale.order.line'].create(vals)
                             order_line.onchange_product_uom_qty_colis()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, tools, models,_           # type: ignore
-from odoo.tools import float_is_zero, pycompat          # type: ignore
+from odoo.tools import float_is_zero                    # type: ignore
 from odoo.tools.float_utils import float_round          # type: ignore
 from odoo.exceptions import UserError, ValidationError  # type: ignore
 from datetime import datetime
@@ -160,7 +160,7 @@ class IsRayonMagasin(models.Model):
 
 class ProductTemplate(models.Model):
     _name = 'product.template'
-    _inherit = ['product.template', 'barcodes.barcode_events_mixin']
+    _inherit = ['product.template', 'is.barcode.events.mixin']
 
 
     def is_voir_article_action(self):
@@ -433,7 +433,7 @@ class ProductTemplate(models.Model):
                 location_src = move.location_id
                 location_dest = move.location_dest_id
                 
-                qty = move.quantity_done
+                qty = move.quantity
                 nb_colis = move.is_nb_colis
                 
                 # Si la destination est interne et source n'est pas interne => Réception
@@ -787,7 +787,7 @@ class ProductTemplate(models.Model):
             items = self.env['product.pricelist.item'].search(filtre,order="pricelist_id")
             for item in items:
                 ids.append(item.pricelist_id.id)
-            dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome20', 'is_product_pricelist_item_tree')
+            view_id = self.env.ref('is_fromtome20.is_product_pricelist_item_tree').id
             res= {
                 'name': 'Lignes',
                 'view_mode': 'list',
@@ -831,13 +831,13 @@ class ProductTemplate(models.Model):
         images = []
         for attachment in self.is_fiche_technique_ids:
             mimetype = attachment.mimetype or ''
-            if not attachment.datas:
+            if not attachment.raw:
                 continue
             if mimetype in ('image/jpeg', 'image/png', 'image/gif', 'image/webp'):
-                img_b64 = attachment.datas.decode('utf-8') if isinstance(attachment.datas, bytes) else attachment.datas
+                img_b64 = base64.b64encode(attachment.raw).decode('utf-8')
                 images.append((img_b64, mimetype))
             elif mimetype == 'application/pdf':
-                pdf_data = base64.b64decode(attachment.datas)
+                pdf_data = attachment.raw
                 pages_b64 = self.env['is.vllm']._pdf_to_base64_images(pdf_data)
                 for page_b64 in pages_b64:
                     images.append((page_b64, 'image/jpeg'))
@@ -1162,13 +1162,13 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
         zip_buffer.seek(0)
         
         # Créer une pièce jointe avec le ZIP pour le téléchargement
-        zip_content = base64.b64encode(zip_buffer.getvalue())
-        
+        zip_content = zip_buffer.getvalue()
+
         # Créer un ir.attachment pour le fichier ZIP
         attachment = self.env['ir.attachment'].create({
             'name': 'photos_articles.zip',
             'type': 'binary',
-            'datas': zip_content,
+            'raw': zip_content,
             'res_model': 'product.template',
             'res_id': self.ids[0] if len(self.ids) == 1 else False,
         })
@@ -1210,11 +1210,8 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
             seller.copy({'product_tmpl_id': new_product.id})
 
         # Mettre toutes les traductions du champ name au même nom français
-        translations = self.env['ir.translation'].search([
-            ('name'   , '=', 'product.template,name'),
-            ('res_id' , '=', new_product.id),
-        ])
-        translations.write({'value': new_name})
+        for lang, dummy in self.env['res.lang'].get_installed():
+            new_product.with_context(lang=lang).name = new_name
 
         return {
             'type'      : 'ir.actions.act_window',
@@ -1252,7 +1249,7 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
             rows = obj._get_rows_sql()
             for row in rows:
                 ids.append(row['id'])
-            dummy, view_id = self.env['ir.model.data'].get_object_reference('stock', 'view_move_tree')
+            view_id = self.env.ref('stock.view_move_tree').id
             res= {
                 'name': 'Mouvements',
                 'view_mode': 'list,form',
@@ -1284,13 +1281,13 @@ class ProductProduct(models.Model):
                 ]
                 products = self.env['product.product'].sudo().search(filtre, limit=1)
                 if products:
-                    raise Warning("Le code barre doit-être unique !") 
+                    raise UserError("Le code barre doit-être unique !") 
 
  
-    def name_get(self):
-        self.browse(self.ids).read(['name', 'default_code'])
-        return [(template.id, (template.default_code and '%s [%s]' % (template.name, template.default_code) or '%s' % (template.name) ))
-            for template in self]
+    @api.depends('name', 'default_code')
+    def _compute_display_name(self):
+        for template in self:
+            template.display_name = template.default_code and '%s [%s]' % (template.name, template.default_code) or '%s' % (template.name)
 
 
     def update_pricelist_ir_cron(self):

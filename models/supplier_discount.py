@@ -3,7 +3,6 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
-from odoo.exceptions import Warning
 from datetime import datetime, timedelta, date
 
 
@@ -49,7 +48,7 @@ class SupplierInfo(models.Model):
     def dupliquer_action(self):
         for obj in self:
             if obj.name.is_date_debut_nouveau_tarif==False or obj.name.is_date_debut_nouveau_tarif==False:
-                raise Warning("Il faut renseigner les champs 'Date début nouveau tarif' et 'Date fin nouveau tarif' du fournisseur pour utiliser cette fonction")
+                raise UserError("Il faut renseigner les champs 'Date début nouveau tarif' et 'Date fin nouveau tarif' du fournisseur pour utiliser cette fonction")
             copy = obj.copy()
             copy.date_start = obj.name.is_date_debut_nouveau_tarif
             copy.date_end   = obj.name.is_date_fin_nouveau_tarif

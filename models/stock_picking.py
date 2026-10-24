@@ -5,7 +5,6 @@ from datetime import datetime, date, timedelta
 from dateutil.parser import parse
 import dateparser
 from odoo.exceptions import UserError, ValidationError
-from odoo.osv import expression
 from odoo.tools.float_utils import float_compare, float_is_zero
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, format_datetime
 import pytz
@@ -80,7 +79,7 @@ class IsScanPickingLine(models.Model):
     uom_id              = fields.Many2one('uom.uom', 'Unité', related='product_id.uom_id')
     nb_pieces_par_colis = fields.Integer(string='PCB', related="product_id.is_nb_pieces_par_colis", help="Nb Pièces / colis")
     creation_lot        = fields.Boolean('Créé', help="Lot créé")
-    lot_id              = fields.Many2one('stock.production.lot', 'Lot', required=True)
+    lot_id              = fields.Many2one('stock.lot', 'Lot', required=True)
     type_tracabilite    = fields.Selection(string='Traçabilité', related="product_id.is_type_tracabilite")
     dlc_ddm             = fields.Date('DLC / DDM', related="lot_id.is_dlc_ddm")
     nb_pieces           = fields.Float('Pièces'   , digits=(14,4), help="Nb pièces scannées")
@@ -120,7 +119,7 @@ class IsScanPickingLine(models.Model):
 
 class IsScanPicking(models.Model):
     _name = 'is.scan.picking'
-    _inherit = 'barcodes.barcode_events_mixin'
+    _inherit = 'is.barcode.events.mixin'
     _description = "Scan Picking"
     _order='id desc'
     _rec_name = 'id'
@@ -159,9 +158,12 @@ class IsScanPicking(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
-        if not self.env.context.get("noonchange"): 
-            for obj in self:
-                obj.poids = obj.product_id.is_poids_net_colis
+        for obj in self:
+            # Article trouvé par le scan : le poids vient du code-barres (remplace le contexte noonchange, en lecture seule en v20)
+            if obj.is_produit_scanne:
+                obj.is_produit_scanne = False
+                continue
+            obj.poids = obj.product_id.is_poids_net_colis
 
 
     @api.depends('ean','product_id')
@@ -177,11 +179,12 @@ class IsScanPicking(models.Model):
     type         = fields.Selection(string='Type', selection=[('picking', 'Picking'), ('inventory', 'Inventaire')], required=True, default='picking')
     picking_id   = fields.Many2one('stock.picking', 'Picking'     , required=False)
     partner_id   = fields.Many2one(related="picking_id.partner_id")
-    inventory_id = fields.Many2one('stock.inventory', 'Inventaire', required=False)
+    # stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
+    # inventory_id = fields.Many2one('stock.inventory', 'Inventaire', required=False)
     ean          = fields.Char("EAN")
     product_id   = fields.Many2one('product.product', 'Article')
     lot          = fields.Char("Lot scanné")
-    lot_id       = fields.Many2one('stock.production.lot', 'Lot')
+    lot_id       = fields.Many2one('stock.lot', 'Lot')
     type_tracabilite = fields.Selection(string='Traçabilité', related="product_id.is_type_tracabilite")
     dlc_ddm      = fields.Date('DLC / DDM')
     poids        = fields.Float("Poids", digits='Stock Weight')
@@ -191,6 +194,7 @@ class IsScanPicking(models.Model):
     line_ids     = fields.One2many('is.scan.picking.line', 'scan_id', 'Lignes')
     product_ids  = fields.One2many('is.scan.picking.product', 'scan_id', 'Articles')
     maj_code_ean_article_vsb = fields.Boolean(string="Mettre ce code EAN sur l'article sélectionné vsb", compute='_compute_maj_code_ean_article_vsb')
+    is_produit_scanne = fields.Boolean(store=False, help="Article renseigné par le scan : ne pas remplacer le poids scanné (voir _onchange_product_id)")
 
 
     def reset_scan(self):
@@ -213,7 +217,7 @@ class IsScanPicking(models.Model):
                     ('product_id','=', obj.product_id.id),
                     ('is_dlc_ddm','=', obj.dlc_ddm),
                 ]
-                lot = self.env['stock.production.lot'].search(filtre,limit=1)
+                lot = self.env['stock.lot'].search(filtre,limit=1)
                 if lot:
                     lot_id = lot.id
                 else:
@@ -223,7 +227,7 @@ class IsScanPicking(models.Model):
                         "product_id": obj.product_id.id,
                         "is_dlc_ddm": obj.dlc_ddm,
                     }
-                    lot = self.env['stock.production.lot'].create(vals)
+                    lot = self.env['stock.lot'].create(vals)
                     lot_id = lot.id
                     creation_lot=True
                 obj.lot_id = lot_id
@@ -283,7 +287,7 @@ class IsScanPicking(models.Model):
                     obj.ean = ean
                     products = self.env['product.product'].search([('barcode', '=',ean)])
                     for product in products:
-                        self.env.context = self.with_context(noonchange=True).env.context
+                        obj.is_produit_scanne = True
                         obj.product_id = product.id
                 if prefix in ["15","17"]:
                     date = code[:6]
@@ -328,7 +332,7 @@ class IsScanPicking(models.Model):
 
     def maj_picking_action(self):
         for obj in self:
-            obj.picking_id.move_line_ids_without_package.unlink()
+            obj.picking_id.move_line_ids.unlink()
 
             #** Ajoute des lignes sur la commande fournisseur *****************
             if obj.picking_id.purchase_id:
@@ -350,7 +354,7 @@ class IsScanPicking(models.Model):
                                 'product_id'  : product.id,
                                 'name'        : 'x',
                                 'product_qty' : 0,
-                                'product_uom' : product.uom_po_id.id,
+                                'uom_id'      : product.uom_id.id,
                                 'date_planned': str(date.today())+' 08:00:00',
                                 'price_unit'  : 0,
                             }
@@ -390,7 +394,7 @@ class IsScanPicking(models.Model):
                                 "picking_id"        : obj.picking_id.id,
                                 "product_id"        : product.id,
                                 "company_id"        : obj.picking_id.company_id.id,
-                                "product_uom_id"    : line.product_id.uom_id.id,
+                                "uom_id"            : line.product_id.uom_id.id,
                                 "location_id"       : obj.picking_id.location_id.id,
                                 "location_dest_id"  : obj.picking_id.location_dest_id.id,
                             }
@@ -412,10 +416,11 @@ class IsScanPicking(models.Model):
                     "product_id"        : line.product_id.id,
                     "lot_id"            : line.lot_id.id,
                     "company_id"        : obj.picking_id.company_id.id,
-                    "product_uom_id"    : line.product_id.uom_id.id,
+                    "uom_id"            : line.product_id.uom_id.id,
                     "location_id"       : obj.picking_id.location_id.id,
                     "location_dest_id"  : obj.picking_id.location_dest_id.id,
-                    "qty_done"          : qty,
+                    "quantity"          : qty,
+                    "picked"            : True,
                     "is_nb_colis"       : line.nb_colis,
                     "is_poids_net_reel" : line.poids,
                 }
@@ -427,17 +432,17 @@ class IsScanPicking(models.Model):
             #   même ceux non scannés, avec la Demande renseignée depuis le stock
             if obj.picking_id.picking_type_id.code=='internal' and not obj.picking_id.sale_id and not obj.picking_id.purchase_id:
                 for product_line in obj.product_ids:
-                    moves = obj.picking_id.move_ids_without_package.filtered(lambda m: m.product_id==product_line.product_id)
+                    moves = obj.picking_id.move_ids.filtered(lambda m: m.product_id==product_line.product_id)
                     if moves:
                         for move in moves:
                             move.product_uom_qty = product_line.nb_pieces
                     else:
                         vals={
-                            "name"             : product_line.product_id.display_name,
+                            "description_picking": product_line.product_id.display_name,
                             "picking_id"       : obj.picking_id.id,
                             "product_id"       : product_line.product_id.id,
                             "product_uom_qty"  : product_line.nb_pieces,
-                            "product_uom"      : product_line.product_id.uom_id.id,
+                            "uom_id"           : product_line.product_id.uom_id.id,
                             "location_id"      : obj.picking_id.location_id.id,
                             "location_dest_id" : obj.picking_id.location_dest_id.id,
                             "company_id"       : obj.picking_id.company_id.id,
@@ -467,47 +472,49 @@ class IsScanPicking(models.Model):
                         "picking_id"        : obj.picking_id.id,
                         "product_id"        : obj.picking_id.sale_id.partner_id.is_frais_port_id.id,
                         "company_id"        : obj.picking_id.company_id.id,
-                        "product_uom_id"    : product_uom.id,
+                        "uom_id"            : product_uom.id,
                         "location_id"       : obj.picking_id.location_id.id,
                         "location_dest_id"  : obj.picking_id.location_dest_id.id,
-                        "qty_done"          : qty_done,
+                        "quantity"          : qty_done,
+                        "picked"            : True,
                     }
                     res = self.env['stock.move.line'].create(vals)
             #******************************************************************
-            obj.picking_id.move_ids_without_package._compute_is_nb_colis_poids()
+            obj.picking_id.move_ids._compute_is_nb_colis_poids()
             obj.picking_id._compute_is_alerte()
 
 
-    def maj_inventory_action(self):
-        cr,uid,context,su = self.env.args
-        for obj in self:
-            obj.inventory_id.line_ids.unlink()
-            SQL="""
-                SELECT product_id, lot_id, sum(nb_pieces), sum(poids)
-                FROM is_scan_picking_line
-                WHERE scan_id=%s
-                GROUP BY product_id, lot_id
-            """
-            cr.execute(SQL,[obj.id])
-            for row in cr.fetchall():
-                filtre=[
-                    ('id','=', row[0]),
-                ]
-                product = self.env['product.product'].search(filtre,limit=1)
-                qty=row[2]
-                if product:
-                    unite = product.uom_id.category_id.name
-                    if unite=="Poids":
-                        qty=row[3]
-                vals={
-                    "inventory_id"      : obj.inventory_id.id,
-                    "product_id"        : row[0],
-                    "prod_lot_id"       : row[1],
-                    "company_id"        : 1,
-                    "location_id"       : 8,
-                    "product_qty"       : qty,
-                }
-                res = self.env['stock.inventory.line'].create(vals)
+    # stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
+    # def maj_inventory_action(self):
+    #     cr,uid,context,su = self.env.args
+    #     for obj in self:
+    #         obj.inventory_id.line_ids.unlink()
+    #         SQL="""
+    #             SELECT product_id, lot_id, sum(nb_pieces), sum(poids)
+    #             FROM is_scan_picking_line
+    #             WHERE scan_id=%s
+    #             GROUP BY product_id, lot_id
+    #         """
+    #         cr.execute(SQL,[obj.id])
+    #         for row in cr.fetchall():
+    #             filtre=[
+    #                 ('id','=', row[0]),
+    #             ]
+    #             product = self.env['product.product'].search(filtre,limit=1)
+    #             qty=row[2]
+    #             if product:
+    #                 unite = product.uom_id.category_id.name
+    #                 if unite=="Poids":
+    #                     qty=row[3]
+    #             vals={
+    #                 "inventory_id"      : obj.inventory_id.id,
+    #                 "product_id"        : row[0],
+    #                 "prod_lot_id"       : row[1],
+    #                 "company_id"        : 1,
+    #                 "location_id"       : 8,
+    #                 "product_qty"       : qty,
+    #             }
+    #             res = self.env['stock.inventory.line'].create(vals)
 
 
     def maj_code_ean_article_action(self):
@@ -570,7 +577,7 @@ class Picking(models.Model):
         }
 
 
-    @api.depends('move_line_ids_without_package','is_palette_europe')
+    @api.depends('move_line_ids','is_palette_europe')
     def _compute_is_alerte(self):
         for obj in self:
             alertes=[]
@@ -588,14 +595,14 @@ class Picking(models.Model):
                         poids_scan+=line.poids
             date_picking=False
             poids_picking=False
-            for line in obj.move_ids_without_package:
+            for line in obj.move_ids:
                 unite = line.product_id.uom_id.category_id.name
                 if unite=="Poids":
-                    poids_picking+=line.quantity_done
-                    if round(line.quantity_done,4)!=round(line.is_poids_net_reel,4):
-                        alertes.append("[%s] Poids net réel différent de Fait (%.4f!=%.4f)"%(line.product_id.default_code, line.is_poids_net_reel, line.quantity_done))
+                    poids_picking+=line.quantity
+                    if round(line.quantity,4)!=round(line.is_poids_net_reel,4):
+                        alertes.append("[%s] Poids net réel différent de Fait (%.4f!=%.4f)"%(line.product_id.default_code, line.is_poids_net_reel, line.quantity))
 
-            for line in obj.move_line_ids_without_package:
+            for line in obj.move_line_ids:
                 if not date_picking:
                     date_picking=line.write_date
                 if date_picking<line.write_date:
@@ -611,7 +618,7 @@ class Picking(models.Model):
 
             #** Recherche des lignes sans lien avec la commande de vente ******
             if obj.picking_type_id.code=='outgoing':
-                for move in obj.move_ids_without_package:
+                for move in obj.move_ids:
                     if not move.sale_line_id and move.state!='cancel':
                         alertes.append("Article '%s' sans lien avec la commande et donc ne sera pas facturé"%(move.product_id.name))
             #******************************************************************
@@ -620,25 +627,25 @@ class Picking(models.Model):
             obj.is_alerte = '\n'.join(alertes) or False
 
 
-    @api.depends('move_line_ids_without_package','move_line_ids_without_package.is_poids_net_reel','move_line_ids_without_package.is_nb_colis','state')
+    @api.depends('move_line_ids','move_line_ids.is_poids_net_reel','move_line_ids.is_nb_colis','state')
     def _compute_poids_colis(self):
         for obj in self:
             poids=0
             colis=0
-            for line in obj.move_line_ids_without_package:
+            for line in obj.move_line_ids:
                 poids+=line.is_poids_net_reel
                 colis+=line.is_nb_colis
             obj.is_poids_net=poids
             obj.is_nb_colis=colis
 
 
-    @api.depends('move_ids_without_package','move_ids_without_package.is_nb_colis_cde_from_sale','move_ids_without_package.is_poids_net_cde_from_sale')
+    @api.depends('move_ids','move_ids.is_nb_colis_cde_from_sale','move_ids.is_poids_net_cde_from_sale')
     def _compute_totaux_commande(self):
         """Calcul du nombre de colis total et du poids net total commandés"""
         for obj in self:
             nb_colis_cde_total = 0
             poids_net_cde_total = 0
-            for move in obj.move_ids_without_package:
+            for move in obj.move_ids:
                 nb_colis_cde_total += move.is_nb_colis_cde_from_sale
                 poids_net_cde_total += move.is_poids_net_cde_from_sale
             obj.is_nb_colis_cde_total = nb_colis_cde_total
@@ -712,7 +719,7 @@ class Picking(models.Model):
                     products[quant.product_id][0]+=quant.quantity
                     products[quant.product_id][1]+=nb_colis
             else:
-                for line in obj.move_ids_without_package:
+                for line in obj.move_ids:
                     nb_colis=line.get_nb_colis()
                     if line.product_id not in products:
                         products[line.product_id]=[0,0]
@@ -753,7 +760,7 @@ class Picking(models.Model):
     def init_sale_order_action(self):
         for obj in self:
             if obj.picking_type_id.code=='outgoing' and not  obj.sale_id:
-                for move in obj.move_ids_without_package:
+                for move in obj.move_ids:
                     if move.sale_line_id:
                         sale_id = move.sale_line_id.order_id.id
                         obj.sale_id = sale_id
@@ -777,7 +784,7 @@ class Picking(models.Model):
     def trier_par_designation_action(self):
         for obj in self:
             my_dict={}
-            for move in obj.move_ids_without_package:
+            for move in obj.move_ids:
                 if move.product_id.default_code:
                     name=move.product_id.name
                 else:
@@ -795,7 +802,7 @@ class Picking(models.Model):
     def trier_par_ref_fromtome_action(self):
         for obj in self:
             my_dict={}
-            for move in obj.move_ids_without_package:
+            for move in obj.move_ids:
                 key="%s-%s"%(move.product_id.default_code or 'zzzz', move.id)
                 my_dict[key]=move
             sorted_dict = dict(sorted(my_dict.items()))
@@ -809,7 +816,7 @@ class Picking(models.Model):
     def trier_par_ref_fournisseur_action(self):
         for obj in self:
             my_dict={}
-            for move in obj.move_ids_without_package:
+            for move in obj.move_ids:
                 key="%s-%s"%(move.is_ref_fournisseur or 'zzzz', move.id)
                 my_dict[key]=move
             sorted_dict = dict(sorted(my_dict.items()))
@@ -823,7 +830,7 @@ class Picking(models.Model):
     def trier_par_poids_action(self):
         for obj in self:
             my_dict={}
-            for move in obj.move_ids_without_package:
+            for move in obj.move_ids:
                 poids=str(int(move.product_id.is_poids_net_colis*100000)).zfill(10)
                 key="%s-%s"%(poids, move.id)
                 my_dict[key]=move
@@ -897,7 +904,7 @@ class Picking(models.Model):
         attachment = self.env['ir.attachment'].create({
             'name': f'Fiche{"s" if len(self) > 1 else ""}_Prepa_Palette_{picking_names}.pdf',
             'type': 'binary',
-            'datas': base64.b64encode(merged_pdf),
+            'raw': merged_pdf,
             'res_model': self._name,
             'res_id': self.id if len(self) == 1 else False,
             'mimetype': 'application/pdf'
@@ -943,26 +950,9 @@ class PickingType(models.Model):
 
 
     def _compute_picking_count(self):
-        domains = {
-            'count_picking_draft': [('state', '=', 'draft')],
-            'count_picking_waiting': [('state', 'in', ('confirmed', 'waiting'))],
-            'count_picking_ready': [('state', '=', 'assigned')],
-            'count_picking': [('state', 'in', ('assigned', 'waiting', 'confirmed'))],
-            'count_picking_late': [('scheduled_date', '<', time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)), ('state', 'in', ('assigned', 'waiting', 'confirmed'))],
-            'count_picking_backorders': [('backorder_id', '!=', False), ('state', 'in', ('confirmed', 'assigned', 'waiting'))],
-        }
-        for field in domains:
-            data = self.env['stock.picking'].read_group(domains[field] +
-                [('state', 'not in', ('done', 'cancel')), ('picking_type_id', 'in', self.ids)],
-                ['picking_type_id'], ['picking_type_id'])
-            count = {
-                x['picking_type_id'][0]: x['picking_type_id_count']
-                for x in data if x['picking_type_id']
-            }
-            for record in self:
-                record[field] = count.get(record.id, 0)
+        "Compteurs standards, puis « En retard » calculé sur la date de réception (type 1) ou de livraison (type 2)"
+        super()._compute_picking_count()
         for record in self:
-            record.rate_picking_backorders = record.count_picking and record.count_picking_backorders * 100 / record.count_picking or 0
             now = time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)[:10]
             filtre=[]
             if record.id==1:

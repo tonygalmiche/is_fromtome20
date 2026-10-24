@@ -40,12 +40,12 @@ class is_stock_move_line(models.Model):
     product_tmpl_id = fields.Many2one('product.template', "Modèle d'article")
     move_id         = fields.Many2one('stock.move', 'Mouvement de stock')
     move_line_id    = fields.Many2one('stock.move.line', 'Ligne de mouvement de stock')
-    lot_id          = fields.Many2one('stock.production.lot', 'Lot')
+    lot_id          = fields.Many2one('stock.lot', 'Lot')
     is_type_tracabilite = fields.Selection(string='Traçabilité', selection=[('ddm', 'DDM'), ('dlc', 'DLC')])
     is_dlc_ddm      = fields.Date('DLC / DDM', required=True)
     product_uom_id  = fields.Many2one('uom.uom', 'Unité')
-    product_uom_qty = fields.Float('Réservé', digits="Product Unit of Measure")
-    qty_done        = fields.Float('Fait'   , digits="Product Unit of Measure")
+    product_uom_qty = fields.Float('Réservé', digits="Product Unit")
+    qty_done        = fields.Float('Fait'   , digits="Product Unit")
     is_nb_pieces_par_colis = fields.Integer(string='PCB') #, related="product_id.is_nb_pieces_par_colis")
     is_nb_colis            = fields.Float(string='Nb Colis', digits=(14,2))
     is_poids_net_estime    = fields.Float(string='Poids net estimé', digits='Stock Weight', compute='_compute_is_poids_net_estime', readonly=True, store=True, help="Poids net total (Kg)")
@@ -92,9 +92,9 @@ class is_stock_move_line(models.Model):
                     l.lot_id,
                     pt.is_type_tracabilite,
                     spl.is_dlc_ddm,
-                    l.product_uom_id,
-                    l.product_uom_qty,
-                    l.qty_done,
+                    l.uom_id as product_uom_id,
+                    l.quantity as product_uom_qty,
+                    (case when l.picked then l.quantity else 0 end) as qty_done,
                     l.status_move,
                     l.create_date,
                     l.write_date,
@@ -105,9 +105,9 @@ class is_stock_move_line(models.Model):
                     p.state
                 from stock_move_line l join stock_move m on l.move_id=m.id
                                        join stock_picking p on m.picking_id=p.id
-                                       join product_product pp on m.product_id=pp.id 
+                                       join product_product pp on m.product_id=pp.id
                                        join product_template pt on pp.product_tmpl_id=pt.id
-                                       join stock_production_lot spl on l.lot_id=spl.id
+                                       join stock_lot spl on l.lot_id=spl.id
             )
         """)
 
@@ -172,27 +172,27 @@ class is_stock_move_line_valorise_update(models.TransientModel):
                 l.lot_id,
                 pt.is_type_tracabilite,
                 spl.is_dlc_ddm,
-                l.product_uom_id,
-                l.product_uom_qty,
-                l.qty_done,
+                l.uom_id as product_uom_id,
+                l.quantity as product_uom_qty,
+                l.quantity as qty_done,
                 l.status_move,
                 l.create_date,
                 l.write_date,
-                l.is_nb_pieces_par_colis,
+                pt.is_nb_pieces_par_colis,
                 l.is_nb_colis,
                 l.is_poids_net_estime,
                 l.is_poids_net_reel,
                 p.state,
                 COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat) prix_achat,
                 sol.price_unit prix_vente,
-                COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat)*l.qty_done montant_achat,
-                sol.price_unit*l.qty_done montant_vente,
-                (sol.price_unit*l.qty_done-COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat)*l.qty_done) marge
+                COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat)*l.quantity montant_achat,
+                sol.price_unit*l.quantity montant_vente,
+                (sol.price_unit*l.quantity-COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat)*l.quantity) marge
             from stock_move_line l join stock_move m on l.move_id=m.id
                                     join stock_picking p on m.picking_id=p.id
-                                    join product_product pp on m.product_id=pp.id 
+                                    join product_product pp on m.product_id=pp.id
                                     join product_template pt on pp.product_tmpl_id=pt.id
-                                    join stock_production_lot spl on l.lot_id=spl.id
+                                    join stock_lot spl on l.lot_id=spl.id
                                     join sale_order so on p.sale_id=so.id
                                     join sale_order_line sol on m.sale_line_id=sol.id
                                     join res_partner rp on p.partner_id=rp.id
@@ -281,12 +281,12 @@ class is_stock_move_line_valorise(models.Model):
     product_tmpl_id = fields.Many2one('product.template', "Modèle d'article")
     move_id         = fields.Many2one('stock.move', 'Mouvement de stock')
     move_line_id    = fields.Many2one('stock.move.line', 'Ligne de mouvement de stock')
-    lot_id          = fields.Many2one('stock.production.lot', 'Lot')
+    lot_id          = fields.Many2one('stock.lot', 'Lot')
     is_type_tracabilite = fields.Selection(string='Traçabilité', selection=[('ddm', 'DDM'), ('dlc', 'DLC')])
     is_dlc_ddm      = fields.Date('DLC / DDM')
-    product_uom_id  = fields.Many2one('uom.uom', 'Unité')
-    product_uom_qty = fields.Float('Réservé', digits="Product Unit of Measure")
-    qty_done        = fields.Float('Fait'   , digits="Product Unit of Measure")
+    product_uom_id = fields.Many2one('uom.uom', 'Unité')
+    product_uom_qty = fields.Float('Réservé', digits="Product Unit")
+    qty_done        = fields.Float('Fait'   , digits="Product Unit")
     is_nb_pieces_par_colis = fields.Integer(string='PCB', related="product_id.is_nb_pieces_par_colis")
     is_nb_colis            = fields.Float(string='Nb Colis', digits=(14,2))
     is_poids_net_estime    = fields.Float(string='Poids net estimé', digits='Stock Weight', help="Poids net total (Kg)")

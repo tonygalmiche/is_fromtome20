@@ -68,9 +68,9 @@ class IsImprimerEtiquetteGS1(models.Model):
 
 
 
-    @api.model
-    def create(self, vals):
-        res = super(IsImprimerEtiquetteGS1, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super(IsImprimerEtiquetteGS1, self).create(vals_list)
         res.imprimer_etiquette_action()
         return res
 

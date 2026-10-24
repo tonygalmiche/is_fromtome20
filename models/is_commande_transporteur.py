@@ -30,12 +30,10 @@ class IsCommandeTransporteur(models.Model):
     alerte      = fields.Text("Anomalies", compute='_compute_alerte')
 
 
-    def name_get(self):
-        res=[]
+    @api.depends('date_debut', 'date_fin')
+    def _compute_display_name(self):
         for obj in self:
-            name = "Du %s au %s"%(obj.date_debut.strftime('%d/%m/%Y'), obj.date_fin.strftime('%d/%m/%Y'))
-            res.append((obj.id, name))
-        return res
+            obj.display_name = "Du %s au %s"%(obj.date_debut.strftime('%d/%m/%Y'), obj.date_fin.strftime('%d/%m/%Y'))
 
 
     @api.constrains('date_debut', 'date_fin')
@@ -141,7 +139,7 @@ class IsCommandeTransporteur(models.Model):
                 vals.update({
                     'order_id'     : order.id,
                     'product_id'   : product.id,
-                    'product_uom'  : product.uom_po_id.id,
+                    'uom_id'       : product.uom_id.id,
                     'price_unit'   : 0,
                     'date_planned' : datetime.combine(picking.is_date_livraison, time(12)),
                     'is_picking_id': picking.id,

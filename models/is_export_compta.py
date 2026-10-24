@@ -53,10 +53,11 @@ class IsExportCompta(models.Model):
     ], 'Format export', required=True, default="ALG_COMPTA")
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.export.compta')
-        res = super(IsExportCompta, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.export.compta')
+        res = super(IsExportCompta, self).create(vals_list)
         return res
 
 
@@ -322,13 +323,12 @@ class IsExportCompta(models.Model):
                     f.write('\r\n')
                 f.close()
                 r = open(dest,'rb').read()
-                r=base64.b64encode(r)
                 vals = {
                     'name':        name,
                     'type':        'binary',
                     'res_model':   model,
                     'res_id':      obj.id,
-                    'datas':       r,
+                    'raw':         r,
                 }
                 attachment = self.env['ir.attachment'].create(vals)
                 obj.file_ids=[(6,0,[attachment.id])]
@@ -398,13 +398,12 @@ class IsExportCompta(models.Model):
                 zip_name = '%s.zip'%obj.name
                 zip_path = '/tmp/%s'%zip_name
                 r = open(zip_path,'rb').read()
-                r=base64.b64encode(r)
                 vals = {
                     'name':        zip_name,
                     'type':        'binary',
                     'res_model':   model,
                     'res_id':      obj.id,
-                    'datas':       r,
+                    'raw':         r,
                 }
                 attachment = self.env['ir.attachment'].create(vals)
                 obj.file_ids=[(6,0,[attachment.id])]

@@ -47,10 +47,11 @@ class IsPromoClient(models.Model):
             obj.pourcent_promo_a_repercuter  = obj.partner_id.is_pourcent_promo_a_repercuter
 
 
-    @api.model
-    def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('is.promo.client')
-        res = super(IsPromoClient, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['name'] = self.env['ir.sequence'].next_by_code('is.promo.client')
+        res = super(IsPromoClient, self).create(vals_list)
         return res
 
 

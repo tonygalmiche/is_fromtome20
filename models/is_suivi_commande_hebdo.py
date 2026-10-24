@@ -89,7 +89,7 @@ class IsSuiviCommandeHebdo(models.Model):
                     pickings=self.env['stock.picking'].search(filtre, order="id")
                     for picking in pickings:
                         picking_id = picking.id
-                        for line in picking.move_ids_without_package:
+                        for line in picking.move_ids:
                             nb_colis_picking+=line.is_nb_colis
                             poids+=line.is_poids_net_reel
                     #**********************************************************

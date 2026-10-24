@@ -11,7 +11,7 @@ from datetime import timedelta
 from dateutil.parser import parse
 import dateparser
 import dateutil
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, pycompat
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class StockMoveLine(models.Model):
@@ -20,31 +20,31 @@ class StockMoveLine(models.Model):
     def get_nb_colis(self):
         nb        = self.product_id.is_nb_pieces_par_colis
         poids_net = self.product_id.is_poids_net_colis
-        unite     = self.product_uom_id.category_id.name
+        unite     = self.uom_id.category_id.name
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
-                nb_colis = self.qty_done/poids_net
+                nb_colis = self.quantity/poids_net
         else:
             if nb>0:
-                nb_colis = self.qty_done / nb
+                nb_colis = self.quantity / nb
         return round(nb_colis)
 
 
-    @api.onchange('product_id','qty_done')
+    @api.onchange('product_id','quantity')
     def _onchange_product_id_qty_done(self):
         for obj in self:
             nb_colis = obj.get_nb_colis()
             obj.is_nb_colis = nb_colis
-            unite = self.product_uom_id.category_id.name
+            unite = self.uom_id.category_id.name
             if unite=="Poids":
-                poids = obj.qty_done
+                poids = obj.quantity
             else:
                 poids = nb_colis*obj.product_id.is_poids_net_colis
             obj.is_poids_net_reel = poids
 
 
-    @api.depends('product_id','qty_done')
+    @api.depends('product_id','quantity')
     def _compute_is_poids_net_estime(self):
         for obj in self:
             nb_colis = obj.get_nb_colis()
@@ -63,7 +63,7 @@ class StockMoveLine(models.Model):
 
     def stock_move_line_edit_action(self):
         for obj in self:
-            dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome20', 'is_stock_move_line_edit')
+            view_id = self.env.ref('is_fromtome20.is_stock_move_line_edit').id
             res= {
                 'name'     : 'Modification du poids réél',
                 'view_mode': 'form',

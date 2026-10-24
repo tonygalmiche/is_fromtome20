@@ -25,6 +25,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'account_edi_ubl_cii',
         'l10n_fr_account',
         'is_llm2odoo',
+        'is_barcode_widget',
         # OCA 20.0 : modules non disponibles en 20.0 (28/09/2026), à remettre après leur portage
         # (bank-payment-alternative : account_payment_base_oca, account_payment_batch_oca, account_payment_base_oca_sale,
         # account_payment_sepa_credit_transfer, account_payment_fr_lcr ; l10n-france : l10n_fr_intrastat_product,
