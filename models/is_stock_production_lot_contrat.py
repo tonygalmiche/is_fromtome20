@@ -33,7 +33,7 @@ class is_stock_production_lot_contrat(models.Model):
                     l.product_id,
                     pp.product_tmpl_id,
                     l.id as lot_id,
-                    l.uom_id as product_uom_id,
+                    pt.uom_id as product_uom_id,
                     c.partner_id,
                     c.id as contrat_id
                 from stock_lot l join product_product pp on l.product_id=pp.id

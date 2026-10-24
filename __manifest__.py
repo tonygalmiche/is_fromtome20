@@ -102,4 +102,5 @@ InfoSaône - Module Odoo 20 pour Fromtome
     ],
     'installable': True,
     'application': True,
+    'license': 'LGPL-3',
 }
