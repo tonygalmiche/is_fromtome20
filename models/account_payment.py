@@ -5,12 +5,13 @@ from datetime import date,timedelta
 from calendar import monthrange
  
 
-class AccountPaymentOrder(models.Model):
-    _inherit = 'account.payment.order'
-
-    #Champ créé uniquement pour pouvoir faire un PDF
-    partner_id          = fields.Many2one('res.partner','Partenaire', related='generated_user_id.partner_id')
-    is_export_compta_id = fields.Many2one('is.export.compta', 'Folio', copy=False)
+# OCA 20.0 : account_payment_order (account_payment_batch_oca) non disponible en 20.0 (28/09/2026), à décommenter après son portage
+# class AccountPaymentOrder(models.Model):
+#     _inherit = 'account.payment.order'
+#
+#     #Champ créé uniquement pour pouvoir faire un PDF
+#     partner_id          = fields.Many2one('res.partner','Partenaire', related='generated_user_id.partner_id')
+#     is_export_compta_id = fields.Many2one('is.export.compta', 'Folio', copy=False)
 
 
 class AccountPaymentTerm(models.Model):

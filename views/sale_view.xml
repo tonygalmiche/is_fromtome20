@@ -101,7 +101,8 @@
             <group name="sale_shipping" position="attributes">
                  <attribute name="invisible">1</attribute>
             </group>
-            <field name="payment_mode_id" position="after">
+            <!-- OCA 20.0 : payment_mode_id (account_payment_sale) non disponible en 20.0 (28/09/2026), ancre provisoire payment_term_id à remettre sur payment_mode_id après son portage -->
+            <field name="payment_term_id" position="after">
                 <field name="is_date_livraison"/>
                 <field name="is_transporteur_id"/>
                 <field name="is_total_colis_manquant"/>

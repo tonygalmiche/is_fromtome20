@@ -249,49 +249,50 @@ class IsExportCompta(models.Model):
                         self.env['is.export.compta.ligne'].create(vals)
 
 
-            if obj.traite:
-                journal_code  = 'RG'
-                payments = self.env['account.payment.order'].search([('is_export_compta_id','=',obj.id)])
-                for payment in payments:
-                    payment.is_export_compta_id=False
-                domain=[
-                    ('is_export_compta_id','=',False),
-                    ('date_generated','<=',obj.date_fin),
-                    ('state','!=','cancel'),
-                ]
-                payments = self.env['account.payment.order'].search(domain)
-                for payment in payments:
-                    for invoice in payment.move_ids:
-                        for line in invoice.line_ids:
-                            num_fac=False
-                            for l in line.bank_payment_line_id:
-                                num_fac=l.communication
-                            ecriture_lib = line.partner_id.name or line.name
-                            if num_fac:
-                                ecriture_lib = "%s:%s"%(num_fac,line.partner_id.name or '')
-                            ct=ct+1
-                            compte_num = line.account_id.code or ''
-                            if compte_num == '512100':
-                                 compte_num = '511130'
-                            vals={
-                                'export_compta_id': obj.id,
-                                'ligne'           : ct,
-                                'journal_code'           : journal_code,
-                                'journal_lib'            : journal_code,
-                                'ecriture_num'           : payment.name,
-                                'ecriture_date'          : payment.date_generated,
-                                'compte_num'             : compte_num,
-                                'compte_lib'             : compte_num,
-                                'piece_ref'              : payment.name,
-                                'piece_date'             : payment.date_generated,
-                                'ecriture_lib'           : ecriture_lib,
-                                'debit'                  : line.debit,
-                                'credit'                 : line.credit,
-                                'partner_id'             : line.partner_id.id,
-                            }
-                            self.env['is.export.compta.ligne'].create(vals)
-                            ct=ct+1
-                    payment.is_export_compta_id=obj.id
+            # OCA 20.0 : account_payment_order (account_payment_batch_oca) non disponible en 20.0 (28/09/2026), à décommenter après son portage
+            # if obj.traite:
+            #     journal_code  = 'RG'
+            #     payments = self.env['account.payment.order'].search([('is_export_compta_id','=',obj.id)])
+            #     for payment in payments:
+            #         payment.is_export_compta_id=False
+            #     domain=[
+            #         ('is_export_compta_id','=',False),
+            #         ('date_generated','<=',obj.date_fin),
+            #         ('state','!=','cancel'),
+            #     ]
+            #     payments = self.env['account.payment.order'].search(domain)
+            #     for payment in payments:
+            #         for invoice in payment.move_ids:
+            #             for line in invoice.line_ids:
+            #                 num_fac=False
+            #                 for l in line.bank_payment_line_id:
+            #                     num_fac=l.communication
+            #                 ecriture_lib = line.partner_id.name or line.name
+            #                 if num_fac:
+            #                     ecriture_lib = "%s:%s"%(num_fac,line.partner_id.name or '')
+            #                 ct=ct+1
+            #                 compte_num = line.account_id.code or ''
+            #                 if compte_num == '512100':
+            #                      compte_num = '511130'
+            #                 vals={
+            #                     'export_compta_id': obj.id,
+            #                     'ligne'           : ct,
+            #                     'journal_code'           : journal_code,
+            #                     'journal_lib'            : journal_code,
+            #                     'ecriture_num'           : payment.name,
+            #                     'ecriture_date'          : payment.date_generated,
+            #                     'compte_num'             : compte_num,
+            #                     'compte_lib'             : compte_num,
+            #                     'piece_ref'              : payment.name,
+            #                     'piece_date'             : payment.date_generated,
+            #                     'ecriture_lib'           : ecriture_lib,
+            #                     'debit'                  : line.debit,
+            #                     'credit'                 : line.credit,
+            #                     'partner_id'             : line.partner_id.id,
+            #                 }
+            #                 self.env['is.export.compta.ligne'].create(vals)
+            #                 ct=ct+1
+            #         payment.is_export_compta_id=obj.id
 
 
     def generer_fichier_action(self):

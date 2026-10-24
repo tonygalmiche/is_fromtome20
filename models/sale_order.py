@@ -421,7 +421,8 @@ class SaleOrder(models.Model):
         return self.partner_id.commercial_partner_id or self.partner_id
 
 
-    @api.depends('partner_id', 'payment_mode_id')
+    # OCA 20.0 : payment_mode_id (account_payment_sale) non disponible en 20.0 (28/09/2026), à remettre dans le depends après son portage
+    @api.depends('partner_id')
     def _compute_is_alerte_client(self):
         for obj in self:
             alertes = []
@@ -433,12 +434,14 @@ class SaleOrder(models.Model):
                     alertes.append("Fréquence de facturation non renseignée sur la fiche client (Bloquant)")
                 if not partner.country_id:
                     alertes.append("Pays non renseigné sur la fiche client")
-                if partner.country_id.code == 'FR' and not partner.siren:
-                    alertes.append("SIREN non renseigné sur la fiche client")
-                modes = obj.payment_mode_id | partner.customer_payment_mode_id
-                traite = any(m.payment_method_code == 'fr_lcr' or 'TRAITE' in (m.name or '').upper() for m in modes)
-                if traite and not partner.bank_ids:
-                    alertes.append("RIB non renseigné sur la fiche client (mode de paiement en traite)")
+                # OCA 20.0 : l10n_fr_siret (siren) non disponible en 20.0 (28/09/2026), à décommenter après son portage
+                # if partner.country_id.code == 'FR' and not partner.siren:
+                #     alertes.append("SIREN non renseigné sur la fiche client")
+                # OCA 20.0 : account_payment_partner / account_payment_sale (modes de paiement) non disponibles en 20.0 (28/09/2026), à décommenter après leur portage
+                # modes = obj.payment_mode_id | partner.customer_payment_mode_id
+                # traite = any(m.payment_method_code == 'fr_lcr' or 'TRAITE' in (m.name or '').upper() for m in modes)
+                # if traite and not partner.bank_ids:
+                #     alertes.append("RIB non renseigné sur la fiche client (mode de paiement en traite)")
             obj.is_alerte_client = "\n".join(alertes) or False
 
 

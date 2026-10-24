@@ -36,7 +36,8 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # 'security/ir.model.access.xml',
         'views/assets.xml',
         'views/account_move_view.xml',
-        'views/account_payment_order_views.xml',
+        # OCA 20.0 : account_payment_order (account_payment_batch_oca) non disponible en 20.0 (28/09/2026), à décommenter après son portage
+        # 'views/account_payment_order_views.xml',
         'views/mail_activity_views.xml',
         'views/mail_views.xml',
         'views/product_view.xml',
@@ -94,7 +95,8 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'report/listing_prix_client_template.xml',
         'report/listing_prix_client_liste_template.xml',
         'report/report_stockinventory.xml',
-        'report/report_account_payment_order.xml',
+        # OCA 20.0 : account_payment_order (account_payment_batch_oca) non disponible en 20.0 (28/09/2026), à décommenter après son portage
+        # 'report/report_account_payment_order.xml',
         'data/stock_picking_mail.xml',
         'security/ir.access.csv',
     ],

@@ -23,7 +23,9 @@
                             <div t-if="o.partner_id.vat">
                                 <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
                                 <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>
+                             <!-- OCA 20.0 : l10n_fr_siret non disponible en 20.0 (28/09/2026), à décommenter après son portage
                              <div t-if="o.partner_id.siret">SIRET:<span t-field="o.partner_id.siret"/></div>
+                             -->
                         </th>
                         <th style="border:none">
                             <div style="text-decoration: underline">Adresse de facturation:</div>
@@ -195,7 +197,10 @@
                     </div>
                 </div>
                 <p t-if="o.invoice_payment_term_id" name="payment_term">
-                    <span t-field="o.invoice_payment_term_id.note"/> - <span t-field="o.payment_mode_id.name"/>
+                    <span t-field="o.invoice_payment_term_id.note"/>
+                    <!-- OCA 20.0 : account_payment_partner (payment_mode_id) non disponible en 20.0 (28/09/2026), à décommenter après son portage
+                    - <span t-field="o.payment_mode_id.name"/>
+                    -->
                 </p>
                 <p t-if="o.narration" name="comment">
                     <span t-field="o.narration"/>
