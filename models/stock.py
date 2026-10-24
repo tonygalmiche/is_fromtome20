@@ -158,7 +158,7 @@ class StockMove(models.Model):
 
 
 
-    @api.depends('product_id','name')
+    @api.depends('product_id')
     def _compute_is_ref_fournisseur(self):
         for obj in self:
             filtre=[
