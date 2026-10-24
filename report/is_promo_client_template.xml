@@ -55,7 +55,7 @@
                 <t t-set="company" t-value="res_company"/>
             </t>
         </t>
-        <t t-call="is_fromtome14.is_promo_client_external_layout_standard">
+        <t t-call="is_fromtome20.is_promo_client_external_layout_standard">
             <t t-raw="0"/>
         </t>
     </template>
@@ -85,16 +85,16 @@
     </template>
     <template id="is_promo_client_html_container">
         <t t-set="body_classname" t-value="'container'"/>
-        <t t-call="is_fromtome14.is_promo_client_report_layout">
+        <t t-call="is_fromtome20.is_promo_client_report_layout">
             <t t-raw="0"/>
         </t>
     </template>
 
 
     <template id="is_promo_client_report">
-        <t t-call="is_fromtome14.html_container">
+        <t t-call="is_fromtome20.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="is_fromtome14.is_promo_client_external_layout">
+                <t t-call="is_fromtome20.is_promo_client_external_layout">
                     <div class="page listing_prix_client">
                         <div class="oe_structure"/>
                         <t t-set="res" t-value="o.get_products()"/>
@@ -161,9 +161,9 @@
         <field name="name">Listing promos client</field>
         <field name="model">is.promo.client</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">is_fromtome14.is_promo_client_report</field>
-        <field name="report_file">is_fromtome14.is_promo_client_report</field>
-        <field name="paperformat_id" ref="is_fromtome14.is_promo_client_paperformat"/>
+        <field name="report_name">is_fromtome20.is_promo_client_report</field>
+        <field name="report_file">is_fromtome20.is_promo_client_report</field>
+        <field name="paperformat_id" ref="is_fromtome20.is_promo_client_paperformat"/>
         <field name="binding_model_id" ref="model_is_promo_client"/>
         <field name="binding_type">report</field>
     </record>

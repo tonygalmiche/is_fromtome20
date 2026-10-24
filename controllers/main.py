@@ -10,20 +10,20 @@ class PartnerMapController(http.Controller):
     def partner_map(self, partner_ids=None, **kwargs):
         """Affiche une carte OpenStreetMap avec les contacts"""
         if not partner_ids:
-            return request.render('is_fromtome14.partner_map_empty')
+            return request.render('is_fromtome20.partner_map_empty')
 
         # Récupérer les contacts
         try:
             partner_ids_list = [int(id) for id in partner_ids.split(',') if id]
             partners = request.env['res.partner'].browse(partner_ids_list)
         except (ValueError, AttributeError):
-            return request.render('is_fromtome14.partner_map_empty')
+            return request.render('is_fromtome20.partner_map_empty')
 
         # Filtrer les contacts avec localisation
         partners_with_location = partners.filtered(lambda p: p.is_localisation)
 
         if not partners_with_location:
-            return request.render('is_fromtome14.partner_map_empty')
+            return request.render('is_fromtome20.partner_map_empty')
 
         # Préparer les données pour la carte
         markers = []
@@ -40,7 +40,7 @@ class PartnerMapController(http.Controller):
                 continue
 
         if not markers:
-            return request.render('is_fromtome14.partner_map_empty')
+            return request.render('is_fromtome20.partner_map_empty')
 
         # Calculer le centre de la carte
         center_lat = sum(m['lat'] for m in markers) / len(markers)
@@ -107,7 +107,7 @@ class PartnerMapController(http.Controller):
             }});
         """
 
-        return request.render('is_fromtome14.partner_map_view', {
+        return request.render('is_fromtome20.partner_map_view', {
             'markers': markers,
             'js_code': js_code,
         })

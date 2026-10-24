@@ -730,7 +730,7 @@ else:
         <field name="name">Suivi transporteur</field>
         <field name="res_model">stock.picking</field>
         <field name="view_mode">tree,pivot,form</field>
-        <field name="view_id" ref="is_fromtome14.is_suivi_transporteur_tree"/>
+        <field name="view_id" ref="is_fromtome20.is_suivi_transporteur_tree"/>
         <field name="domain">[('state','!=','cancel'),('picking_type_id.code','=','outgoing')]</field>
         <field name="limit">200</field>
     </record>

@@ -2,14 +2,14 @@
 <odoo>
    <template id="is_assets_backend" name="fromtome assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <link rel="stylesheet" href="/is_fromtome14/static/src/css/style.css" media="screen"/>
-            <link rel="stylesheet" type="text/scss" href="/is_fromtome14/static/src/scss/style.scss"/>
+            <link rel="stylesheet" href="/is_fromtome20/static/src/css/style.css" media="screen"/>
+            <link rel="stylesheet" type="text/scss" href="/is_fromtome20/static/src/scss/style.scss"/>
         </xpath>
     </template>
 
     <template id="is_report_assets_common" name="is_report_assets_common" inherit_id="web.report_assets_common">
         <xpath expr="." position="inside">
-            <link rel="stylesheet" type="text/scss" href="/is_fromtome14/static/src/scss/report.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/is_fromtome20/static/src/scss/report.scss"/>
         </xpath>
     </template>
 </odoo>

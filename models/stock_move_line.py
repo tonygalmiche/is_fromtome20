@@ -63,7 +63,7 @@ class StockMoveLine(models.Model):
 
     def stock_move_line_edit_action(self):
         for obj in self:
-            dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome14', 'is_stock_move_line_edit')
+            dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome20', 'is_stock_move_line_edit')
             res= {
                 'name'     : 'Modification du poids réél',
                 'view_mode': 'form',

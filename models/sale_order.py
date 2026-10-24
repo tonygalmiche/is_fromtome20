@@ -338,7 +338,7 @@ class SaleOrder(models.Model):
             'type': 'ir.actions.act_window',
             'domain': [('order_id', '=', self.id)],
             'views': [
-                (self.env.ref('is_fromtome14.is_sale_order_line_editable_tree_view').id, 'tree'),
+                (self.env.ref('is_fromtome20.is_sale_order_line_editable_tree_view').id, 'tree'),
                 (False, 'form'),
             ],
             'context': {

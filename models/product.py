@@ -787,7 +787,7 @@ class ProductTemplate(models.Model):
             items = self.env['product.pricelist.item'].search(filtre,order="pricelist_id")
             for item in items:
                 ids.append(item.pricelist_id.id)
-            dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome14', 'is_product_pricelist_item_tree')
+            dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome20', 'is_product_pricelist_item_tree')
             res= {
                 'name': 'Lignes',
                 'view_mode': 'tree',

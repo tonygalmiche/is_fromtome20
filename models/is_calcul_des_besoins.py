@@ -186,10 +186,10 @@ class is_calcul_des_besoins(models.Model):
     def action_view_lines(self):
         self.ensure_one()
         if self.type_calcul == 'historique':
-            tree_view = self.env.ref('is_fromtome14.is_calcul_des_besoins_ligne_tree_historique')
+            tree_view = self.env.ref('is_fromtome20.is_calcul_des_besoins_ligne_tree_historique')
         else:
-            tree_view = self.env.ref('is_fromtome14.is_calcul_des_besoins_ligne_tree')
-        form_view = self.env.ref('is_fromtome14.is_calcul_des_besoins_ligne_form')
+            tree_view = self.env.ref('is_fromtome20.is_calcul_des_besoins_ligne_tree')
+        form_view = self.env.ref('is_fromtome20.is_calcul_des_besoins_ligne_form')
         return {
             'name': 'Détail des lignes',
             'type': 'ir.actions.act_window',

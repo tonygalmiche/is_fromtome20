@@ -50,7 +50,7 @@
             <field name="res_model">product.pricelist.item</field>
             <field name="limit">100</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="is_fromtome14.is_product_pricelist_item_tree"/>
+            <field name="view_id" ref="is_fromtome20.is_product_pricelist_item_tree"/>
             <field name="domain">[('pricelist_id','=',active_id),('active','in',[0,1])]</field>
             <field name="context">{'default_pricelist_id': active_id}</field>
         </record>

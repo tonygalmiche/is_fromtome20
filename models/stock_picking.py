@@ -664,7 +664,7 @@ class Picking(models.Model):
     def action_picking_send(self):
         self.ensure_one()
         template = self.env.ref(
-            'is_fromtome14.email_template_stock_picking',
+            'is_fromtome20.email_template_stock_picking',
             False,
         )
         compose_form = self.env.ref(
@@ -880,7 +880,7 @@ class Picking(models.Model):
             all_pdfs.append(prepa_pdf)
             
             # Générer le PDF de la fiche palette pour ce picking
-            palette_report = self.env.ref('is_fromtome14.action_report_fiche_palette')
+            palette_report = self.env.ref('is_fromtome20.action_report_fiche_palette')
             palette_pdf, _ = palette_report._render_qweb_pdf([picking.id])
             all_pdfs.append(palette_pdf)
         

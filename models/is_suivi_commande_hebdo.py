@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
-from odoo.addons.is_fromtome14.models.res_partner import HABITUDE_COMMANDE
+from odoo.addons.is_fromtome20.models.res_partner import HABITUDE_COMMANDE
 from datetime import datetime, timedelta, date
 
 

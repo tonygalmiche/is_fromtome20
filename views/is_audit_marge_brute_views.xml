@@ -4,8 +4,8 @@
     <!-- Action serveur : Recalculer analyse facturation -->
     <record id="is_audit_marge_brute_recalculer_action_server" model="ir.actions.server">
         <field name="name">Recalculer analyse facturation</field>
-        <field name="model_id" ref="is_fromtome14.model_is_audit_marge_brute"/>
-        <field name="binding_model_id" ref="is_fromtome14.model_is_audit_marge_brute"/>
+        <field name="model_id" ref="is_fromtome20.model_is_audit_marge_brute"/>
+        <field name="binding_model_id" ref="is_fromtome20.model_is_audit_marge_brute"/>
         <field name="state">code</field>
         <field name="code">action = records.action_recalculer_analyse_facturation()</field>
     </record>
@@ -163,7 +163,7 @@
     <!-- Tâche planifiée -->
     <record id="is_audit_marge_brute_ir_cron" model="ir.cron">
         <field name="name">Audit marge brute - Mise à jour nocturne</field>
-        <field name="model_id" ref="is_fromtome14.model_is_audit_marge_brute"/>
+        <field name="model_id" ref="is_fromtome20.model_is_audit_marge_brute"/>
         <field name="state">code</field>
         <field name="code">model._cron_audit_marge_brute()</field>
         <field name="interval_type">days</field>

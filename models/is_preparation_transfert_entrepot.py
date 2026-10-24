@@ -57,7 +57,7 @@ class is_preparation_transfert_entrepot_ligne(models.Model):
                         ('product_id','=',obj.product_id.id),
                         ('state','not in',['done','cancel']),
                     ],
-                    'views': [[self.env.ref('is_fromtome14.is_view_move_line_tree').id, 'list'], [False, 'form']],
+                    'views': [[self.env.ref('is_fromtome20.is_view_move_line_tree').id, 'list'], [False, 'form']],
                 }
                 return res
 

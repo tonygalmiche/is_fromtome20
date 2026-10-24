@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* is_fromtome14
+# 	* is_fromtome20
 #
 msgid ""
 msgstr ""
@@ -15,46 +15,46 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/stock.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/stock.py:0
 #, python-format
 msgid " - Product: %s, Serial Number: %s"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_external_layout_boxed
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_external_layout_boxed
 msgid "&amp;nbsp;"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
 msgstr "&amp;nbsp;<span>sur</span>&amp;nbsp;"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "<b>Conseils:</b><br/>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "<b>Présentation:</b><br/>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid ""
 "<br/>\n"
 "                                            Mise à jour le :"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_view_inventory_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_view_inventory_form
 msgid "<span class=\"o_stat_text\">Stock valorisé</span>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid ""
 "<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</span>\n"
 "                            <span groups=\"account.group_show_line_subtotals_tax_included\">Total Price</span>"
@@ -62,1910 +62,1910 @@ msgstr ""
 "<span groups=\"account.group_show_line_subtotals_tax_excluded\">Montant</span>\n"
 "                            <span groups=\"account.group_show_line_subtotals_tax_included\">Montant Total</span>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<span>Disc.%</span>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<span>Pro-Forma Invoice # </span>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong class=\"mr16\">Subtotal</strong>"
 msgstr "<strong class=\"mr16\">Sous-total</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Amount</strong>"
 msgstr "<strong>Montant</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Date Req.</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Description</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Expiration:</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Fiscal Position Remark:</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Order Date:</strong>"
 msgstr "<strong>Date de commande:</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Purchase Representative:</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Qty</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Quotation Date:</strong>"
 msgstr "<strong>Date du devis:</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Salesperson:</strong>"
 msgstr "<strong>Vendeur:</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Signature</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Subtotal</strong>"
 msgstr "<strong>Sous-total</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Taxes</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Total</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Unit Price</strong>"
 msgstr "<strong>Prix Unitaire</strong>"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "<strong>Your Order Reference:</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "<strong>Your Reference:</strong>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_fnc__status_move__abime
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_stock_move_line__status_move__abime
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__stock_move_line__status_move__abime
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_fnc__status_move__abime
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_stock_move_line__status_move__abime
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__stock_move_line__status_move__abime
 msgid "Abimé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_stock_move_line_tree
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_stock_move_line_tree
 msgid "Accès FNC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__active
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__active
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot__active
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__active
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__active
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot__active
 msgid "Actif"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__action_corrective
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__action_corrective
 msgid "Action corrective proposée"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__action_immediate
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__action_immediate
 msgid "Action immédiate"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__active
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__active
 msgid "Active"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__is_adresse_livraison_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__is_adresse_livraison_id
 msgid "Adresse Livraison"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__ajouter
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__ajouter
 msgid "Ajouter"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking__ajouter
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking__ajouter
 msgid "Ajouter cette ligne"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_bank_statement_line__is_alerte
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move__is_alerte
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_payment__is_alerte
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__is_alerte
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move__is_alerte
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_bank_statement_line__is_alerte
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move__is_alerte
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_payment__is_alerte
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__is_alerte
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move__is_alerte
 msgid "Alerte"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__allergene
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__allergene
 msgid "Allergène"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__analyse
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__analyse
 msgid "Analyse des causes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__last_discount_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__last_discount_ids
 msgid "Anciens Taux de remises"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_sale_order_line__state__cancel
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_sale_order_line__state__cancel
 msgid "Annulé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_product_pricelist_view
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_product_pricelist_view
 msgid "Appliquer l'augmentation"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.server,name:is_fromtome14.archiver_lot_action_server
+#. module: is_fromtome20
+#: model:ir.actions.server,name:is_fromtome20.archiver_lot_action_server
 msgid "Archiver les lots à 0"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__product_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__product_id
 msgid "Article"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot__is_article_actif
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot__is_article_actif
 msgid "Article actif"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist_item__is_archive
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist_item__is_archive
 msgid "Article archivé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__product_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__product_ids
 msgid "Articles"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_scan_picking_product
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_scan_picking_product
 msgid "Articles à scanner du Picking"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_atelier_transformation
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_atelier_transformation
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_atelier_transformation
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_atelier_transformation
 msgid "Atelier de transformation"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Atelier de transformation:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_fnc__status_move__autre
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_stock_move_line__status_move__autre
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__stock_move_line__status_move__autre
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_fnc__status_move__autre
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_stock_move_line__status_move__autre
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__stock_move_line__status_move__autre
 msgid "Autre"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking___barcode_scanned
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking___barcode_scanned
 msgid "Barcode Scanned"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_sale_order_line__state__done
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_sale_order_line__state__done
 msgid "Bloqué"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_sale_order_line__state__draft
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_sale_order_line__state__draft
 msgid "Brouillon"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "CARACTÉRISTIQUES GÉNÉRALES DU PRODUIT:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "CARACTÉRISTIQUES ORGANOLEPTIQUES:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "CRITÈRES MICROBIOLOGIQUES ET PHYSICO-CHIMIQUE:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_commande_fromtome_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_commande_fromtome_form
 msgid "Calcul des besoins"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "Cancelled Purchase Order #"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Caractéristiques Organoleptiques"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Caractéristiques générales du produit"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__category_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__category_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__name
 msgid "Categorie"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.product_label_category_act
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.product_label_category_act
 msgid "Categories Labels Produit"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.ui.menu,name:is_fromtome14.menu_product_label_category
+#. module: is_fromtome20
+#: model:ir.ui.menu,name:is_fromtome20.menu_product_label_category
 msgid "Categories labels"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__cause
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__cause
 msgid "Causes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__purchase_order_id
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.view_sale_order_form_inherit
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__purchase_order_id
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.view_sale_order_form_inherit
 msgid "Cde fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Cela va remplacer les données ci-dessus"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_export_compta_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_export_compta_form
 msgid "Cela va écraser les lignes ?"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__partner_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__partner_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__partner_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist__partner_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__partner_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__partner_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__partner_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist__partner_id
 msgid "Client"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_fnc__partner_id
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_fnc__partner_id
 msgid "Client ou fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_purchase_order__is_commande_soldee
-#: model:ir.model.fields,help:is_fromtome14.field_sale_order__is_commande_soldee
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_purchase_order__is_commande_soldee
+#: model:ir.model.fields,help:is_fromtome20.field_sale_order__is_commande_soldee
 msgid ""
 "Cocher cette case pour indiquer qu'aucune nouvelle livraison n'est prévue "
 "sur celle-ci"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__code_ean
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__code_ean
 msgid "Code EAN (01)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__code_gs1
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__code_gs1
 msgid "Code GS1"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__barcode
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__barcode
 msgid "Code barre"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__nb_colis
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__mode_vente__colis
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__nb_colis
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__mode_vente__colis
 msgid "Colis"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__order_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__order_id
 msgid "Commande"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_commande_fromtome_action
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__order_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__commande_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__is_fromtome_order_id
-#: model:ir.ui.menu,name:is_fromtome14.is_commande_fromtome_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_commande_fromtome_action
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__order_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__commande_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__is_fromtome_order_id
+#: model:ir.ui.menu,name:is_fromtome20.is_commande_fromtome_menu
 msgid "Commande Fromtome"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_commande_fromtome
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_commande_fromtome
 msgid "Commande fromtome"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_commande_fromtome_ligne
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_commande_fromtome_ligne
 msgid "Commande fromtome Lignes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__is_commande_soldee
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__is_commande_soldee
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order__is_commande_soldee
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__is_commande_soldee
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__is_commande_soldee
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order__is_commande_soldee
 msgid "Commande soldée"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__comp_aux_lib
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__comp_aux_lib
 msgid "CompAuxLib"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__comp_aux_num
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__comp_aux_num
 msgid "CompAuxNum"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_res_company
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_res_company
 msgid "Companies"
 msgstr "Sociétés"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__compte_lib
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__compte_lib
 msgid "CompteLib"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__compte_num
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__compte_num
 msgid "CompteNum"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "Confirmation du Bon de commande N°"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_commande_fromtome_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_commande_fromtome_form
 msgid "Confirmer ?"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_sale_order_line__state__sale
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_sale_order_line__state__sale
 msgid "Confirmé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_conseils
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_conseils
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_conseils
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_conseils
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Conseils"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_res_partner
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_res_partner
 msgid "Contact"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__contrat_date_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__contrat_date_id
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__contrat_date_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__contrat_date_id
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Contrat Date"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__contrat_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__contrat_id
 msgid "Contrat date"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_contrat_date_client
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_contrat_date_client
 msgid "ContratDateClient"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Conversion from Intrastat Supplementary Unit '%s' to Unit of Measure is not "
 "implemented yet."
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid "Conversion from unit of measure '%s' to '%s' is not implemented yet."
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_couleur
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_couleur
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_couleur
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_couleur
 msgid "Couleur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Couleur:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_mail_mail_action
-#: model:ir.ui.menu,name:is_fromtome14.is_mail_mail_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_mail_mail_action
+#: model:ir.ui.menu,name:is_fromtome20.is_mail_mail_menu
 msgid "Courriels"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__create_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__create_uid
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__create_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__create_uid
 msgid "Created by"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__create_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__create_date
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__create_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__create_date
 msgid "Created on"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__credit
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__credit
 msgid "Credit"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__critere
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__critere
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Critère REG EU 2073"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_croute_comestible
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_croute_comestible
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_croute_comestible
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_croute_comestible
 msgid "Croûte comestible"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Croûte comestible:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_creation_le
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_creation_le
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_creation_le
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_creation_le
 msgid "Création le"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Création le :"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_stock_move_line_tree
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_stock_move_line_tree
 msgid "Créer FNC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__creer_fnc_vsb
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_creer_fnc_vsb
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__creer_fnc_vsb
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_creer_fnc_vsb
 msgid "Créer FNC visibility"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.purchase_order_view_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.purchase_order_view_form_inherit
 msgid "Créer commande dans Fromtome"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__is_fromtome_order_vsb
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__is_fromtome_order_vsb
 msgid "Créer commande dans Fromtome vsb"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order__is_creer_commande_fournisseur_vsb
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order__is_creer_commande_fournisseur_vsb
 msgid "Créer commande fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.view_sale_order_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.view_sale_order_form_inherit
 msgid "Créer les commandes des fournisseurs"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_imprimer_etiquette_gs1_tree
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_imprimer_etiquette_gs1_tree
 msgid "Créée le"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_stock_move_line__is_type_tracabilite__ddm
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__is_type_tracabilite__ddm
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_stock_move_line__is_type_tracabilite__ddm
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__is_type_tracabilite__ddm
 msgid "DDM"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__dluo
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__dluo
 msgid "DDM (15)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_dluo
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_dluo
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_dluo
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_dluo
 msgid "DDM/DLC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_stock_move_line__is_type_tracabilite__dlc
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__is_type_tracabilite__dlc
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_stock_move_line__is_type_tracabilite__dlc
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__is_type_tracabilite__dlc
 msgid "DLC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__dlc
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__dlc
 msgid "DLC (17)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__dlc_ddm
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__dlc_ddm
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_dlc_ddm
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot__is_dlc_ddm
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__dlc_ddm
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__dlc_ddm
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_dlc_ddm
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot__is_dlc_ddm
 msgid "DLC / DDM"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__dlc_ddm
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__dlc_ddm
 msgid "DLC/DDM"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid "Date"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__date_order
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__date_order
 msgid "Date Commande"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__is_date_enlevement
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__is_date_enlevement
 msgid "Date Enlèvement"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__is_date_livraison
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order__is_date_livraison
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__is_date_livraison
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order__is_date_livraison
 msgid "Date Livraison"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__date_cloture
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__date_cloture
 msgid "Date cloture"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__date_creation
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__create_date
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__date_creation
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__create_date
 msgid "Date de création"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__date_fin
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__date_fin
 msgid "Date de fin"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__write_date
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__write_date
 msgid "Date de modification"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__is_date_reception
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__is_date_reception
 msgid "Date réception"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__debit
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__debit
 msgid "Debit"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking_line__uom_id
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking_product__uom_id
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking_line__uom_id
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking_product__uom_id
 msgid "Default unit of measure used for all stock operations."
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__delay
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__delay
 msgid "Delivery Lead Time"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__last_prix_brut
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__last_prix_brut
 msgid "Dernier Prix Brut"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__last_supp_info
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__last_supp_info
 msgid "Dernier Prix Fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__last_price
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__last_price
 msgid "Dernier Prix Net"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__is_dernier_prix
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__is_dernier_prix
 msgid "Dernier prix facturé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__is_date_reception
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_users__is_date_reception
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__is_date_reception
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_users__is_date_reception
 msgid "Dernière date de réception saisie"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__description
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__description
 msgid "Desciption"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__description
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__description
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Description"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__description
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__description
 msgid "Description de la non-conformité"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__name
 msgid "Discount"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_payment__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist_item__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_company__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_picking__display_name
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot__display_name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_payment__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist_item__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_company__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__duree_affinage
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__duree_affinage
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__duree_affinage
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__duree_affinage
 msgid "Durée d'affinage"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Durée d'affinage:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "DÉSIGNATION"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__decision
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__decision
 msgid "Décision"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__mode_vente__decoupe
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__mode_vente__decoupe
 msgid "Découpe"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__is_product_name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__is_product_name
 msgid "Désignation article"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_commande_fromtome_ligne_action
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_commande_fromtome_ligne_action
 msgid "Détail des lignes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_export_compta_ligne_action
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_export_compta_ligne_action
 msgid "Détail des lignes à exporter"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__ean
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__ean
 msgid "EAN"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__ecriture_date
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__ecriture_date
 msgid "EcritureDate"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__ecriture_lib
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__ecriture_lib
 msgid "EcritureLib"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__ecriture_num
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__ecriture_num
 msgid "EcritureNum"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_fnc__state__en_cours
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_fnc__state__en_cours
 msgid "En cours"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__date_end
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__date_end
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__date_end
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__date_end
 msgid "End Date"
 msgstr "Date de fin"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierdiscount__date_end
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierinfo__date_end
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierdiscount__date_end
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierinfo__date_end
 msgid "End date for this vendor price"
 msgstr "Date de fin pour ce prix fournisseur"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__enseigne_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_enseigne_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_enseigne_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__is_enseigne_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_users__is_enseigne_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__enseigne_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_enseigne_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_enseigne_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__is_enseigne_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_users__is_enseigne_id
 msgid "Enseigne"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_enseigne_commerciale_action
-#: model:ir.model,name:is_fromtome14.model_is_enseigne_commerciale
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__name
-#: model:ir.model.fields,help:is_fromtome14.field_is_commande_fromtome__enseigne_id
-#: model:ir.model.fields,help:is_fromtome14.field_product_product__is_enseigne_id
-#: model:ir.model.fields,help:is_fromtome14.field_product_template__is_enseigne_id
-#: model:ir.model.fields,help:is_fromtome14.field_res_partner__is_enseigne_id
-#: model:ir.model.fields,help:is_fromtome14.field_res_users__is_enseigne_id
-#: model:ir.ui.menu,name:is_fromtome14.is_enseigne_commerciale_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_enseigne_commerciale_action
+#: model:ir.model,name:is_fromtome20.model_is_enseigne_commerciale
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__name
+#: model:ir.model.fields,help:is_fromtome20.field_is_commande_fromtome__enseigne_id
+#: model:ir.model.fields,help:is_fromtome20.field_product_product__is_enseigne_id
+#: model:ir.model.fields,help:is_fromtome20.field_product_template__is_enseigne_id
+#: model:ir.model.fields,help:is_fromtome20.field_res_partner__is_enseigne_id
+#: model:ir.model.fields,help:is_fromtome20.field_res_users__is_enseigne_id
+#: model:ir.ui.menu,name:is_fromtome20.is_enseigne_commerciale_menu
 msgid "Enseigne commerciale"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_sale_order_line__state__sent
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_sale_order_line__state__sent
 msgid "Envoyé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__state
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__state
 msgid "Etat de la commande"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_export_compta_action
-#: model:ir.model,name:is_fromtome14.model_is_export_compta
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__export_compta_id
-#: model:ir.ui.menu,name:is_fromtome14.is_export_compta_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_export_compta_action
+#: model:ir.model,name:is_fromtome20.model_is_export_compta
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__export_compta_id
+#: model:ir.ui.menu,name:is_fromtome20.is_export_compta_menu
 msgid "Export Compta"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_export_compta_ligne
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_export_compta_ligne
 msgid "Export Compta Lignes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__escompte
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__escompte
 msgid "Exporter les escomptes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_fnc_action
-#: model:ir.ui.menu,name:is_fromtome14.is_fnc_main_menu
-#: model:ir.ui.menu,name:is_fromtome14.is_fnc_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_fnc_action
+#: model:ir.ui.menu,name:is_fromtome20.is_fnc_main_menu
+#: model:ir.ui.menu,name:is_fromtome20.is_fnc_menu
 msgid "FNC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__invoice_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__invoice_id
 msgid "Facture"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__qty_done
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__qty_done
 msgid "Fait"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_famille_fromage
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_famille_fromage_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_famille_fromage_id
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_famille_fromage
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_famille_fromage_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_famille_fromage_id
 msgid "Famille de fromage"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Famille de fromage:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.report,name:is_fromtome14.action_report_product_tech
+#. module: is_fromtome20
+#: model:ir.actions.report,name:is_fromtome20.action_report_product_tech
 msgid "Fiche Technique"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_fnc
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_fnc
 msgid "Fiche de non-conformité Client / Fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Fiche technique"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__file_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__file_ids
 msgid "Fichiers"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_bank_statement_line__is_export_compta_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move__is_export_compta_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_payment__is_export_compta_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_bank_statement_line__is_export_compta_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move__is_export_compta_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_payment__is_export_compta_id
 msgid "Folio"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_forme
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_forme
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_forme
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_forme
 msgid "Forme"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Forme:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__partner_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__partner_id
 msgid "Fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_company__is_gln
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_company__is_gln
 msgid "GLN"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__is_gln
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_users__is_gln
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__is_gln
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_users__is_gln
 msgid "GLN Client"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_external_layout_boxed
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_external_layout_boxed
 msgid "GLN:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_germe
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__germe_id
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_germe
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__germe_id
 msgid "Germe"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_germe_action
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_germe_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_germe_ids
-#: model:ir.ui.menu,name:is_fromtome14.is_germe_menu
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_germe_action
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_germe_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_germe_ids
+#: model:ir.ui.menu,name:is_fromtome20.is_germe_menu
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Germes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_germe_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_germe_line
 msgid "Germes des articles"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__degustation
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__degustation
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__degustation
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__degustation
 msgid "Goût / Dégustation"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Goût:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_export_compta_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_export_compta_form
 msgid "Générer fichier à exporter"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_export_compta_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_export_compta_form
 msgid "Générer les lignes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_payment__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist_item__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_company__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_picking__id
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot__id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_payment__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist_item__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_company__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_picking__id
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot__id
 msgid "ID"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__is_iln
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_users__is_iln
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__is_iln
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_users__is_iln
 msgid "ILN Client"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "INGRÉDIENTS:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_stock_production_lot__is_article_actif
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_stock_production_lot__is_article_actif
 msgid ""
 "If unchecked, it will allow you to hide the product without removing it."
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_imprimer_etiquette_gs1_action
-#: model:ir.ui.menu,name:is_fromtome14.is_imprimer_etiquette_gs1_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_imprimer_etiquette_gs1_action
+#: model:ir.ui.menu,name:is_fromtome20.is_imprimer_etiquette_gs1_menu
 msgid "Impression étiquette GS1"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_imprimer_etiquette_gs1
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_imprimer_etiquette_gs1
 msgid "Imprimer des éiquettes GS1"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_imprimer_etiquette_gs1_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_imprimer_etiquette_gs1_form
 msgid "Imprimer les étiquettes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__info
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__info
 msgid "Info"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__ingredient_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__ingredient_id
 msgid "Ingrédient"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_ingredient_action
-#: model:ir.model,name:is_fromtome14.model_is_ingredient
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_ingredient
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_ingredient
-#: model:ir.ui.menu,name:is_fromtome14.is_ingredient_menu
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_ingredient_action
+#: model:ir.model,name:is_fromtome20.model_is_ingredient
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_ingredient
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_ingredient
+#: model:ir.ui.menu,name:is_fromtome20.is_ingredient_menu
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Ingrédients"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Ingrédients (dont allergènes en gras):"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_ingredient_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_ingredient_line
 msgid "Ingrédients des articles"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_stock_inventory
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_stock_inventory
 msgid "Inventory"
 msgstr "Inventaire"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_stock_inventory_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_stock_inventory_line
 msgid "Inventory Line"
 msgstr "Ligne d'inventaire"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_account_move
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_account_move
 msgid "Journal Entry"
 msgstr "Pièce comptable"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_account_move_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_account_move_line
 msgid "Journal Item"
 msgstr "Écriture comptable"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__journal_code
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__journal_code
 msgid "JournalCode"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__journal_lib
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__journal_lib
 msgid "JournalLib"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/product.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/product.py:0
 #, python-format
 msgid "La reference interne de doit etre unique !"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.product_label_act
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.product_label_act
 msgid "Label Produit"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__product_label_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__product_label_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__product_label_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__product_label_ids
 msgid "Labels"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__traitement_thermique__laitcru
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__traitement_thermique__laitcru
 msgid "Lait Cru"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__traitement_thermique__laitpasteurisé
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__traitement_thermique__laitpasteurisé
 msgid "Lait Pasteurise"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__traitement_thermique__laitthermise
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__traitement_thermique__laitthermise
 msgid "Lait Thermise"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_payment____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist_item____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_company____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_picking____last_update
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot____last_update
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_payment____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist_item____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_company____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__write_uid
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__write_uid
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__write_uid
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__write_uid
 msgid "Last Updated by"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_enseigne_commerciale__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__write_date
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__write_date
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_enseigne_commerciale__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__write_date
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__write_date
 msgid "Last Updated on"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierdiscount__delay
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierdiscount__delay
 msgid ""
 "Lead time in days between the confirmation of the purchase order and the "
 "receipt of the products in your warehouse. Used by the scheduler for "
 "automatic computation of the purchase order planning."
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__libelle
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__libelle
 msgid "Libelle Label"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__ligne
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__ligne
 msgid "Ligne"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__is_purchase_line_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__is_purchase_line_id
 msgid "Ligne cde fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line__is_sale_order_line_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line__is_sale_order_line_id
 msgid "Ligne commande client"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__order_line_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__is_purchase_line_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__order_line_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__is_purchase_line_id
 msgid "Ligne commande fournisseur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__order_line_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__order_line_id
 msgid "Ligne de commande"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__move_line_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__move_line_id
 msgid "Ligne de mouvement"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__move_line_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__move_line_id
 msgid "Ligne de mouvement de stock"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__ligne_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__ligne_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__line_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_ingredient_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_ingredient_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__ligne_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__ligne_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__line_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_ingredient_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_ingredient_ids
 msgid "Lignes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_scan_picking_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_scan_picking_line
 msgid "Lignes Scan Picking"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_stock_move_line_action
-#: model:ir.ui.menu,name:is_fromtome14.is_stock_move_line_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_stock_move_line_action
+#: model:ir.ui.menu,name:is_fromtome20.is_stock_move_line_menu
 msgid "Lignes des Mouvements"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_sale_order_line_action
-#: model:ir.ui.menu,name:is_fromtome14.is_sale_order_line_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_sale_order_line_action
+#: model:ir.ui.menu,name:is_fromtome20.is_sale_order_line_menu
 msgid "Lignes des commandes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_pricelist_item_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_pricelist_item_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_partner__is_product_supplierinfo_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_res_users__is_product_supplierinfo_ids
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_product_template_form_view
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_pricelist_item_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_pricelist_item_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_partner__is_product_supplierinfo_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_res_users__is_product_supplierinfo_ids
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_product_template_form_view
 msgid "Liste de prix"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__is_livraison_directe
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__is_livraison_directe
 msgid "Livraison directe"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__picking_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__picking_id
 msgid "Livraison/Réception"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__logo
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__logo_label
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_external_layout_boxed
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__logo
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__logo_label
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_external_layout_boxed
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Logo"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__lot_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__lot_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__lot_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__lot_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__lot_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__lot_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__lot_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__lot_id
 msgid "Lot"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__lot
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__lot
 msgid "Lot (10)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__lot
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__lot
 msgid "Lot scanné"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_stock_production_lot
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_stock_production_lot
 msgid "Lot/Serial"
 msgstr "Lot/N° série"
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_stock_production_lot_action
-#: model:ir.ui.menu,name:is_fromtome14.is_stock_production_lot_menu
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_scan_picking_form
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_stock_production_lot_action
+#: model:ir.ui.menu,name:is_fromtome20.is_stock_production_lot_menu
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_scan_picking_form
 msgid "Lots avec DLC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_stock_production_lot_contrat_action
-#: model:ir.ui.menu,name:is_fromtome14.is_stock_production_lot_contrat_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_stock_production_lot_contrat_action
+#: model:ir.ui.menu,name:is_fromtome20.is_stock_production_lot_contrat_menu
 msgid "Lots avec contrat client"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid ""
 "MOBILE: 06 52 34 73 63 – TEL: 03 84 52 01 02 – email: lefromelier@le-"
 "fromelier.fr"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_fnc__status_move__manquant
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_stock_move_line__status_move__manquant
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__stock_move_line__status_move__manquant
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_fnc__status_move__manquant
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_stock_move_line__status_move__manquant
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__stock_move_line__status_move__manquant
 msgid "Manquant"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid "Mass en KG"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_scan_picking_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_scan_picking_form
 msgid "Mise à jour du Picking"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_mis_a_jour_le
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_mis_a_jour_le
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_mis_a_jour_le
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_mis_a_jour_le
 msgid "Mise à jour le"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Missing H.S. code on product %s. This product is present in invoice %s."
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Missing unit of measure on the line with %d product(s) '%s' on invoice '%s'."
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid "Missing weight on product %s."
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__mode_vente
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__mode_vente
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__mode_vente
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__mode_vente
 msgid "Mode Vente"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_imprimer_etiquette_gs1_tree
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_imprimer_etiquette_gs1_tree
 msgid "Modifiée le"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__product_tmpl_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__product_tmpl_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__product_tmpl_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__product_tmpl_id
 msgid "Modèle d'article"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_mois_fromage__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_mois_fromage__name
 msgid "Mois"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.mois_fromage_act
-#: model:ir.ui.menu,name:is_fromtome14.menu_mois_fromage
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.mois_fromage_act
+#: model:ir.ui.menu,name:is_fromtome20.menu_mois_fromage
 msgid "Mois du fromage"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_mois_fromage
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_mois_fromage
 msgid "MoisFromage"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__move_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__move_id
 msgid "Mouvement de stock"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move_line__is_nb_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line__is_nb_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__is_nb_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_nb_colis
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move_line__is_nb_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line__is_nb_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__is_nb_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_nb_colis
 msgid "Nb Colis"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking_line__nb_colis_prevues
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking_line__nb_colis_prevues
 msgid "Nb Colis prévus"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking_line__nb_colis_reste
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking_line__nb_colis_reste
 msgid "Nb Colis reste"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking_line__nb_colis
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking_line__nb_colis
 msgid "Nb Colis scannés"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move_line__is_nb_pieces_par_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__nb_pieces_par_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_nb_pieces_par_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_nb_pieces_par_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line__is_nb_pieces_par_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__is_nb_pieces_par_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_nb_pieces_par_colis
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move_line__is_nb_pieces_par_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__nb_pieces_par_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_nb_pieces_par_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_nb_pieces_par_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line__is_nb_pieces_par_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__is_nb_pieces_par_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_nb_pieces_par_colis
 msgid "Nb Pièces / colis"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Nb colis"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__nb_colis
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__nb_colis
 msgid "Nb colis prévus"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__nb_pieces
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__nb_pieces
 msgid "Nb pièces (37)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__nb_pieces
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__nb_pieces
 msgid "Nb pièces prévues"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking_line__nb_pieces
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking_line__nb_pieces
 msgid "Nb pièces scannées"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_milk_type__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_milk_type__name
 msgid "Nom"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label__name
 msgid "Nom du Label"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__douane
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__douane
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__douane
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__douane
 msgid "Nomenclature Douane"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_label_category__note
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_label_category__note
 msgid "Note"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Numéro d'agrément fabriquant:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__no_agrement_sanitaire
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__no_agrement_sanitaire
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__no_agrement_sanitaire
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__no_agrement_sanitaire
 msgid "N° d'agrément fabriquant"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__lot_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__lot_id
 msgid "N° de lot"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__name
 msgid "N°FNC"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__name
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__name
 msgid "N°Folio"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__odeur
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__odeur
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__odeur
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__odeur
 msgid "Odeur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Odeur:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Order #"
 msgstr "Commande n°"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__sequence
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe__ordre
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_germe_line__ordre
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_ingredient_line__ordre
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__ordre
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__ordre
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__sequence
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe__ordre
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_germe_line__ordre
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_ingredient_line__ordre
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__ordre
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__ordre
 msgid "Ordre"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_external_layout_boxed
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_external_layout_boxed
 msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__payment_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__payment_id
 msgid "Paiement"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__partner_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__partner_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__partner_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__partner_id
 msgid "Partenaire"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_account_payment
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_account_payment
 msgid "Payments"
 msgstr "Paiements"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__picking_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__scan_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__scan_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__picking_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__picking_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__scan_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__scan_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__picking_id
 msgid "Picking"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__piece_date
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__piece_date
 msgid "PieceDate"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta_ligne__piece_ref
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta_ligne__piece_ref
 msgid "PieceRef"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__product_template__mode_vente__piece
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__product_template__mode_vente__piece
 msgid "Pièce"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__nb_pieces
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__nb_pieces
 msgid "Pièces"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid "Please adjust this line manually."
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Please correct the Intrastat Supplementary Unit settings and regenerate the "
 "lines or adjust the lines with Intrastat Code '%s' manually"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Please correct the product record and regenerate the lines or adjust the "
 "impacted lines manually"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Please correct the unit of measure settings and regenerate the lines or "
 "adjust the impacted lines manually"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__poids
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__poids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__poids
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__poids
 msgid "Poids"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__poids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__poids
 msgid "Poids (31xx)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_account_move_line__is_poids_net
-#: model:ir.model.fields,field_description:is_fromtome14.field_purchase_order_line__is_poids_net
-#: model:ir.model.fields,field_description:is_fromtome14.field_sale_order_line__is_poids_net
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_account_move_line__is_poids_net
+#: model:ir.model.fields,field_description:is_fromtome20.field_purchase_order_line__is_poids_net
+#: model:ir.model.fields,field_description:is_fromtome20.field_sale_order_line__is_poids_net
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Poids net"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_poids_net_colis
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_poids_net_colis
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_poids_net_colis
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_poids_net_colis
 msgid "Poids net colis (Kg)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_poids_net_estime
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_poids_net_estime
 msgid "Poids net estimé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_poids_net_reel
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_poids_net_reel
 msgid "Poids net réel"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_stock_move_line__is_poids_net_reel
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_stock_move_line__is_poids_net_reel
 msgid "Poids net réel total (Kg)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_account_move_line__is_poids_net
-#: model:ir.model.fields,help:is_fromtome14.field_purchase_order_line__is_poids_net
-#: model:ir.model.fields,help:is_fromtome14.field_sale_order_line__is_poids_net
-#: model:ir.model.fields,help:is_fromtome14.field_stock_move_line__is_poids_net_estime
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_account_move_line__is_poids_net
+#: model:ir.model.fields,help:is_fromtome20.field_purchase_order_line__is_poids_net
+#: model:ir.model.fields,help:is_fromtome20.field_sale_order_line__is_poids_net
+#: model:ir.model.fields,help:is_fromtome20.field_stock_move_line__is_poids_net_estime
 msgid "Poids net total (Kg)"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_pricelist__is_augmentation
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_product_pricelist_view
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_pricelist__is_augmentation
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_product_pricelist_view
 msgid "Pourcentage d'augmentation à appliquer"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__price
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__price
 msgid "Price"
 msgstr "Prix"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_pricelist
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_pricelist
 msgid "Pricelist"
 msgstr "Liste de prix"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_pricelist_item
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_pricelist_item
 msgid "Pricelist Rule"
 msgstr "Règle des listes des prix"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__prix_brut
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__prix_brut
 msgid "Prix Brut"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_product_template_form_view
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_product_template_form_view
 msgid "Prix de vente"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_product
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_product
 msgid "Product"
 msgstr "Article"
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/intrastat_product_declaration.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/intrastat_product_declaration.py:0
 #, python-format
 msgid ""
 "Product '%s' has an Intrastat Supplementary Unit in the 'volume' Unit of "
@@ -1975,526 +1975,526 @@ msgid ""
 "which also allows to calculate the Intrastat Supplementary Unit."
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_stock_move_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr "Mouvements d'article (Ligne de mouvement de stock)"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_template
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_template
 msgid "Product Template"
 msgstr "Modèle d'article"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_label
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_label
 msgid "ProductLabel"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_label_category
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_label_category
 msgid "ProductLabelCategory"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_contrat_date_client__product_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__product_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_contrat_date_client__product_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__product_id
 msgid "Produit"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_presentation
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_presentation
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_presentation
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_presentation
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Présentation"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__nb_colis_prevues
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__nb_colis_prevues
 msgid "Prévu"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_purchase_order
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_purchase_order
 msgid "Purchase Order"
 msgstr "Commande fournisseur"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "Purchase Order #"
 msgstr "Commande n°"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_purchase_order_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_purchase_order_line
 msgid "Purchase Order Line"
 msgstr "Ligne de commande fournisseur"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__purchase_qty
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__purchase_qty
 msgid "Qt Fromtome déja en commande"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__product_qty
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__product_qty
 msgid "Qt Fromtome à commander"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__product_uom_qty
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__product_uom_qty
 msgid "Qt cde"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__sale_qty
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__sale_qty
 msgid "Qt commande client"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__qty_invoiced
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__qty_invoiced
 msgid "Qt facturée"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__qty_delivered
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__qty_delivered
 msgid "Qt livrée"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Quantity"
 msgstr "Quantité"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__product_qty
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__product_qty
 msgid "Quantité"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_imprimer_etiquette_gs1__qt_imprime
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_imprimer_etiquette_gs1__qt_imprime
 msgid "Quantité à Imprimer"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Quotation #"
 msgstr "Devis n°"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Recharger les germes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Recharger les valeurs"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_region_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_region_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_region_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_region_id
 msgid "Region d'origine"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_supplierinfo_form_view
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_supplierinfo_form_view
 msgid "Remises %"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
 msgid "Request for Quotation #"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__nb_colis_reste
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__nb_colis_reste
 msgid "Reste"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_fnc__status_move__receptionne
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_stock_move_line__status_move__receptionne
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__stock_move_line__status_move__receptionne
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_fnc__status_move__receptionne
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_stock_move_line__status_move__receptionne
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__stock_move_line__status_move__receptionne
 msgid "Réceptionné"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__is_default_code
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__is_default_code
 msgid "Référence interne"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_region_origine
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_famille_fromage__name
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_region_origine__name
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_region_origine
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_famille_fromage__name
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_region_origine__name
 msgid "Région d'origine"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Région d'origine:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__product_uom_qty
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__product_uom_qty
 msgid "Réservé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_sale_order
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_sale_order
 msgid "Sales Order"
 msgstr "Bon de commande"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_sale_order_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Ligne de bons de commande"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.view_picking_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.view_picking_form_inherit
 msgid "Scan"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_scan_picking
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_scan_picking
 msgid "Scan Picking"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_commande_fromtome__stock_mini
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_commande_fromtome__stock_mini
 msgid "Si cette case est cochée, il faut tenir compte du stock mini"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_sale_order_line__is_livraison_directe
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_sale_order_line__is_livraison_directe
 msgid ""
 "Si cette case est cochée, une commande fournisseur spécifique pour ce client"
 " sera créée"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_export_compta__company_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__company_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__company_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__company_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__company_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_export_compta__company_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__company_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__company_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__company_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__company_id
 msgid "Société"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields.selection,name:is_fromtome14.selection__is_fnc__state__solde
+#. module: is_fromtome20
+#: model:ir.model.fields.selection,name:is_fromtome20.selection__is_fnc__state__solde
 msgid "Soldé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__date_start
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__date_start
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__date_start
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__date_start
 msgid "Start Date"
 msgstr "Date de début"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierdiscount__date_start
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierinfo__date_start
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierdiscount__date_start
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierinfo__date_start
 msgid "Start date for this vendor price"
 msgstr "Date de début pour le prix de ce vendeur. "
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__status_move
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__status_move
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__status_move
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__status_move
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__status_move
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__status_move
 msgid "Statut"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__stock
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__stock
 msgid "Stock"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_stock_move
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_stock_move
 msgid "Stock Move"
 msgstr "Mouvement de stock"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome__stock_mini
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__stock_mini
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_stock_mini
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_stock_mini
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome__stock_mini
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__stock_mini
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_stock_mini
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_stock_mini
 msgid "Stock mini"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__is_stock_valorise
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__is_stock_valorise
 msgid "Stock valorisé"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierdiscount__supplier_info_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierdiscount__supplier_info_id
 msgid "Supplier Info"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_supplierinfo
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_supplierinfo
 msgid "Supplier Pricelist"
 msgstr "Liste de prix du fournisseur"
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_product_supplierdiscount
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_product_supplierdiscount
 msgid "SupplierDiscount"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "TEL: 03 84 52 01 02 – email: info@fromtome.com"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_supplierinfo__discount_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_supplierinfo__discount_ids
 msgid "Taux de remises"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_purchaseorder_document
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Taxes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__texture
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__texture
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__texture
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__texture
 msgid "Texture"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Texture:"
 msgstr ""
 
-#. module: is_fromtome14
-#: code:addons/is_fromtome14/models/stock.py:0
+#. module: is_fromtome20
+#: code:addons/is_fromtome20/models/stock.py:0
 #, python-format
 msgid ""
 "The combination of serial number and product must be unique across a company.\n"
 "Following combination contains duplicates:\n"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierinfo__last_price
-#: model:ir.model.fields,help:is_fromtome14.field_product_supplierinfo__price
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierinfo__last_price
+#: model:ir.model.fields,help:is_fromtome20.field_product_supplierinfo__price
 msgid "The price to purchase a product"
 msgstr "Le prix pour l'achat d'un article"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_export_compta_ligne_tree
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_imprimer_etiquette_gs1_tree
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_sale_order_line_tree
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_scan_picking_form
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_stock_inventory_line_tree
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_stock_production_lot_contrat_tree
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_stock_production_lot_tree_view
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_view_move_form
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_view_stock_move_line_detailed_operation_tree
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.purchase_order_view_form_inherit
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.view_sale_order_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_export_compta_ligne_tree
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_imprimer_etiquette_gs1_tree
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_sale_order_line_tree
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_scan_picking_form
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_stock_inventory_line_tree
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_stock_production_lot_contrat_tree
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_stock_production_lot_tree_view
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_view_move_form
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_view_stock_move_line_detailed_operation_tree
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.purchase_order_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.view_sale_order_form_inherit
 msgid "Total"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__traitement_thermique
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__traitement_thermique
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__traitement_thermique
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__traitement_thermique
 msgid "Traitement Thermique"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Traitement thermique:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_stock_picking
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_stock_picking
 msgid "Transfer"
 msgstr "Transfert"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking__type_tracabilite
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__type_tracabilite
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__is_type_tracabilite
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_type_tracabilite
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_type_tracabilite
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_move_line__is_type_tracabilite
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_production_lot__is_type_tracabilite
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking__type_tracabilite
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__type_tracabilite
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__is_type_tracabilite
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_type_tracabilite
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_type_tracabilite
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_move_line__is_type_tracabilite
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_production_lot__is_type_tracabilite
 msgid "Traçabilité"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__picking_type_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__picking_type_id
 msgid "Type"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.milk_type_act
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__milk_type_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__milk_type_ids
-#: model:ir.ui.menu,name:is_fromtome14.menu_milk_type
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.milk_type_act
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__milk_type_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__milk_type_ids
+#: model:ir.ui.menu,name:is_fromtome20.menu_milk_type
 msgid "Type de Lait"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_type_conditionnement
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_type_conditionnement
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_type_conditionnement
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_type_conditionnement
 msgid "Type de conditionnement"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Type de conditionnement:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_milk_type
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_milk_type
 msgid "Type de lait"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "Type de lait:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__milk_type
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__milk_type
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__milk_type
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__milk_type
 msgid "Types de Lait"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__temperature_stock
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__temperature_stock
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__temperature_stock
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__temperature_stock
 msgid "T° de conservation"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.report_product_technical_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.report_product_technical_document
 msgid "T° de conservation:"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Unit"
 msgstr "Unité"
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_report_saleorder_document
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_report_saleorder_document
 msgid "Unit Price"
 msgstr "Prix Unitaire"
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_commande_fromtome_ligne__uom_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_sale_order_line__product_uom
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_line__uom_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_scan_picking_product__uom_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_move_line__product_uom_id
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_stock_production_lot_contrat__product_uom_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_commande_fromtome_ligne__uom_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_sale_order_line__product_uom
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_line__uom_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_scan_picking_product__uom_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_move_line__product_uom_id
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_stock_production_lot_contrat__product_uom_id
 msgid "Unité"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_normal_form_view_inherit
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_normal_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Unité d'achat"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_normal_form_view_inherit
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_normal_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Unité de Stockage"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_stock_inventory_line__is_uom_facture_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_stock_inventory_line__is_uom_facture_id
 msgid "Unité facture"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__valeur
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__valeur
 msgid "Valeur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.actions.act_window,name:is_fromtome14.is_valeur_nutritionnelle_action
-#: model:ir.model,name:is_fromtome14.model_is_valeur_nutritionnelle
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle__name
-#: model:ir.ui.menu,name:is_fromtome14.is_valeur_nutritionnelle_menu
+#. module: is_fromtome20
+#: model:ir.actions.act_window,name:is_fromtome20.is_valeur_nutritionnelle_action
+#: model:ir.model,name:is_fromtome20.model_is_valeur_nutritionnelle
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle__name
+#: model:ir.ui.menu,name:is_fromtome20.is_valeur_nutritionnelle_menu
 msgid "Valeur Nutritionnelle"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_valeur_nutritionnelle_line__valeur_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_valeur_nutritionnelle_line__valeur_id
 msgid "Valeur Nutritionnelle "
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_valeur_nutritionnelle_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_valeur_nutritionnelle_line
 msgid "Valeur Nutritionnelle des articles"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_product__is_valeur_nutritionnelle_ids
-#: model:ir.model.fields,field_description:is_fromtome14.field_product_template__is_valeur_nutritionnelle_ids
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_product__is_valeur_nutritionnelle_ids
+#: model:ir.model.fields,field_description:is_fromtome20.field_product_template__is_valeur_nutritionnelle_ids
 msgid "Valeurs"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "Valeurs Nutritionnelles Moyennes pour 100g"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,help:is_fromtome14.field_is_scan_picking___barcode_scanned
+#. module: is_fromtome20
+#: model:ir.model.fields,help:is_fromtome20.field_is_scan_picking___barcode_scanned
 msgid "Value of the last barcode scanned."
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_commande_fromtome_form
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_export_compta_form
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_commande_fromtome_form
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_export_compta_form
 msgid "Voir les lignes"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_normal_form_view_inherit
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.product_template_form_inherit
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_normal_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.product_template_form_inherit
 msgid "code barre interne"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_sale_order_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_sale_order_line
 msgid "is.sale.order.line"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_stock_move_line
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_stock_move_line
 msgid "is.stock.move.line"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model,name:is_fromtome14.model_is_stock_production_lot_contrat
+#. module: is_fromtome20
+#: model:ir.model,name:is_fromtome20.model_is_stock_production_lot_contrat
 msgid "is.stock.production.lot.contrat"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.ui.menu,name:is_fromtome14.menu_product_label
+#. module: is_fromtome20
+#: model:ir.ui.menu,name:is_fromtome20.menu_product_label
 msgid "labels produits"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__emetteur_id
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__emetteur_id
 msgid "Émetteur"
 msgstr ""
 
-#. module: is_fromtome14
-#: model:ir.model.fields,field_description:is_fromtome14.field_is_fnc__state
+#. module: is_fromtome20
+#: model:ir.model.fields,field_description:is_fromtome20.field_is_fnc__state
 msgid "État"
 msgstr ""
 
-#. module: is_fromtome14
-#: model_terms:ir.ui.view,arch_db:is_fromtome14.is_product_pricelist_view
+#. module: is_fromtome20
+#: model_terms:ir.ui.view,arch_db:is_fromtome20.is_product_pricelist_view
 msgid ""
 "Êtes-vous certain de vouloir appliquer l'augmentation sur toutes les lignes "
 "?"

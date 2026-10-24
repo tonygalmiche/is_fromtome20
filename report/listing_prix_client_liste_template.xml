@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="listing_prix_client_liste_report">
-        <t t-call="is_fromtome14.html_container">
+        <t t-call="is_fromtome20.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="is_fromtome14.external_layout">
+                <t t-call="is_fromtome20.external_layout">
                     <div class="page listing_prix_client">
                         <div class="oe_structure"/>
                         <t t-set="res" t-value="o.get_products()"/>
@@ -72,9 +72,9 @@
         <field name="name">Listing prix client (Liste)</field>
         <field name="model">is.listing.prix.client</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">is_fromtome14.listing_prix_client_liste_report</field>
-        <field name="report_file">is_fromtome14.listing_prix_client_liste_report</field>
-        <field name="paperformat_id" ref="is_fromtome14.listing_prix_client_liste_paperformat"/>
+        <field name="report_name">is_fromtome20.listing_prix_client_liste_report</field>
+        <field name="report_file">is_fromtome20.listing_prix_client_liste_report</field>
+        <field name="paperformat_id" ref="is_fromtome20.listing_prix_client_liste_paperformat"/>
         <field name="binding_model_id" ref="model_is_listing_prix_client"/>
         <field name="binding_type">report</field>
     </record>

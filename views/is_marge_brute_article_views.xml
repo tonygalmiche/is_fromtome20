@@ -100,7 +100,7 @@
     <!-- Tâche planifiée -->
     <record id="is_marge_brute_article_ir_cron" model="ir.cron">
         <field name="name">Marge brute par article</field>
-        <field name="model_id" ref="is_fromtome14.model_is_marge_brute_article"/>
+        <field name="model_id" ref="is_fromtome20.model_is_marge_brute_article"/>
         <field name="state">code</field>
         <field name="code">model._cron_marge_brute_article()</field>
         <field name="interval_number">1</field>

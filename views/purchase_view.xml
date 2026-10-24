@@ -299,7 +299,7 @@
         <field name="res_model">purchase.order.line</field>
         <field name="limit">100</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="is_fromtome14.is_edit_purchase_order_line_tree_view"/>
+        <field name="view_id" ref="is_fromtome20.is_edit_purchase_order_line_tree_view"/>
     </record>
     <menuitem
         id="is_edit_purchase_order_line_menu"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from datetime import datetime, timedelta, date
-from odoo.addons.is_fromtome14.models.account_move import _TYPE_AVOIR
+from odoo.addons.is_fromtome20.models.account_move import _TYPE_AVOIR
 
 import logging
 _logger = logging.getLogger(__name__)

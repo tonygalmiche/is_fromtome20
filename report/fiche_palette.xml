@@ -64,9 +64,9 @@
             <field name="name">Fiche Palette</field>
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">is_fromtome14.report_fiche_palette_document</field>
-            <field name="report_file">is_fromtome14.report_fiche_palette_document</field>
-            <field name="paperformat_id" ref="is_fromtome14.fiche_palette_paperformat"/>
+            <field name="report_name">is_fromtome20.report_fiche_palette_document</field>
+            <field name="report_file">is_fromtome20.report_fiche_palette_document</field>
+            <field name="paperformat_id" ref="is_fromtome20.fiche_palette_paperformat"/>
         </record>
 
 

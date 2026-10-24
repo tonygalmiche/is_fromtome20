@@ -167,7 +167,7 @@
                     {
                         'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 
                         'product_template_invisible_variant': True, 
-                        'form_view_ref':'is_fromtome14.product_supplierinfo_form_view',
+                        'form_view_ref':'is_fromtome20.product_supplierinfo_form_view',
                         'tree_view_ref':'product.product_supplierinfo_tree_view'
                     }
                 </attribute>
@@ -413,7 +413,7 @@
         <field name="name">Analyse des ruptures</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="view_id" ref="is_fromtome14.is_product_template_tree_view"/>
+        <field name="view_id" ref="is_fromtome20.is_product_template_tree_view"/>
         <field name="context">{'search_default_real_stock_negative':1}</field>
         <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
     </record>
@@ -453,7 +453,7 @@
         <field name="name">Gestion des tarifs</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="view_id" ref="is_fromtome14.is_gestion_tarif_product_tree_view"/>
+        <field name="view_id" ref="is_fromtome20.is_gestion_tarif_product_tree_view"/>
     </record>
     <menuitem 
         id="is_gestion_tarif_product_menu" 
@@ -502,7 +502,7 @@
         <field name="name">Gestion des tarifs (Liste modifiable)</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="view_id" ref="is_fromtome14.is_gestion_tarif_product_editable_tree_view"/>
+        <field name="view_id" ref="is_fromtome20.is_gestion_tarif_product_editable_tree_view"/>
     </record>
     <menuitem 
         id="is_gestion_tarif_product_editable_menu" 
