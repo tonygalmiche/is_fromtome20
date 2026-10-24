@@ -35,7 +35,7 @@ class IsModeleCommandeLigne(models.Model):
             heure_envoi_id=False
             suppliers=self.env['product.supplierinfo'].search(filtre,limit=1)
             for s in suppliers:
-                heure_envoi_id = s.name.is_heure_envoi_id.id
+                heure_envoi_id = s.partner_id.is_heure_envoi_id.id
             obj.heure_envoi_id = heure_envoi_id
             #******************************************************************
 

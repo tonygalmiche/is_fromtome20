@@ -96,8 +96,8 @@ class IsPromoFournisseur(models.Model):
         for obj in self:
            #** Suppressions des promos ***************************************
             filtre=[
-                ('name'    , '=', obj.partner_id.id),
-                ('discount', '>', 0),
+                ('partner_id', '=', obj.partner_id.id),
+                ('discount'  , '>', 0),
             ]
             self.env['product.supplierinfo'].search(filtre).discount=0
             #******************************************************************

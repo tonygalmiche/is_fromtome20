@@ -500,9 +500,9 @@ class is_calcul_des_besoins(models.Model):
                             break
                     
                     if supplierinfo:
-                        if supplierinfo.name.active and supplierinfo.name.is_warehouse_id:
-                            if supplierinfo.name.is_heure_envoi_id == obj.is_heure_envoi_id or not obj.is_heure_envoi_id:
-                                partner_id = supplierinfo.name.id
+                        if supplierinfo.partner_id.active and supplierinfo.partner_id.is_warehouse_id:
+                            if supplierinfo.partner_id.is_heure_envoi_id == obj.is_heure_envoi_id or not obj.is_heure_envoi_id:
+                                partner_id = supplierinfo.partner_id.id
                                 date_reception = str(date.today()+timedelta(days=2))
                                 date_planned = date_reception + ' 08:00:00'
                                 filtre = [
@@ -518,8 +518,8 @@ class is_calcul_des_besoins(models.Model):
                                     vals = {
                                         'partner_id': partner_id,
                                         'date_planned': date_planned,
-                                        'picking_type_id': supplierinfo.name.is_warehouse_id.in_type_id.id,
-                                        'is_adresse_livraison_id': supplierinfo.name.is_enseigne_id.warehouse_id.partner_id.id,
+                                        'picking_type_id': supplierinfo.partner_id.is_warehouse_id.in_type_id.id,
+                                        'is_adresse_livraison_id': supplierinfo.partner_id.is_enseigne_id.warehouse_id.partner_id.id,
                                     }
                                     order = self.env['purchase.order'].create(vals)
                                     if order:

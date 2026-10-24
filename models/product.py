@@ -237,7 +237,7 @@ class ProductTemplate(models.Model):
             suppliers=self.env['product.supplierinfo'].search(filtre, order="date_end desc",limit=1)
             for s in suppliers:
                 ref            = s.product_code
-                fournisseur_id = s.name.id
+                fournisseur_id = s.partner_id.id
                 is_date_fin    = s.date_end
             obj.is_ref_fournisseur = ref
             obj.is_fournisseur_id  = fournisseur_id

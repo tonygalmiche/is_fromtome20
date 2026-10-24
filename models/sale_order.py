@@ -214,7 +214,7 @@ class SaleOrderLine(models.Model):
         partner=False
         for s in suppliers:
             if now>=s.date_start and now<= s.date_end:
-                partner=s.name
+                partner=s.partner_id
                 break
         return partner
 
@@ -637,12 +637,12 @@ class SaleOrder(models.Model):
                         if not supplierinfo:
                             raise UserError("Fournisseur non trouvé pour article '%s'"%(line.product_id.display_name))
                         if supplierinfo:
-                            if not supplierinfo.name.active:
-                                raise UserError("Fournisseur '%s' désactivé pour l'article '%s'"%(supplierinfo.name.name,line.product_id.display_name))
-                            if not supplierinfo.name.is_warehouse_id:
-                                raise UserError("Entrepôt non renseigné pour le fournisseur '%s' de l'article '%s'"%(supplierinfo.name.name,line.product_id.display_name))
-                            if supplierinfo.name.is_heure_envoi_id==obj.is_heure_envoi_id or obj.is_heure_envoi_id.id==False:
-                                partner_id = supplierinfo.name.id
+                            if not supplierinfo.partner_id.active:
+                                raise UserError("Fournisseur '%s' désactivé pour l'article '%s'"%(supplierinfo.partner_id.name,line.product_id.display_name))
+                            if not supplierinfo.partner_id.is_warehouse_id:
+                                raise UserError("Entrepôt non renseigné pour le fournisseur '%s' de l'article '%s'"%(supplierinfo.partner_id.name,line.product_id.display_name))
+                            if supplierinfo.partner_id.is_heure_envoi_id==obj.is_heure_envoi_id or obj.is_heure_envoi_id.id==False:
+                                partner_id = supplierinfo.partner_id.id
                                 date_reception = str(line.is_date_reception)
                                 date_planned  = date_reception+' 08:00:00'
                                 filtre=[
@@ -660,8 +660,8 @@ class SaleOrder(models.Model):
                                     vals={
                                         'partner_id'             : partner_id,
                                         'date_planned'           : date_planned,
-                                        'picking_type_id'        : supplierinfo.name.is_warehouse_id.in_type_id.id,
-                                        'is_adresse_livraison_id': supplierinfo.name.is_enseigne_id.warehouse_id.partner_id.id,  #supplierinfo.name.is_enseigne_id.name.id,
+                                        'picking_type_id'        : supplierinfo.partner_id.is_warehouse_id.in_type_id.id,
+                                        'is_adresse_livraison_id': supplierinfo.partner_id.is_enseigne_id.warehouse_id.partner_id.id,  #supplierinfo.partner_id.is_enseigne_id.name.id,
                                     }
                                     order=self.env['purchase.order'].create(vals)
                                     if order:

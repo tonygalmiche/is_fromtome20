@@ -120,7 +120,7 @@ class ResPartner(models.Model):
     is_date_reception           = fields.Date(string='Dernière date de réception saisie', tracking=True)
     is_localisation              = fields.Char("Localisation", tracking=True)
     is_localisation_google_maps_url = fields.Char("Maps", compute='_compute_is_localisation_google_maps_url', readonly=True)
-    is_product_supplierinfo_ids = fields.One2many('product.supplierinfo', 'name', 'Liste de prix', tracking=True)
+    is_product_supplierinfo_ids = fields.One2many('product.supplierinfo', 'partner_id', 'Liste de prix', tracking=True)
     is_gln                      = fields.Char('GLN Client', tracking=True)
     is_iln                      = fields.Char('ILN Client', tracking=True)
     is_code_fromtome            = fields.Char('Code Fournisseur', tracking=True, help="Code Fromtome chez le client")

@@ -31,7 +31,6 @@ class SupplierInfo(models.Model):
         'Price', default=0.0, digits='Product Price',
         required=True, help="The price to purchase a product", compute="compute_prix_net", store=True
     )
-    discount = fields.Float(string="Remise (%)", digits="Discount")
 
 
     @api.depends('discount_ids','discount_ids.name','prix_brut')
@@ -47,39 +46,16 @@ class SupplierInfo(models.Model):
 
     def dupliquer_action(self):
         for obj in self:
-            if obj.name.is_date_debut_nouveau_tarif==False or obj.name.is_date_debut_nouveau_tarif==False:
+            if obj.partner_id.is_date_debut_nouveau_tarif==False or obj.partner_id.is_date_debut_nouveau_tarif==False:
                 raise UserError("Il faut renseigner les champs 'Date début nouveau tarif' et 'Date fin nouveau tarif' du fournisseur pour utiliser cette fonction")
             copy = obj.copy()
-            copy.date_start = obj.name.is_date_debut_nouveau_tarif
-            copy.date_end   = obj.name.is_date_fin_nouveau_tarif
-            obj.date_end = obj.name.is_date_debut_nouveau_tarif-timedelta(days=1)
+            copy.date_start = obj.partner_id.is_date_debut_nouveau_tarif
+            copy.date_end   = obj.partner_id.is_date_fin_nouveau_tarif
+            obj.date_end = obj.partner_id.is_date_debut_nouveau_tarif-timedelta(days=1)
 
 
-    @api.onchange("name")
+    @api.onchange("partner_id")
     def onchange_name(self):
         """ Apply the default supplier discount of the selected supplier """
-        for supplierinfo in self.filtered("name"):
-            supplierinfo.discount = supplierinfo.name.default_supplierinfo_discount
-
-
-    @api.model
-    def _get_po_to_supplierinfo_synced_fields(self):
-        """Overwrite this method for adding other fields to be synchronized
-        with product.supplierinfo.
-        """
-        return ["discount"]
-
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        """Insert discount (or others) from context from purchase.order's
-        _add_supplier_to_product method"""
-        for vals in vals_list:
-            product_tmpl_id = vals["product_tmpl_id"]
-            po_line_map = self.env.context.get("po_line_map", {})
-            if product_tmpl_id in po_line_map:
-                po_line = po_line_map[product_tmpl_id]
-                for field in self._get_po_to_supplierinfo_synced_fields():
-                    if not vals.get(field):
-                        vals[field] = po_line[field]
-        return super().create(vals_list)
+        for supplierinfo in self.filtered("partner_id"):
+            supplierinfo.discount = supplierinfo.partner_id.default_supplierinfo_discount
