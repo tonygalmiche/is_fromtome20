@@ -83,7 +83,7 @@ class AccountMoveLine(models.Model):
                     ids.append(line.id)
             res= {
                 'name': 'Picking',
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'view_type': 'form',
                 'res_model': 'is.stock.move.line',
                 'type': 'ir.actions.act_window',

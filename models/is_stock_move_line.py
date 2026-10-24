@@ -233,7 +233,7 @@ class is_stock_move_line_valorise_update(models.TransientModel):
 
         res= {
             'name': 'Lignes des mouvements valorisés',
-            'view_mode': 'tree,form,pivot,graph',
+            'view_mode': 'list,form,pivot,graph',
             'res_model': 'is.stock.move.line.valorise',
             'type': 'ir.actions.act_window',
         }

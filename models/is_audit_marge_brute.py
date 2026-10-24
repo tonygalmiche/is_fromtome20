@@ -196,7 +196,7 @@ class IsAuditMargeBrute(models.Model):
             'name': 'Facturation client - %s' % self.semaine,
             'type': 'ir.actions.act_window',
             'res_model': 'account.move',
-            'view_mode': 'tree,form,pivot,graph',
+            'view_mode': 'list,form,pivot,graph',
             'domain': [
                 ('state', '=', 'posted'),
                 (champ_date, '>=', str(date_debut)),
@@ -214,7 +214,7 @@ class IsAuditMargeBrute(models.Model):
             'name': 'Facturation fournisseur - %s' % self.semaine,
             'type': 'ir.actions.act_window',
             'res_model': 'account.move',
-            'view_mode': 'tree,form,pivot,graph',
+            'view_mode': 'list,form,pivot,graph',
             'domain': [
                 ('state', '=', 'posted'),
                 (champ_date, '>=', str(date_debut)),
@@ -244,7 +244,7 @@ class IsAuditMargeBrute(models.Model):
             'name': 'Analyse facturation client - %s' % self.semaine,
             'type': 'ir.actions.act_window',
             'res_model': 'is.analyse.facturation',
-            'view_mode': 'tree,form,pivot,graph',
+            'view_mode': 'list,form,pivot,graph',
             'domain': domain,
         }
 

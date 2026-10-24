@@ -102,7 +102,7 @@ class IsFNC(models.Model):
         for obj in self:
             return {
                 "name": obj.name,
-                "view_mode": "form,tree",
+                "view_mode": "form,list",
                 "res_model": "is.fnc",
                 "res_id"   : obj.id,
                 "type": "ir.actions.act_window",
@@ -189,7 +189,7 @@ class StockMoveLine(models.Model):
                 fnc_id = fnc.id
             res= {
                 'name': 'FNC',
-                'view_mode': 'form,tree',
+                'view_mode': 'form,list',
                 'view_type': 'form',
                 'res_model': 'is.fnc',
                 'type': 'ir.actions.act_window',
@@ -207,7 +207,7 @@ class StockMoveLine(models.Model):
             if fnc_id:
                 res= {
                     'name': 'FNC',
-                    'view_mode': 'form,tree',
+                    'view_mode': 'form,list',
                     'view_type': 'form',
                     'res_model': 'is.fnc',
                     'type': 'ir.actions.act_window',

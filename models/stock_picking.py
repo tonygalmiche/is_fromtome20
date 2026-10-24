@@ -106,7 +106,7 @@ class IsScanPickingLine(models.Model):
 
     def imprimer_etiquette_action(self):
         for obj in self:
-            context = obj._context.copy()
+            context = obj.env.context.copy()
             context['default_product_id'] = obj.product_id.id
             action = {
                 'name': "Dupliquer",
@@ -844,7 +844,7 @@ class Picking(models.Model):
         for obj in self:
             res= {
                 'name': 'Picking',
-                'view_mode': 'form,tree',
+                'view_mode': 'form,list',
                 'view_type': 'form',
                 'res_model': 'stock.picking',
                 'type': 'ir.actions.act_window',
@@ -1002,7 +1002,7 @@ class PickingType(models.Model):
             ids.append(picking.id)
         res= {
             'name': 'Retard',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'view_type': 'form',
             'res_model': 'stock.picking',
             'type': 'ir.actions.act_window',

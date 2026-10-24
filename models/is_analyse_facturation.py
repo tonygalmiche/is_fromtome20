@@ -202,7 +202,7 @@ class IsAnalyseFacturationUpdate(models.TransientModel):
 
         res= {
             'name': 'Analyse facturation',
-            'view_mode': 'tree,form,pivot,graph',
+            'view_mode': 'list,form,pivot,graph',
             'res_model': 'is.analyse.facturation',
             'type': 'ir.actions.act_window',
         }

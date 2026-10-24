@@ -239,7 +239,7 @@ class StockMove(models.Model):
         for obj in self:
             res= {
                 'name': 'Mouvement',
-                'view_mode': 'form,tree',
+                'view_mode': 'form,list',
                 'view_type': 'form',
                 'res_model': 'stock.move',
                 'type': 'ir.actions.act_window',

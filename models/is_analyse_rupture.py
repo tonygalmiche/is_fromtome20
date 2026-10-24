@@ -73,7 +73,7 @@ class IsAnalyseRupture(models.Model):
                         self.env['is.analyse.rupture.ligne'].create(vals)
             res= {
                 'name': 'Lignes',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'view_type': 'form',
                 'res_model': 'is.analyse.rupture.ligne',
                 'type': 'ir.actions.act_window',

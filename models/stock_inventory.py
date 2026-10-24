@@ -20,7 +20,7 @@ class StockInventory(models.Model):
         dummy, form_view_id = self.env['ir.model.data'].get_object_reference('is_fromtome20', 'is_stock_inventory_line_form')
         action = {
             'type': 'ir.actions.act_window',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'name': _('Inventory Lines'),
             'res_model': 'stock.inventory.line',
             'view_id' : self.env.ref('is_fromtome20.is_stock_inventory_line_tree').id,

@@ -250,7 +250,7 @@ class IsImprimerEtiquetteGS1(models.Model):
 
     def dupliquer_autre_poids_action(self):
         for obj in self:
-            context = obj._context.copy()
+            context = obj.env.context.copy()
             context['default_product_id'] = obj.product_id.id
             context['default_lot']        = obj.lot
             context['default_dlc']        = obj.dlc

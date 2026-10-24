@@ -265,7 +265,7 @@ class SaleOrderLine(models.Model):
         for obj in self:
             res= {
                 'name': 'Ligne commande fournisseur',
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'view_type': 'form',
                 'res_model': 'purchase.order.line',
                 'type': 'ir.actions.act_window',
@@ -333,12 +333,12 @@ class SaleOrder(models.Model):
         self.ensure_one()
         return {
             'name': 'Lignes de la commande',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'sale.order.line',
             'type': 'ir.actions.act_window',
             'domain': [('order_id', '=', self.id)],
             'views': [
-                (self.env.ref('is_fromtome20.is_sale_order_line_editable_tree_view').id, 'tree'),
+                (self.env.ref('is_fromtome20.is_sale_order_line_editable_tree_view').id, 'list'),
                 (False, 'form'),
             ],
             'context': {

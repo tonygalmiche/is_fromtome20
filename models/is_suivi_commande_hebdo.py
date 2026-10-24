@@ -113,7 +113,7 @@ class IsSuiviCommandeHebdo(models.Model):
             
             res= {
                 'name': 'Lignes',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'view_type': 'form',
                 'res_model': 'is.suivi.commande.hebdo.ligne',
                 'type': 'ir.actions.act_window',

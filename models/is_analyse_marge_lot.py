@@ -790,7 +790,7 @@ class IsAnalyseMargeLot(models.Model):
 
 
     #** Accès aux résultats ****************************************************
-    def _action_lignes(self, name, context={}, domain=[], view_mode='pivot,tree,form,graph'):
+    def _action_lignes(self, name, context={}, domain=[], view_mode='pivot,list,form,graph'):
         self.ensure_one()
         return {
             'name'     : "%s (%s)"%(name, self.name),
@@ -835,7 +835,7 @@ class IsAnalyseMargeLot(models.Model):
 
 
     def lignes_action(self):
-        return self._action_lignes('Lignes', view_mode='tree,form,pivot,graph')
+        return self._action_lignes('Lignes', view_mode='list,form,pivot,graph')
 
 
     def anomalies_lot_action(self):
@@ -844,12 +844,12 @@ class IsAnalyseMargeLot(models.Model):
             ('type_ligne','=','Facture client'),
             ('anomalie','!=',False),
         ]
-        return self._action_lignes("Lots sans facture d'achat", domain=domain, view_mode='tree,form')
+        return self._action_lignes("Lots sans facture d'achat", domain=domain, view_mode='list,form')
 
 
     def anomalies_action(self):
         "Toutes les lignes en anomalie (factures, avoirs et rebuts) : correspond au compteur Anomalies"
-        return self._action_lignes("Anomalies", domain=[('anomalie','!=',False)], view_mode='tree,form')
+        return self._action_lignes("Anomalies", domain=[('anomalie','!=',False)], view_mode='list,form')
     #***************************************************************************
 
 

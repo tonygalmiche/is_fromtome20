@@ -73,7 +73,7 @@ class IsExportCompta(models.Model):
                 invoices = self.env['account.move'].search([('is_export_compta_id','=',obj.id)])
                 for invoice in invoices:
                     invoice.is_export_compta_id=False
-                self._cr.commit()
+                self.env.cr.commit()
                 sql="""
                     SELECT  
                         aj.name,
@@ -167,7 +167,7 @@ class IsExportCompta(models.Model):
                 payments = self.env['account.payment'].search([('is_export_compta_id','=',obj.id)])
                 for payment in payments:
                     payment.is_export_compta_id=False
-                self._cr.commit()
+                self.env.cr.commit()
                 sql="""
                     SELECT  
                         am.partner_id,
@@ -295,7 +295,7 @@ class IsExportCompta(models.Model):
 
 
     def generer_fichier_action(self):
-        cr=self._cr
+        cr=self.env.cr
         for obj in self:
             model='is.export.compta'
             attachments = self.env['ir.attachment'].search([('res_model','=',model),('res_id','=',obj.id)])

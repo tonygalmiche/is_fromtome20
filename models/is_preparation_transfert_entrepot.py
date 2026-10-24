@@ -49,7 +49,7 @@ class is_preparation_transfert_entrepot_ligne(models.Model):
             for obj in self:
                 res= {
                     'name': 'Mouvements',
-                    'view_mode': 'tree,form',
+                    'view_mode': 'list,form',
                     'view_type': 'form',
                     'res_model': 'stock.move.line',
                     'type': 'ir.actions.act_window',
@@ -82,7 +82,7 @@ class is_preparation_transfert_entrepot(models.Model):
         for obj in self:
             res= {
                 'name': 'Lignes',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'view_type': 'form',
                 'res_model': 'is.preparation.transfert.entrepot.ligne',
                 'type': 'ir.actions.act_window',

@@ -7,7 +7,7 @@ class MailComposer(models.TransientModel):
     _inherit = 'mail.compose.message'
 
     def send_mail(self, **kwargs):
-        context=self._context
+        context=self.env.context
         res=super(MailComposer, self).send_mail(**kwargs)
 
         #** Permet de supprimer les abonnés du document après l'envoi du mail **

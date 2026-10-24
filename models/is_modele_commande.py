@@ -275,7 +275,7 @@ class IsModeleCommande(models.Model):
 
 
     def initialiser_action(self):
-        cr = self._cr
+        cr = self.env.cr
         for obj in self:
             filtre=[
                 ('is_modele_commande_id','=',obj.id),

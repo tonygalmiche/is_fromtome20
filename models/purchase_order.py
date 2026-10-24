@@ -94,7 +94,7 @@ class PurchaseOrder(models.Model):
             'name': 'Livraisons %s'%self.name,
             'type': 'ir.actions.act_window',
             'res_model': 'stock.picking',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.is_livraison_ids.ids)],
         }
 
@@ -391,13 +391,10 @@ class PurchaseOrderLine(models.Model):
     is_ref_fournisseur     = fields.Char(string='Réf Fournisseur', compute='_compute_ref', readonly=True, store=True)
     discount               = fields.Float(string="Remise (%)", digits="Discount")
 
-    _sql_constraints = [
-        (
-            "discount_limit",
-            "CHECK (discount <= 100.0)",
-            "Discount must be lower than 100%.",
-        )
-    ]
+    _discount_limit = models.Constraint(
+        'CHECK (discount <= 100.0)',
+        "Discount must be lower than 100%.",
+    )
 
 
     @api.constrains('is_picking_id')
@@ -522,7 +519,7 @@ class PurchaseOrderLine(models.Model):
         for obj in self:
             res= {
                 'name': 'Ligne commande client',
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'view_type': 'form',
                 'res_model': 'sale.order.line',
                 'type': 'ir.actions.act_window',

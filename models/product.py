@@ -723,7 +723,7 @@ class ProductTemplate(models.Model):
         for obj in self:
             res= {
                 'name': 'Article',
-                'view_mode': 'form,tree',
+                'view_mode': 'form,list',
                 'view_type': 'form',
                 'res_model': 'product.template',
                 'type': 'ir.actions.act_window',
@@ -790,9 +790,9 @@ class ProductTemplate(models.Model):
             dummy, view_id = self.env['ir.model.data'].get_object_reference('is_fromtome20', 'is_product_pricelist_item_tree')
             res= {
                 'name': 'Lignes',
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'view_type': 'form',
-                'views': [[view_id, "tree"], [False, "form"]],
+                'views': [[view_id, "list"], [False, "form"]],
                 'res_model': 'product.pricelist.item',
                 'type': 'ir.actions.act_window',
                 'domain': [
@@ -1112,7 +1112,7 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
 
 
     def _get_rows_sql(self):
-        cr = self._cr
+        cr = self.env.cr
         for obj in self:
             sql="""
                 SELECT  
@@ -1234,7 +1234,7 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
                 ids.append(row['sale_line_id'])
             res= {
                 'name': 'Lignes cde',
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'view_type': 'form',
                 'res_model': 'is.sale.order.line',
                 'type': 'ir.actions.act_window',
@@ -1246,7 +1246,7 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
            
 
     def mouvements_stock_action(self):
-        cr = self._cr
+        cr = self.env.cr
         for obj in self:
             ids=[]
             rows = obj._get_rows_sql()
@@ -1255,9 +1255,9 @@ Si une information n'est pas trouvée dans le document, utilise null pour ce cha
             dummy, view_id = self.env['ir.model.data'].get_object_reference('stock', 'view_move_tree')
             res= {
                 'name': 'Mouvements',
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'view_type': 'form',
-                'views': [[view_id, "tree"], [False, "form"]],
+                'views': [[view_id, "list"], [False, "form"]],
                 'res_model': 'stock.move',
                 'type': 'ir.actions.act_window',
                 'domain': [

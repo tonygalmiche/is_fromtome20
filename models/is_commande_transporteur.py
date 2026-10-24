@@ -77,7 +77,7 @@ class IsCommandeTransporteur(models.Model):
             'name': 'Commandes transporteurs',
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('is_commande_transporteur_id', '=', self.id)],
         }
 
@@ -89,7 +89,7 @@ class IsCommandeTransporteur(models.Model):
             'name': 'Livraisons transportées',
             'type': 'ir.actions.act_window',
             'res_model': 'stock.picking',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', pickings.ids)],
         }
 

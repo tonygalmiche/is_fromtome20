@@ -73,7 +73,7 @@ class is_calcul_des_besoins_ligne(models.Model):
             'name': 'Lignes de commande client',
             'type': 'ir.actions.act_window',
             'res_model': 'sale.order.line',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.sale_line_ids.ids)],
         }
 
@@ -83,7 +83,7 @@ class is_calcul_des_besoins_ligne(models.Model):
             'name': 'Lignes de commande fournisseur',
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order.line',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.purchase_line_ids.ids)],
         }
 
@@ -194,8 +194,8 @@ class is_calcul_des_besoins(models.Model):
             'name': 'Détail des lignes',
             'type': 'ir.actions.act_window',
             'res_model': 'is.calcul.des.besoins.ligne',
-            'view_mode': 'tree,form',
-            'views': [(tree_view.id, 'tree'), (form_view.id, 'form')],
+            'view_mode': 'list,form',
+            'views': [(tree_view.id, 'list'), (form_view.id, 'form')],
             'domain': [('calcul_besoins_id', '=', self.id)],
             'context': {'default_calcul_besoins_id': self.id, 'search_default_product_qty_gt_0': 1},
             'limit': 1000,
@@ -208,7 +208,7 @@ class is_calcul_des_besoins(models.Model):
             'name': 'Commandes clients',
             'type': 'ir.actions.act_window',
             'res_model': 'sale.order',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', order_ids)],
         }
 
@@ -219,7 +219,7 @@ class is_calcul_des_besoins(models.Model):
             'name': 'Commandes fournisseurs',
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', order_ids)],
         }
 
@@ -230,10 +230,10 @@ class is_calcul_des_besoins(models.Model):
             'name': 'Commandes fournisseurs créées',
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', order_ids)],
             'views': [
-                (self.env.ref('purchase.purchase_order_view_tree').id, 'tree'),
+                (self.env.ref('purchase.purchase_order_view_tree').id, 'list'),
                 (self.env.ref('purchase.purchase_order_form').id, 'form'),
             ],
         }
