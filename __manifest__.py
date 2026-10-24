@@ -32,8 +32,8 @@ InfoSaône - Module Odoo 20 pour Fromtome
     ],
     'data' : [
         'security/res.groups.xml',
-        'security/ir.model.access.csv',
-        'security/ir.model.access.xml',
+        # Droits standards modifiés par leur identifiant (contacts et articles en lecture seule) : à refaire en v20 (§ 4.4 de la doc)
+        # 'security/ir.model.access.xml',
         'views/assets.xml',
         'views/account_move_view.xml',
         'views/account_payment_order_views.xml',
@@ -96,6 +96,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'report/report_stockinventory.xml',
         'report/report_account_payment_order.xml',
         'data/stock_picking_mail.xml',
+        'security/ir.access.csv',
     ],
     'installable': True,
     'application': True,
