@@ -22,9 +22,6 @@ _TRAITEMENT_THERMIQUE = [('laitcru', 'Lait Cru'), ('laitthermise', 'Lait Thermis
 _PRICELISTS = {
     'cdf_quai'  : 'Cdf quai',
     'cdf_franco': 'Cdf franco',
-    #'lf'        : 'LF',
-    #'lf_coll'   : 'LF coll.',
-    #'lf_franco' : 'LF franco',
     'ft'        : 'FT',
 }
 _COLISAGE = [
@@ -591,7 +588,6 @@ class ProductTemplate(models.Model):
             for line in obj.seller_ids:
                 if now>=line.date_start and now<=line.date_end:
                     prix_actuel = line.price
-                    #obj._compute_is_discount()
             obj.is_prix_achat_actuel  = prix_actuel
             #******************************************************************
 
@@ -617,7 +613,6 @@ class ProductTemplate(models.Model):
                     if force!=0:
                         taux_marge = force
                     val=0
-                    #if taux_marge<100 and taux_marge>0:
                     if taux_marge<100:
                         val = round(100 * prix_actuel / (100 - taux_marge),4) # PrixVente = 100 x PrixAchat / (100 - TauxMarge)
                     if val>0:
@@ -641,7 +636,6 @@ class ProductTemplate(models.Model):
                 if force!=0:
                     taux_marge = force
                 val=0
-                #if taux_marge<100 and taux_marge>0:
                 if taux_marge<100:
                     val = round(100 * prix_futur / (100 - taux_marge),4) # PrixVente = 100 x PrixAchat / (100 - TauxMarge)
                 if val>0:
@@ -668,9 +662,7 @@ class ProductTemplate(models.Model):
                 }
                 copy = pricelist.copy(default=default)
                 _logger.info("appliquer_nouveaux_tarifs_action : Archivage liste de prix '%s'"%name)
-        filtre=[
-            #("default_code","=","0111001")
-        ]
+        filtre=[]
         products = self.env['product.template'].search(filtre)
         nb=len(products)
         ct=1
@@ -812,156 +804,6 @@ class ProductTemplate(models.Model):
             }
             return res
 
-
-
-    #TODO : Remplacé le 28/03/2026 par analyse_ia_fiche_technique_action
-    # def importer_fiche_technique_action(self):
-    #     for obj in self:
-    #         for attachment in obj.is_fiche_technique_ids:
-    #             pdf=base64.b64decode(attachment.datas)
-    #             name = 'fiche-technique-%s'%obj.id
-    #             path = "/tmp/%s.pdf"%name
-    #             f = open(path,'wb')
-    #             f.write(pdf)
-    #             f.close()
-    #             cde = "cd /tmp && pdftotext -layout %s.pdf"%name
-    #             p = Popen(cde, shell=True, stdout=PIPE, stderr=PIPE)
-    #             stdout, stderr = p.communicate()
-    #             path = "/tmp/%s.txt"%name
-    #             r = open(path,'rb').read().decode('utf-8')
-    #             lines = r.split('\n')
-    #             ledict={}
-    #             for line in lines:
-    #                 ledict = obj.regex_extract(ledict,'01-Conditionnement'          , line, 'Conditionnement :'                 , False)
-    #                 ledict = obj.regex_extract(ledict,'01-Poids brut'               , line, 'Poids brut :'                      , False)
-    #                 ledict = obj.regex_extract(ledict,"02-N° d'agrément"            , line, "N° d'agrément sanitaire européen :", False)
-    #                 ledict = obj.regex_extract(ledict,'03-Energie'                  , line, 'Energie :'                   , '    ')
-    #                 ledict = obj.regex_extract(ledict,'04-Matières Grasses'         , line, 'Matières Grasses :'          , '    ')
-    #                 ledict = obj.regex_extract(ledict,'05-Dont Acides gras saturés' , line, '► dont acides gras saturés :', '    ')
-    #                 ledict = obj.regex_extract(ledict,'06-Glucides'                 , line, 'Glucides :'                  , '    ')
-    #                 ledict = obj.regex_extract(ledict,'07-Dont Sucres'              , line, '► dont sucres :'             , False)
-    #                 ledict = obj.regex_extract(ledict,'08-Protéines'                , line, 'Protéines :'                 , False)
-    #                 ledict = obj.regex_extract(ledict,'09-Sel'                      , line, 'Sel :'                       , False)
-    #                 ledict = obj.regex_extract(ledict,'10-Listeria'                 , line, 'Listeria :'                  , False)
-    #                 ledict = obj.regex_extract(ledict,'11-Salmonelle'               , line, 'Salmonelle :'                , False)
-    #                 ledict = obj.regex_extract(ledict,'12-Escherichia coli'         , line, 'Escherichia coli :'          , False)
-    #                 ledict = obj.regex_extract(ledict,'13-Staphylocoques'           , line, 'Staphylocoques :'            , False)
-
-    #             #** Recherche des ingredients sur plusieurs lignes ************
-    #             search_start = search_end = False
-    #             ingredients=[]
-    #             for line in lines:
-    #                 if search_start:
-    #                     x = re.findall("Matière grasse :", line)
-    #                     if x:
-    #                         search_end=True
-    #                 if search_start and not search_end:
-    #                     ingredient = line.replace('Ingrédients :','').strip()
-    #                     if ingredient!='':
-    #                         ingredients.append(ingredient)
-    #                 if not search_end:
-    #                     x = re.findall("       PRODUIT", line)
-    #                     if x:
-    #                         search_start=True
-    #             ledict['14-Ingrédients']='\n'.join(ingredients)
-    #             #**************************************************************
-
-    #             #** Recherche Allergènes **************************************
-    #             search_start = False
-    #             for line in lines:
-    #                 if search_start:
-    #                     x = re.findall("(.*)Froid positif :", line)
-    #                     if x:
-    #                         ledict['15-Allergènes']=x[0].strip()
-    #                     break
-    #                 x = re.findall("Conditions de conservation", line)
-    #                 if x:
-    #                     search_start=True
-    #             #**************************************************************
-
-    #             #** Conditions de conservation ********************************
-    #             search_start = False
-    #             for line in lines:
-    #                 if search_start:
-    #                     x = re.findall(".*    (.*)", line)
-    #                     if x:
-    #                         ledict['16-Conditions de conservation']=x[0].strip()
-    #                     break
-    #                 x = re.findall("Conditions de conservation", line)
-    #                 if x:
-    #                     search_start=True
-    #             #**************************************************************
-
-    #             #** OGM / Ionisation ********************************
-    #             search_start = False
-    #             for line in lines:
-    #                 if search_start:
-    #                     ledict['17-OGM / Ionisation']=line.strip()
-    #                     break
-    #                 x = re.findall("OGM / Ionisation", line)
-    #                 if x:
-    #                     search_start=True
-    #             #**************************************************************
-                
-    #             #** Recherche Description  ************************************
-    #             search_start = search_end = False
-    #             descriptions=[]
-    #             for line in lines:
-    #                 if search_start:
-    #                     x = re.findall("Caractéristiques nutritionnelles", line)
-    #                     if x:
-    #                         search_end=True
-    #                 if search_start and not search_end:
-    #                     description = line.strip()
-    #                     if description!='':
-    #                         descriptions.append(description)
-    #                 if not search_end:
-    #                     x = re.findall("Description & caractéristiques organoleptiques", line)
-    #                     if x:
-    #                         search_start=True
-    #             ledict['18-Description']='\n'.join(descriptions)
-    #             #**************************************************************
-
-    #             #** Résultat final ********************************************
-    #             resultat=[]
-    #             sorted_dict = dict(sorted(ledict.items())) 
-    #             if sorted_dict:
-    #                 for key in sorted_dict:
-    #                     x = "%s : %s"%(key.ljust(30), sorted_dict[key])
-    #                     resultat.append(x)
-    #             obj.is_fiche_technique_import = '\n'.join(resultat)
-    #             #**************************************************************
-
-    #             #** Enregistrement des données ********************************
-    #             obj.is_mis_a_jour_le = datetime.today()
-    #             obj.is_type_conditionnement = sorted_dict.get("01-Conditionnement")
-    #             obj.is_poids_brut           = sorted_dict.get("01-Poids brut")
-    #             obj.no_agrement_sanitaire   = sorted_dict.get("02-N° d'agrément")
-    #             obj.is_ingredient_import    = sorted_dict.get("14-Ingrédients")
-    #             obj.is_allergene_import     = sorted_dict.get("15-Allergènes")
-    #             obj.temperature_stock       = sorted_dict.get("16-Conditions de conservation")
-    #             obj.is_ogm_ionisation       = sorted_dict.get("17-OGM / Ionisation")
-    #             obj.degustation             = sorted_dict.get("18-Description")
-    #             #**************************************************************
-
-    #             #** Caractéristiques nutritionnelles **************************
-    #             obj.is_valeur_nutritionnelle_ids.unlink()
-    #             obj.add_valeur_nutritionnelle('Valeur Énergétique'      , sorted_dict.get("03-Energie"))
-    #             obj.add_valeur_nutritionnelle('Matières Grasses'        , sorted_dict.get("04-Matières Grasses"))
-    #             obj.add_valeur_nutritionnelle('Dont Acides gras saturés', sorted_dict.get("05-Dont Acides gras saturés"))
-    #             obj.add_valeur_nutritionnelle('Glucides'                , sorted_dict.get("06-Glucides"))
-    #             obj.add_valeur_nutritionnelle('Dont Sucres'             , sorted_dict.get("07-Dont Sucres"))
-    #             obj.add_valeur_nutritionnelle('Protéines'               , sorted_dict.get("08-Protéines"))
-    #             obj.add_valeur_nutritionnelle('Sel'                     , sorted_dict.get("09-Sel"))
-    #             #**************************************************************
-
-    #             #** Germes ****************************************************
-    #             obj.is_germe_ids.unlink()
-    #             obj.add_germe('Listeria monocytogenes', sorted_dict.get("10-Listeria"))
-    #             obj.add_germe('Salmonella'            , sorted_dict.get("11-Salmonelle"))
-    #             obj.add_germe('Escherichia coli'      , sorted_dict.get("12-Escherichia coli"))
-    #             obj.add_germe('Staphylocoques'        , sorted_dict.get("13-Staphylocoques"))
-    #             #**************************************************************
 
 
     def _compute_has_prompt_ia(self):
@@ -1535,9 +1377,6 @@ class ProductProduct(models.Model):
                 pricelist = self.env['product.pricelist'].create(vals)
             if pricelist:
                 field_name = "is_prix_vente_actuel_%s"%key
-                # filtre=[
-                #     (field_name, '>', 0)
-                # ]
                 filtre=[
                     ('product_tmpl_id.categ_id.name', '!=', 'ECHANTILLON')
                 ]

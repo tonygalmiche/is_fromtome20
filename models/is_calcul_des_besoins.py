@@ -31,7 +31,6 @@ class is_calcul_des_besoins_ligne(models.Model):
     purchase_qty        = fields.Float("Qt en cde", digits=(14,4))
     product_qty         = fields.Float("Qt à cde"      , digits=(14,4), help="Sur commande : Qt cde client - Stock + Stock mini - Qt en cde\nSur historique : Moyenne 8 semaines + Colis S-1 (new) + Stock mini - Stock")
     stock               = fields.Float("Stock"         , digits=(14,2))
-    #stock_lc            = fields.Float("Stock LC"      , digits=(14,2))
     stock_mini          = fields.Float("Stock mini"    , digits=(14,2))
     colis_s1            = fields.Float("Colis S-1", digits=(14,2), help="Nombre de colis vendus la semaine dernière (S-1)")
     colis_s2            = fields.Float("Colis S-2", digits=(14,2), help="Nombre de colis vendus il y a 2 semaines (S-2)")
@@ -252,15 +251,10 @@ class is_calcul_des_besoins(models.Model):
         for obj in self:
             start_time = fields.Datetime.now()
 
-            # if obj.order_id and obj.order_id.state!='draft':
-            #     raise Warning(u"La commande Fromtome associée est déjà validée. Le calcul n'est pas autorisé !")
-
             obj.ligne_ids.unlink()
             now = date.today()
             filtre=[
                 ('sale_ok','=',True),
-                #('default_code','in',['0107001','1212017','1212022','1212035','0901019','1501008','1907005','1901010','1217002','1217001','0107002'])
-                #('default_code','in',['1301002','1212020'])
             ]
             if obj.type_calcul == 'historique' and obj.uniquement_articles_historique:
                 filtre.append(('is_calcul_besoins_historique', '=', True))
@@ -405,31 +399,19 @@ class is_calcul_des_besoins(models.Model):
                     stock_mini=0
                     if obj.stock_mini==True:
                         stock_mini = product.is_stock_mini
-                        # if obj.warehouse_id.code=="FT":
-                        #     stock_mini = product.is_stock_mini
-                        # else:
-                        #     stock_mini = product.is_stock_mini_lc
                     if obj.calcul_en_colis:
                         stock_mini = product.product_tmpl_id.uom2colis(stock_mini)
                     #***********************************************************
 
                     #** Recherche du stock dans l'Entrepôt ********************
                     stock=0
-                    #stock_lc=0
                     for warehouse in warehouses:
                         location_id =  warehouse.lot_stock_id.id
-                        #stock = 0
                         quants = self.env['stock.quant'].search([('product_id','=',product.id),('location_id','=',location_id)])
                         for quant in quants:
                             stock+=quant.quantity
-                        #if warehouse.code=='LC':
-                        #    stock_lc = stock
-                        #if warehouse.code=='FT':
-                        #    stock_ft = stock
                     if obj.calcul_en_colis:
                         stock    = product.product_tmpl_id.uom2colis(stock)
-                        #stock_lc = product.product_tmpl_id.uom2colis(stock_lc)
-                        #stock_ft = product.product_tmpl_id.uom2colis(stock_ft)
                     #***********************************************************
 
                     #** Calcul de la quantité à commander **********************
@@ -478,7 +460,6 @@ class is_calcul_des_besoins(models.Model):
                             'purchase_qty'       : purchase_qty,
                             'product_qty'        : product_qty,
                             'stock'              : stock,
-                            #'stock_lc'           : stock_lc,
                             'stock_mini'         : stock_mini,
                             'sale_line_ids'      : [(6, 0, sale_lines.ids)],
                             'purchase_line_ids'  : [(6, 0, purchase_lines.ids)],
@@ -521,7 +502,6 @@ class is_calcul_des_besoins(models.Model):
                         if supplierinfo.name.active and supplierinfo.name.is_warehouse_id:
                             if supplierinfo.name.is_heure_envoi_id == obj.is_heure_envoi_id or not obj.is_heure_envoi_id:
                                 partner_id = supplierinfo.name.id
-                                #date_reception = str(obj.date_fin)
                                 date_reception = str(date.today()+timedelta(days=2))
                                 date_planned = date_reception + ' 08:00:00'
                                 filtre = [

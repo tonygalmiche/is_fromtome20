@@ -94,12 +94,6 @@ class is_preparation_transfert_entrepot(models.Model):
             return res
 
 
-
-        # debut2=datetime.now()
-        # select_fournisseur = self._get_select_fournisseur(filtre,gest)   # Liste des fournisseurs
-        # _logger.info("select_fournisseur (durée=%.2fs)"%(datetime.now()-debut2).total_seconds())
-
-
     def actualiser_lignes_action(self):
         debut=datetime.now()
         _logger.info("** DEBUT ************************************************")
@@ -107,11 +101,7 @@ class is_preparation_transfert_entrepot(models.Model):
         warehouses = self.env['stock.warehouse'].search([])
         for obj in self:
             obj.ligne_ids.unlink()
-            filtre=[
-                #('default_code','in',['1101023','2201027'])
-                #('id','=', 1469),
-                #('default_code','in',['0107001','1212017','1212022','1212035','0901019','1501008','1907005','1901010','1217002','1217001','0107002'])
-            ]
+            filtre=[]
             products=self.env['product.product'].search(filtre, order="name")
             nb=len(products)
             ct=1
@@ -266,7 +256,6 @@ class is_preparation_transfert_entrepot(models.Model):
                 'move_ids_without_package': move_ids,
             }
             picking=self.env['stock.picking'].create(vals)
-            #picking.action_confirm()
 
 
     def creer_commandes(self):
@@ -294,63 +283,5 @@ class is_preparation_transfert_entrepot(models.Model):
             location_id      = 20   # LC/Stock
             location_dest_id = 8    # FT/Stock
             obj.creation_picking(domain,partner_id,picking_type_id,location_id,location_dest_id,'solde_ft')
-
-
-
-
-
-
-
-
-
-
-            # order_line=[]
-            # sequence=1
-            # for line in lines:
-            #     vals={
-            #         'sequence'         : sequence,
-            #         'product_id'       : line.product_id.id,
-            #         #'name'             : line.product_id.name,
-            #         'is_colis_cde'     : line.solde_ft,
-            #         #'product_uom_qty'  : line.solde_ft,
-            #         'product_uom'      : line.product_id.uom_po_id.id,
-            #         'is_date_reception': now,
-            #         'price_unit'       : 0,
-            #     }
-            #     order_line.append([0,0,vals])
-            #     sequence+=1
-            # #partner_id = 1    # Fromtome
-            # partner_id = 3396 # Le Cellier
-            # vals={
-            #     'partner_id'       : partner_id,
-            #     'is_date_livraison': now,
-            #     'order_line'       : order_line,
-            # }
-            # order=self.env['sale.order'].create(vals)
-            # for line in order.order_line:
-            #     line.onchange_is_colis_cde()
-
-
-            # order_line=[]
-            # sequence=1
-            # for line in lines:
-            #     vals={
-            #         'sequence'    : sequence,
-            #         'product_id'  : line.product_id.id,
-            #         'name'        : line.product_id.name,
-            #         'product_qty' : line.solde_ft,
-            #         'product_uom' : line.product_id.uom_po_id.id,
-            #         'date_planned': str(now)+' 08:00:00',
-            #         'price_unit'  : 0,
-            #     }
-            #     order_line.append([0,0,vals])
-            #     sequence+=1
-            # partner_id = 1    # Fromtome
-            # #partner_id = 3396 # Le Cellier
-            # vals={
-            #     'partner_id'  : partner_id,
-            #     'order_line'  : order_line,
-            # }
-            # order=self.env['purchase.order'].create(vals)
 
 

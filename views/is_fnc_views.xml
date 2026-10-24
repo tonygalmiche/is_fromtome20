@@ -237,26 +237,4 @@
 
 
 
-    <!-- <record id="is_view_stock_move_line_operation_tree_fnc" model="ir.ui.view">
-        <field name="name">is_view_stock_move_line_operation_tree_fnc</field>
-        <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="b2c_cheese_base.view_stock_move_line_operation_tree_inherit"/>
-        <field name="arch" type="xml">
-            <field name="status_move" position="before">
-                <field name="is_creer_fnc_vsb" invisible="1"/>
-                <button 
-                    string="Créer FNC" 
-                    name="creer_fnc_action" 
-                    type="object" icon="fa-plus" 
-                    attrs="{'invisible': [('is_creer_fnc_vsb', '=', False)]}"
-                />
-                <button 
-                    string="Accès FNC" 
-                    name="acces_fnc_action" 
-                    type="object" icon="fa-search-plus" 
-                    attrs="{'invisible': [('is_creer_fnc_vsb', '=', True)]}"
-                />
-            </field>
-        </field>
-    </record> -->
 </odoo>

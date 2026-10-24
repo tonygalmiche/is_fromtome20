@@ -32,9 +32,6 @@
         <div class="page" position="replace">
             <div class="page">
                 <div class="oe_structure"/>
-                <!-- <h2 t-if="o.state == 'draft'">Request for Quotation #<span t-field="o.name"/></h2>
-                <h2 t-if="o.state in ['sent', 'to approve']">Purchase Order #<span t-field="o.name"/></h2>
-                <h2 t-if="o.state in ['purchase', 'done']">Confirmation du Bon de commande N°<span t-field="o.name"/></h2> -->
                 <h2 t-if="o.is_transporteur and o.state != 'done'">Demande de prix N°<span t-field="o.name"/></h2>
                 <h2 t-elif="o.state != 'cancel'">Confirmation du Bon de commande N°<span t-field="o.name"/></h2>
                 <h2 t-if="o.state == 'cancel'">Cancelled Purchase Order #<span t-field="o.name"/></h2>
@@ -110,8 +107,6 @@
                                 <th class="text-right"><strong>Nb colis commandés</strong></th>
                                 <th class="text-right"><strong>Poids net commandé</strong></th>
                                 <th class="text-right"><strong>Palettes</strong></th>
-                                <!-- <th class="text-right"><strong>Nb colis livrés</strong></th>
-                                <th class="text-right"><strong>Poids net livré</strong></th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -142,14 +137,7 @@
                                 </td>
                                 <td class="text-right">
                                     <span t-field="line.product_qty"/>
-                                </td>
-                                <!-- <td class="text-right">
-                                    <span t-field="picking.is_nb_colis"/>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="picking.is_poids_net"/>
-                                </td> -->
-                              
+                                </td>                              
                             </tr>
                         </tbody>
                     </table>

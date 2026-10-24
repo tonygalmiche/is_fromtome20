@@ -122,99 +122,9 @@ class IsImportLeCellier(models.Model):
                         "is_note_importation": note,
                         "default_code"       : nouvelle_reference,
                         "name"               : designation_interne,
-
-
-                        #"taxes_id"           : [(6, 0, [taxe_vente_id])],
-                        #"supplier_taxes_id"  : [(6, 0, [taxe_achat_id])],
-                        #"type"               : "product",
                     }
-                    # if unite=="Kg":
-                    #     vals["uom_id"]    = uom_id
-                    #     vals["uom_po_id"] = uom_id
-                    # if colisage>0:
-                    #     vals["is_nb_pieces_par_colis"] = colisage
-                    # if poids_colis>0:
-                    #     vals["is_poids_net_colis"] = poids_colis
-                    # if milk_type_ids:
-                    #     vals["milk_type_ids"] = [(6, 0, milk_type_ids)]
-                    # traitements={
-                    #     "Cru":"laitcru",
-                    #     "Pasteurisé":"laitpasteurisé",
-                    #     "Thermisé":"laitthermise",
-                    # }
-                    # if traitement_thermique in traitements:
-                    #     vals["traitement_thermique"] = traitements[traitement_thermique]
-
-
-
                     product.write(vals)
                     ct+=1
                 #**************************************************************
-
-                # #** Tarif fournisseur *****************************************
-                # if partner and product and prix_brut>0:
-                #     product.seller_ids.unlink()
-                #     vals={
-                #         "product_tmpl_id": product.id,
-                #         "name"           : partner.id,
-                #         "product_code"   : ref_fournisseur,
-                #         "prix_brut"      : prix_brut,
-                #         "min_qty"        : 0,
-                #         "date_start"     : "2023-01-01",
-                #         "date_end"       : "2033-01-01",
-                #     }
-                #     supplierinfo = self.env['product.supplierinfo'].create(vals)
-                #     if remise1>0:
-                #         vals={
-                #             "supplier_info_id": supplierinfo.id,
-                #             "name"            : remise1*100,
-                #         }
-                #         self.env['product.supplierdiscount'].create(vals)
-                #     if remise2>0:
-                #         vals={
-                #             "supplier_info_id": supplierinfo.id,
-                #             "name"            : remise2*100,
-                #         }
-                #         self.env['product.supplierdiscount'].create(vals)
-                #     if remise3>0:
-                #         vals={
-                #             "supplier_info_id": supplierinfo.id,
-                #             "name"            : remise3*100,
-                #         }
-                #         self.env['product.supplierdiscount'].create(vals)
-                #     if remise4>0:
-                #         vals={
-                #             "supplier_info_id": supplierinfo.id,
-                #             "name"            : remise4*100,
-                #         }
-                #         self.env['product.supplierdiscount'].create(vals)
-                #     if remise5>0:
-                #         vals={
-                #             "supplier_info_id": supplierinfo.id,
-                #             "name"            : remise5*100,
-                #         }
-                #         self.env['product.supplierdiscount'].create(vals)
-                # #**************************************************************
-
-
-                # #** Liste de prix client **************************************
-                # if pricelist_quai and product and prix_quai>0:
-                #     vals={
-                #         "pricelist_id"   : pricelist_quai.id,
-                #         "applied_on"     : "1_product",
-                #         "product_tmpl_id": product.id,
-                #         "fixed_price"    : prix_quai,
-                #     }
-                #     self.env['product.pricelist.item'].create(vals)
-                # if pricelist_franco and product and prix_franco>0:
-                #     vals={
-                #         "pricelist_id"   : pricelist_franco.id,
-                #         "applied_on"     : "1_product",
-                #         "product_tmpl_id": product.id,
-                #         "fixed_price"    : prix_franco,
-                #     }
-                #     self.env['product.pricelist.item'].create(vals)
-                # #**************************************************************
-
 
                 lig+=1

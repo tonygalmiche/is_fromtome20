@@ -41,32 +41,11 @@ class Company(models.Model):
         for obj in self:
             _logger.info("actualiser_tarif_futur_action : Début")
             self.env['product.template'].search([])._compute_tarifs(update_prix_actuel=False)
-            #self.send_mail('actualiser_tarif_futur_action')
             _logger.info("actualiser_tarif_futur_action : Fin")
 
 
     def appliquer_nouveaux_tarifs_action(self):
         self.env['product.template'].appliquer_nouveaux_tarifs_action()
-        #self.send_mail('appliquer_nouveaux_tarifs_action')
-
-
-    # def actualiser_tarif_action(self):
-    #     for obj in self:
-    #         self.env['product.template'].search([])._compute_tarifs(update_prix_actuel=True)
-    #         self.send_mail('actualiser_tarif_action')
-
-
-
-    # def actualiser_tarif_ft_action(self):
-    #     for obj in self:
-    #         self.env['product.template'].search([])._compute_tarifs(update_prix_actuel=True, pricelist='ft')
-    #         #self.send_mail('actualiser_tarif_action')
-
-
-    # def actualiser_tarif_lf_franco_action(self):
-    #     for obj in self:
-    #         self.env['product.template'].search([])._compute_tarifs(update_prix_actuel=True, pricelist='lf_franco')
-    #         #self.send_mail('actualiser_tarif_action')
 
 
     def send_mail(self,action): 
@@ -158,8 +137,6 @@ class Company(models.Model):
                                 product_ids.append(product)
                                 _logger.info("import_fichier_xlsx : %s/%s : %s : %s"%(lig,nb,default_code,taux_marge))
                     lig+=1
-                    #if lig>50:
-                    #    break
             if alertes:
                 for alerte in alertes:
                     _logger.info("import_fichier_xlsx : Alerte : %s"%alerte)

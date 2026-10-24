@@ -55,7 +55,6 @@ class IsScanPickingLine(models.Model):
                         date_limite = now+timedelta(days=contrat.name)
                         depassement = (date_limite-obj.lot_id.is_dlc_ddm).days
                         if not contrat.partner_id:
-                            #date_limite = obj.lot_id.is_dlc_ddm-timedelta(days=contrat.name)
                             if obj.lot_id.is_dlc_ddm<=date_limite:
                                 if depassement>=0:
                                     alertes.append("Contrat date de %s jours dépassé de %s jours (Date mini DLC=%s)"%(contrat.name, depassement, date_limite.strftime('%d/%m/%Y')))
@@ -109,18 +108,12 @@ class IsScanPickingLine(models.Model):
         for obj in self:
             context = obj._context.copy()
             context['default_product_id'] = obj.product_id.id
-            #context['default_lot']        = obj.lot
-            #context['default_dlc']        = obj.dlc
-            #context['default_dluo']       = obj.dluo
-            #context['default_imprimante_id'] = obj.imprimante_id.id
             action = {
                 'name': "Dupliquer",
                 'view_mode': 'form',
                 'res_model': 'is.imprimer.etiquette.gs1',
-                #'view_id': self.env.ref('account.view_account_bnk_stmt_cashbox_footer').id,
                 'type': 'ir.actions.act_window',
                 'context': context,
-                #'target': 'new'
             }
             return action
 
@@ -147,9 +140,6 @@ class IsScanPicking(models.Model):
 
             if obj.ean and not obj.product_id:
                 alertes.append("Article non trouvé pour ce code ean")
-            #obj.is_alerte = '\n'.join(alertes) or False
-            #if obj.lot and not obj.lot_id:
-            #    alertes.append("Lot non trouvé ou non valide (manque DLC/DDM ou poids)")
             if obj.lot and not obj.lot_id and not obj.dlc_ddm :
                 alertes.append("DLC/DDM non trouvée => Lot non valide")
             if obj.lot and not obj.lot_id and not obj.poids:
@@ -700,45 +690,6 @@ class Picking(models.Model):
             'target': 'new',
             'context': ctx,
         }
-
-
-    # def action_picking_send_direct(self):
-    #     """Envoie directement le mail du BL sans afficher le wizard.
-    #     L'expéditeur est le user_id du partner_id du picking.
-    #     """
-    #     self.ensure_one()
-    #     template = self.env.ref(
-    #         'is_fromtome14.email_template_stock_picking',
-    #         False,
-    #     )
-    #     if not template:
-    #         raise UserError(_("Le modèle de mail 'email_template_stock_picking' n'a pas été trouvé."))
-        
-    #     # Récupérer l'utilisateur lié au partenaire du picking (user_id du partner_id)
-    #     sender_user = self.partner_id.user_id if self.partner_id and self.partner_id.user_id else self.env.user
-        
-    #     # Construire le contexte avec l'utilisateur expéditeur
-    #     ctx = dict(
-    #         self.env.context,
-    #         user_id=sender_user,
-    #     )
-        
-    #     # Envoyer le mail avec le template
-    #     template.with_context(ctx).send_mail(
-    #         self.id,
-    #         force_send=True,
-    #         email_values={
-    #             'email_from': sender_user.email or self.company_id.email or '',
-    #         }
-    #     )
-        
-    #     # Message de confirmation dans le chatter
-    #     self.message_post(body=_("BL envoyé par mail à %s (expéditeur: %s)") % (
-    #         self.partner_id.email or self.partner_id.name,
-    #         sender_user.email or sender_user.name,
-    #     ))
-        
-    #     return True
 
 
     def scan_picking_action(self):

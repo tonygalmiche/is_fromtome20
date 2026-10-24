@@ -5,10 +5,6 @@ from odoo.exceptions import Warning
 import logging
 _logger = logging.getLogger(__name__)
 
-# class L10nFrIntrastatProductDeclarationLine(models.Model):
-#     _inherit = 'l10n.fr.intrastat.product.declaration.line'
-#
-
 class L10nFrIntrastatProductComputationLine(models.Model):
     _inherit = 'l10n.fr.intrastat.product.computation.line'
     weight = fields.Float(
@@ -323,13 +319,11 @@ class L10nFrIntrastatProductDeclaration(models.Model):
                 'header': {
                     'type': 'string',
                     'value': self._('Mass en KG'),
-                    # 'format': self.format_theader_yellow_right,
                 },
                 'line': {
                     'type': 'number',
                     'value': self._render(
                         "line.weight_net"),
-                    # 'format': self.format_tcell_amount_right,
                 },
                 'width': 18,
             },
@@ -339,7 +333,6 @@ class L10nFrIntrastatProductDeclaration(models.Model):
                     'value': self._('Date'),
                 },
                 'line': {
-                    # 'type': 'Date',
                     'value': self._render(
                         "line.date_invoice"),
                 },

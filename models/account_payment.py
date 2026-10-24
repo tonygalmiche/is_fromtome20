@@ -83,13 +83,3 @@ class AccountPaymentTermLine(models.Model):
     ], ondelete={'fin_de_decade': 'set default'})
 
 
-    # option = fields.Selection([
-    #         ('day_after_invoice_date', "days after the invoice date"),
-    #         ('after_invoice_month', "days after the end of the invoice month"),
-    #         ('day_following_month', "of the following month"),
-    #         ('day_current_month', "of the current month"),
-    #     ],
-    #     default='day_after_invoice_date', required=True, string='Options'
-    #     )
-
-

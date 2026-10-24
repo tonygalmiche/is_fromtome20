@@ -127,17 +127,4 @@ class IsSuiviCommandeHebdo(models.Model):
 
 
 
-    # def voir_lignes_action(self):
-    #     for obj in self:
-    #         res= {
-    #             'name': 'Lignes',
-    #             'view_mode': 'tree',
-    #             'view_type': 'form',
-    #             'res_model': 'is.suivi.commande.hebdo.ligne',
-    #             'type': 'ir.actions.act_window',
-    #             'domain': [
-    #                 ('suivi_id','=',obj.id),
-    #             ],
-    #         }
-    #         return res
 

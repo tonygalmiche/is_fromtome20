@@ -66,7 +66,6 @@
             </field>
             <field name="type" position="after">
                 <field name="is_stock_mini"/>
-                <!-- <field name="is_stock_mini_lc"/> -->
             </field>
             <xpath expr="//page/group[@name='purchase']" position="before">
                 <group>
@@ -242,12 +241,6 @@
                     <field name="has_prompt_ia" invisible="1"/>
                     <group col="3">
                         <field name="is_fiche_technique_ids" widget="many2many_binary"/>
-                        <!-- <button
-                            string="Importer cette fiche techinque" 
-                            name="importer_fiche_technique_action" 
-                            type="object" 
-                            attrs="{'invisible': [('is_fiche_technique_ids', '=', [])]}"
-                        /> -->
                         <button
                             string="Analyse IA de la fiche technique" 
                             name="analyse_ia_fiche_technique_action" 
@@ -317,43 +310,14 @@
                         <field name="is_ingredient_import"/>
                         <field name="is_allergene_import"/>
                     </group>
-                    <!-- <group>
-                        <field name="is_ingredient_ids" nolabel="1" >
-                            <tree editable="bottom">
-                                <field name="ordre" widget="handle"/>
-                                <field name="ingredient_id"/>
-                                <field name="allergene"/>
-                            </tree>
-                        </field>
-                    </group> -->
-                    <!-- <group>
-                        <field name="is_ingredient"/>
-                    </group> -->
                     <group string="Germes"/>
                     <group>
                         <field name="is_germe_import"/>
                     </group>
-                    <!-- <field name="is_germe_ids" nolabel="1" >
-                        <tree editable="bottom">
-                            <field name="ordre" widget="handle"/>
-                            <field name="germe_id"/>
-                            <field name="critere"/>
-                        </tree>
-                    </field>
-                    <button string="Recharger les germes" name="recharger_germes_action" type="object" confirm="Cela va remplacer les données ci-dessus"/> -->
                     <group string="Valeurs Nutritionnelles Moyennes pour 100g"/>
                     <group>
                         <field name="is_valeur_nutritionnelle_import"/>
                     </group>
-                    <!-- 
-                    <field name="is_valeur_nutritionnelle_ids" nolabel="1" >
-                        <tree editable="bottom">
-                            <field name="ordre" widget="handle"/>
-                            <field name="valeur_id"/>
-                            <field name="valeur"/>
-                        </tree>
-                    </field>
-                    <button string="Recharger les valeurs" name="recharger_valeurs_action" type="object" confirm="Cela va remplacer les données ci-dessus"/> -->
                 </page>
                 <page string="Analyse IA" attrs="{'invisible': [('is_llm_prompt', '=', False)]}">
                     <group string="Prompt envoyé">
@@ -478,21 +442,6 @@
                 <field name="is_prix_vente_futur_cdf_franco" optional="show"/>
                 <field name="is_prix_vente_futur_marge_cdf_franco" optional="show"/>
 
-                <!-- <field name="is_prix_vente_actuel_lf" optional="show"/>
-                <field name="is_prix_vente_actuel_marge_lf" optional="show"/>
-                <field name="is_prix_vente_futur_lf" optional="show"/>
-                <field name="is_prix_vente_futur_marge_lf" optional="show"/>
-
-                <field name="is_prix_vente_actuel_lf_coll" optional="show"/>
-                <field name="is_prix_vente_actuel_marge_lf_coll" optional="show"/>
-                <field name="is_prix_vente_futur_lf_coll" optional="show"/>
-                <field name="is_prix_vente_futur_marge_lf_coll" optional="show"/>
-
-                <field name="is_prix_vente_actuel_lf_franco" optional="show"/>
-                <field name="is_prix_vente_actuel_marge_lf_franco" optional="show"/>
-                <field name="is_prix_vente_futur_lf_franco" optional="show"/>
-                <field name="is_prix_vente_futur_marge_lf_franco" optional="show"/> -->
-
                 <field name="is_prix_vente_actuel_ft" optional="show"/>
                 <field name="is_prix_vente_actuel_marge_ft" optional="show"/>
                 <field name="is_prix_vente_futur_ft" optional="show"/>
@@ -541,23 +490,6 @@
                 <field name="is_prix_vente_actuel_marge_cdf_franco" optional="show" class="prix_vente_force"/>
                 <field name="is_prix_vente_futur_cdf_franco"        optional="show" class="prix_vente_futur"/>
                 <field name="is_prix_vente_futur_marge_cdf_franco"  optional="show" class="prix_vente_futur_force"/>
-
-                <!-- 
-                <field name="is_prix_vente_actuel_lf"               optional="show" class="fond_gris prix_vente_actuel"/>
-                <field name="is_prix_vente_actuel_marge_lf"         optional="show" class="fond_gris prix_vente_force"/>
-                <field name="is_prix_vente_futur_lf"                optional="show" class="fond_gris prix_vente_futur"/>
-                <field name="is_prix_vente_futur_marge_lf"          optional="show" class="fond_gris prix_vente_futur_force"/>
-
-                <field name="is_prix_vente_actuel_lf_coll"          optional="show" class="prix_vente_actuel"/>
-                <field name="is_prix_vente_actuel_marge_lf_coll"    optional="show" class="prix_vente_force"/>
-                <field name="is_prix_vente_futur_lf_coll"           optional="show" class="prix_vente_futur"/>
-                <field name="is_prix_vente_futur_marge_lf_coll"     optional="show" class="prix_vente_futur_force"/>
-
-                <field name="is_prix_vente_actuel_lf_franco"          optional="show" class="prix_vente_actuel"/>
-                <field name="is_prix_vente_actuel_marge_lf_franco"    optional="show" class="prix_vente_force"/>
-                <field name="is_prix_vente_futur_lf_franco"           optional="show" class="prix_vente_futur"/>
-                <field name="is_prix_vente_futur_marge_lf_franco"     optional="show" class="prix_vente_futur_force"/> 
-                -->
 
                 <field name="is_prix_vente_actuel_ft"               optional="show" class="fond_gris prix_vente_actuel"/>
                 <field name="is_prix_vente_actuel_marge_ft"         optional="show" class="fond_gris prix_vente_force"/>

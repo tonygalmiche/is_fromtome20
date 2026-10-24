@@ -83,7 +83,6 @@ class IsPromoFournisseur(models.Model):
         now = datetime.now().date()
         for obj in self:
             if now>=obj.date_debut_promo and now<=obj.date_fin_promo:
-                #obj.desactiver_promo_action()
                 for l in obj.ligne_ids:
                     seller = l.product_id._select_seller(
                         partner_id=obj.partner_id,

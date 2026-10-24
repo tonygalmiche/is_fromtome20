@@ -116,7 +116,6 @@ class PricelistItem(models.Model):
             obj.is_taux_marge = taux
             obj.is_alerte = alerte
 
-    #is_archive    = fields.Boolean("Article archivé"       , compute=is_archive)
     is_prix_achat = fields.Float(string="Prix d'achat"     , compute=_compute_is_alerte, digits=(14,4),)
     is_taux_marge = fields.Float(string="Taux de marge (%)", compute=_compute_is_alerte, digits=(14,1),)
     is_alerte     = fields.Text("Alerte"                   , compute=_compute_is_alerte) # help="Alerte si le taux de marge est inférieur à 5%"

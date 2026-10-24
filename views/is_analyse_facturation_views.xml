@@ -380,9 +380,7 @@
         <field name="model">is.analyse.facturation</field>
         <field name="arch" type="xml">
             <graph type="bar" orientation="vertical" stacked="False">
-                <field name="invoice_date" type="row" interval="month"/>
-                <!-- <field name="move_type" type="row"/> -->
-                <field name="price_subtotal" type="measure"/>
+                <field name="invoice_date" type="row" interval="month"/>                <field name="price_subtotal" type="measure"/>
             </graph>
         </field>
     </record>

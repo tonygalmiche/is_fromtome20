@@ -223,11 +223,6 @@ class SaleOrderLine(models.Model):
             # one; the `write` will raise an `UserError` anyway.
             if self.product_uom_qty < self.qty_delivered:
                 return {}
-            #warning_mess = {
-            #    'title': _('Ordered quantity decreased!'),
-            #    'message' : _('You are decreasing the ordered quantity! Do not forget to manually update the delivery order if needed.'),
-            #}
-            #return {'warning': warning_mess}
         if self.product_packaging:
             return self._check_package()
         return {}
@@ -264,23 +259,6 @@ class SaleOrderLine(models.Model):
     @api.onchange('product_id','is_livraison_directe')
     def onchange_product_id_for_date_reception(self):
         self.is_date_reception = datetime.date.today()+datetime.timedelta(days=2)
-
-        #TODO : Désactivé le 08/08/2023 car cela pose problème pour Le Cellier
-        # if self.is_livraison_directe:
-        #     if self.order_id.is_date_livraison:
-        #         self.is_date_reception = self.order_id.is_date_livraison
-        # else:
-        #     partner = self.get_fournisseur_par_defaut()
-        #     if partner and partner.is_date_reception:
-        #         self.is_date_reception = partner.is_date_reception
-
-
-    # @api.onchange('is_date_reception')
-    # def onchange_is_date_reception(self):
-    #     if self.is_date_reception:
-    #         partner = self.get_fournisseur_par_defaut()
-    #         if partner:
-    #             partner.write({'is_date_reception': self.is_date_reception})
 
 
     def acceder_commande_fournisseur(self):
@@ -494,12 +472,6 @@ class SaleOrder(models.Model):
         warehouse_id=self.partner_id.is_warehouse_id.id or self.partner_id.is_enseigne_id.warehouse_id
         self.warehouse_id = warehouse_id
 
-        # if self.partner_id and self.partner_id.is_warehouse_id:
-        #     self.warehouse_id = self.partner_id.is_warehouse_id.id
-        # else:
-        #     if self.partner_id and self.partner_id.is_enseigne_id and self.partner_id.is_enseigne_id.warehouse_id:
-        #         self.warehouse_id = self.partner_id.is_enseigne_id.warehouse_id.id
- 
 
     @api.depends('order_line')
     def _compute_is_creer_commande_fournisseur_vsb(self):
@@ -639,28 +611,6 @@ class SaleOrder(models.Model):
             # grâce aux dépendances @api.depends
 
 
-    # def _get_invoice_status(self):
-    #     """
-    #     Surcharge pour permettre le forçage manuel de l'état de facturation
-    #     via commande_entierement_facturee_action_server
-    #     """
-    #     # Vérifier si toutes les lignes sont forcées en "invoiced"
-    #     for order in self:
-    #         all_lines_forced_invoiced = True
-    #         for line in order.order_line:
-    #             if not line.display_type and line.invoice_status != 'invoiced':
-    #                 all_lines_forced_invoiced = False
-    #                 break
-            
-    #         # Si toutes les lignes sont forcées en "invoiced", garder cet état
-    #         if all_lines_forced_invoiced and order.state in ('sale', 'done'):
-    #             order.invoice_status = 'invoiced'
-    #             continue
-        
-    #     # Sinon, utiliser la logique standard d'Odoo
-    #     super()._get_invoice_status()
-
-
     def initialisation_etat_facturee_action_server(self):
         for obj in self:
             for line in obj.order_line:
@@ -791,7 +741,6 @@ class SaleOrder(models.Model):
 
     def import_fichier_xlsx(self):
         for obj in self:
-            #obj.order_line.unlink()
             alertes=[]
             for attachment in obj.is_import_excel_ids:
                 xlsxfile=base64.b64decode(attachment.datas)
@@ -953,7 +902,6 @@ class SaleOrder(models.Model):
         for key in dict:
             first_order=False
             orders = dict[key]
-            #orders.sort() #Cela permet de conserver la première commande et d'annuler les autres
             for order_id in orders:
                 order = self.env['sale.order'].browse(order_id)
                 if not first_order:

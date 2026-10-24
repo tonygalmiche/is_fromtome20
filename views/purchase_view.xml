@@ -117,9 +117,7 @@
             </xpath>
 
              <xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position='after'>
-                <field name="is_alerte" optional="hide"/>
-                <!-- <field name="is_sale_order_line_id" optional="hide"/> -->
-            </xpath>
+                <field name="is_alerte" optional="hide"/>            </xpath>
              <xpath expr="//field[@name='order_line']//tree//field[@name='name']" position='after'>
                 <field name="is_default_code"    optional="show"/>
                 <field name="is_ref_fournisseur" optional="show"/>

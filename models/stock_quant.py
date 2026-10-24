@@ -48,8 +48,7 @@ class StockQuant(models.Model):
 
                 msg="La quantité de %s débloquée ne peut pas être supérieure à la quantité en stock (lot_id=%s)."%(product_id.display_name,lot_id.id)
                 _logger.info(msg)
-                #Tony le 03/11/2023 : J'ai supprimé ce verrou car il bloquait les livraisons
-                #raise UserError(msg)
+                #Tony le 03/11/2023 : J'ai supprimé ce verrou (raise UserError) car il bloquait les livraisons
 
         else:
             return reserved_quants

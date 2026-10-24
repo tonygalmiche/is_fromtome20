@@ -324,7 +324,6 @@ class IsExportCompta(models.Model):
                 r=base64.b64encode(r)
                 vals = {
                     'name':        name,
-                    #'datas_fname': name,
                     'type':        'binary',
                     'res_model':   model,
                     'res_id':      obj.id,

@@ -11,29 +11,13 @@ class is_stock_production_lot_contrat(models.Model):
     _auto = False
 
 
-    # @api.depends('product_id')
-    # def _compute_date_limite(self):
-    #     for obj in self:
-    #         date_limite=False
-    #         if obj.use_date:
-    #             date_limite=obj.use_date
-    #         if obj.life_date:
-    #             date_limite=obj.life_date
-    #         if date_limite:
-    #             date_limite-=timedelta(days=obj.contrat_id.name)
-    #         obj.date_limite=date_limite
-
-
-    company_id      = fields.Many2one('res.company', 'Société')
+    company_id     = fields.Many2one('res.company', 'Société')
     product_id      = fields.Many2one('product.product', "Article")
     product_tmpl_id = fields.Many2one('product.template', "Modèle d'article")
     lot_id          = fields.Many2one('stock.production.lot', 'Lot')
     product_uom_id  = fields.Many2one('uom.uom', 'Unité')
-    #life_date       = fields.Datetime("Date limite de consommation")
-    #use_date        = fields.Datetime("Date limite d'utilisation optimale")
     partner_id      = fields.Many2one('res.partner', 'Client')
     contrat_id      = fields.Many2one('contrat.date.client', 'Contrat date')
-    #date_limite     = fields.Datetime("Date limite contrat", compute=_compute_date_limite, store=False)
     product_qty     = fields.Float('Quantité', related='lot_id.product_qty')
 
 

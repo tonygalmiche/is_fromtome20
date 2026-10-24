@@ -436,8 +436,6 @@
         </field>
     </record>
 
-    <!-- <field name="duration" widget="float_time" readonly="1"/> -->
-
 
 
 

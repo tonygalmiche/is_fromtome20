@@ -18,9 +18,7 @@
                         <field name="colisage"/>
                         <field name="unite"/>
                         <field name="stock_mini"/>
-                        <field name="stock"/>
-                        <!-- <field name="stock_lc"/> -->
-                        <field name="sale_qty"/>
+                        <field name="stock"/>                        <field name="sale_qty"/>
                         <field name="purchase_qty"/>
                         <field name="product_qty"/>
                          <field name="order_line_id"/>
@@ -62,17 +60,6 @@
                 <field name="unite"/>
                 <field name="stock_mini"          optional="show"/>
                 <field name="stock"               optional="show" sum="Total"/>
-                <!-- 
-                <field name="colis_s1"            optional="hide" string="Colis S-1" sum="Total"/>
-                <field name="colis_s2"            optional="hide" string="Colis S-2" sum="Total"/>
-                <field name="colis_s3"            optional="hide" string="Colis S-3" sum="Total"/>
-                <field name="colis_s4"            optional="hide" string="Colis S-4" sum="Total"/>
-                <field name="colis_s1_n1"         optional="hide" string="Colis S-1 (N-1)" sum="Total"/>
-                <field name="colis_s2_n1"         optional="hide" string="Colis S-2 (N-1)" sum="Total"/>
-                <field name="colis_s3_n1"         optional="hide" string="Colis S-3 (N-1)" sum="Total"/>
-                <field name="colis_s4_n1"         optional="hide" string="Colis S-4 (N-1)" sum="Total"/>
-                <field name="moyenne_8_semaines"  optional="hide" sum="Total"/> 
-                -->
                 <field name="colis_s1_nouveau_client" optional="hide" sum="Total"/>
                 <field name="sale_qty"            optional="show" sum="Total"/>
                 <button name="action_view_sale_lines" type="object" icon="fa-shopping-cart" title="Commandes clients" attrs="{'invisible': [('sale_qty', '=', 0)]}"/>
@@ -294,9 +281,7 @@
                 <field name="name"/>
                 <field name="type_calcul"/>
                 <field name="enseigne_id"/>
-                <field name="warehouse_id"/>
-                <!-- <field name="order_id"/> -->
-           </search>
+                <field name="warehouse_id"/>           </search>
         </field>
     </record>
     <record  id="is_calcul_des_besoins_action" model="ir.actions.act_window">

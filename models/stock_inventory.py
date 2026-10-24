@@ -15,28 +15,6 @@ class StockInventory(models.Model):
     partner_id = fields.Many2one('res.partner', 'Partenaire', compute=_compute_partner_id)
 
 
-
-
-
-    # def valorisation_stock_action(self):
-    #     for obj in self:
-    #         dummy, tree_view_id = self.env['ir.model.data'].get_object_reference('is_fromtome14', 'is_stock_inventory_line_tree')
-    #         dummy, form_view_id = self.env['ir.model.data'].get_object_reference('is_fromtome14', 'is_stock_inventory_line_form')
-#             res = {
-#                 'name': 'Stock valorisé '+obj.name,
-#                 'view_mode': 'tree,form',
-#                 'view_type': 'form',
-# #                'views': [[tree_view_id, "tree"], [form_view_id, "form"]],
-#                 'res_model': 'stock.inventory.line',
-#                 # 'domain': [
-#                 #      ('inventory_id','=',obj.id)
-#                 # ],
-#                 'type': 'ir.actions.act_window',
-#                 #'limit':1000,
-#             }
-#             return res
-
-
     def valorisation_stock_action(self):
         dummy, tree_view_id = self.env['ir.model.data'].get_object_reference('is_fromtome14', 'is_stock_inventory_line_tree')
         dummy, form_view_id = self.env['ir.model.data'].get_object_reference('is_fromtome14', 'is_stock_inventory_line_form')
@@ -45,8 +23,6 @@ class StockInventory(models.Model):
             'view_mode': 'tree',
             'name': _('Inventory Lines'),
             'res_model': 'stock.inventory.line',
-            #'views': [[tree_view_id, "tree"], [form_view_id, "form"]],
-            #'view_id' : self.env.ref('stock.stock_inventory_line_tree').id,
             'view_id' : self.env.ref('is_fromtome14.is_stock_inventory_line_tree').id,
         }
         context = {
@@ -136,24 +112,3 @@ class StockInventoryLine(models.Model):
     is_dernier_prix    = fields.Float("Dernier prix facturé"       , compute=compute_is_dernier_prix, store=False)
     is_stock_valorise  = fields.Float("Stock valorisé"             , compute=compute_is_dernier_prix, store=False)
     is_uom_facture_id  = fields.Many2one('uom.uom', 'Unité facture', compute=compute_is_dernier_prix, store=False)
-
-
-
-
-#TODO : A revoir
-
-
-# class InventoryLine(models.Model):
-#     _inherit = "stock.inventory.line"
-#     _order = ""
-
-#     life_use_date = fields.Datetime('DLC / DDM')
-
-
-#     @api.onchange('prod_lot_id')
-#     def onchage_life_use_date_lot(self):
-#         if self.prod_lot_id and not self.life_use_date:
-#             if self.prod_lot_id.use_date:
-#                 self.life_use_date = self.prod_lot_id.use_date
-#             elif self.prod_lot_id.life_date:
-#                 self.life_use_date = self.prod_lot_id.life_date

@@ -149,9 +149,7 @@
                         <field name="date_done"/>
                         <field name="picking_id"/>
                         <field name="picking_type_id"/>
-                        <field name="partner_id"/>
-                        <!-- <field name="is_enseigne_id"/> -->
-                        <field name="enseigne"/>
+                        <field name="partner_id"/>                        <field name="enseigne"/>
                         <field name="product_id"/>
                         <field name="product_tmpl_id"/>
                         <field name="move_id"/>
@@ -191,9 +189,7 @@
                 <field name="date_done"              optional="show"/>
                 <field name="picking_id"             optional="show"/>
                 <field name="picking_type_id"        optional="hide"/>
-                <field name="partner_id"             optional="show"/>
-                <!-- <field name="is_enseigne_id"         optional="show"/> -->
-                <field name="enseigne"               optional="show"/>
+                <field name="partner_id"             optional="show"/>                <field name="enseigne"               optional="show"/>
                 <field name="product_id" />
                 <field name="lot_id"                 optional="show"/>
                 <field name="is_type_tracabilite"    optional="hide"/>
@@ -265,13 +261,6 @@
         <field name="view_mode">tree,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
-    <!-- <menuitem
-        id="is_stock_move_line_valorise_menu"
-        name="Lignes des mouvements valorisés"
-        parent="stock.menu_stock_inventory_control"
-        sequence="909"
-        action="is_stock_move_line_valorise_action"
-    /> -->
 
     <menuitem
         id="is_stock_move_line_valorise_menu"

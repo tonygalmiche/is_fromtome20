@@ -256,7 +256,6 @@ class IsRelanceFacture(models.Model):
             "model"         : "account.move",
             "subject"       : subject,
             "body"          : body,
-            #"partner_ids"   : [invoice.partner_id.id],
             "partner_ids"   : [destinataire.id],
             "attachment_ids": attachment_ids,
         }

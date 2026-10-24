@@ -36,24 +36,6 @@
             </field>
         </field>
     </record>
-    <!-- <record id="is_stock_move_line_edit" model="ir.ui.view">
-        <field name="name">is_stock_move_line_edit</field>
-        <field name="model">stock.move.line</field>
-        <field name="arch" type="xml">
-            <tree editable="top">
-                <field name="product_id"             readonly="1"/>
-                <field name="lot_id"                 readonly="1"/>
-                <field name="is_type_tracabilite"    readonly="1"/>
-                <field name="is_dlc_ddm"             readonly="1"/>
-                <field name="qty_done"               readonly="1"/>
-                <field name="product_uom_id"         readonly="1"/>
-                <field name="is_nb_pieces_par_colis" readonly="1"/>
-                <field name="is_poids_net_estime"    readonly="1"/>
-                <field name="is_poids_net_reel"/>
-                <field name="company_id"             invisible="1"/>
-            </tree>
-        </field>
-    </record> -->
 
 
     <record id="is_stock_move_line_edit" model="ir.ui.view">
@@ -105,9 +87,7 @@
                                 type="object" string="Mettre ce code EAN sur l'article sélectionné"
                                 class="oe_inline btn btn-sm btn-secondary"
                                 attrs="{'invisible': [('maj_code_ean_article_vsb', '=', False)]}"
-                            />
-                            <!-- <field name="lot" readonly="1"/> -->
-                            <field name="ajouter"/>
+                            />                            <field name="ajouter"/>
 
                             <label for="picking_id"/>
                             <div class="o_row no-gutters d-flex">
@@ -423,17 +403,6 @@ else:
             <button name="action_assign" position="attributes">
                 <attribute name="invisible">1</attribute>
             </button>
-            <!-- Remplacement du bouton Print standard par Envoyer par mail -->
-            <!-- <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="replace">
-                <button 
-                    name="action_picking_send_direct" 
-                    string="Envoyer par mail 2" 
-                    type="object" 
-                    attrs="{'invisible': [('state', '!=', 'done')]}" 
-                    groups="base.group_user"
-                    confirm="Voulez-vous envoyer le BL par mail au client ?"
-                />
-            </xpath> -->
             <page name="operations" position="attributes">
                 <attribute name="autofocus">autofocus</attribute>
             </page>
@@ -618,9 +587,7 @@ else:
                 <field name="user_id"            optional="hide"/>
                 <field name="date_done"/>
                 <field name="is_date_reception" widget="remaining_days" optional="show"/>
-                <field name="is_date_livraison" widget="remaining_days" optional="show"/>
-                <!-- <field name="scheduled_date"/> -->
-            </field>
+                <field name="is_date_livraison" widget="remaining_days" optional="show"/>            </field>
             <field name="scheduled_date" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
@@ -731,9 +698,7 @@ else:
                 <field name="date_done"          optional="show"/>
                 <field name="partner_id"         optional="show" widget="many2one_clickable"/>
                 <field name="sale_id"            optional="show" widget="many2one_clickable"/>
-                <field name="name"               optional="show"/>
-                <!-- <field name="is_transporteur_id" optional="hide" widget="many2one_clickable"/> -->
-                <field name="is_transporteur_par_ordre" optional="show"/>
+                <field name="name"               optional="show"/>                <field name="is_transporteur_par_ordre" optional="show"/>
                 <field name="is_nb_colis"        optional="show" sum="Total"/>
                 <field name="is_poids_net"       optional="show" sum="Total"/>
                 <field name="is_palette_europe"  optional="show" sum="Total"/>

@@ -65,14 +65,6 @@ class IsPromoClient(models.Model):
             lines = self.env['is.promo.fournisseur'].search(filtre, order="date_debut_promo")
             for promo in lines:
                     for ligne in promo.ligne_ids:
-                        # Méthode utilisée dans is.listing.prix.client
-                        # items = self.env['product.pricelist.item'].search([
-                        #        ('pricelist_id','=',obj.pricelist_id.id),('product_tmpl_id','=',ligne.product_id.product_tmpl_id.id)
-                        #    ], order="date_start desc", limit=1)
-                        # prix_non_remise=0
-                        # for item in items:
-                        #    #price       = item.price
-                        #    prix_non_remise = item.fixed_price
                         # Méthode standard d'Odoo
 
                         if ligne.redistribue_client:

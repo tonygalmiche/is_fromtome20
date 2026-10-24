@@ -165,7 +165,6 @@ class StockMove(models.Model):
         for obj in self:
             filtre=[
                 ('product_tmpl_id', '=', obj.product_id.product_tmpl_id.id),
-                #('name'           , '=', obj.order_id.partner_id.id),
             ]
             ref=False
             suppliers=self.env['product.supplierinfo'].search(filtre,limit=1)

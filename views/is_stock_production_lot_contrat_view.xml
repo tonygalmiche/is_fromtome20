@@ -13,10 +13,7 @@
                         <field name="lot_id"/>
                         <field name="product_qty"/>
                         <field name="product_uom_id"/>
-                        <!-- <field name="life_date"/> -->
-                        <!-- <field name="use_date"/> -->
                         <field name="contrat_id"/>
-                        <!-- <field name="date_limite"/> -->
                     </group>
                 </sheet>
             </form>
@@ -26,20 +23,13 @@
         <field name="name">is.stock.production.lot.contrat.tree</field>
         <field name="model">is.stock.production.lot.contrat</field>
         <field name="arch" type="xml">
-            <!-- <tree 
-                string="Lots avec contrat client" 
-                decoration-danger="date_limite and date_limite &lt; current_date" 
-            > -->
             <tree>
                 <field name="partner_id"/>
                 <field name="product_id"/>
                 <field name="lot_id"/>
                 <field name="product_qty" sum="Total"/>
                 <field name="product_uom_id"/>
-                <!-- <field name="life_date"/> -->
-                <!-- <field name="use_date"/> -->
                 <field name="contrat_id"/>
-                <!-- <field name="date_limite"/> -->
             </tree>
         </field>
     </record>

@@ -28,17 +28,5 @@
 
 
 
-        <!--
-        <record id="is_email_compose_message_wizard_form" model="ir.ui.view">
-            <field name="name">is_email_compose_message_wizard_form</field>
-            <field name="model">mail.compose.message</field>
-            <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
-            <field name="arch" type="xml">
-                <field name="subject" position="before">
-                        <field name="is_partner_copie_ids" widget="many2many_tags"/>
-                </field>
-            </field>
-        </record>
-        -->
     </data>
 </odoo>

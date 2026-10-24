@@ -17,10 +17,6 @@
                             &nbsp;
                             ]]>
                             <span t-field="res_company.city"/> - <span t-field="res_company.country_id"/>
-                            <!-- <div t-if="res_company.is_gln">
-                                GLN:<span t-field="res_company.is_gln"/>
-                            </div> -->
-
                            <div t-if="o.enseigne_id">
                                 Tél: <span t-esc="o.enseigne_id.name.mobile or o.enseigne_id.name.phone"/>
                             </div>

@@ -78,7 +78,6 @@ class IsCommandeFromtome(models.Model):
             now = date.today()
             filtre=[
                 ('sale_ok','=',True),
-                #('default_code','in',['0107001','1212017','1212022','1212035','0901019','1501008','1907005','1901010','1217002','1217001','0107002'])
             ]
             products = self.env['product.product'].search(filtre,order='name')
             sequence=1
@@ -183,20 +182,6 @@ class IsCommandeFromtome(models.Model):
                     if product_qty<0:
                         product_qty=0
                     #***********************************************************
-
-
-                    # # ** Arrondi au colis supérieur ***************************
-                    # if product_qty>0:
-                    #     nb        = product.is_nb_pieces_par_colis
-                    #     poids_net = product.is_poids_net_colis
-                    #     unite     = product.uom_id.category_id.name
-                    #     if unite=="Poids":
-                    #         if poids_net>0:
-                    #             product_qty = poids_net * ceil(product_qty / poids_net)
-                    #     else:
-                    #         if nb>0:
-                    #             product_qty = nb * (product_qty / nb)
-                    # # *********************************************************
 
 
                     #** Création des lignes de la commande **********************

@@ -57,12 +57,6 @@ class is_stock_move_line(models.Model):
     state           = fields.Selection(string='Etat picking', selection=_STATE_PICKING)
 
 
-# psycopg2.errors.UndefinedColumn: ERREUR:  la colonne l.is_nb_pieces_par_colis n'existe pas
-# LIGNE 38 :                     l.is_nb_pieces_par_colis,
-#                                ^
-# ASTUCE : Peut-être que vous souhaitiez référencer la colonne « pt.is_nb_pieces_par_colis ».
-
-
 
     def init(self):
         drop_view_if_exists(self.env.cr, self._table)
@@ -213,7 +207,6 @@ class is_stock_move_line_valorise_update(models.TransientModel):
                 "date_done"             : row["date_done"],
                 "picking_type_id"       : row["picking_type_id"],
                 "partner_id"            : row["partner_id"],
-                #"is_enseigne_id"        : row["is_enseigne_id"],
                 "product_id"            : row["product_id"],
                 "product_tmpl_id"       : row["product_tmpl_id"],
                 "move_id"               : row["move_id"],
@@ -258,7 +251,6 @@ class is_stock_move_line_valorise(models.Model):
     _name='is.stock.move.line.valorise'
     _description='is.stock.move.line.valorise'
     _order='date_done desc, picking_id'
-    #_auto = False
 
 
     @api.depends('prix_achat','prix_vente','marge')
@@ -284,8 +276,7 @@ class is_stock_move_line_valorise(models.Model):
     date_done       = fields.Date('Date livraison')
     picking_type_id = fields.Many2one('stock.picking.type', 'Type')
     partner_id      = fields.Many2one('res.partner', 'Partenaire')
-    #is_enseigne_id  = fields.Many2one('is.enseigne.commerciale', 'Enseigne', help="Enseigne commerciale")
-    enseigne        = fields.Char('Enseigne', compute='_compute', readonly=True, store=True, help="Enseigne commerciale")
+    enseigne       = fields.Char('Enseigne', compute='_compute', readonly=True, store=True, help="Enseigne commerciale")
     product_id      = fields.Many2one('product.product', "Article")
     product_tmpl_id = fields.Many2one('product.template', "Modèle d'article")
     move_id         = fields.Many2one('stock.move', 'Mouvement de stock')
@@ -310,71 +301,3 @@ class is_stock_move_line_valorise(models.Model):
     montant_vente   = fields.Float(string='Montant vente', digits=(14,2))
     marge           = fields.Float(string='Marge', digits=(14,2))
     alerte          = fields.Text(string='Alerte', compute='_compute', readonly=True, store=True)
-
-
-
-
-
-
-    # def init(self):
-    #     drop_view_if_exists(self.env.cr, self._table)
-
-    #     self.env.cr.execute("""
-
-    #         CREATE OR REPLACE FUNCTION get_prix_achat(productid integer, lotid integer) RETURNS float AS $$
-    #         BEGIN
-    #             RETURN (
-    #                 select pol.price_unit
-    #                 from purchase_order_line pol join stock_move sm on sm.purchase_line_id=pol.id
-    #                                              join stock_move_line sml on sml.move_id=sm.id
-    #                 where pol.product_id=productid and sml.lot_id=lotid
-    #                 order by pol.id desc limit 1
-    #             );
-    #         END;
-    #         $$ LANGUAGE plpgsql;
-
-
-
-    #         CREATE OR REPLACE view is_stock_move_line_valorise AS (
-    #             select 
-    #                 l.id,
-    #                 pt.company_id,
-    #                 m.picking_id,
-    #                 p.date_done::TIMESTAMP::DATE,
-    #                 p.picking_type_id,
-    #                 p.partner_id,
-    #                 rp.is_enseigne_id,
-    #                 m.product_id,
-    #                 pp.product_tmpl_id,
-    #                 l.move_id,
-    #                 l.id move_line_id,
-    #                 l.lot_id,
-    #                 pt.is_type_tracabilite,
-    #                 spl.is_dlc_ddm,
-    #                 l.product_uom_id,
-    #                 l.product_uom_qty,
-    #                 l.qty_done,
-    #                 l.status_move,
-    #                 l.create_date,
-    #                 l.write_date,
-    #                 l.is_nb_pieces_par_colis,
-    #                 l.is_nb_colis,
-    #                 l.is_poids_net_estime,
-    #                 l.is_poids_net_reel,
-    #                 p.state,
-    #                 COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat) prix_achat,
-    #                 sol.price_unit prix_vente,
-    #                 COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat)*l.qty_done montant_achat,
-    #                 sol.price_unit*l.qty_done montant_vente,
-    #                 (sol.price_unit*l.qty_done-COALESCE(get_prix_achat(m.product_id,l.lot_id),sol.is_correction_prix_achat)*l.qty_done) marge
-    #             from stock_move_line l join stock_move m on l.move_id=m.id
-    #                                    join stock_picking p on m.picking_id=p.id
-    #                                    join product_product pp on m.product_id=pp.id 
-    #                                    join product_template pt on pp.product_tmpl_id=pt.id
-    #                                    join stock_production_lot spl on l.lot_id=spl.id
-    #                                    join sale_order so on p.sale_id=so.id
-    #                                    join sale_order_line sol on m.sale_line_id=sol.id
-    #                                    join res_partner rp on p.partner_id=rp.id
-    #             where p.state='done'
-    #         )
-    #     """)

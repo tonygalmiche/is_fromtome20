@@ -136,15 +136,6 @@ class IsListingPrixClient(models.Model):
                     for p in products:
                         ct+=1
 
-                        # #** Recherche du prix (ancienne méthode) **************
-                        # items = self.env['product.pricelist.item'].search([
-                        #         ('pricelist_id','=',obj.pricelist_id.id),('product_tmpl_id','=',p.product_tmpl_id.id)
-                        #     ], order="date_start desc", limit=1)
-                        # price=False
-                        # for item in items:
-                        #     price=item.price
-                        # #******************************************************
-
                         #** Recherche du prix (du 15/02/26) *******************
                         price=False
                         if obj.afficher_prix:
@@ -189,8 +180,6 @@ class IsListingPrixClient(models.Model):
                         else:
                             html+='<div class="prix"/>'
                         html+='<div style="line-height:2.1">'
-                        #for l in p.milk_type_ids:
-                        #    html+='<span class="tag">'+l.name+'</span> '
                         traitement=''
                         if p.traitement_thermique:
                             traitement = dict(self.env['product.product'].fields_get(allfields=['traitement_thermique'])['traitement_thermique']['selection'])[p.traitement_thermique]

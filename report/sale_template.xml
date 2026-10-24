@@ -57,14 +57,10 @@
                         <th name="th_quantity"  class="text-right">Qté Prépa</th>
                         <th name="th_unit"      class="text-left">Unit</th>
                         <th name="th_colisage"  class="text-center">Colis Cde</th>
-                        <th name="th_colisage"  class="text-center">Colis Prépa</th>
-                        <!-- <th name="th_poids_net" class="text-center">Poids net</th> -->
-                        <th name="th_priceunit" class="text-right">Unit Price</th>
+                        <th name="th_colisage"  class="text-center">Colis Prépa</th>                        <th name="th_priceunit" class="text-right">Unit Price</th>
                         <th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                             <span>Disc.%</span>
-                        </th>
-                        <!-- <th name="th_taxes" class="text-right">Taxes</th> -->
-                        <th name="th_subtotal" class="text-right">
+                        </th>                        <th name="th_subtotal" class="text-right">
                             <span>Montant HT</span>
                         </th>
                     </tr>
@@ -96,18 +92,12 @@
                                 <td class="text-center" style="background-color:#e6e6e6">
                                     <t t-if="line.is_ecart_qt_cde_prepa"><span class="red_bold" t-field="line.is_colis_cde"/></t>
                                     <t t-if="not line.is_ecart_qt_cde_prepa"><span t-field="line.is_colis_cde"/></t>
-                                </td>
-                                <!-- <td class="text-right"><span t-field="line.is_poids_net"/></td> -->
-                                <td name="td_priceunit" class="text-right">
+                                </td>                                <td name="td_priceunit" class="text-right">
                                     <span t-field="line.price_unit"/>
                                 </td>
                                 <td t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
                                     <span t-field="line.discount"/>
-                                </td>
-                                <!-- <td name="td_taxes" class="text-right">
-                                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
-                                </td> -->
-                                <td name="td_subtotal" class="text-right o_price_total">
+                                </td>                                <td name="td_subtotal" class="text-right o_price_total">
                                     <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                                     <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
                                 </td>

@@ -35,16 +35,6 @@
                             <br/>
                             <span t-field="res_company.partner_id.zip"/> <span t-field="res_company.partner_id.city"/> - 
                             <span t-field="res_company.country_id"/>
-
-
-
-                            <!-- <span t-field="o.partner_id.is_enseigne_id.name.street"/>
-                            <t t-if="o.partner_id.is_enseigne_id.name.street2">
-                                - <span t-field="o.partner_id.is_enseigne_id.name.street2"/>
-                            </t>
-                            <br/>
-                            <span t-field="o.partner_id.is_enseigne_id.name.zip"/> <span t-field="o.partner_id.is_enseigne_id.name.city"/> - 
-                            <span t-field="res_company.country_id"/> -->
                         </div>
                     </div>
                 </div>
@@ -65,54 +55,4 @@
 
 
     </template>
-
-
-<!-- 
-    <template id="web.external_layout_boxed">
-        <div class="header">
-            <div class="o_boxed_header">
-                <div class="row mb8">
-                    <div class="col-6">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
-                    </div>
-                    <div class="col-6 text-right mb4">
-                        <h4 class="mt0" t-field="company.report_header"/>
-                        <div name="company_address" class="mb4">
-                            <h5 style="font-weight:700 !important;" t-field="company.name"/>
-                            <br/>
-                            <span t-field="company.street"/>
-                            <br/>
-                            <span t-field="company.zip"/>
-                            <![CDATA[
-                            &nbsp;
-                            ]]>
-                            <span t-field="company.city"/>
-                            <br/>
-                            <span t-field="company.country_id"/>
-                            <div t-if="company.is_gln">
-                                GLN:<span t-field="company.is_gln"/>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="article o_report_layout_boxed" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
-             t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <t t-call="web.address_layout"/>
-            <t t-raw="0"/>
-        </div>
-        <div class="footer o_boxed_footer">
-            <div class="text-center">
-                <div t-field="company.report_footer"/>
-                <div t-if="report_type == 'pdf'">
-                    Page:
-                    <span class="page"/>
-                    /
-                    <span class="topage"/>
-                </div>
-            </div>
-        </div>
-    </template> -->
 </odoo>

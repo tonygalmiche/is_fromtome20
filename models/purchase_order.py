@@ -208,7 +208,6 @@ class PurchaseOrder(models.Model):
         date_reception = date.today()+timedelta(days=2)
         for obj in self:
             vals={
-                #'company_id': 1,
                 'partner_id': obj.partner_id.id,
                 'user_id'   : uid,
             }
@@ -257,7 +256,6 @@ class PurchaseOrder(models.Model):
         for key in dict:
             first_order=False
             orders = dict[key]
-            #orders.sort() #Cela permet de conserver la première commande et d'annuler les autres
             for order_id in orders:
                 order = self.env['purchase.order'].browse(order_id)
                 if not first_order:
@@ -304,18 +302,6 @@ class PurchaseOrder(models.Model):
                     order.message_post(body=msg)
                     msg = "Fusion de la commande %s" % (order.name)
                     first_order.message_post(body=msg)
-
-
-    # def _add_supplier_to_product(self):
-    #     """Insert a mapping of products to PO lines to be picked up
-    #     in supplierinfo's create()"""
-    #     self.ensure_one()
-    #     po_line_map = {
-    #         line.product_id.product_tmpl_id.id: line for line in self.order_line
-    #     }
-    #     return super(
-    #         PurchaseOrder, self.with_context(po_line_map=po_line_map)
-    #     )._add_supplier_to_product()
 
 
 
@@ -394,7 +380,6 @@ class PurchaseOrderLine(models.Model):
 
     is_sale_order_line_id  = fields.Many2one('sale.order.line', string=u'Ligne commande client', index=True)
     is_nb_pieces_par_colis = fields.Integer(string='PCB', compute='_compute_is_nb_pieces_par_colis', readonly=True, store=True)
-    #is_nb_colis            = fields.Float(string='Nb Colis', digits=(14,2) , compute='_compute_is_nb_pieces_par_colis', readonly=True, store=True)
     is_nb_colis            = fields.Float(string='Nb Colis', digits=(14,2))
     is_poids_net           = fields.Float(string='Poids net', digits='Stock Weight', compute='_compute_is_nb_pieces_par_colis', readonly=True, store=True, help="Poids net total (Kg)")
     is_alerte              = fields.Text(string='Alerte', compute='_compute_is_alerte')
