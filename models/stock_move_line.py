@@ -9,7 +9,6 @@ from operator import itemgetter
 from datetime import datetime
 from datetime import timedelta
 from dateutil.parser import parse
-import dateparser
 import dateutil
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 

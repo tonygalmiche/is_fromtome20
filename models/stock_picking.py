@@ -3,21 +3,14 @@ from odoo import fields, api, models, _
 import time
 from datetime import datetime, date, timedelta
 from dateutil.parser import parse
-import dateparser
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, format_datetime
+from odoo.tools.pdf import merge_pdf
 import pytz
 import logging
 import base64
 import io
-try:
-    from PyPDF2 import PdfWriter, PdfReader
-except ImportError:
-    try:
-        from PyPDF2 import PdfFileWriter as PdfWriter, PdfFileReader as PdfReader
-    except ImportError:
-        PdfWriter = PdfReader = None
 
 class IsScanPickingLine(models.Model):
     _name = 'is.scan.picking.line'
@@ -291,7 +284,11 @@ class IsScanPicking(models.Model):
                         obj.product_id = product.id
                 if prefix in ["15","17"]:
                     date = code[:6]
-                    date = dateparser.parse(date, date_formats=['%y%m%d'])
+                    # dateparser (non installé en v20) remplacé par strptime au format GS1 AAMMJJ
+                    try:
+                        date = datetime.strptime(date, '%y%m%d')
+                    except ValueError:
+                        date = False
                     if date:
                         obj.dlc_ddm = date.strftime('%Y-%m-%d')
                         barcode_reste = barcode[8:]
@@ -872,27 +869,22 @@ class Picking(models.Model):
         Méthode pour fusionner les PDF de plusieurs fiches prépa et palette
         et retourner le résultat combiné
         """
-        if not PdfWriter or not PdfReader:
-            raise UserError(_("PyPDF2 n'est pas installé. Veuillez l'installer pour fusionner les PDF."))
-        
         if not self:
             raise UserError(_("Aucune livraison sélectionnée."))
-        
+
         all_pdfs = []
-        
+
         for picking in self:
             # Générer le PDF de la fiche prépa pour ce picking
-            prepa_report = self.env.ref('stock.action_report_picking')
-            prepa_pdf, _ = prepa_report._render_qweb_pdf([picking.id])
+            prepa_pdf, dummy = self.env['ir.actions.report']._render_qweb_pdf('stock.action_report_picking', [picking.id])
             all_pdfs.append(prepa_pdf)
-            
+
             # Générer le PDF de la fiche palette pour ce picking
-            palette_report = self.env.ref('is_fromtome20.action_report_fiche_palette')
-            palette_pdf, _ = palette_report._render_qweb_pdf([picking.id])
+            palette_pdf, dummy = self.env['ir.actions.report']._render_qweb_pdf('is_fromtome20.action_report_fiche_palette', [picking.id])
             all_pdfs.append(palette_pdf)
-        
+
         # Fusionner tous les PDF
-        merged_pdf = self._merge_multiple_pdfs(all_pdfs)
+        merged_pdf = merge_pdf(all_pdfs)
         
         # Créer l'attachement et retourner l'action pour l'afficher
         picking_names = "_".join([p.name for p in self[:3]])  # Limiter à 3 noms pour éviter un nom trop long
@@ -915,34 +907,6 @@ class Picking(models.Model):
             'url': f'/web/content/{attachment.id}?download=true',
             'target': 'new',
         }
-    
-    def _merge_multiple_pdfs(self, pdf_data_list):
-        """
-        Fusionner plusieurs PDF en un seul
-        """
-        output = PdfWriter()
-        
-        for pdf_data in pdf_data_list:
-            pdf_stream = io.BytesIO(pdf_data)
-            pdf_reader = PdfReader(pdf_stream)
-            
-            # Compatibilité avec différentes versions de PyPDF2
-            if hasattr(pdf_reader, 'pages'):
-                pages = pdf_reader.pages
-            else:
-                pages = [pdf_reader.getPage(i) for i in range(pdf_reader.getNumPages())]
-                
-            for page in pages:
-                if hasattr(output, 'add_page'):
-                    output.add_page(page)
-                else:
-                    output.addPage(page)
-        
-        # Retourner le PDF fusionné
-        merged_stream = io.BytesIO()
-        output.write(merged_stream)
-        merged_stream.seek(0)
-        return merged_stream.read()
     
 
 class PickingType(models.Model):
