@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 {
-    'name'     : 'InfoSaône - Module Odoo 14 pour Fromtome',
-    'version'  : '0.1',
+    'name'     : 'InfoSaône - Module Odoo 20 pour Fromtome',
+    'version'  : '20.0.0.1',
     'author'   : 'InfoSaône',
     'category' : 'InfoSaône',
     'description': """
-InfoSaône - Module Odoo 14 pour Fromtome 
+InfoSaône - Module Odoo 20 pour Fromtome
 ===================================================
 """,
     'maintainer' : 'InfoSaône',
@@ -20,24 +20,15 @@ InfoSaône - Module Odoo 14 pour Fromtome
         'stock',
         'purchase',
         'purchase_stock',
-        'mrp',
         'board',
         'hr',
-        'account_payment_order',
-        'account_payment_partner',
-        'account_payment_purchase',
-        'account_payment_sale',
-        'account_banking_fr_lcr',
-        'account_banking_sepa_credit_transfer',
-        'account_banking_sepa_direct_debit',
-        'account_edi',
-        'l10n_fr_department',
-        'l10n_fr_fec',
-        'l10n_fr_intrastat_product',
-        'l10n_fr_siret',
-        'l10n_fr_state',
-        'list_export_excel_app',
+        'account_edi_ubl_cii',
+        'l10n_fr_account',
         'is_llm2odoo',
+        # OCA 20.0 : modules non disponibles en 20.0 (28/09/2026), à remettre après leur portage
+        # (bank-payment-alternative : account_payment_base_oca, account_payment_batch_oca, account_payment_base_oca_sale,
+        # account_payment_sepa_credit_transfer, account_payment_fr_lcr ; l10n-france : l10n_fr_intrastat_product,
+        # l10n_fr_siret, l10n_fr_department, l10n_fr_state)
     ],
     'data' : [
         'security/res.groups.xml',
