@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="is_view_stock_quant_tree_editable" model="ir.ui.view" >
+        <field name="name">is_view_stock_quant_tree_editable</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="is_dlc_ddm"/>
+            </field>
+        </field>
+    </record>
+    <record  id="is_view_stock_quant_tree" model="ir.ui.view">
+        <field name="name">is_view_stock_quant_tree</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="is_dlc_ddm"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- Stock détaillé par entrepôt -->
+    <record id="stock_detaille_par_entrepot_tree" model="ir.ui.view" >
+        <field name="name">stock_detaille_par_entrepot</field>
+        <field name="model">stock.quant</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree create="0" delete="0">
+                <field name="product_id"  widget="many2one_clickable"/>
+                <field name="location_id"/>
+                <field name="lot_id"      widget="many2one_clickable"/>
+                <field name="is_dlc_ddm"/>
+                <field name="is_fournisseur_id" widget="many2one_clickable"/>
+                <field name="available_quantity" sum="Total"/>
+                <field name="quantity"           sum="Total"/>
+                <field name="product_uom_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_detaille_par_entrepot_search" model="ir.ui.view" >
+        <field name="name">stock_detaille_par_entrepot_search</field>
+        <field name="model">stock.quant</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="lot_id"/>
+                <field name="is_fournisseur_id"/>
+                <group expand="0" string="Grouper par">
+                    <filter name="group_by_fournisseur" string="Fournisseur par défaut" context="{'group_by':'is_fournisseur_id'}"/>
+                    <filter name="group_by_product" string="Article" context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="stock_detaille_par_entrepot_action" model="ir.actions.act_window" >
+        <field name="name">Stock détaillé par entrepôt</field>
+        <field name="res_model">stock.quant</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="stock_detaille_par_entrepot_tree"/>
+        <field name="search_view_id" ref="stock_detaille_par_entrepot_search"/>
+        <field name="domain">[('location_id.usage','=','internal')]</field>
+    </record>
+    <menuitem 
+        id="is_analyse_ruptures_menu" 
+        name="Analyse des ruptures" 
+        parent="stock.menu_stock_inventory_control" 
+        sequence="9"
+        action="is_analyse_ruptures_action"
+    />
+   <menuitem 
+        id="stock_detaille_par_entrepot_menu" 
+        name="Stock détaillé par entrepôt" 
+        parent="stock.menu_stock_inventory_control" 
+        sequence="10"
+        action="stock_detaille_par_entrepot_action"
+    />
+</odoo>

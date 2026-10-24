@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_product_technical_document">
+
+
+        <t t-call="web.html_container">
+
+            <t t-foreach="docs" t-as="doc">
+                <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                     t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                    <t t-call="web.address_layout"/>
+                    <t t-raw="0"/>
+                    <style>
+                        .page{
+                            font-size:10.5pt;
+                        }
+                        .table th, .table td {
+                            margin:0;
+                            padding: 0.1em;
+                            padding-left: 0.3em;
+                            padding-right: 0.3em;
+                            vertical-align: middle;
+                            border: 1px solid;
+                        }
+                        table {
+                            border-collapse: collapse;
+                        }
+                        h1{
+                            font-size:14pt;
+                            font-weight:normal;
+                            background-color:black;
+                            color:#FA0000;
+                            padding:4pt;
+                            margin-top:4mm;
+                            margin-bottom:2mm;
+                        }
+                    </style>
+                    <div class="page">
+                        
+
+                        <t t-if="doc.is_enseigne_id">
+                            <t t-set="enseigne" t-value="doc.is_enseigne_id.name"/>
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:45mm;text-align:left;vertical-align:top;border:0px solid">
+                                        <img 
+                                            t-if="enseigne.image_1920"
+                                            t-att-src="image_data_uri(enseigne.image_1920)" alt="Logo" 
+                                            style="max-height:25mm;max-width:45mm"
+                                        />
+                                    </td>
+                                    <td style="text-align:center;vertical-align:top">
+                                        <div style="font-size:24pt" t-field="enseigne.name"/>
+                                        <div style="font-size:9pt">
+                                            <span t-field="enseigne.street"/>
+                                            <span t-field="enseigne.street2"/> - 
+                                            <span t-field="enseigne.zip"/> 
+                                            <span t-field="enseigne.city"/>
+                                            <br />
+                                            <t t-if="enseigne.mobile">
+                                                MOBILE: <span t-field="enseigne.mobile"/> - 
+                                            </t>
+                                            TEL: <span t-field="enseigne.phone"/> - 
+                                            email: <span t-field="enseigne.email"/>
+                                        </div>
+                                    </td>
+                                    <td style="width:45mm;text-align:left;vertical-align:middle;border:1px solid">
+                                        <div style="font-size:9pt;margin:0em;padding:2mm">
+                                            Création le :    <span t-field="doc.is_creation_le"/> <br />
+                                            Mise à jour le : <span t-field="doc.is_mis_a_jour_le"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                        <row>
+                            <table style="width:100%">
+                                <tr>
+                                    <td><h1>DÉSIGNATION</h1></td>
+                                    <td style="text-align:right"><h1><span style="font-size:14pt;font-weight:bold;color:white" t-field="doc.name"/></h1></td>
+                                </tr>
+                            </table>
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="vertical-align:middle">
+                                        <br />
+                                        <img t-if="doc.image_1920" t-att-src="image_data_uri(doc.image_1920)" style="max-height:70mm;max-width:70mm;margin-right:10mm"/>
+                                        <br />
+                                    </td>
+                                    <td style="vertical-align:middle">
+                                        
+                                        <b>Présentation:</b><br />
+                                        <div t-field="doc.is_presentation"/>
+                                        <b>Conseils:</b><br />
+                                        <div t-field="doc.is_conseils"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h1>CARACTÉRISTIQUES GÉNÉRALES DU PRODUIT:</h1>
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:48%;vertical-align:top">
+                                        <table class="table" style="width:100%">
+                                            <tr><td>Région d'origine:     </td><td><span t-field="doc.is_region_id.name"/></td></tr>
+                                            <tr><td>Type article:         </td><td><span t-field="doc.milk_type"/></td></tr>
+                                            <tr><td>Traitement thermique: </td><td><span t-field="doc.traitement_thermique"/></td></tr>
+                                            <tr><td>Famille de fromage:   </td><td><span t-field="doc.is_famille_fromage_id.name"/></td></tr>
+                                            <tr><td>Durée d'affinage:     </td><td><span t-field="doc.duree_affinage"/></td></tr>
+                                            <tr><td>Croûte comestible:    </td><td><span t-field="doc.is_croute_comestible"/></td></tr>
+                                        </table>
+                                    </td>
+                                    <td style="width:4%;vertical-align:top">
+                                    </td>
+                                    <td style="width:48%;vertical-align:top">
+                                         <table class="table" style="width:100%">
+                                            <tr><td><span t-field="doc.is_type_tracabilite"/>:</td><td><span t-field="doc.is_dluo"/></td></tr>
+                                            <tr><td>Type de conditionnement:     </td><td><span t-field="doc.is_type_conditionnement"/></td></tr>
+                                            <tr><td>Atelier de transformation:   </td><td><span t-field="doc.is_atelier_transformation"/></td></tr>
+                                            <tr><td>Numéro d'agrément fabriquant:</td><td><span t-field="doc.no_agrement_sanitaire"/></td></tr>
+                                            <tr><td>T° de conservation:          </td><td><span t-field="doc.temperature_stock"/></td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h1>CARACTÉRISTIQUES ORGANOLEPTIQUES:</h1>
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:48%;vertical-align:top">
+                                        <table class="table" style="width:100%">
+                                            <tr><td>Forme:   </td><td><span t-field="doc.is_forme"/></td></tr>
+                                            <tr><td>Couleur: </td><td><span t-field="doc.is_couleur"/></td></tr>
+                                            <tr><td>Texture: </td><td><span t-field="doc.texture"/></td></tr>
+                                        </table>
+                                    </td>
+                                    <td style="width:4%;vertical-align:top">
+                                    </td>
+                                    <td style="width:48%;vertical-align:top">
+                                        <table class="table" style="width:100%">
+                                            <tr><td>Goût:  </td><td><span t-field="doc.degustation"/></td></tr>
+                                            <tr><td>Odeur: </td><td><span t-field="doc.odeur"/></td></tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h1>INGRÉDIENTS:</h1>
+                            <table style="width:100%">
+                                <tr>
+                                    <td style="width:48%;vertical-align:top">
+                                        <b>Ingrédients:</b><br/>
+                                        <span t-raw="(doc.is_ingredient_import or '').replace('\n', '&lt;br/&gt;')"/>
+                                    </td>
+                                    <td style="width:4%;vertical-align:top">
+                                    </td>
+                                    <td style="width:48%;vertical-align:top">
+                                        <b>Allergènes:</b><br/>
+                                        <span t-raw="(doc.is_allergene_import or '').replace('\n', '&lt;br/&gt;')"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+                            <h1>CRITÈRES MICROBIOLOGIQUES ET PHYSICO-CHIMIQUE:</h1>
+                            <div t-raw="(doc.is_germe_import or '').replace('\n', '&lt;br/&gt;')"/>
+
+
+
+                            <h1>VALEURS NUTRITIONNELLES:</h1>
+                            <div t-raw="(doc.is_valeur_nutritionnelle_import or '').replace('\n', '&lt;br/&gt;')"/>
+
+
+
+
+                        </row>
+                    </div>
+    </div>
+            </t>
+        </t>
+    </template>
+    <data>
+        <record id="action_report_product_tech" model="ir.actions.report">
+            <field name="name">Fiche Technique</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">is_fromtome14.report_product_technical_document</field>
+            <field name="report_file">is_fromtome14.report_product_technical_document</field>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+
+
+</odoo>

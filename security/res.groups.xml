@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <record model="ir.module.category" id="is_groupe_fromtome_module_category">
+        <field name="name">Groupes Fromtome</field>
+        <field name="description">Groupes Fromtome</field>
+        <field name="sequence">10</field>
+    </record>
+
+
+    <record model="res.groups" id="gestionnaire_suivi_temps_group" >
+        <field name="name">Gestionnaire suivi du temps</field>
+        <field name="comment"></field>
+        <field name="category_id" ref="is_groupe_fromtome_module_category"/>
+    </record>
+    <record model="res.groups" id="is_gestionnaire_contacts_group" >
+        <field name="name">Gestionnaire des contacts</field>
+        <field name="comment">Ce groupe est le seul pouvant créer, modifier ou supprimer des contacts, clients ou fournisseurs</field>
+        <field name="category_id" ref="is_groupe_fromtome_module_category"/>
+    </record>
+    <record model="res.groups" id="is_gestionnaire_articles_group" >
+        <field name="name">Gestionnaire des articles</field>
+        <field name="comment">Ce groupe est le seul pouvant créer, modifier ou supprimer des articles</field>
+        <field name="category_id" ref="is_groupe_fromtome_module_category"/>
+    </record>
+
+
+    <record model="res.groups" id="is_analyse_marge_brute_group" >
+        <field name="name">Analyse marge brute</field>
+        <field name="comment">Ce groupe est le seul pouvant accèder aux menus d'analyse de la marge brute</field>
+        <field name="category_id" ref="is_groupe_fromtome_module_category"/>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- is.listing.prix.client -->
+    <record id="is_listing_prix_client_seq" model="ir.sequence">
+        <field name="name">Liste de prix</field>
+        <field name="code">is.listing.prix.client</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field eval="False" name="company_id"/>
+    </record>
+    <record id="is_listing_prix_client_form" model="ir.ui.view">
+        <field name="name">is.listing.prix.client.form</field>
+        <field name="model">is.listing.prix.client</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                    .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                        max-width: 1800px;
+                    }
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+                <header>
+                    <button
+                        name="ajouter_articles_action"
+                        type="object"
+                        string="Ajouter les articles de la liste de prix"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="nom_listing" required="1"/>
+                            <field name="enseigne_id"/>
+                            <field name="pricelist_id"/>
+                         </group>
+                         <group>
+                            <field name="name"/>
+                            <field name="afficher_prix"/>
+                            <field name="prix_futur"/>
+                            <field name="lang"/>
+                         </group>
+                    </group>
+                    <field name="product_ids" nolabel="1" >
+                        <tree editable="bottom">
+                            <button name="voir_product_template_action" title="Voir article" type="object" icon="fa-search-plus"/>
+                            <field name="default_code"/>
+                            <field name="name"/>
+                            <field name="uom_id"/>
+                            <field name="milk_type_ids" widget="many2many_tags"/>
+                            <field name="traitement_thermique"/>
+                            <field name="is_mise_en_avant"/>
+                            <field name="is_bio_id"/>
+                            <field name="is_preco"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_listing_prix_client_tree" model="ir.ui.view">
+        <field name="name">is.listing.prix.client.tree</field>
+        <field name="model">is.listing.prix.client</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nom_listing"/>
+                <field name="partner_id"/>
+                <field name="enseigne_id"/>
+                <field name="pricelist_id"/>
+                <field name="afficher_prix"/>
+                <field name="prix_futur"/>
+                <field name="name"/>
+                <field name="lang"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_listing_prix_client_search" model="ir.ui.view">
+        <field name="name">is.listing.prix.client.search</field>
+        <field name="model">is.listing.prix.client</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nom_listing"/>
+                <field name="partner_id"/>
+                <field name="enseigne_id"/>
+                <field name="pricelist_id"/>
+                <field name="name"/>
+           </search>
+        </field>
+    </record>
+    <record  id="is_listing_prix_client_action" model="ir.actions.act_window">
+        <field name="name">Listing prix client</field>
+        <field name="res_model">is.listing.prix.client</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+    <menuitem
+        id="is_listing_prix_client_menu"
+        name="Listing prix client"
+        parent="sale.sale_order_menu"
+        sequence="900"
+        action="is_listing_prix_client_action"
+
+    />
+</odoo>

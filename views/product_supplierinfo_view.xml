@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 
+
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='price']" position="before">
+                <field name="prix_brut"/>
+                <field name="discount_ids">
+                    <tree editable="Bottom">
+                        <field name="promo_id" widget="many2one_clickable" readonly="1"/>
+                        <field name="name"     string="Remises %"/>
+                    </tree>
+                </field>
+            </xpath>
+             <xpath expr="//field[@name='delay']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>
+             <xpath expr="//label[@for='delay']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>            
+            <xpath expr="//field[@name='company_id']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//div[field[@name='price']]" position="after">
+                <field name="discount" />
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="product.product_supplierinfo_type_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,form,kanban,pivot,graph</field>
+    </record>
+
+
+    <record id="is_product_supplierinfo_tree_view2" model="ir.ui.view">
+        <field name="name">is_product_supplierinfo_tree_view2</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <button title="Dupliquer" name= "dupliquer_action" type="object" icon="fa-copy"/>
+            </field>
+            <field name="price" position="after">
+                <field name="discount" />
+            </field>
+        </field>
+    </record>
+</odoo>

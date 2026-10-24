@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Activités -->
+    <menuitem
+        id="is_mail_activity_main_menu"
+        name="Activités"
+        parent="contacts.menu_contacts"
+        sequence="4"
+    />
+    <menuitem
+        id="is_mail_activity_menu"
+        name="Activités"
+        parent="is_mail_activity_main_menu"
+        sequence="10"
+        action="is_mail_activity_action"
+    />
+
+    <menuitem
+    id="activites_a_faire_menu"
+    name="Activités à faire"
+    parent="is_mail_activity_main_menu"
+    sequence="20"
+    action="activites_a_faire_action"
+/>
+
+
+
+    
+
+
+    <!-- res.bank -->
+    <record  id="is_res_bank_action" model="ir.actions.act_window">
+        <field name="name">Banques</field>
+        <field name="res_model">res.bank</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="is_res_bank_menu"
+        name="Banques"
+        parent="account.account_banks_menu"
+        sequence="10"
+        action="is_res_bank_action"
+    />
+
+    <!-- res.partner.bank -->
+    <record  id="is_res_partner_bank_action" model="ir.actions.act_window">
+        <field name="name">Comptes banquaires</field>
+        <field name="res_model">res.partner.bank</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="is_res_partner_bank_menu"
+        name="Comptes banquaires"
+        parent="account.account_banks_menu"
+        sequence="20"
+        action="is_res_partner_bank_action"
+    />
+
+
+    <!-- Analyses -->
+    <menuitem
+        name="Analyses"
+        id="is_analyse_top_menu"
+        sequence="306"
+        groups="account.group_account_manager" 
+    />
+
+
+
+    <menuitem
+        name="Analyse facturation"
+        id="is_analyse_facturation_main_menu"
+        parent="is_analyse_top_menu"
+        sequence="10"
+    />
+    <menuitem
+        name="Analyse facturation"
+        id="is_analyse_facturation_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="10"
+        action="is_analyse_facturation_action"
+    />
+    <menuitem
+        name="Analyse marge brute"
+        id="analyse_marge_brute_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="15"
+        action="analyse_marge_brute_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        name="Analyse marge brute sur les lots facturés"
+        id="is_analyse_marge_lot_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="17"
+        action="is_analyse_marge_lot_action"
+        groups="is_analyse_marge_brute_group"
+    />
+    <menuitem
+        name="Poids net facturé par semaine FT+LF (hors JERMI)"
+        id="poids_net_facture_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="20"
+        action="poids_net_facture_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        name="Achats et ventes par enseigne"
+        id="achat_vente_par_enseigne_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="30"
+        action="achat_vente_par_enseigne_action"
+    />
+    <menuitem
+        name="Audit marge brute"
+        id="is_audit_marge_brute_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="35"
+        action="is_audit_marge_brute_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        name="Marge brute par article"
+        id="is_marge_brute_article_menu"
+        parent="is_analyse_facturation_main_menu"
+        sequence="40"
+        action="is_marge_brute_article_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        id="is_analyse_facturation_update_menu"
+        name="Mise à jour analyse facturation"
+        parent="is_analyse_facturation_main_menu"
+        sequence="900"
+        action="is_analyse_facturation_update_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+
+
+
+    <menuitem
+        name="Analyse marge brute"
+        id="analyse_marge_brute_main_menu"
+        parent="is_analyse_top_menu"
+        sequence="20"
+        action="analyse_marge_brute_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        name="Toutes les factures et avoirs"
+        id="is_all_invoices_menu"
+        parent="analyse_marge_brute_main_menu"
+        sequence="5"
+        action="is_all_invoices_action"
+    />
+    <menuitem
+        name="Analyse marge brute comptable (18 derniers mois)"
+        id="analyse_marge_brute_18mois_menu"
+        parent="analyse_marge_brute_main_menu"
+        sequence="10"
+        action="analyse_marge_brute_18mois_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        name="Analyse marge brute comptable (18 derniers mois hors transport)"
+        id="analyse_marge_brute_18mois_no_transport_menu"
+        parent="analyse_marge_brute_main_menu"
+        sequence="20"
+        action="analyse_marge_brute_18mois_no_transport_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+    <menuitem
+        name="Analyse marge brute par enseigne théorique (18 derniers mois hors transport)"
+        id="analyse_marge_brute_par_enseigne_18mois_menu"
+        parent="analyse_marge_brute_main_menu"
+        sequence="30"
+        action="analyse_marge_brute_par_enseigne_18mois_action"
+        groups="is_analyse_marge_brute_group" 
+    />
+
+
+
+    
+
+    <!-- Employés / Suivi du temps -->
+    <menuitem
+        id="is_suivi_temps_main_menu"
+        name="Suivi du temps"
+        parent="hr.menu_hr_root"
+        sequence="2"
+    />
+    <menuitem
+        id="is_suivi_temps_menu"
+        name="Suivi du temps"
+        parent="is_suivi_temps_main_menu"
+        sequence="10"
+        action="is_suivi_temps_action"
+    />
+    <menuitem
+        id="is_motif_absence_menu"
+        name="Motif d'absence"
+        parent="is_suivi_temps_main_menu"
+        sequence="20"
+        action="is_motif_absence_action"
+    />
+
+
+
+
+
+    <!-- Déplacement des menus inutiles -->
+    <menuitem id="mail.menu_root_discuss"     parent="base.menu_custom" sequence="900"/>
+    <menuitem id="utm.menu_link_tracker_root" parent="base.menu_custom" sequence="901"/>
+    <menuitem id="contacts.menu_contacts"     parent=""                 sequence="1"/> 
+
+</odoo>

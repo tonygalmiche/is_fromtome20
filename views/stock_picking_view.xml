@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- stock.move.line -->
+    <record id="is_view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+        <field name="name">is_view_stock_move_line_detailed_operation_tree</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="limit">500</attribute>
+            </tree>
+            <field name="lot_id" position="after">
+                <field name="is_type_tracabilite" optional="show"/>
+                <field name="is_dlc_ddm" optional="show"/>
+            </field>
+            <field name="product_uom_id" position="after">
+                <field name="is_nb_pieces_par_colis"          optional="hide"/>
+                <field name="is_nb_colis"  sum="Total"        optional="show"/>
+                <field name="is_poids_net_estime" sum="Total" optional="show"/>
+                <field name="is_poids_net_reel"   sum="Total" optional="show"/>
+                <button 
+                    title="Correction de la ligne" 
+                    name="stock_move_line_edit_action" 
+                    type="object" icon="fa-edit" 
+                    class="oe_stat_button" 
+                />
+                <field name="status_move" optional="show"/>
+                <field name="create_date" optional="hide" string="Créé le"/>
+                <field name="create_uid"  optional="hide" string="Créé par"/>
+                <field name="write_date"  optional="hide" string="Modifié Le"/>
+                <field name="write_uid"   optional="hide" string="Modifié par"/>
+            </field>
+            <field name="qty_done" position="attributes">
+                <attribute name="sum">Total</attribute>
+            </field>
+        </field>
+    </record>
+    <!-- <record id="is_stock_move_line_edit" model="ir.ui.view">
+        <field name="name">is_stock_move_line_edit</field>
+        <field name="model">stock.move.line</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="product_id"             readonly="1"/>
+                <field name="lot_id"                 readonly="1"/>
+                <field name="is_type_tracabilite"    readonly="1"/>
+                <field name="is_dlc_ddm"             readonly="1"/>
+                <field name="qty_done"               readonly="1"/>
+                <field name="product_uom_id"         readonly="1"/>
+                <field name="is_nb_pieces_par_colis" readonly="1"/>
+                <field name="is_poids_net_estime"    readonly="1"/>
+                <field name="is_poids_net_reel"/>
+                <field name="company_id"             invisible="1"/>
+            </tree>
+        </field>
+    </record> -->
+
+
+    <record id="is_stock_move_line_edit" model="ir.ui.view">
+        <field name="name">is_stock_move_line_edit</field>
+        <field name="model">stock.move.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_id"             readonly="1"/>
+                        <field name="lot_id"                 readonly="1"/>
+                        <field name="is_type_tracabilite"    readonly="1"/>
+                        <field name="is_dlc_ddm"             readonly="1"/>
+                        <field name="qty_done"               readonly="1"/>
+                        <field name="product_uom_id"         readonly="1"/>
+                        <field name="is_nb_pieces_par_colis" readonly="1"/>
+                        <field name="is_poids_net_estime"    readonly="1"/>
+                        <field name="is_poids_net_reel"/>
+                        <field name="company_id"             invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+
+    <!-- is.scan.picking -->
+    <record id="is_scan_picking_form" model="ir.ui.view">
+        <field name="name">is_scan_picking_form</field>
+        <field name="model">is.scan.picking</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <style>
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                            max-width: 1800px;
+                        }
+                    </style>
+                    <group>
+                        <group>
+                            <field name="type" readonly="1"/>
+                            <field name="maj_code_ean_article_vsb" invisible="1"/>
+                            <field name="ean" readonly="1" attrs="{'invisible': [('maj_code_ean_article_vsb', '!=', False)]}"/>
+                            <field name="ean"              attrs="{'invisible': [('maj_code_ean_article_vsb', '=', False)]}"/>
+                            <button 
+                                name="maj_code_ean_article_action" 
+                                type="object" string="Mettre ce code EAN sur l'article sélectionné"
+                                class="oe_inline btn btn-sm btn-secondary"
+                                attrs="{'invisible': [('maj_code_ean_article_vsb', '=', False)]}"
+                            />
+                            <!-- <field name="lot" readonly="1"/> -->
+                            <field name="ajouter"/>
+
+                            <label for="picking_id"/>
+                            <div class="o_row no-gutters d-flex">
+                                <field name="picking_id" readonly="1" class="oe_inline"/>
+                            </div>
+                            <label for="partner_id"/>
+                            <div class="o_row no-gutters d-flex">
+                                <field name="partner_id" readonly="1" class="oe_inline"/>
+                            </div>
+                            <button 
+                                name="maj_picking_action" 
+                                type="object" string="Mise à jour du Picking"   
+                                confirm2="Attention, cela va supprimer et remplacer les lignes du picking"
+                                class="oe_inline btn btn-primary"
+                            />
+                        </group>
+                       <group>
+                            <field name="product_id"/>
+                            <field name="lot" attrs="{'invisible': [('lot','=', False)]}"/>
+                            <field 
+                                name="lot_id" 
+                                context="{
+                                    'default_product_id': product_id, 
+                                    'active_picking_id': picking_id, 
+                                    'default_company_id': 1
+                                }" 
+                            />
+                            <field name="type_tracabilite"/>
+                            <field name="dlc_ddm"/>
+                            <field name="poids"/>
+                            <field name="nb_colis"/>
+                        </group>
+                    </group>
+                    <field 
+                        name="is_alerte"
+                        style="background-color:orange;font-size:11pt" 
+                        attrs="{'invisible': [('is_alerte','=', False)],'readonly':True}"
+                    />
+                    <field name="line_ids" nolabel="1" >
+                        <tree 
+                            string="Lots avec DLC" 
+                            editable="bottom" 
+                            limit="5"
+                            default_order="info desc"
+                            decoration-success="nb_colis_reste==0" 
+                            decoration-danger="alerte!=False" 
+                        >
+                            <field name="product_id"   optional="hide"/>
+                            <field name="product_code" optional="show"/>
+                            <field name="product_name" optional="show"/>
+                            <field name="creation_lot" optional="show"/>
+                            <field 
+                                name="lot_id" 
+                                context="{
+                                    'default_product_id': product_id, 
+                                    'active_picking_id': parent.picking_id, 
+                                    'default_company_id': 1
+                                }" 
+                            />
+                            <field name="type_tracabilite" optional="show"/>
+                            <field name="dlc_ddm"/>
+                            <field name="nb_pieces"          sum="Total"/>
+                            <field name="uom_id"           optional="show"/>
+                            <field name="nb_pieces_par_colis"            optional="show"/>
+                            <field name="nb_colis"          sum="Total"  optional="show"/>
+                            <field name="nb_colis_prevues"               optional="show"/>
+                            <field name="nb_colis_reste"                 optional="show"/>
+                            <field name="poids"             sum="Total"  optional="show"/>
+                            <field name="alerte"                         optional="show"/>
+                            <field name="info"        style="color:gray" optional="show"/>
+                            <field name="write_uid"                      optional="hide" string="Modifié par"/>
+                            <field name="write_date"                     optional="hide" string="Le"/>
+                        </tree>
+                    </field>
+                    <field name="product_ids" nolabel="1" readonly="1">
+                        <tree editable="bottom" limit="500">
+                            <button 
+                                title="Imprimer étiquette GS1" 
+                                name="imprimer_etiquette_action" 
+                                type="object" icon="fa-print" 
+                            />
+                            <field name="product_id"/>
+                            <field name="nb_pieces" sum="Total"/>
+                            <field name="uom_id"/>
+                            <field name="nb_colis" sum="Total"/>
+                        </tree>
+                    </field>
+                    <group>
+                        <group  attrs="{'invisible': [('type','!=', 'picking'  )],'readonly':True}">
+                            <label for="picking_id"/>
+                            <div class="o_row no-gutters d-flex">
+                                <field name="picking_id" readonly="1" class="oe_inline"/>
+                            </div>
+                            <button 
+                                name="maj_picking_action" 
+                                type="object" string="Mise à jour du Picking"   
+                                confirm2="Attention, cela va supprimer et remplacer les lignes du picking"
+                                class="oe_inline btn btn-primary"
+                            />
+                        </group>
+                        <group  attrs="{'invisible': [('type','!=', 'inventory'  )],'readonly':True}">
+                            <button 
+                                name="maj_inventory_action" 
+                                type="object" string="Mise à jour Inventaire" 
+                                confirm2="Attention, cela va supprimer et remplacer les lignes de l'inventaire"
+                            />
+                            <field name="inventory_id"/>
+                        </group>
+                    </group>
+
+                    <field name="_barcode_scanned" widget="barcode_handler"/>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_scan_picking_tree" model="ir.ui.view">
+        <field name="name">is_scan_picking_tree</field>
+        <field name="model">is.scan.picking</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="is_alerte!=False" limit="200">
+                <field name="id"/>
+                <field name="type"/>
+                <field name="picking_id"/>
+                <field name="inventory_id"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+                <field name="is_alerte"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_scan_picking_search" model="ir.ui.view">
+        <field name="name">is_scan_picking_search</field>
+        <field name="model">is.scan.picking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="id"/>
+                <field name="picking_id"/>
+                <field name="inventory_id"/>
+           </search>
+        </field>
+    </record>
+    <record  id="is_scan_picking_action" model="ir.actions.act_window">
+        <field name="name">Scan</field>
+        <field name="res_model">is.scan.picking</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="is_scan_picking_menu"
+        name="Scan"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="900"
+        action="is_scan_picking_action"
+    />
+
+
+    <!-- is.scan.picking.line -->
+    <record id="is_scan_picking_line_tree" model="ir.ui.view">
+        <field name="name">is_scan_picking_line_tree</field>
+        <field name="model">is.scan.picking.line</field>
+        <field name="arch" type="xml">
+            <tree limit="200">
+                <field name="scan_id"             optional="show" widget="many2one_clickable"/>
+                <field name="picking_id"          optional="show" widget="many2one_clickable"/>
+                <field name="picking_type_id"     optional="show" widget="many2one_clickable"/>
+                <field name="product_id"          optional="show" widget="many2one_clickable"/>
+                <field name="product_code"        optional="hide"/>
+                <field name="product_name"        optional="hide"/>
+                <field name="creation_lot"        optional="show"/>
+                <field name="lot_id"              optional="show" widget="many2one_clickable"/>
+                <field name="type_tracabilite"    optional="show"/>
+                <field name="dlc_ddm"             optional="show"/>
+                <field name="nb_pieces"           optional="show" sum="Total"/>
+                <field name="uom_id"              optional="show"/>
+                <field name="nb_pieces_par_colis" optional="show"/>
+                <field name="nb_colis"            optional="show" sum="Total"/>
+                <field name="nb_colis_prevues"    optional="show"/>
+                <field name="nb_colis_reste"      optional="show"/>
+                <field name="poids"               optional="show" sum="Total"/>
+                <field name="alerte"              optional="show"/>
+                <field name="info"                optional="show"/>
+                <field name="write_uid"           optional="hide" string="Modifié par"/>
+                <field name="write_date"          optional="hide" string="Le"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="is_scan_picking_line_graph" model="ir.ui.view">
+        <field name="name">is_scan_picking_line_graph</field>
+        <field name="model">is.scan.picking.line</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="write_date"   type="row" interval="week"/>
+                <field name="creation_lot" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="is_scan_picking_line_pivot" model="ir.ui.view">
+        <field name="name">is_scan_picking_line_pivot</field>
+        <field name="model">is.scan.picking.line</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="write_date"   type="row" interval="week"/>
+                <field name="creation_lot" type="col"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_scan_picking_line_search" model="ir.ui.view">
+        <field name="name">is_scan_picking_line_search</field>
+        <field name="model">is.scan.picking.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="scan_id"/>
+                <field name="picking_id"/>
+                <field name="picking_type_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="type_tracabilite"/>
+                <field name="uom_id"/>
+                <field name="alerte"/>
+                <field name="info"/>
+                <filter name="group_by_write_date"   string="Modifié le" context="{'group_by': 'write_date'}"/>
+                <filter name="group_by_creation_lot" string="Lot créé" context="{'group_by': 'creation_lot'}"/>
+                <filter name="filter_creation_lot" string="Lot créé"   domain="[('creation_lot', '=', True)]"/>
+                <filter name="filter_reception_FT" string="Réceptions FT"   domain="[('picking_type_id', '=', 1)]"/>
+                <filter name="filter_reception_LC" string="Réceptions LC"   domain="[('picking_type_id', '=', 9)]"/>
+                <filter name="filter_livraison_FT" string="Livraisons FT"   domain="[('picking_type_id', '=', 2)]"/>
+                <filter name="filter_livraison_LC" string="Livraisons LC"   domain="[('picking_type_id', '=', 10)]"/>
+
+
+           </search>
+        </field>
+    </record>
+    <record  id="is_scan_picking_line_action" model="ir.actions.act_window">
+        <field name="name">Lignes des Scan</field>
+        <field name="res_model">is.scan.picking.line</field>
+        <field name="view_mode">tree,graph,pivot</field>
+    </record>
+    <menuitem
+        id="is_scan_picking_line_menu"
+        name="Lignes des Scan"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="910"
+        action="is_scan_picking_line_action"
+    />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- stock.picking -->
+    <record id="is_solde_commande_ir_cron" model="ir.cron">
+        <field name="name">Solde des commandes clients et fournisseurs</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">model.solde_commande_action()</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+
+
+   <record id="init_sale_order_action_server" model="ir.actions.server">
+        <field name="name">Retrouver commande client</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">records.init_sale_order_action()</field>
+    </record>
+
+    <!-- Action serveur pour imprimer plusieurs fiches prépa + palette -->
+    <record id="action_print_multiple_prepa_palette_server" model="ir.actions.server">
+        <field name="name">Imprimer Fiches Prépa + Palette</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_print_multiple_prepa_and_palette_combined()
+else:
+    raise UserError("Aucune livraison sélectionnée.")
+        </field>
+    </record>
+    <record id="view_picking_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                    .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                        max-width: 1800px;
+                    }
+                </style>
+            </xpath>
+            <button name="action_assign" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <!-- Remplacement du bouton Print standard par Envoyer par mail -->
+            <!-- <xpath expr="//button[@name='%(stock.action_report_delivery)d']" position="replace">
+                <button 
+                    name="action_picking_send_direct" 
+                    string="Envoyer par mail 2" 
+                    type="object" 
+                    attrs="{'invisible': [('state', '!=', 'done')]}" 
+                    groups="base.group_user"
+                    confirm="Voulez-vous envoyer le BL par mail au client ?"
+                />
+            </xpath> -->
+            <page name="operations" position="attributes">
+                <attribute name="autofocus">autofocus</attribute>
+            </page>
+            <button name="action_confirm" position="before">
+                <button 
+                    name="action_print_prepa_and_palette_combined" 
+                    string="Imprimer Prépa + Palette" 
+                    type="object" 
+                    icon="fa-file-pdf-o"
+                />
+            </button>
+            <field name="state" position="before">
+                <button 
+                    name="action_picking_send" 
+                    string="Envoyer par mail" type="object" 
+                    attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}" 
+                    groups="base.group_user"
+                /> 
+            </field>
+
+            <field name="scheduled_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+           <label for="scheduled_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>           
+            <field name="json_popover" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="date_deadline" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="date_done" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="origin" position="after">
+                <field name="is_date_reception" readonly="1" attrs="{'invisible': [('is_date_reception', '=', False)]}"/>
+                <field name="is_date_livraison" attrs="{'invisible': [('sale_id', '=', False)]}"/>
+                <field name="sale_id"           readonly="1" attrs="{'invisible': [('sale_id', '=', False)]}"/>
+                <field name="purchase_id"       readonly="1" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+                <field name="is_transporteur_id"/>
+                <field name="is_palette_europe"/>
+                <field name="is_palette_perdue"/>
+                <field name="is_palette_demie"/>
+                <field name="is_preparation_transfert_id" attrs="{'invisible': [('is_preparation_transfert_id', '=', False)]}"/>
+                <field name="is_nb_erreurs"/>
+                <field name="is_employe_id"/>
+                <field name="is_afficher_manquants"/>
+            </field>
+           <field name="backorder_id" position="after">
+            <field name="is_enseigne_id"/>
+            <field name="is_nb_colis"/>
+            <field name="is_poids_net"/>
+        </field>
+           <field name="partner_id" position="after">
+                <button name="scan_picking_action" type="object" string="Scan"/>
+            </field>
+            <xpath expr="//notebook" position="before">
+                <div style="background:orange;font-size:11pt" attrs="{'invisible':[('is_alerte','=',False)]}">
+                    <field 
+                        name="is_alerte"
+                        readonly="1" nolabel="1" 
+                        attrs="{'invisible': [('is_alerte','=', False)],'readonly':True}"
+                    />
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+                <attribute name="limit">500</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+                <attribute name="decoration-danger">is_ecart_demande_fait != 0 and state != 'cancel'</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+                <attribute name="decoration-success">is_ecart_demande_fait == 0 and state != 'cancel'</attribute>
+            </xpath>
+
+
+            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+                <attribute name="decoration-muted">state == 'cancel'</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="attributes">
+                <attribute name="widget">many2one_clickable</attribute>
+            </xpath>
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="before">
+                <button name="voir_mouvement_action" type="object" title="Mouvement" icon="fa-search-plus"/>
+                <field name="is_emplacement_fournisseur" optional="hide"/>
+                <field name="is_fournisseur_id"          optional="hide" widget="many2one_clickable"/>
+                <field name="is_poids_net_colis"         optional="hide"/>
+            </xpath> 
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='description_picking']" position="after">
+                <field name="is_description_prepa" optional="show"/>
+                <field name="is_description_cde" optional="hide"/>
+                <field name="is_ref_fournisseur" optional="show"/>
+                <field name="is_bio_id" optional="hide"/>
+            </xpath> 
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="after">
+                <field name="is_lots" optional="hide"/>
+            </xpath> 
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_uom_qty']" position="after">
+                <field name="is_nb_colis_cde"   optional="hide" sum="Total"/>
+            </xpath> 
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='quantity_done']" position="after">
+                <field name="is_ecart_demande_fait" optional="show"/>
+                <field name="is_nb_colis"           optional="hide" sum="Total"/>
+                <field name="is_poids_net_reel"     optional="hide" sum="Total"/>
+            </xpath> 
+
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='lot_ids']" position="after">
+                <field name="purchase_line_id" optional="hide" widget="many2one_clickable"/>
+                <field name="sale_line_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="write_date"       optional="hide" string="Modifié par"/>
+                <field name="write_uid"        optional="hide" string="Le"/>
+                <field name="state"            optional="hide"/>
+            </xpath> 
+
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='reserved_availability']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='operations']/field/tree/field[@name='forecast_availability']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+            </xpath>
+            <field name="move_ids_without_package" position="before">
+                <div style="margin-bottom:10px">
+                    <button 
+                        name="trier_par_emplacement_fournisseur" 
+                        type="object"
+                        string="Trier par emplacement fournisseur"
+                        class="oe_inline btn btn-sm btn-secondary"
+                        style="margin-right:10px"
+                    />
+                    <button 
+                        name="trier_par_designation_action" 
+                        type="object"
+                        string="Trier par désignation"
+                        class="oe_inline btn btn-sm btn-secondary"
+                        style="margin-right:10px"
+                    />
+                    <button 
+                        name="trier_par_ref_fromtome_action" 
+                        type="object"
+                        string="Trier par référence Fromtome"
+                        class="oe_inline btn btn-sm btn-secondary"
+                        style="margin-right:10px"
+                    />
+                    <button 
+                        name="trier_par_ref_fournisseur_action" 
+                        type="object"
+                        string="Trier par référence fournisseur"
+                        class="oe_inline btn btn-sm btn-secondary"
+                        style="margin-right:10px"
+                    />
+                    <button 
+                        name="trier_par_poids_action" 
+                        type="object"
+                        string="Trier par poids colis décroissant"
+                        class="oe_inline btn btn-sm btn-secondary"
+                        style="margin-right:10px"
+                    />
+                </div>
+            </field>
+        </field>
+    </record>
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_enseigne_id"     optional="show"/>
+                <field name="sale_id"            optional="hide"/>
+                <field name="is_transporteur_id" optional="hide"/>
+                <field name="is_poids_net"       optional="hide" sum="Total"/>
+                <field name="is_nb_colis"        optional="hide" sum="Total"/>
+                <field name="is_palette_europe"  optional="hide" sum="Total"/>
+                <field name="is_palette_perdue"  optional="hide" sum="Total"/>
+                <field name="is_palette_demie"   optional="hide" sum="Total"/>
+                <field name="is_nb_erreurs"      optional="hide"/>
+                <field name="is_employe_id"      optional="hide"/>
+                <field name="user_id"            optional="hide"/>
+                <field name="date_done"/>
+                <field name="is_date_reception" widget="remaining_days" optional="show"/>
+                <field name="is_date_livraison" widget="remaining_days" optional="show"/>
+                <!-- <field name="scheduled_date"/> -->
+            </field>
+            <field name="scheduled_date" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="date_deadline" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="origin" position="after">
+                <field name="is_preparation_transfert_id" optional="hide"/>
+            </field>
+            <field name="state" position="before">
+                <field name="create_date"               optional="hide" string="Créé le"/>
+                <field name="create_uid"                optional="hide" string="Créé par"/>
+                <field name="write_date"                optional="hide" string="Modifié le"/>
+                <field name="write_uid"                 optional="hide" string="Modifié par"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_picking_internal_search" model="ir.ui.view">
+        <field name="name">is_view_picking_internal_search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_enseigne_id"/>
+                <field name="is_transporteur_id"/>
+                <field name="is_date_livraison"/>
+            </field>
+            <filter name="my_transfers" position="before">
+                <filter 
+                    name="filter1"
+                    string="A livrer en retard" 
+                    domain="[('is_date_livraison', '&lt;', datetime.datetime.now().strftime('%Y-%m-%d')),('state','not in',['cancel','done'])]"
+                />
+                <filter 
+                    name="filter2"
+                    string="A livrer ce jour" 
+                    domain="[('is_date_livraison', '=', datetime.datetime.now().strftime('%Y-%m-%d')),('state','not in',['cancel','done'])]"
+                />
+                <filter 
+                    name="filter3"
+                    string="A livrer demain" 
+                    domain="[('is_date_livraison', '=',(context_today()+datetime.timedelta(days=1)).strftime('%Y-%m-%d')),('state','not in',['cancel','done'])]"
+                />
+                <filter 
+                    name="filter4"
+                    string="A livrer sous 7 jours" 
+                    domain="[('is_date_livraison', '&lt;',(context_today()+datetime.timedelta(days=8)).strftime('%Y-%m-%d')),('state','not in',['cancel','done'])]"
+                />
+                <separator/>
+                <filter 
+                    name="filter5"
+                    string="Validé ce jour" 
+                    domain="[('date_done', '&gt;', (context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d')),('state','in',['done'])]"
+                />
+                <separator/>
+                <filter 
+                    name="filter_reception1"
+                    string="A réceptionner en retard" 
+                    domain="[('is_date_reception', '&lt;', datetime.datetime.now().strftime('%Y-%m-%d')),('state','not in',['cancel','done'])]"
+                />
+                <filter 
+                    name="filter_reception2"
+                    string="A réceptionner ce jour" 
+                    domain="[
+                        ('is_date_reception', '&gt;', (context_today()+datetime.timedelta(days=-1)).strftime('%Y-%m-%d')),
+                        ('is_date_reception', '&lt;', (context_today()+datetime.timedelta(days=1)).strftime('%Y-%m-%d')),
+                        ('state','not in',['cancel','done'])]"
+                />
+                <filter 
+                    name="filter_reception3"
+                    string="A réceptionner demain" 
+                    domain="[
+                        ('is_date_reception', '&gt;', (context_today()+datetime.timedelta(days=0)).strftime('%Y-%m-%d')),
+                        ('is_date_reception', '&lt;', (context_today()+datetime.timedelta(days=2)).strftime('%Y-%m-%d')),
+                        ('state','not in',['cancel','done'])]"
+                />
+                <separator/>
+
+                <filter 
+                    name="livre_depuis_6jours"
+                    string="Livré depuis 6 jours" 
+                    domain="[
+                        ('is_date_reception', '&gt;', (context_today()-datetime.timedelta(days=6)).strftime('%Y-%m-%d')),
+                        ('state','=','done')
+                    ]"
+                />
+
+
+            </filter>
+
+
+            <filter name="expected_date" position="replace">
+                <filter string="Date du transfert" name="date_transfert" domain="[]" context="{'group_by': 'date_done'}"/>
+            </filter>
+
+
+        </field>
+    </record>
+
+
+    <record id="is_suivi_transporteur_tree" model="ir.ui.view">
+        <field name="name">is_suivi_transporteur</field>
+        <field name="model">stock.picking</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree default_order='date_done desc'>
+                <field name="date_done"          optional="show"/>
+                <field name="partner_id"         optional="show" widget="many2one_clickable"/>
+                <field name="sale_id"            optional="show" widget="many2one_clickable"/>
+                <field name="name"               optional="show"/>
+                <!-- <field name="is_transporteur_id" optional="hide" widget="many2one_clickable"/> -->
+                <field name="is_transporteur_par_ordre" optional="show"/>
+                <field name="is_nb_colis"        optional="show" sum="Total"/>
+                <field name="is_poids_net"       optional="show" sum="Total"/>
+                <field name="is_palette_europe"  optional="show" sum="Total"/>
+                <field name="is_palette_perdue"  optional="show" sum="Total"/>
+                <field name="is_palette_demie"   optional="show" sum="Total"/>
+                <field name="picking_type_id"    optional="hide"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_suivi_transporteur_pivot" model="ir.ui.view">
+        <field name="name">is_suivi_transporteur_pivot</field>
+        <field name="model">stock.picking</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date_done" type="row" interval="year"/>
+                <field name="date_done" type="row" interval="week"/>
+                <field name="is_transporteur_par_ordre" type="row"/>
+                <field name="is_nb_colis" type="measure"/>
+                <field name="is_poids_net" type="measure"/>
+                <field name="is_palette_europe" type="measure"/>
+                <field name="is_palette_perdue" type="measure"/>
+                <field name="is_palette_demie" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record  id="is_suivi_transporteur_action" model="ir.actions.act_window">
+        <field name="name">Suivi transporteur</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">tree,pivot,form</field>
+        <field name="view_id" ref="is_fromtome14.is_suivi_transporteur_tree"/>
+        <field name="domain">[('state','!=','cancel'),('picking_type_id.code','=','outgoing')]</field>
+        <field name="limit">200</field>
+    </record>
+    <menuitem
+        id="is_suivi_transporteur_menu"
+        name="Suivi transporteur"
+        parent="stock.menu_stock_warehouse_mgmt"
+        sequence="993"
+        action="is_suivi_transporteur_action"
+    />
+
+
+</odoo>

@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- is.analyse.facturation.update -->
+    <record id="is_analyse_facturation_update_form" model="ir.ui.view">
+        <field name="name">is_analyse_facturation_update_form</field>
+        <field name="model">is.analyse.facturation.update</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="date_debut"/>
+                        <field name="date_fin"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="OK" name="action_ok" type="object" class="oe_highlight"/>
+                    <button string="Annuler" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record  id="is_analyse_facturation_update_action" model="ir.actions.act_window">
+        <field name="name">Mise à jour analyse facturation</field>
+        <field name="res_model">is.analyse.facturation.update</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="domain">[]</field>
+    </record>
+
+
+    <!-- is.analyse.facturation -->
+    <record id="is_analyse_facturation_fournisseur_action_server" model="ir.actions.server">
+        <field name="name">Mise à jour du fournisseur</field>
+        <field name="model_id" ref="is_fromtome14.model_is_analyse_facturation"/>
+        <field name="binding_model_id" ref="is_fromtome14.model_is_analyse_facturation"/>
+        <field name="state">code</field>
+        <field name="code">action = records.update_fournisseur_action()</field>
+    </record>
+    <record id="is_analyse_facturation_discount_action_server" model="ir.actions.server">
+        <field name="name">Mise à jour de la remise</field>
+        <field name="model_id" ref="is_fromtome14.model_is_analyse_facturation"/>
+        <field name="binding_model_id" ref="is_fromtome14.model_is_analyse_facturation"/>
+        <field name="state">code</field>
+        <field name="code">action = records.update_discount_action()</field>
+    </record>
+    <record id="is_analyse_facturation_ir_cron" model="ir.cron">
+        <field name="name">Mise à jour analyse facturation sur 30 jours</field>
+        <field name="model_id" ref="is_fromtome14.model_is_analyse_facturation"/>
+        <field name="state">code</field>
+        <field name="code">model.analyse_facturation_ir_cron()</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <record id="is_analyse_facturation_form" model="ir.ui.view">
+        <field name="name">is.analyse.facturation.form</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <style>
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                            max-width: 1800px;
+                        }
+                        .o_form_label{
+                            white-space: nowrap;
+                        }
+                    </style>
+                    <group>
+                        <group>
+                            <field name="invoice_date"/>
+                            <field name="move_type"/>
+                            <field name="is_type_avoir"/>
+                            <field name="partner_id"/>
+                            <field name="partner_category_id" widget="many2many_tags"/>
+                            <field name="user_id"/>
+                            <field name="enseigne"/>
+                            <field name="product_id"/>
+                            <field name="categ_id"/>
+                            <field name="quantity"/>
+                            <field name="nb_colis"/>
+                            <field name="poids_net"/>
+                            <field name="price_unit"/>
+                            <field name="discount"/>
+                            <field name="price_subtotal"/>
+                        </group>
+                        <group>
+                            <field name="invoice_id"/>
+                            <field name="invoice_line_id"/>
+                            <field name="scrap_id"/>
+                         </group>
+                    </group>
+                    <group>
+                        <group string="Dernière facture fournisseur">
+                            <field name="prix_achat"/>
+                            <field name="montant_achat"/>
+                            <field name="marge_brute"/>
+                            <field name="discount_fournisseur"/>
+                            <field name="montant_achat_avec_remise"/>
+                            <field name="marge_brute_avec_remise"/>
+                            <field name="date_facture_fournisseur"/>
+                            <field name="fournisseur_id"/>
+                            <field name="ligne_facture_fournisseur_id"/>
+                        </group>
+                        <group>
+                            <field name="bloquer"/>
+                         </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="is_analyse_facturation_tree" model="ir.ui.view">
+        <field name="name">is.analyse.facturation.tree</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="price_subtotal &lt; 0">
+                <field name="invoice_date"/>
+                <field name="move_type"      optional="show"/>
+                <field name="invoice_id"      optional="hide" widget="many2one_clickable"/>
+                <field name="is_type_avoir"  optional="show"/>
+                <field name="partner_id"     optional="show" widget="many2one_clickable"/>
+                <field name="partner_category_id" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="enseigne"       optional="show"/>
+                <field name="user_id"        optional="hide"/>
+                <field name="invoice_line_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="product_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="categ_id"       optional="hide"/>
+                <field name="libelle"        optional="hide"/>
+                <field name="quantity"       optional="show" sum="Total"/>
+                <field name="product_uom_id" optional="show"/>
+                <field name="nb_colis"       optional="show" sum="Total"/>
+                <field name="poids_net"      optional="show" sum="Total"/>
+                <field name="price_unit"     optional="show"/>
+                <field name="discount"       optional="show"/>
+                <field name="price_subtotal" optional="show" sum="Total"/>
+                <field name="invoice_id"     optional="hide"/>
+                <field name="scrap_id"       optional="hide"/>
+                <field name="ligne_facture_fournisseur_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="prix_achat"     optional="show"/>
+                <field name="discount_fournisseur"     optional="hide"/>
+                <field name="montant_achat"            optional="show" sum="Total"/>
+                <field name="marge_brute"              optional="show" sum="Total"/>
+                <field name="montant_achat_avec_remise" optional="hide" sum="Total"/>
+                <field name="marge_brute_avec_remise"   optional="show" sum="Total"/>
+                <field name="date_facture_fournisseur" optional="hide"/>
+                <field name="fournisseur_id"           optional="hide"/>
+                <field name="bloquer"                  optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="is_analyse_facturation_marge_brute_comptable_tree" model="ir.ui.view">
+        <field name="name">is.analyse.facturation.tree</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="price_subtotal &lt; 0">
+                <field name="invoice_date"/>
+                <field name="move_type"      optional="show"/>
+                <field name="is_type_avoir"  optional="hide"/>
+                <field name="invoice_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="partner_id"     optional="show" widget="many2one_clickable"/>
+                <field name="partner_category_id" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="product_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="categ_id"       optional="hide"/>
+                <field name="libelle"        optional="hide"/>
+                <field name="quantity"       optional="show" sum="Total"/>
+                <field name="product_uom_id" optional="hide"/>
+                <field name="nb_colis"       optional="show" sum="Total"/>
+                <field name="poids_net"      optional="show" sum="Total"/>
+                <field name="price_unit"     optional="show"/>
+                <field name="discount"       optional="show"/>
+                <field name="price_subtotal" optional="show" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="is_analyse_facturation_search" model="ir.ui.view">
+        <field name="name">is.analyse.facturation.search</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="move_type"/>
+                <field name="is_type_avoir"/>
+                <field name="partner_id"/>
+                <field name="partner_category_id"/>
+                <field name="enseigne"/>
+                <field name="product_id"/>
+                <field name="categ_id"/>
+                <field name="user_id"/>
+                <field name="invoice_id"/>
+                <field name="scrap_id"/>
+                <field name="fournisseur_id"/>
+                <filter name="group_by_move_type"    string="Type"            context="{'group_by': 'move_type'}"/>
+                <filter name="group_by_partner_id"   string="Partenaire"      context="{'group_by': 'partner_id'}"/>
+                <filter name="group_by_partner_category_id" string="Étiquette" context="{'group_by': 'partner_category_id'}"/>
+                <filter name="group_by_enseigne"     string="Enseigne"        context="{'group_by': 'enseigne'}"/>
+                <filter name="group_by_product_id"   string="Article"         context="{'group_by': 'product_id'}"/>
+                <filter name="group_by_categ_id"    string="Catégorie"       context="{'group_by': 'categ_id'}"/>
+                <filter name="group_by_invoice_date" string="Date"            context="{'group_by': 'invoice_date'}"/>
+                <filter name="filter_bloquer"        string="Bloquer"         domain="[('bloquer', '=', True)]"/>
+                <filter name="facture_client"        string="Factures client" domain="[('move_type', 'in', ['Facture client'])]"/>
+                <filter name="facture_client_ft_lf_jermi" string="Factures client FT+LF (hors JERMI)" domain="[('partner_id' , 'not ilike', 'JERMI'),('enseigne' , 'in', ['FROMTOME','LE FROMELIER']),('move_type', 'in', ['Facture client'])]"/>
+                <filter name="facture_client_lc"          string="Factures client LC" domain="[('enseigne' , 'in', ['CELLIER DU FROMAGER']),('move_type', 'in', ['Facture client'])]"/>
+                <filter name="2023" string="2023" domain="[('invoice_date', '&gt;=', '2023-01-01'),('invoice_date', '&lt;=', '2023-12-31')]"/>
+                <filter name="2024" string="2024" domain="[('invoice_date', '&gt;=', '2024-01-01'),('invoice_date', '&lt;=', '2024-12-31')]"/>
+                <filter name="2025" string="2025" domain="[('invoice_date', '&gt;=', '2025-01-01'),('invoice_date', '&lt;=', '2025-12-31')]"/>
+                <filter name="2026" string="2026" domain="[('invoice_date', '&gt;=', '2026-01-01'),('invoice_date', '&lt;=', '2026-12-31')]"/>
+                <filter name="depuis_2025" string="Depuis le 01/01/2025" domain="[('invoice_date', '&gt;=', '2025-01-01')]"/>
+                <filter name="last_18_months" string="18 derniers mois" domain="[('invoice_date', '&gt;=', (datetime.datetime.today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d'))]"/>
+                <filter name="last_18_months_no_transport" string="18 derniers mois hors transport" domain="[('invoice_date', '&gt;=', (datetime.datetime.today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d')), ('categ_id', 'not ilike', 'TRANSPORT')]"/>
+           </search>
+        </field>
+    </record>
+    <record id="is_analyse_facturation_pivot" model="ir.ui.view">
+        <field name="name">is_analyse_facturation_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="invoice_date"   type="row" interval="week"/>
+                <field name="move_type"      type="col"/>
+                <field name="price_subtotal" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_analyse_facturation_graph" model="ir.ui.view">
+        <field name="name">is_analyse_facturation_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="invoice_date"   type="row" interval="week"/>
+                <field name="price_subtotal" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record  id="is_analyse_facturation_action" model="ir.actions.act_window">
+        <field name="name">Analyse facturation</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[]</field>
+    </record>
+
+
+    <!-- Poids net facturé par semaine hors Fromtome -->
+    <record id="poids_net_facture_graph" model="ir.ui.view">
+        <field name="name">poids_net_facture_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="True">
+                <field name="invoice_date" type="row" interval="week"/>
+                <field name="enseigne"     type="row"/>
+                <field name="poids_net"    type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="poids_net_facture_pivot" model="ir.ui.view">
+        <field name="name">poids_net_facture_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot >
+                <field name="invoice_date" type="row" interval="week"/>
+                <field name="enseigne"     type="col"/>
+                <field name="poids_net"    type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record  id="poids_net_facture_action" model="ir.actions.act_window">
+        <field name="name">Poids net facturé par semaine FT+LF (hors JERMI)</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_facture_client_ft_lf_jermi':1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('poids_net_facture_graph')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('poids_net_facture_pivot')}),
+            ]"
+        />
+    </record>
+
+
+    <!-- Achats et ventes par enseigne -->
+    <record id="achat_vente_par_enseigne_action_pivot" model="ir.ui.view">
+        <field name="name">achat_vente_par_enseigne_action_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot >
+                <field name="move_type"      type="row"/>
+                <field name="categ_id"       type="row"/>
+                <field name="enseigne"       type="col"/>
+                <field name="montant_achat"  type="measure"/>
+                <field name="price_subtotal" type="measure"/>
+                <field name="marge_brute"    type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="achat_vente_par_enseigne_action_graph" model="ir.ui.view">
+        <field name="name">achat_vente_par_enseigne_action_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="True">
+                <field name="invoice_date" type="row" interval="week"/>
+                <field name="enseigne"     type="row"/>
+                <field name="marge_brute"    type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record  id="achat_vente_par_enseigne_action" model="ir.actions.act_window">
+        <field name="name">Achats et ventes par enseigne</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">pivot,graph,tree,form</field>
+        <field name="domain">[('move_type','in',['Facture client','Avoir client','Rebut']),('enseigne','!=',False)]</field>
+        <field name="context">{}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('achat_vente_par_enseigne_action_pivot')}),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('achat_vente_par_enseigne_action_graph')}),
+            ]"
+        />
+    </record>
+
+
+    <!-- Analyse marge brute -->
+    <record id="analyse_marge_brute_pivot" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="move_type" type="row"/>
+                <field name="price_subtotal" type="measure"/>
+                <field name="montant_achat" type="measure"/>
+                <field name="marge_brute" type="measure"/>
+                <field name="montant_achat_avec_remise" type="measure"/>
+                <field name="marge_brute_avec_remise" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_graph" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="invoice_date" type="row" interval="month"/>
+                <field name="marge_brute_avec_remise" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_action" model="ir.actions.act_window">
+        <field name="name">Analyse marge brute</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">pivot,graph,tree,form</field>
+        <field name="domain">[('move_type','in',['Facture client','Avoir client','Rebut'])]</field>
+        <field name="context">{}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('analyse_marge_brute_pivot')}),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('analyse_marge_brute_graph')}),
+            ]"
+        />
+    </record>
+
+    <!-- Analyse marge brute comptable 18 derniers mois -->
+    <record id="analyse_marge_brute_18mois_pivot" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_18mois_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="move_type" type="col"/>
+                <field name="invoice_date" type="row" interval="month"/>
+                <field name="price_subtotal" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_18mois_graph" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_18mois_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="invoice_date" type="row" interval="month"/>
+                <!-- <field name="move_type" type="row"/> -->
+                <field name="price_subtotal" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_18mois_action" model="ir.actions.act_window">
+        <field name="name">Analyse marge brute comptable (18 derniers mois)</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[]
+        </field>
+        <field name="context">{'search_default_last_18_months': 1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('analyse_marge_brute_18mois_graph')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('analyse_marge_brute_18mois_pivot')}),
+                (0, 0, {'view_mode': 'tree' , 'view_id': ref('is_analyse_facturation_marge_brute_comptable_tree')}),
+            ]"
+        />
+    </record>
+
+
+
+
+    <!-- Analyse marge brute comptable 18 derniers mois hors transport -->
+    <record id="analyse_marge_brute_18mois_no_transport_pivot" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_18mois_no_transport_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="move_type" type="col"/>
+                <field name="invoice_date" type="row" interval="month"/>
+                <field name="price_subtotal" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_18mois_no_transport_graph" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_18mois_no_transport_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="invoice_date" type="row" interval="month"/>
+                <field name="price_subtotal" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_18mois_no_transport_action" model="ir.actions.act_window">
+        <field name="name">Analyse marge brute comptable (18 derniers mois hors transport)</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_last_18_months_no_transport': 1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('analyse_marge_brute_18mois_no_transport_graph')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('analyse_marge_brute_18mois_no_transport_pivot')}),
+                (0, 0, {'view_mode': 'tree' , 'view_id': ref('is_analyse_facturation_marge_brute_comptable_tree')}),
+            ]"
+        />
+    </record>
+
+
+
+    <!-- Analyse marge brute par enseigne théorique (18 derniers mois hors transport) -->
+    <record id="analyse_marge_brute_par_enseigne_18mois_tree" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_par_enseigne_18mois_tree</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="invoice_date"/>
+                <field name="move_type"      optional="show"/>
+                <field name="is_type_avoir"  optional="hide"/>
+                <field name="invoice_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="partner_id"     optional="show" widget="many2one_clickable"/>
+                <field name="partner_category_id" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="enseigne"       optional="show"/>
+                <field name="product_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="categ_id"       optional="hide"/>
+                <field name="libelle"        optional="hide"/>
+                <field name="quantity"       optional="show" sum="Total"/>
+                <field name="product_uom_id" optional="show"/>
+                <field name="nb_colis"       optional="hide" sum="Total"/>
+                <field name="poids_net"      optional="hide" sum="Total"/>
+                <field name="price_unit"                optional="hide"/>
+                <field name="discount"                  optional="hide"/>
+                <field name="price_subtotal"            optional="show" sum="Total"/>
+                <field name="prix_achat"                optional="hide"/>
+                <field name="discount_fournisseur"      optional="hide"/>
+                <field name="montant_achat"             optional="hide" sum="Total"/>
+                <field name="marge_brute"               optional="show" sum="Total"/>
+                <field name="montant_achat_avec_remise" optional="hide" sum="Total"/>
+                <field name="marge_brute_avec_remise"   optional="show" sum="Total"/>
+                <field name="date_facture_fournisseur"  optional="hide"/>
+                <field name="fournisseur_id"            optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_par_enseigne_18mois_pivot" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_par_enseigne_18mois_pivot</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="enseigne" type="col"/>
+                <field name="invoice_date" type="row" interval="month"/>
+                <field name="marge_brute_avec_remise" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="analyse_marge_brute_par_enseigne_18mois_graph" model="ir.ui.view">
+        <field name="name">analyse_marge_brute_par_enseigne_18mois_graph</field>
+        <field name="model">is.analyse.facturation</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="True">
+                <field name="invoice_date" type="row" interval="month"/>
+                <field name="enseigne" type="row"/>
+                <field name="marge_brute_avec_remise" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record  id="analyse_marge_brute_par_enseigne_18mois_action" model="ir.actions.act_window">
+        <field name="name">Analyse marge brute par enseigne théorique (18 derniers mois hors transport)</field>
+        <field name="res_model">is.analyse.facturation</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[('move_type','in',['Facture client','Avoir client','Rebut']),('enseigne','!=',False)]</field>
+        <field name="context">{'search_default_last_18_months_no_transport': 1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('analyse_marge_brute_par_enseigne_18mois_graph')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('analyse_marge_brute_par_enseigne_18mois_pivot')}),
+                (0, 0, {'view_mode': 'tree' , 'view_id': ref('analyse_marge_brute_par_enseigne_18mois_tree')}),
+            ]"
+        />
+    </record>
+
+
+
+    <!-- Toutes les factures et avoirs (account.move) -->
+    <record id="is_all_invoices_tree" model="ir.ui.view">
+        <field name="name">is.all.invoices.tree</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="move_type in ('out_refund','in_refund')">
+                <field name="invoice_date"/>
+                <field name="name"/>
+                <field name="move_type"/>
+                <field name="partner_id"/>
+                <field name="journal_id"      optional="hide"/>
+                <field name="state"/>
+                <field name="amount_untaxed"  sum="Total HT"/>
+                <field name="amount_tax"      optional="hide" sum="Total TVA"/>
+                <field name="amount_total"    sum="Total TTC"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_all_invoices_pivot" model="ir.ui.view">
+        <field name="name">is.all.invoices.pivot</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="invoice_date"   type="row" interval="month"/>
+                <field name="move_type"      type="col"/>
+                <field name="amount_untaxed" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_all_invoices_graph" model="ir.ui.view">
+        <field name="name">is.all.invoices.graph</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="invoice_date"   type="row" interval="month"/>
+                <field name="amount_untaxed" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="is_all_invoices_search" model="ir.ui.view">
+        <field name="name">is.all.invoices.search</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="move_type"/>
+                <field name="journal_id"/>
+                <filter name="facture_client"   string="Factures client"    domain="[('move_type', '=', 'out_invoice')]"/>
+                <filter name="avoir_client"     string="Avoirs client"      domain="[('move_type', '=', 'out_refund')]"/>
+                <filter name="facture_fournisseur" string="Factures fournisseur" domain="[('move_type', '=', 'in_invoice')]"/>
+                <filter name="avoir_fournisseur" string="Avoirs fournisseur" domain="[('move_type', '=', 'in_refund')]"/>
+                <separator/>
+                <filter name="state_posted"     string="Validée"            domain="[('state', '=', 'posted')]"/>
+                <filter name="state_draft"      string="Brouillon"          domain="[('state', '=', 'draft')]"/>
+                <separator/>
+                <filter name="2023" string="2023" domain="[('invoice_date', '&gt;=', '2023-01-01'),('invoice_date', '&lt;=', '2023-12-31')]"/>
+                <filter name="2024" string="2024" domain="[('invoice_date', '&gt;=', '2024-01-01'),('invoice_date', '&lt;=', '2024-12-31')]"/>
+                <filter name="2025" string="2025" domain="[('invoice_date', '&gt;=', '2025-01-01'),('invoice_date', '&lt;=', '2025-12-31')]"/>
+                <filter name="2026" string="2026" domain="[('invoice_date', '&gt;=', '2026-01-01'),('invoice_date', '&lt;=', '2026-12-31')]"/>
+                <filter name="depuis_2025" string="Depuis le 01/01/2025" domain="[('invoice_date', '&gt;=', '2025-01-01')]"/>
+                <filter name="last_18_months" string="18 derniers mois" domain="[('invoice_date', '&gt;=', (datetime.datetime.today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter name="group_by_move_type"    string="Type"       context="{'group_by': 'move_type'}"/>
+                <filter name="group_by_partner_id"   string="Partenaire" context="{'group_by': 'partner_id'}"/>
+                <filter name="group_by_invoice_date" string="Date"       context="{'group_by': 'invoice_date'}"/>
+                <filter name="group_by_journal_id"   string="Journal"    context="{'group_by': 'journal_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_all_invoices_action" model="ir.actions.act_window">
+        <field name="name">Toutes les factures et avoirs</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field name="domain">[('move_type', 'in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]</field>
+        <field name="search_view_id" ref="is_all_invoices_search"/>
+        <field name="context">{'search_default_last_18_months': 1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree',  'view_id': ref('is_all_invoices_tree')}),
+                (0, 0, {'view_mode': 'pivot', 'view_id': ref('is_all_invoices_pivot')}),
+                (0, 0, {'view_mode': 'graph', 'view_id': ref('is_all_invoices_graph')}),
+            ]"
+        />
+    </record>
+
+
+</odoo>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Relance facture -->
+    <!-- <record id="is_relance_facture_action_server" model="ir.actions.server">
+        <field name="name">Relance facture</field>
+        <field name="model_id" ref="model_account_move"/>
+        <field name="binding_model_id" ref="model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">action = records.relance_facture_action()</field>
+    </record> -->
+
+    <!-- Correction bug account_edi : decoration-danger="error" provoque une erreur JS -->
+    <record id="is_view_move_form_edi_fix" model="ir.ui.view">
+        <field name="name">is_view_move_form_edi_fix</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_edi.view_move_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='edi_document_ids']/tree" position="attributes">
+                <attribute name="decoration-danger"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- account.move -->
+    <record id="is_view_move_form" model="ir.ui.view">
+        <field name="name">is_view_move_form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                    .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                        max-width: 1800px;
+                    }
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+            </xpath>
+            <button name="button_draft" position="after">
+                <button 
+                        string="Ajout des sous-sections par livraison" 
+                        name="ajout_sous_section_action" 
+                        type="object"
+                />
+            </button>
+            <field name="partner_id" position="after">
+                <field name="is_enseigne_id"/>
+            </field>
+            <div name="journal_div" position="after">
+                <field name="is_motif_avoir_id" attrs="{'invisible':[('move_type','not in',['in_refund','out_refund'])]}"/>
+                <field name="is_type_avoir"     attrs="{'invisible':[('move_type','not in',['in_refund','out_refund'])]}"/>
+                <field name="is_export_compta_id" readonly="1"/>
+                <field name="is_date_relance" attrs="{'invisible':[('is_date_relance','=',False)]}"/>
+                <field name="is_date_releve"  attrs="{'invisible':[('is_date_releve','=',False)]}"/>
+                <field name="is_date_paiement"   attrs="{'invisible':[('is_date_paiement','=',False)]}"/>
+                <field name="is_delai_paiement"  attrs="{'invisible':[('is_delai_paiement','=',0)]}"/>
+
+                <field name="is_date_derniere_commande"/>
+                <field name="is_sale_order_id"     attrs="{'invisible':[('move_type','not in',['out_invoice','out_refund'])]}"/>
+                <field name="is_purchase_order_id" attrs="{'invisible':[('move_type','not in',['in_invoice','in_refund'])]}"/>
+
+            </div>
+
+            <label for="invoice_payment_term_id" position="replace"/>
+            <xpath expr="//field[@name='invoice_date_due']/.." position="replace">
+                <field name="invoice_payment_term_id"/>
+                <field name="invoice_date_due"/>
+            </xpath>
+            <field name="payment_reference" position="before">
+                <field name="is_ref_int_cde"/>
+                <field name="is_ref_client"/>
+                <field name="is_bl"/>
+            </field>
+            <xpath expr="//page[1]/field[@name='invoice_line_ids']/tree/field[@name='name']" position="before">
+                <field name="is_picking_id" readonly="1" optional="hide"/>
+                <field name="is_bio_id" optional="hide"/>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="before">
+                <field name="is_picking_id" optional="hide"/>
+                <field name="is_bio_id" optional="hide"/>
+            </xpath>
+
+
+
+
+            <xpath expr="//page[1]/field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="after">
+                <field name="is_lots"                optional="hide"/>
+                <field name="is_nb_pieces_par_colis" optional="hide"/>
+                <field name="is_nb_colis" sum="Total"/>
+                <button 
+                    title="Lignes des mouvemments" 
+                    name="stock_move_line_action" 
+                    type="object" icon="fa-search-plus" 
+                    class="oe_stat_button" 
+                />
+                <field name="is_poids_net"  sum="Total" optional="hide"/>
+            </xpath>
+            <notebook position="before">
+                <div style="background:orange;font-weight: bold;" attrs="{'invisible':[('is_alerte','=',False)]}">
+                    <field 
+                        name="is_alerte"
+                        readonly="1" nolabel="1" 
+                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                    />
+                </div>
+            </notebook>
+            <xpath expr="//page[1]/field[@name='invoice_line_ids']/tree" position="attributes">
+                <attribute name="limit">1000</attribute>
+            </xpath>
+            <xpath expr="//page/field[@name='line_ids']/tree" position="attributes">
+                <attribute name="limit">1000</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="is_view_invoice_tree" model="ir.ui.view">
+        <field name="name">is_view_invoice_tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_type_avoir"  optional="show" invisible="context.get('default_move_type') not in ('out_refund', 'in_refund')"/>
+                <field name="is_enseigne_id" optional="show"/>
+            </field>
+
+            <field name="invoice_date" position="before">
+                <field name="is_sale_order_id"          optional="hide"/>
+                <field name="is_purchase_order_id"      optional="hide"/>
+                <field name="is_date_derniere_commande" optional="show"/>
+            </field>
+
+            <field name="state" position="before">
+                <field name="is_date_paiement"    optional="show"/>
+                <field name="is_delai_paiement"   optional="show"/>
+                <field name="is_export_compta_id" optional="show"/>
+            </field>
+            <field name="company_id" position="before">
+                <field name="is_date_relance"   optional="hide"/>
+                <field name="is_date_releve"    optional="hide"/>
+                <field name="date"              optional="hide"/>
+                <field name="is_motif_avoir_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+
+
+
+    <record id="is_view_in_invoice_tree" model="ir.ui.view">
+        <field name="name">is_view_in_invoice_tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_tree" />
+        <field name="arch" type="xml">
+            <!-- <field name="partner_id" position="after">
+                <field name="is_enseigne_id" optional="show"/>
+            </field> -->
+           <!-- <field name="state" position="before">
+                <field name="is_export_compta_id" optional="show"/>
+            </field> -->
+            <field name="invoice_date_due" position="before">
+                <field name="invoice_payment_term_id" optional="show"/>
+                <field name="invoice_date_due"        optional="show"/>
+                <field name="is_motif_avoir_id"       optional="hide"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">is_view_account_invoice_filter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_enseigne_id"/>
+                <field name="is_motif_avoir_id"/>
+                <field name="is_type_avoir"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- account.move.line -->
+    <record id="is_account_view_move_line_form" model="ir.ui.view">
+        <field name="name">is_account_view_move_line_form</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form" />
+        <field name="arch" type="xml">
+            <field name="quantity" position="after">
+                <field name="price_unit"/>
+                <field name="discount"/>
+                <field name="price_subtotal"/>
+                <field name="is_poids_net" readonly="False"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- account.payment -->
+    <record id="is_view_account_payment_tree" model="ir.ui.view">
+        <field name="name">is_view_account_payment_tree</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree" />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="invoice_date" optional="hide"/>
+            </field>
+            <field name="state" position="before">
+                <field name="is_export_compta_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_account_payment_form" model="ir.ui.view">
+        <field name="name">is_view_account_payment_form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="is_export_compta_id"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- account.move.reversal -->
+    <!-- <record id="is_view_account_move_reversal" model="ir.ui.view">
+        <field name="name">is_view_account_move_reversal</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="arch" type="xml">
+            <field name="reason" position="before">
+                <field name="is_motif_avoir_id"/>
+            </field>
+        </field>
+    </record> -->
+
+
+    <!-- is.motif.avoir -->
+    <record id="is_motif_avoir_tree_view" model="ir.ui.view">
+        <field name="name">is_motif_avoir_tree_view</field>
+        <field name="model">is.motif.avoir</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_motif_avoir_form_view" model="ir.ui.view">
+        <field name="name">is_motif_avoir_form_view</field>
+        <field name="model">is.motif.avoir</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_motif_avoir_search_view" model="ir.ui.view">
+        <field name="name">is_motif_avoir_search_view</field>
+        <field name="model">is.motif.avoir</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_motif_avoir_action" model="ir.actions.act_window" >
+        <field name="name">Motif avoir</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.motif.avoir</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_motif_avoir_menu" 
+        name="Motif avoir" 
+        parent="account.account_invoicing_menu" 
+        sequence="30"
+        action="is_motif_avoir_action"
+    />
+
+
+
+    
+
+</odoo>

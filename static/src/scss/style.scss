@@ -1,0 +1,85 @@
+/*
+td {
+    color:black;
+}
+
+td [name="name"]{
+    color:black;
+}
+*/
+
+.test_scss{
+    // max-width: 250px !important;
+    // min-width: 350px !important;
+    width: 350px !important;
+
+    //min-width: fit-content !important;
+
+
+    //white-space: normal !important;
+    white-space: pre-wrap !important;
+    display: inline-block !important;
+    // width: 100% !important;
+}
+
+.test_scss2{
+    overflow: visible !important;
+    width: 0;
+    min-width: fit-content;
+}
+
+
+
+.prix_vente_actuel{
+    font-weight: bold;
+}
+
+.prix_vente_force{
+    font-weight: bold;
+    color:Red;
+}
+
+.prix_vente_futur{
+    font-weight: bold;
+    color:green;
+}
+
+.prix_vente_futur_force{
+    font-weight: bold;
+    color:darkorange;
+}
+
+.fond_gris{
+    background-color: #E8E8E8;
+}
+
+// Analyse marge brute sur les lots facturés : retour à la ligne automatique
+// pour les champs avec le widget many2one (client, article, facture, lot...)
+.o_is_analyse_marge_lot_ligne_list .o_list_table tbody > tr > td.o_many2one_cell{
+    white-space: normal !important;
+    word-break: break-word;
+}
+
+
+
+/*
+table {
+    white-space: normal;
+    width: 100%;
+  }
+  
+  td {
+    border: 1px solid black;
+  }
+  
+  td {
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  td.fit {
+    width: 0;
+    min-width: fit-content;
+  }
+*/

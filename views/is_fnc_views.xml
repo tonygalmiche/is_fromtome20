@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- is.fnc -->
+    <record id="is_fnc_update_action_server" model="ir.actions.server">
+        <field name="name">Mise à jour FNC</field>
+        <field name="model_id" ref="is_fromtome14.model_is_fnc"/>
+        <field name="binding_model_id" ref="is_fromtome14.model_is_fnc"/>
+        <field name="state">code</field>
+        <field name="code">action = records.fnc_update_action()</field>
+    </record>
+    <record id="is_fnc_update_ir_cron" model="ir.cron">
+        <field name="name">Mise à jour FNC</field>
+        <field name="model_id" ref="is_fromtome14.model_is_fnc"/>
+        <field name="state">code</field>
+        <field name="code">model.fnc_update_ir_cron()</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <record id="is_fnc_seq" model="ir.sequence">
+        <field name="name">N°FNC</field>
+        <field name="code">is.fnc</field>
+        <field name="prefix"></field>
+        <field name="padding">5</field>
+        <field eval="False" name="company_id"/>
+    </record>
+    <record id="is_fnc_form" model="ir.ui.view">
+        <field name="name">is.fnc.form</field>
+        <field name="model">is.fnc</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+                <header>
+                    <button
+                        name="creer_fnc_fournisseur_action"
+                        type="object"
+                        string="Créer FNC fournisseur associée"
+                        attrs="{'invisible': ['|','|',
+                            ('origine', '!=', 'client'),
+                            ('state'  , '!=', 'en_cours'),
+                            ('fnc_associees_ids', '!=', []),
+                        ]}"
+                    />
+                    <field name="state" widget="statusbar" clickable="true"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="origine"/>
+                            <field name="move_line_id"/>
+                            <field name="partner_id"/>
+                            <field name="picking_id"/>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="dlc_ddm"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="emetteur_id"/>
+                            <field name="date_creation"/>
+                        </group>
+                    </group>
+                    <group string="Description / Cause">
+                        <field name="status_move"/>
+                        <field name="description"/>
+                        <field name="cause"/>
+                    </group>
+                    <group string="Action curative">
+                        <field name="action_immediate"/>
+                        <field name="action_curative_date"/>
+                        <field name="action_curative_responsable_id"/>
+                        <field name="action_curative_statut"/>
+                    </group>
+                    <group string="Efficacité action curative">
+                        <field name="efficacite_action_curative"/>
+                        <field name="efficacite_action_curative_date"/>
+                        <field name="efficacite_action_curative_responsable_id"/>
+                        <field name="efficacite_action_curative_date_validee"/>
+                    </group>
+                    <group string="Décision / Analyse">
+                        <field name="decision"/>
+                        <field name="analyse"/>
+                    </group>
+                    <group string="Action corrective proposée">
+                        <field name="action_corrective"/>
+                        <field name="action_corrective_responsable_id"/>
+                        <field name="action_corrective_date_prevue"/>
+                        <field name="action_corrective_date_effective"/>
+                        <field name="action_corrective_statut"/>
+                    </group>
+                    <group string="Efficacité action corrective">
+                        <field name="efficacite_action_corrective"/>
+                        <field name="efficacite_action_date"/>
+                        <field name="efficacite_action_responsable_id"/>
+                        <field name="efficacite_action_date_validee"/>
+                    </group>
+                    <group string="Cloture">
+                        <field name="date_cloture"/>
+                    </group>
+                    <group string="FNC associées">
+                        <field 
+                            name="fnc_origine_id"
+                            attrs="{'invisible': [('origine', '==', 'client')]}"
+                        />
+                    </group>
+                    <field 
+                        name="fnc_associees_ids"
+                        nolabel="1"
+                        attrs="{'readonly': 1, 'invisible': [('fnc_associees_ids', '==', [])]}">
+                        <tree>
+                            <button name="voir_fnc_action" type="object" icon="fa-search-plus"/>
+                            <field name="name"/>
+                            <field name="origine"/>
+                            <field name="partner_id"/>    
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="is_fnc_tree" model="ir.ui.view">
+        <field name="name">is.fnc.tree</field>
+        <field name="model">is.fnc</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="origine"/>
+                <field name="fnc_origine_id" optional="hide"/>
+                <field name="partner_id" optional="show"/>
+                <field name="picking_id" optional="show"/>
+                <field name="product_id" optional="show"/>
+                <field name="lot_id" optional="show"/>
+                <field name="dlc_ddm" optional="show"/>
+                <field name="emetteur_id" optional="show"/>
+                <field name="date_creation" optional="show"/>
+                <field name="status_move" optional="show"/>
+                <field name="description" optional="show"/>
+                <field name="cause" optional="show"/>
+
+                <field name="action_immediate" optional="hide"/>
+                <field name="action_curative_date" optional="hide"/>
+                <field name="action_curative_responsable_id" optional="hide"/>
+                <field name="action_curative_statut" optional="hide"/>
+
+                <field name="efficacite_action_curative" optional="hide"/>
+                <field name="efficacite_action_curative_date" optional="hide"/>
+                <field name="efficacite_action_curative_responsable_id" optional="hide"/>
+                <field name="efficacite_action_curative_date_validee" optional="hide"/>
+
+                <field name="action_corrective" optional="hide"/>
+                <field name="action_corrective_responsable_id" optional="hide"/>
+                <field name="action_corrective_date_prevue" optional="hide"/>
+                <field name="action_corrective_date_effective" optional="hide"/>
+                <field name="action_corrective_statut" optional="hide"/>
+
+                <field name="efficacite_action_corrective" optional="hide"/>
+                <field name="efficacite_action_date" optional="hide"/>
+                <field name="efficacite_action_responsable_id" optional="hide"/>
+                <field name="efficacite_action_date_validee" optional="hide"/>
+
+                <field name="date_cloture" optional="show"/>
+                <field name="state" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_fnc_search" model="ir.ui.view">
+        <field name="name">is.fnc.search</field>
+        <field name="model">is.fnc</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="origine"/>
+                <field name="fnc_origine_id"/>
+                <field name="partner_id"/>
+                <field name="picking_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="emetteur_id"/>
+                <field name="status_move"/>
+                <field name="description"/>
+                <field name="cause"/>
+                <field name="state"/>
+           </search>
+        </field>
+    </record>
+
+    <record id="is_fnc_pivot" model="ir.ui.view">
+        <field name="name">is_fnc_pivot</field>
+        <field name="model">is.fnc</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date_creation"  type="col"/>
+                <field name="partner_id"     type="row"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_fnc_graph" model="ir.ui.view">
+        <field name="name">is_fnc_graph</field>
+        <field name="model">is.fnc</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="date_creation"   type="row"/>
+            </graph>
+        </field>
+    </record>
+
+
+
+    <record  id="is_fnc_action" model="ir.actions.act_window">
+        <field name="name">FNC</field>
+        <field name="res_model">is.fnc</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[]</field>
+    </record>
+    <menuitem
+        id="is_fnc_main_menu"
+        name="FNC"
+        parent="stock.menu_stock_root"
+        sequence="4"
+    />
+    <menuitem
+        id="is_fnc_menu"
+        name="FNC"
+        parent="is_fnc_main_menu"
+        sequence="10"
+        action="is_fnc_action"
+    />
+
+
+
+    <!-- <record id="is_view_stock_move_line_operation_tree_fnc" model="ir.ui.view">
+        <field name="name">is_view_stock_move_line_operation_tree_fnc</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="b2c_cheese_base.view_stock_move_line_operation_tree_inherit"/>
+        <field name="arch" type="xml">
+            <field name="status_move" position="before">
+                <field name="is_creer_fnc_vsb" invisible="1"/>
+                <button 
+                    string="Créer FNC" 
+                    name="creer_fnc_action" 
+                    type="object" icon="fa-plus" 
+                    attrs="{'invisible': [('is_creer_fnc_vsb', '=', False)]}"
+                />
+                <button 
+                    string="Accès FNC" 
+                    name="acces_fnc_action" 
+                    type="object" icon="fa-search-plus" 
+                    attrs="{'invisible': [('is_creer_fnc_vsb', '=', True)]}"
+                />
+            </field>
+        </field>
+    </record> -->
+</odoo>

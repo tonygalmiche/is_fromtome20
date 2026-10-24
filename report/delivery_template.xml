@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="is_report_delivery_document" inherit_id="stock.report_delivery_document">
+        <t name="partner_header" position="replace">
+            Adresse de Livraison:
+        </t>
+        <div class="page" position="replace">
+            <style>
+                .page{
+                    font-size:10pt;
+                }
+            </style>
+            <div class="page">
+                <table style="border:none;width:100%">
+                    <tr>
+                        <th style="border:none;width:95mm">
+                            <div style="text-decoration: underline">Adresse de livraison:</div>
+                            <div><b><span t-field="o.partner_id.name"/></b></div>
+                            <div t-field="o.partner_id.street"/>
+                            <div t-if="o.partner_id.street2"><span t-field="o.partner_id.street2"/></div>
+                            <div><span t-field="o.partner_id.zip"/> <span t-field="o.partner_id.city"/></div>
+                            <div t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id.name"/></div>
+                        </th>
+                        <th style="border:none" t-if="o.sale_id">
+                            <div style="text-decoration: underline">Adresse de facturation:</div>
+
+
+                            <t t-if="o.sale_id.partner_invoice_id.parent_id">
+                                <div><b><span t-field="o.sale_id.partner_invoice_id.parent_id.name"/></b></div>
+                                <div><span t-field="o.sale_id.partner_invoice_id.name"/></div>
+                            </t>
+                            <t t-else="">
+                                <div><b><span t-field="o.sale_id.partner_invoice_id.name"/></b></div>
+                            </t>
+                            <div t-field="o.sale_id.partner_invoice_id.street"/>
+                            <div t-if="o.sale_id.partner_invoice_id.street2"><span t-field="o.sale_id.partner_invoice_id.street2"/></div>
+                            <div><span t-field="o.sale_id.partner_invoice_id.zip"/> <span t-field="o.sale_id.partner_invoice_id.city"/></div>
+                            <div t-if="o.sale_id.partner_invoice_id.country_id"><span t-field="o.sale_id.partner_invoice_id.country_id.name"/></div>
+                        </th>
+                    </tr>
+                </table>
+                <br />
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th class="text-center" t-if="o.sale_id.client_order_ref">
+                                <strong>N°Cde Client</strong>
+                            </th>
+                            <th class="text-center" t-if="o.origin">
+                                <strong>N°Commande</strong>
+                            </th>
+                            <th class="text-center" name="td_sched_date_h">
+                                <strong>Date Livraison</strong>
+                            </th>
+                            <th class="text-center">
+                                <strong>Votre contact</strong>
+                            </th>
+                            <th class="text-center" t-if="o.partner_id.is_gln">
+                                <strong>GLN Client</strong>
+                            </th>
+                            <th class="text-center" t-if="o.partner_id.is_code_fromtome">
+                                <strong>Code Fournisseur</strong>
+                            </th>
+                            <th class="text-center" t-if="o.is_transporteur_id">
+                                <strong>Transporteur</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center" t-if="o.sale_id.client_order_ref">
+                                <span t-field="o.sale_id.client_order_ref"/>
+                            </td>
+                            <td class="text-center" t-if="o.origin">
+                                <span t-field="o.origin"/>
+                            </td>
+                            <td class="text-center" name="td_sched_date">
+                                <span t-field="o.is_date_livraison" t-options="{'widget': 'date','format': 'dd/MM/yyyy'}"/>
+                            </td>
+
+                            <td class="text-center" t-if="o.origin">
+                                <div t-field="o.partner_id.user_id.name"/>
+                                <div t-field="o.partner_id.user_id.email"/>
+                            </td>
+                            <td class="text-center" t-if="o.partner_id.is_gln">
+                                <span t-field="o.partner_id.is_gln"/>
+                            </td>
+                            <td class="text-center" t-if="o.partner_id.is_code_fromtome">
+                                <span t-field="o.partner_id.is_code_fromtome"/>
+                            </td>
+                            <td class="text-center" t-if="o.is_transporteur_id">
+                                <span t-field="o.is_transporteur_id.name"/>
+                            </td>
+                         </tr>
+                    </tbody>
+                </table>
+               <table class="table table-sm mt48">
+                    <thead>
+                        <tr>
+                            <th class="text-left"> <strong>Code</strong></th>
+                            <th class="text-left"> <strong>Désignation</strong></th>
+                            <th class="text-right" t-if="o.partner_id.is_enseigne_id.prix_sur_livraison"> <strong>Prix</strong></th>
+                            <th class="text-center"> <strong>Colis</strong></th>
+                            <th class="text-center"> <strong>PCB</strong></th>
+                            <th class="text-center" colspan="2"><strong>Qt</strong></th>
+                            <th class="text-right"> <strong>Poids</strong></th>
+                        </tr>
+                    </thead>
+
+                    <t t-if="o.partner_id.is_presentation_bl=='standard'">
+                        <tbody> 
+                            <t t-foreach="o.move_ids_without_package" t-as="line"> 
+                                <t t-if="line.state not in ['cancel']">
+                                    <tr>
+                                        <td class="text-left"><span t-field="line.product_id.default_code"/></td>
+                                        <td class="text-left">
+                                            <div><strong><span t-field="line.is_description_cde"/></strong></div>
+
+                                            <div t-if="o.partner_id.is_enseigne_id.name.name=='FROMTOME SAS'">
+                                                <i>
+                                                    <t t-if="line.product_id.is_gtin_13">GTIN 13: <span t-field="line.product_id.is_gtin_13"/> - </t>
+                                                    <t t-if="line.product_id.barcode">GTIN 14: <span t-field="line.product_id.barcode"/></t>
+                                                </i>
+                                            </div>
+
+
+
+
+                                            <div t-if="line.is_lots" t-field="line.is_lots"/>
+                                            <div t-if="line.sale_line_id.discount">Remise prévue de <span t-field="line.sale_line_id.discount"/>%</div>
+                                            <div t-if="line.is_bio_id"><i><span t-field="line.is_bio_id.name"/></i></div>
+                                        </td>
+
+                                        <td class="text-right" t-if="o.partner_id.is_enseigne_id.prix_sur_livraison">
+                                            <span t-field="line.sale_line_id.price_unit"/>€/<span t-field="line.sale_line_id.product_uom"/>
+                                        </td>
+                                        <td class="text-center"><b><span t-field="line.is_nb_colis"/></b></td>
+                                        <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
+                                        <td class="text-right" style="border-right:none"><span t-field="line.quantity_done"/></td>
+                                        <td class="text-left"  style="border-left:none"><span t-field="line.product_uom"/></td>
+                                        <td class="text-right"><span t-field="line.is_poids_net_reel"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </t>
+
+
+                    <t t-if="o.partner_id.is_presentation_bl=='detaillee'">
+                        <tbody> 
+                            <t t-foreach="o.move_line_ids_without_package" t-as="line"> 
+                                <tr>
+                                    <td class="text-left"><span t-field="line.product_id.default_code"/></td>
+                                    <td class="text-left">
+                                        <div><strong><span t-field="line.move_id.is_description_cde"/></strong></div>
+                                        <div t-if="line.lot_id">
+                                            Lot:<span t-field="line.lot_id"/>-<span t-field="line.is_type_tracabilite"/>:<span t-field="line.is_dlc_ddm"/>
+                                        </div> 
+                                        <div t-if="line.move_id.sale_line_id.discount">Remise prévue de <span t-field="line.move_id.sale_line_id.discount"/>%</div>
+                                        <div t-if="line.is_bio_id"><i><span t-field="line.is_bio_id.name"/></i></div>
+                                    </td>
+
+                                    <td class="text-right" t-if="o.partner_id.is_enseigne_id.prix_sur_livraison">
+                                        <span t-field="line.sale_line_id.price_unit"/>€/<span t-field="line.sale_line_id.product_uom"/>
+                                    </td>
+
+                                    <td class="text-center"><span t-field="line.is_nb_colis"/></td>
+                                    <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
+                                    <td class="text-right" style="border-right:none"><span t-field="line.qty_done"/></td>
+                                    <td class="text-left"  style="border-left:none"><span t-field="line.product_uom_id"/></td>
+                                    <td class="text-right"><span t-field="line.is_poids_net_reel"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </t>
+
+
+
+                    <thead>
+                        <tr>
+                            <th class="text-left" colspan="3"> <strong>Total : </strong></th>
+                            <th class="text-center"> <strong><span t-field="o.is_nb_colis"/></strong></th>
+
+                            <t t-if="o.partner_id.is_enseigne_id.prix_sur_livraison">
+                                <th colspan="3"> </th>
+                            </t>
+                            <t t-else="">
+                                <th colspan="2"> </th>
+                            </t>
+                            <th class="text-right"> <strong><span t-field="o.is_poids_net"/></strong></th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <!-- Tableau des manquants -->
+                <t t-if="o.is_afficher_manquants and o.sale_id">
+                    <t t-set="has_manquants" t-value="False"/>
+                    <t t-foreach="o.sale_id.order_line" t-as="sale_line">
+                        <t t-if="sale_line.is_colis_manquant != 0">
+                            <t t-set="has_manquants" t-value="True"/>
+                        </t>
+                    </t>
+
+                    <t t-if="has_manquants">
+                        <br/>
+                        <h4><strong>Articles manquants</strong></h4>
+                        <table class="table table-sm mt16">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><strong>Code</strong></th>
+                                    <th class="text-left"><strong>Désignation</strong></th>
+                                    <th class="text-center"><strong>PCB</strong></th>
+                                    <th class="text-center"><strong>Colis commandés</strong></th>
+                                    <th class="text-center"><strong>Colis livrés</strong></th>
+                                    <th class="text-center"><strong>Manquant</strong></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.sale_id.order_line" t-as="sale_line">
+                                    <t t-if="sale_line.is_colis_manquant != 0">
+                                        <tr>
+                                            <td class="text-left"><span t-field="sale_line.product_id.default_code"/></td>
+                                            <td class="text-left"><span t-field="sale_line.product_id.name"/></td>
+                                            <td class="text-center"><span t-field="sale_line.product_id.is_nb_pieces_par_colis"/></td>
+                                            <td class="text-center"><span t-field="sale_line.is_colis_cde_origine"/></td>
+                                            <td class="text-center"><span t-field="sale_line.is_colis_liv"/></td>
+                                            <td class="text-center"><span t-field="sale_line.is_colis_manquant"/></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+
+                <t t-if="o.partner_id.is_enseigne_id.note_bl">
+                    <br />
+                    <strong><div t-field="o.partner_id.is_enseigne_id.note_bl"/></strong>
+                </t>
+            </div>
+        </div>
+    </template>
+</odoo>

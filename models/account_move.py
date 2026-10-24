@@ -1,0 +1,349 @@
+# -*- coding: utf-8 -*-
+from odoo import api, fields, models, _
+from datetime import datetime, date, timedelta
+
+_TYPE_AVOIR = [
+    ('avoir_prix'    , 'Avoir sur prix'),
+    ('avoir_quantite', 'Avoir sur quantité'),
+]
+
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
+
+
+    @api.depends('product_id','quantity')
+    def _compute_is_nb_pieces_par_colis(self):
+        for obj in self:
+            obj.is_nb_pieces_par_colis = obj.product_id.is_nb_pieces_par_colis
+            poids_net = 0
+            nb_colis  = 0
+            if obj.purchase_line_id.move_ids:
+                for line in obj.purchase_line_id.move_ids.move_line_ids:
+                    poids_net+=line.is_poids_net_reel
+                    nb_colis+=line.is_nb_colis
+            if obj.sale_line_ids.move_ids:
+                for line in obj.sale_line_ids.move_ids.move_line_ids:
+                    sens=1
+                    if line.move_id.picking_type_id.code=='incoming':
+                        sens=-1
+                    poids_net+=sens*line.is_poids_net_reel
+                    nb_colis+=sens*line.is_nb_colis
+
+            # Ajout du 06/07/22 pour Le Cellier
+            if nb_colis==0:
+                if obj.purchase_line_id.move_ids:
+                    for line in obj.purchase_line_id.move_ids:
+                        nb_colis+=line.is_nb_colis
+                if obj.sale_line_ids.move_ids:
+                    for line in obj.sale_line_ids.move_ids:
+                        nb_colis+=line.is_nb_colis
+                poids_net = nb_colis* obj.product_id.is_poids_net_colis
+
+
+            obj.is_poids_net = poids_net
+            obj.is_nb_colis = nb_colis
+
+
+    @api.depends('sale_line_ids')
+    def _compute_is_lots(self):
+        for obj in self:
+            lots=[]
+            for line in obj.sale_line_ids:
+                for move in line.move_ids:
+                    lots.append(move.is_lots)
+            obj.is_lots= (lots and "\r".join(lots)) or False
+
+
+    is_nb_pieces_par_colis = fields.Integer(string='PCB', compute='_compute_is_nb_pieces_par_colis', readonly=True, store=True)
+    is_nb_colis            = fields.Float(string='Nb Colis', digits=(14,2) , compute='_compute_is_nb_pieces_par_colis', readonly=True, store=True)
+    is_poids_net           = fields.Float(string='Poids net', digits=(14,4), compute='_compute_is_nb_pieces_par_colis', readonly=True, store=True, help="Poids net total (Kg)")
+    is_lots                = fields.Text('Lots', compute='_compute_is_lots')
+    is_picking_id          = fields.Many2one('stock.picking', 'BL', copy=False)
+    is_bio_id              = fields.Many2one('is.bio', 'BIO', copy=False)
+
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Lors de la création d'une ligne de facture, recopie is_bio_id depuis l'article"""
+        lines = super(AccountMoveLine, self).create(vals_list)
+        for line in lines:
+            if line.product_id and line.product_id.is_bio_id:
+                line.is_bio_id = line.product_id.is_bio_id.id
+        return lines
+
+
+    def stock_move_line_action(self):
+        for obj in self:
+            ids=[]
+            if obj.sale_line_ids.move_ids:
+                for line in obj.sale_line_ids.move_ids.move_line_ids:
+                    ids.append(line.id)
+            if obj.purchase_line_id.move_ids:
+                for line in obj.purchase_line_id.move_ids.move_line_ids:
+                    ids.append(line.id)
+            res= {
+                'name': 'Picking',
+                'view_mode': 'tree,form',
+                'view_type': 'form',
+                'res_model': 'is.stock.move.line',
+                'type': 'ir.actions.act_window',
+                'domain': [
+                    ('move_line_id','in',ids),
+                ],
+            }
+            return res
+
+
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+
+    @api.depends('invoice_line_ids')
+    def _compute_is_alerte(self):
+        for obj in self:
+            alertes=[]
+            nb_frais_de_port=0
+            for line in obj.invoice_line_ids:
+                if line.display_type!='line_section':
+                    if line.product_id.categ_id.name=='TRANSPORT':
+                        nb_frais_de_port+=1
+                    if line.price_unit==0:
+                        alertes.append("Prix facturé à 0")
+                    if line.price_unit>=9999:
+                        alertes.append("Prix facturé > 9999")
+            if nb_frais_de_port>1:
+                alertes.append("Il y a %s lignes de frais de port"%nb_frais_de_port)
+            alerte=False
+            if len(alertes)>0:
+                alerte = '\n'.join(alertes)
+            obj.is_alerte=alerte
+
+
+    @api.depends('invoice_line_ids')
+    def _is_ref_client_int_cde(self):
+        for obj in self:
+            ref_client=[]
+            ref_int=[]
+            for line in obj.invoice_line_ids:
+                for sale_line in line.sale_line_ids:
+                    x = sale_line.order_id.name
+                    if x and x not in ref_int:
+                        ref_int.append(x)
+                    x = sale_line.order_id.client_order_ref
+                    if x and x not in ref_client:
+                        ref_client.append(x)
+            obj.is_ref_int_cde = (ref_int    and "\n".join(ref_int))    or False
+            obj.is_ref_client  = (ref_client and "\n".join(ref_client)) or False
+
+
+
+    @api.depends('invoice_line_ids')
+    def _is_is_bl(self):
+        for obj in self:
+            bl=[]
+            for line in obj.invoice_line_ids:
+                for sale_line in line.sale_line_ids:
+                    for move in sale_line.move_ids:
+                        x = move.picking_id.name
+                        if x and x not in bl:
+                            bl.append(x)
+            obj.is_bl  = (bl and "\n".join(bl)) or False
+
+
+    @api.depends('invoice_line_ids')
+    def _compute_poids_colis(self):
+        for obj in self:
+            poids=0
+            colis=0
+            for line in obj.invoice_line_ids:
+                poids+=line.is_poids_net
+                colis+=line.is_nb_colis
+            obj.is_poids_net = poids
+            obj.is_nb_colis  = colis
+
+
+    @api.depends('partner_id')
+    def _compute_is_enseigne_id(self):
+        for obj in self:
+            obj.is_enseigne_id = obj.partner_id.is_enseigne_id.id
+        
+
+    @api.depends('state','amount_total','amount_residual')
+    def _compute_is_date_delai_paiement(self):
+        for obj in self:
+            date_paiement = False
+            delai_paiement = False
+            if obj.state == 'posted' and obj.is_invoice(include_receipts=True):
+                payments = obj._get_reconciled_info_JSON_values()
+                for payment in payments:
+                    if date_paiement==False:
+                        date_paiement = payment['date']
+                    if payment['date']>date_paiement:
+                        date_paiement = payment['date']
+            if date_paiement:
+                delai_paiement=(date_paiement-obj.invoice_date).days
+            obj.is_date_paiement  = date_paiement
+            obj.is_delai_paiement = delai_paiement
+
+
+    is_enseigne_id      = fields.Many2one('is.enseigne.commerciale', 'Enseigne', compute='_compute_is_enseigne_id', store=True, readonly=False) #, related='partner_id.is_enseigne_id')
+    is_export_compta_id = fields.Many2one('is.export.compta', 'Folio', copy=False)
+    is_alerte           = fields.Text('Alerte', copy=False, compute=_compute_is_alerte)
+    is_ref_client       = fields.Text('Ref Client' , compute='_is_ref_client_int_cde')
+    is_ref_int_cde      = fields.Text('Ref Int Cde', compute='_is_ref_client_int_cde')
+    is_bl               = fields.Text('BL'         , compute='_is_is_bl')
+    is_poids_net        = fields.Float(string='Poids net', digits=(14,3), compute='_compute_poids_colis')
+    is_nb_colis         = fields.Float(string='Nb colis' , digits=(14,1), compute='_compute_poids_colis')
+    is_date_relance     = fields.Date(string='Date dernière relance', readonly=1)
+    is_date_releve      = fields.Date(string='Date dernier relevé'  , readonly=1)
+    is_motif_avoir_id   = fields.Many2one('is.motif.avoir', "Motif de l'avoir")
+    is_date_paiement    = fields.Date(string='Date paiement'       , compute='_compute_is_date_delai_paiement', store=True, readonly=True)
+    is_delai_paiement   = fields.Integer(string='Délai de paiement', compute='_compute_is_date_delai_paiement', store=True, readonly=True)
+    is_type_avoir       = fields.Selection(_TYPE_AVOIR, 'Type avoir', default="avoir_quantite", copy=False)
+    is_date_derniere_commande = fields.Date(string='Date livraison commande', help="Date livraison client ou Date de réception",  compute='_compute_is_derniere_commande', store=True)
+    is_sale_order_id          = fields.Many2one('sale.order', string='Commande client', compute='_compute_is_derniere_commande', store=True)
+    is_purchase_order_id      = fields.Many2one('purchase.order', string='Commande fournisseur', compute='_compute_is_derniere_commande', store=True)
+
+
+    @api.depends('invoice_line_ids')
+    def _compute_is_derniere_commande(self):
+        for obj in self:
+            date_derniere_commande = False
+            sale_order = False
+            purchase_order = False
+            # Facture client : recherche des commandes client
+            if obj.move_type in ('out_invoice', 'out_refund'):
+                for line in obj.invoice_line_ids:
+                    for sale_line in line.sale_line_ids:
+                        order = sale_line.order_id
+                        if order and order.is_date_livraison:
+                            if not date_derniere_commande or order.is_date_livraison > date_derniere_commande:
+                                date_derniere_commande = order.is_date_livraison
+                                sale_order = order
+            # Facture fournisseur : recherche des commandes fournisseur
+            elif obj.move_type in ('in_invoice', 'in_refund'):
+                for line in obj.invoice_line_ids:
+                    if line.purchase_line_id:
+                        order = line.purchase_line_id.order_id
+                        if order and order.date_planned:
+                            order_date = order.date_planned.date() if isinstance(order.date_planned, datetime) else order.date_planned
+                            if not date_derniere_commande or order_date > date_derniere_commande:
+                                date_derniere_commande = order_date
+                                purchase_order = order
+            obj.is_date_derniere_commande = date_derniere_commande
+            obj.is_sale_order_id = sale_order
+            obj.is_purchase_order_id = purchase_order
+
+
+    # def write(self, vals):
+    #     res = super(AccountMove, self).write(vals)
+    #     #** Mettre la ligne des frais de port à la fin ************************
+    #     for obj in self:
+    #         if obj.partner_id.is_frais_port_id:
+    #             max=0
+    #             for line in obj.line_ids:
+    #                 if line.product_id!=obj.partner_id.is_frais_port_id:
+    #                     if line.sequence>max:
+    #                         max=line.sequence
+    #             for line in obj.line_ids:
+    #                 if line.product_id==obj.partner_id.is_frais_port_id:
+    #                     line.sequence=max+10
+    #     #**********************************************************************
+    #     return res
+
+
+    def _message_auto_subscribe_notify(self, partner_ids, template):
+        "Désactiver les notifications d'envoi des mails"
+        return True
+
+
+    def action_invoice_sent(self):
+        for invoice in self:        
+            invoice.sudo().message_follower_ids.unlink()
+        res = super(AccountMove, self).action_invoice_sent()
+        return res
+
+
+
+    def ajout_sous_section_action(self):
+        for obj in self:
+            my_dict={}
+            for line in obj.invoice_line_ids:
+                #** Recherche du picking de la ligne facturée *****************
+                picking=line.is_picking_id
+                if not picking:
+                    for l in line.sale_line_ids:
+                        order = l.order_id
+                        for sale_line in order.order_line:
+                            for invoice_line in sale_line.invoice_lines:
+                                if line==invoice_line:
+                                    for stock_move in sale_line.move_ids:
+                                        picking = stock_move.picking_id
+                                        line.is_picking_id = picking.id
+                #**************************************************************
+
+                #** Tri par date du picking et par désignation ****************
+                date_picking = (picking and str(picking.date_done)) or 'ZZZ'
+                name=line.name
+                if line.product_id.categ_id.name=='TRANSPORT':
+                    name="ZZZ" # Pour mettre les frais de port à la fin
+                key = "%s-%s-%s"%(date_picking,name,line.id)
+                my_dict[key]=line
+                #**************************************************************
+
+            #** Modification de la séquence des lignes pour trier *************
+            sorted_dict = dict(sorted(my_dict.items()))
+            sequence=10
+            for key in sorted_dict:
+                move=sorted_dict[key]
+                move.sequence=sequence
+                sequence+=10
+            #******************************************************************
+
+            #** Suppression des anciennes sous-section ************************
+            for line in obj.invoice_line_ids:
+                if line.display_type=='line_section':
+                    line.unlink()
+            #******************************************************************
+
+            #** Ajout d'une sous-secttion par picking**************************
+            picking=False
+            for line in obj.invoice_line_ids.sorted('sequence'):
+                if picking!=line.is_picking_id:
+                    if line.is_picking_id:
+                        name = "Livraison %s du %s"%(line.is_picking_id.name,line.is_picking_id.date_done.strftime('%d/%m/%Y'))
+                        vals={
+                            'move_id'      : line.move_id.id,
+                            'sequence'     : line.sequence - 1,
+                            'display_type' : 'line_section',
+                            'name'         : name,
+                        }
+                        self.env['account.move.line'].create(vals)
+                    picking=line.is_picking_id
+            #******************************************************************
+
+
+class AccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+    is_export_compta_id = fields.Many2one('is.export.compta', 'Folio', copy=False)
+
+
+class IsMotifAvoir(models.Model):
+    _name = "is.motif.avoir"
+    _description = "Motif avoir"
+    _order = "name"
+    name = fields.Char("Motif avoir", required=True)
+
+
+class AccountMoveReversal(models.TransientModel):
+    _inherit = 'account.move.reversal'
+
+    is_motif_avoir_id = fields.Many2one('is.motif.avoir', "Motif de l'avoir")
+
+
+    @api.onchange('is_motif_avoir_id')
+    def onchange_action_curative_date(self):
+        for obj in self:
+            if obj.is_motif_avoir_id:
+                obj.reason=obj.is_motif_avoir_id.name

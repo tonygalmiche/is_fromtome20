@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- is.imprimer.etiquette.gs1 -->
+    <record id="is_imprimer_etiquette_gs1_form" model="ir.ui.view">
+        <field name="name">is.imprimer.etiquette.gs1.form</field>
+        <field name="model">is.imprimer.etiquette.gs1</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                     .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+                <header>
+                    <button
+                        name="dupliquer_autre_poids_action"
+                        type="object"
+                        string="Dupliquer pour saisir autre poids"
+                    />
+                 </header>
+                <sheet>
+                    <div style="background:orange;font-weight: bold;" attrs="{'invisible':[('alerte','=',False)]}">
+                        <field 
+                            name="alerte"
+                            readonly="1" nolabel="1" 
+                            attrs="{'invisible': [('alerte', '=', False)]}"
+                        />
+                    </div>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="uom_id"/>
+                        <field name="code_ean"/>
+                        <field name="type_tracabilite"/>
+                        <field name="lot"/>
+                        <field name="dluo" attrs="{'invisible': [('type_tracabilite', '!=', 'ddm')]}"/>
+                        <field name="dlc"  attrs="{'invisible': [('type_tracabilite', '!=', 'dlc')]}"/>
+                        <field name="poids_vsb" invisible="1"/>
+                        <field name="poids_char"         default_focus="1" attrs="{'invisible':[('poids_vsb','=',False)], 'required':[('poids_vsb','!=',False)]}"/>
+                        <field name="poids" readonly="1" force_save="1"    attrs="{'invisible':[('poids_vsb','=',False)]}"/>
+                        <field name="qt_imprime"/>
+                        <field name="imprimante_id" required="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_imprimer_etiquette_gs1_tree" model="ir.ui.view">
+        <field name="name">is.imprimer.etiquette.gs1.tree</field>
+        <field name="model">is.imprimer.etiquette.gs1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="code_ean"      optional="show" />
+                <field name="lot"           optional="show" />
+                <field name="dluo"          optional="show" />
+                <field name="dlc"           optional="show" />
+                <field name="poids"         optional="show" sum="Total"/>
+                <field name="nb_pieces"     optional="show" sum="Total"/>
+                <field name="qt_imprime"    optional="show" sum="Total"/>
+                <field name="create_date"   optional="show" string="Créée le"/>
+                <field name="write_date"    optional="show" string="Modifiée le"/>
+                <field name="imprimante_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_imprimer_etiquette_gs1_search" model="ir.ui.view">
+        <field name="name">is.imprimer.etiquette.gs1.search</field>
+        <field name="model">is.imprimer.etiquette.gs1</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id"/>
+                <field name="code_ean"/>
+                <field name="lot"/>
+                <field name="nb_pieces"/>
+                <field name="imprimante_id"/>
+           </search>
+        </field>
+    </record>
+
+    <record id="is_imprimer_etiquette_gs1c_pivot" model="ir.ui.view">
+        <field name="name">is_imprimer_etiquette_gs1c_pivot</field>
+        <field name="model">is.imprimer.etiquette.gs1</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="create_date" type="row" interval="week"/>
+                <field name="qt_imprime"  type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="is_imprimer_etiquette_gs1_graph" model="ir.ui.view">
+        <field name="name">is_imprimer_etiquette_gs1_graph</field>
+        <field name="model">is.imprimer.etiquette.gs1</field>
+        <field name="arch" type="xml">
+            <graph type="bar" orientation="vertical" stacked="False">
+                <field name="create_date"   type="row" interval="week"/>
+                <field name="qt_imprime"  type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record  id="is_imprimer_etiquette_gs1_action" model="ir.actions.act_window">
+        <field name="name">Impression étiquette GS1</field>
+        <field name="res_model">is.imprimer.etiquette.gs1</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[]</field>
+    </record>
+    <menuitem
+        id="is_imprimer_etiquette_gs1_menu"
+        name="Impression étiquette GS1"
+        parent="stock.menu_stock_inventory_control"
+        sequence="910"
+        action="is_imprimer_etiquette_gs1_action"
+
+    />
+
+
+
+    <!-- is.imprimante.etiquette -->
+    <record id="is_imprimante_etiquette_form" model="ir.ui.view">
+        <field name="name">is.imprimante.etiquette.form</field>
+        <field name="model">is.imprimante.etiquette</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="name_cups"/>
+                        <field name="dimension"/>
+                        <field name="default"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_imprimante_etiquette_tree" model="ir.ui.view">
+        <field name="name">is.imprimante.etiquette.tree</field>
+        <field name="model">is.imprimante.etiquette</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="name_cups"/>
+                <field name="dimension"/>
+                <field name="default"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_imprimante_etiquette_search" model="ir.ui.view">
+        <field name="name">is.imprimante.etiquette.search</field>
+        <field name="model">is.imprimante.etiquette</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="name_cups"/>
+           </search>
+        </field>
+    </record>
+
+    <record  id="is_imprimante_etiquette_action" model="ir.actions.act_window">
+        <field name="name">Imprimantes étiquettes</field>
+        <field name="res_model">is.imprimante.etiquette</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[]</field>
+    </record>
+    <menuitem
+        id="is_imprimante_etiquette_menu"
+        name="Imprimantes étiquettes"
+        parent="stock.menu_stock_config_settings"
+        sequence="900"
+        action="is_imprimante_etiquette_action"
+    />
+</odoo>

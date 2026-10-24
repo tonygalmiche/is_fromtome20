@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_fiche_palette_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                        <t t-call="web.address_layout"/>
+                        <t t-raw="0"/>
+                        <style>
+                        </style>
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            <div style="font-size: 15pt">
+                                <span t-field="doc.company_id.name"/>
+                                <span t-field="doc.company_id.street"/>
+                                <span t-field="doc.company_id.zip"/>
+                                <span t-field="doc.company_id.city"/>
+                                <span t-field="doc.company_id.country_id"/>
+                                <div>Tel :<span t-field="doc.company_id.phone"/></div>
+                            </div>
+                            <div style="font-size: 18pt;text-align:center;border:1px solid">
+                                <div>Transporteur: <span style="font-size: 30pt;font-weight: bold;" t-field="doc.is_transporteur_id.name"/></div>
+                                <br/>
+                                <br/>
+                                <div>Adresse de Livraison:</div>
+                                <div style="font-size:48pt;font-weight:bold" t-field="doc.partner_id.name"           t-if="doc.partner_id.name"/>
+                                <div style="font-size:48pt;font-weight:bold" t-field="doc.partner_id.parent_id.name" t-if="doc.partner_id.parent_id"/>
+                                <div style="font-size:25pt">
+                                    <div t-field="doc.partner_id.street"/>
+                                    <div t-field="doc.partner_id.street2"/>
+                                    <div><span t-field="doc.partner_id.zip"/> <span t-field="doc.partner_id.city"/></div>
+                                </div>
+                                <br/>
+                                 <div style="font-size:30pt;font-weight:bold" t-field="doc.partner_id.country_id"/>
+                                 <br/>
+                            </div>
+                            <div style="font-size: 20pt;font-weight:bold;text-align:center">
+                                <div>Nbre Colis:</div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <record id="fiche_palette_paperformat" model="report.paperformat">
+            <field name="name">Fiche Palette</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="action_report_fiche_palette" model="ir.actions.report">
+            <field name="name">Fiche Palette</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">is_fromtome14.report_fiche_palette_document</field>
+            <field name="report_file">is_fromtome14.report_fiche_palette_document</field>
+            <field name="paperformat_id" ref="is_fromtome14.fiche_palette_paperformat"/>
+        </record>
+
+
+        
+    </data>
+</odoo>

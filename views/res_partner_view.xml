@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- is.enseigne.commerciale -->
+    <record id="is_enseigne_commerciale_tree_view" model="ir.ui.view">
+        <field name="name">is_enseigne_commerciale_tree_view</field>
+        <field name="model">is.enseigne.commerciale</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="mini_cde_franco"     optional="show"/>
+                <field name="warehouse_id"        optional="hide"/>
+                <field name="prix_sur_livraison"  optional="hide"/>
+                <field name="calcul_des_besoins"  optional="hide"/>
+                <field name="modele_commande_ids" optional="hide" widget="many2many_binary" />
+                <field name="rib"                 optional="hide"/>
+                <field name="note_bl"             optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_enseigne_commerciale_form_view" model="ir.ui.view">
+        <field name="name">is_enseigne_commerciale_form_view</field>
+        <field name="model">is.enseigne.commerciale</field>
+        <field name="arch" type="xml">
+        <form>
+            <style>
+                 .o_form_label{
+                    white-space: nowrap;
+                }
+            </style>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="warehouse_id"/>
+                    <field name="mini_cde_franco"/>
+                    <field name="prix_sur_livraison"/>
+                    <field name="calcul_des_besoins"/>
+                    <field name="modele_commande_ids" widget="many2many_binary"/>
+                    <field name="rib"/>
+                    <field name="note_bl"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_enseigne_commerciale_search_view" model="ir.ui.view">
+        <field name="name">is_enseigne_commerciale_search_view</field>
+        <field name="model">is.enseigne.commerciale</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="warehouse_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_enseigne_commerciale_action" model="ir.actions.act_window" >
+        <field name="name">Enseigne commerciale</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.enseigne.commerciale</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_enseigne_commerciale_menu" 
+        name="Enseigne commerciale" 
+        parent="sale.menu_sale_config" 
+        sequence="900"
+        action="is_enseigne_commerciale_action"
+    />
+
+
+    <!-- is.transporteur -->
+    <record id="is_transporteur_tree_view" model="ir.ui.view">
+        <field name="name">is_transporteur_tree_view</field>
+        <field name="model">is.transporteur</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="transporteur_par_ordre"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_transporteur_form_view" model="ir.ui.view">
+        <field name="name">is_transporteur_form_view</field>
+        <field name="model">is.transporteur</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="transporteur_par_ordre"/>
+                    <field name="partner_id"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_transporteur_search_view" model="ir.ui.view">
+        <field name="name">is_transporteur_search_view</field>
+        <field name="model">is.transporteur</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="transporteur_par_ordre"/>
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_transporteur_action" model="ir.actions.act_window" >
+        <field name="name">Tournée transporteur</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.transporteur</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_transporteur_menu"
+        name="Tournée transporteur"
+        parent="sale.menu_sale_config" 
+        sequence="910"
+        action="is_transporteur_action"
+    />
+
+
+    <!-- is.heure.maxi -->
+    <record id="is_heure_maxi_tree_view" model="ir.ui.view">
+        <field name="name">is_heure_maxi_tree_view</field>
+        <field name="model">is.heure.maxi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_heure_maxi_form_view" model="ir.ui.view">
+        <field name="name">is_heure_maxi_form_view</field>
+        <field name="model">is.heure.maxi</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_heure_maxi_search_view" model="ir.ui.view">
+        <field name="name">is_heure_maxi_search_view</field>
+        <field name="model">is.heure.maxi</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_heure_maxi_action" model="ir.actions.act_window" >
+        <field name="name">Heure maxi</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.heure.maxi</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_heure_maxi_menu" 
+        name="Heure maxi" 
+        parent="sale.menu_sale_config" 
+        sequence="920"
+        action="is_heure_maxi_action"
+    />
+
+
+    <!-- res.partner -->
+    <record id="is_view_partner_tree" model="ir.ui.view" >
+        <field name="name">view_partner_tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <header>
+                    <button name="action_open_google_maps_multiple" string="📍 Voir sur OpenStreetMap" type="object" class="btn-primary"/>
+                </header>
+            </xpath>
+            <field name="display_name" position="after">
+                <field name="is_enseigne_id" optional="show"/>
+            </field>
+            <field name="user_id" position="after">
+                <field 
+                    name="is_frequence_facturation"
+                    decoration-info="is_frequence_facturation == 'a_la_livraison'" 
+                    decoration-warning="is_frequence_facturation == 'au_mois'" 
+                    widget="badge" 
+                    optional="show"
+                />
+                <field name="is_transporteur" optional="show"/>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="activity_ids" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="email" position="after">
+                <field name="is_contact_relance_facture_id" optional="hide"/>
+            </field>
+           <field name="parent_id" position="after">
+                <field name="is_gln"                            optional="hide"/>
+                <field name="is_code_fromtome"                  optional="hide"/>
+                <field name="is_code_interne"                   optional="hide"/>
+                <field name="is_code_tarif"                     optional="hide"/>
+                <field name="property_account_position_id"      optional="hide"/>
+                <field name="property_account_receivable_id"    optional="hide"/>
+                <field name="property_account_payable_id"       optional="hide"/>
+                <field name="property_payment_term_id"          optional="hide"/>
+                <field name="property_supplier_payment_term_id" optional="hide"/>
+                <field name="property_product_pricelist"        optional="hide"/>
+                <field name="is_modele_commande_id"             optional="hide"/>
+                <field name="is_pourcent_promo_a_repercuter"    optional="hide"/>
+                <field name="is_presentation_bl"                optional="hide"/>
+                <field name="is_transporteur_id"                optional="hide"/>
+                <field name="is_warehouse_id"                   optional="hide"/>
+                <field name="is_emplacement_fournisseur"        optional="hide"/>
+                <field name="is_frais_port_id"                  optional="hide"/>
+                <field name="is_mini_cde_franco"                optional="hide"/>
+                <field name="is_heure_appel"                    optional="hide"/>
+                <field name="is_habitude_commande"              optional="hide"/>
+                <field name="is_heure_envoi_id"                 optional="hide"/>
+                <field name="is_mini_cde"                       optional="hide"/>
+                <field name="is_encours_client"                 optional="hide"/>
+                <field name="is_date_debut_nouveau_tarif"       optional="hide"/>
+                <field name="is_date_fin_nouveau_tarif"         optional="hide"/>
+                <field name="zip"                               optional="hide"/>
+                <field name="is_localisation"                   optional="hide"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_partner_form" model="ir.ui.view" >
+        <field name="name">is_view_partner_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                    .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                        max-width: 1800px;
+                    }
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='website']" position="before">
+                 <field 
+                    name="is_contact_relance_facture_id" 
+                    attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"
+
+                    domain="[('parent_id','=',id)]"
+
+
+
+                />
+            </xpath>
+            <field name="vat" position="after">
+                <field name="is_gln"/>
+                <field name="is_code_fromtome"/>
+                <field name="is_code_interne"/>
+                <field name="is_localisation"/>
+                <field name="is_localisation_google_maps_url" widget="url" string="📍 Maps" attrs="{'invisible': [('is_localisation', '=', False)]}"/>
+                <field name="is_transporteur_id" widget="selection"/>
+                <field name="is_warehouse_id"    widget="selection"/>
+                <field name="is_frais_port_id"/>
+                <field name="is_mini_cde_franco"         attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_heure_envoi_id"          attrs="{'invisible': ['|',('is_supplier', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_emplacement_fournisseur" attrs="{'invisible': ['|',('is_supplier', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_mini_cde"                attrs="{'invisible': ['|',('is_supplier', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_heure_appel"             attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_habitude_commande"       attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_encours_client"          attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
+            </field>
+            <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='user_id']" position="before">
+                <field name="is_customer"/>
+                <field name="is_frequence_facturation"/>
+            </xpath>
+            <xpath expr="//group/group/field[@name='type']" position="after">
+                <field name="is_enseigne_id"/>
+            </xpath>
+            <xpath expr="//notebook" position="after">
+                <group>
+                    <field name="is_product_supplierinfo_ids" nolabel="1">
+                        <tree default_order="product_tmpl_id">
+                            <field name="product_tmpl_id"/>
+                            <field name="product_code"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="prix_brut"/>
+                            <field name="price"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+
+            <xpath expr="//group[@name='purchase']" position="inside">
+                <field
+                    name="default_supplierinfo_discount"
+                    attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
+                />
+                <div
+                    name="supplierinfo_discount_disabled"
+                    colspan="2"
+                    attrs="{'invisible': ['|',('is_company', '=', True), ('parent_id', '=', False)]}"
+                >
+                    <p>Discount-related settings are managed on <button
+                            name="open_commercial_entity"
+                            type="object"
+                            string="the parent company"
+                            class="oe_link"
+                        /></p>
+                </div>
+            </xpath>
+
+
+            <xpath expr="//field[@name='child_ids']" position="attributes">
+                <attribute name="context">{
+                    'default_parent_id': active_id, 
+                    'default_street': street, 
+                    'default_street2': street2, 
+                    'default_city': city, 
+                    'default_state_id': state_id, 
+                    'default_zip': zip, 
+                    'default_country_id': country_id, 
+                    'default_lang': lang, 
+                    'default_user_id': user_id, 
+                    'default_type': 'other',
+                    'default_is_enseigne_id': is_enseigne_id
+                }</attribute>
+            </xpath>
+            <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="after">
+                <field name="is_enseigne_id"/>
+            </xpath>
+            <field name="category_id" position="after">
+                <field name="is_commentaire_commande"/>
+            </field>
+            <page name="sales_purchases" position="after" >
+                <page string="Remises particulières" attrs="{'invisible': ['|',('is_company', '=', False), ('is_customer', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="is_remise_particuliere_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="remise_client"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+    <record id="is_product_view_partner_property_form" model="ir.ui.view" >
+        <field name="name">is_product_view_partner_property_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="product.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <field name="property_product_pricelist" position="before">
+                <field name="is_code_tarif"/>
+            </field>
+            <field name="property_product_pricelist" position="after">
+                <field name="is_presentation_bl"/>
+                <field name="is_pourcent_promo_a_repercuter"/>
+                <field name="is_modele_commande_id"/>
+                <button
+                    name="creer_modele_commande"
+                    type="object"
+                    string="Créer un modèle de commande"
+                    attrs="{'invisible': [('is_modele_commande_id', '!=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="l10n_fr_siret.res_partner_form_l10n_fr">
+        <field name="name">res.partner.form.siret</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="l10n_fr.res_partner_form_l10n_fr"/>
+        <field name="arch" type="xml">
+            <field name="siret" position="after">
+                <field name="siren" attrs="{'invisible': [('is_company', '=', False)]}" />
+                <field name="nic" attrs="{'invisible': [('is_company', '=', False)]}" />
+                <field name="company_registry" attrs="{'invisible': [('is_company', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_partner_property_form" model="ir.ui.view" >
+        <field name="name">is_view_partner_property_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <field name="property_supplier_payment_term_id" position="before">
+                <field name="is_supplier"/>
+                <field name="is_transporteur"/>
+                <field name="is_date_debut_nouveau_tarif"/>
+                <field name="is_date_fin_nouveau_tarif"/>
+                <field name="is_date_reception" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="is_view_res_partner_filter">
+        <field name="name">is_view_res_partner_filter</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_frequence_facturation"/>
+                <field name="is_transporteur_id"/>
+                <field name="is_warehouse_id"/>
+                <field name="is_frais_port_id"/>
+                <field name="is_heure_appel"/>
+                <field name="is_heure_envoi_id"/>
+            </field>
+            <filter name="type_company" position="after">
+                <filter string="Clients"      name="is_customer" domain="[('is_customer', '=', True)]"/>
+                <filter string="Fournisseurs" name="is_supplier" domain="[('is_supplier', '=', True)]"/>
+                <filter string="Transporteurs" name="is_transporteur" domain="[('is_transporteur', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- <field name="duration" widget="float_time" readonly="1"/> -->
+
+
+
+
+</odoo>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- stock.move -->
+    <record id="view_stock_move_operations_inherit" model="ir.ui.view">
+        <field name="name">stock.move.form.inherit</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+        <field name="arch" type="xml">
+             <xpath expr="//group[1]" position="inside">
+                <group>
+                    <field name="note" />
+                    <field name="lot_ids" invisible="1"/>
+                </group>
+             </xpath>
+            <field name="move_line_ids" position="before">
+                <div style="background:orange" attrs="{'invisible':[('is_alerte','=',False)]}">
+                    <field 
+                        name="is_alerte"
+                        readonly="1" nolabel="1" 
+                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                    />
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="is_stock_view_move_form" model="ir.ui.view">
+        <field name="name">is_stock_view_move_form</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+            </xpath>
+            <field name="procure_method" position="after">
+                <field name="sale_line_id" attrs="{'invisible':[('sale_line_id','=',False)]}"/>
+            </field>
+            <group name="linked_group" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+            <field name="group_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="is_stock_view_move_tree" model="ir.ui.view">
+        <field name="name">is_stock_view_move_tree</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="is_bio_id"        optional="show"/>
+                <field name="purchase_line_id" optional="show" widget="many2one_clickable"/>
+                <field name="sale_line_id"     optional="show" widget="many2one_clickable"/>
+            </field>
+            <field name="product_id" position="attributes">
+                <attribute name="widget">many2one_clickable</attribute>
+            </field>
+        </field>
+    </record>
+
+
+
+
+
+    <!-- stock.move.line -->
+    <record id="is_view_move_line_form" model="ir.ui.view">
+        <field name="name">is_view_move_line_form</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="replace">
+                <field name="lot_id"/>
+                <field name="product_uom_qty"        readonly="1"/>
+                <field name="qty_done"               readonly="1"/>
+                <field name="is_type_tracabilite"    readonly="1"/>
+                <field name="is_dlc_ddm"             readonly="1"/>
+                <field name="status_move"            readonly="1"/>
+                <field name="is_nb_pieces_par_colis" readonly="1"/>
+                <field name="is_nb_colis"            readonly="1"/>
+                <field name="is_poids_net_estime"    readonly="1"/>
+                <field name="is_poids_net_reel"/>
+            </field>
+            <field name="status_move" position="after">
+                <field name="create_date" optional="hide" string="Créé le"/>
+                <field name="create_uid"  optional="hide" string="Créé par"/>
+                <field name="write_date"  optional="hide" string="Modifié Le"/>
+                <field name="write_uid"   optional="hide" string="Modifié par"/>
+            </field>
+             <field name="package_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_move_line_tree" model="ir.ui.view">
+        <field name="name">is_view_move_line_tree</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="is_dlc_ddm" optional="show"/>
+            </field>
+            <field name="qty_done" position="before">
+                <field name="product_uom_qty" optional="show"/>
+            </field>
+            <field name="state" position="before">
+                <field name="create_date" optional="hide" string="Créé le"/>
+                <field name="create_uid"  optional="hide" string="Créé par"/>
+                <field name="write_date"  optional="hide" string="Modifié Le"/>
+                <field name="write_uid"   optional="hide" string="Modifié par"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Supprimer le droit de créer, modifier ou supprimer des contacts aux groupes par défaut -->
+    <record id="mrp.access_product_group_res_partner_mrp_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="sale.access_product_group_res_partner_sale_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="stock.access_product_group_res_partner_stock_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="purchase.access_res_partner_purchase_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="sale.access_res_partner_sale_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+   <record id="base.access_res_partner_group_partner_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <!-- Ajouter le droit de créer, modifier ou supprimer des contacts au groupe 'Gestionnaire des contacts' -->
+    <record id="is_res_partner_gestionnaire_contacts_access"  model="ir.model.access" >
+        <field name="name">is_res_partner_gestionnaire_contacts_access</field>
+        <field name="model_id"    eval="ref('model_res_partner')"/>
+        <field name="group_id"    eval="ref('is_gestionnaire_contacts_group')"/>
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_create" eval="True"/>
+    </record>
+
+
+
+
+    <!-- Supprimer le droit de créer, modifier ou supprimer des articles aux groupes par défaut -->
+    <record id="mrp.access_product_product_mrp_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="purchase.access_product_product_purchase_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="sale.access_product_product_sale_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="stock.access_product_product_stock_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="product.access_product_product_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="account.access_product_product_account_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+ 
+    <record id="mrp.access_product_template_mrp_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="purchase.access_product_template_purchase_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="sale.access_product_template_sale_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="stock.access_product_template_stock_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="product.access_product_template_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+    <record id="account.access_product_template_account_manager"  model="ir.model.access" >
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+
+     <!-- Ajouter le droit de créer, modifier ou supprimer des articles au groupe 'Gestionnaire des article' -->
+    <record id="is_product_template_gestionnaire_articles_access"  model="ir.model.access" >
+        <field name="name">is_product_template_gestionnaire_articles_access</field>
+        <field name="model_id"    eval="ref('model_product_template')"/>
+        <field name="group_id"    eval="ref('is_gestionnaire_articles_group')"/>
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_create" eval="True"/>
+    </record>
+    <record id="is_product_product_gestionnaire_articles_access"  model="ir.model.access" >
+        <field name="name">is_product_product_gestionnaire_articles_access</field>
+        <field name="model_id"    eval="ref('model_product_product')"/>
+        <field name="group_id"    eval="ref('is_gestionnaire_articles_group')"/>
+        <field name="perm_read"   eval="True"/>
+        <field name="perm_write"  eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_create" eval="True"/>
+    </record>
+
+
+
+
+
+</odoo>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- product.pricelist.item -->
+        <record id="is_product_pricelist_item_tree" model="ir.ui.view">
+            <field name="name">is_product_pricelist_item_tree</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="arch" type="xml">
+                <tree default_order="product_tmpl_id">
+                    <field name="pricelist_id" optional="show"  widget="many2one_clickable"/>
+                    <field name="product_tmpl_id" string="Article" required="1"  widget="many2one_clickable"/>
+                    <field name="product_id" string="Variante" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create':1}"/>
+                    <field name="min_quantity" optional="hide"/>
+                    <field name="fixed_price" string="Prix de vente"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="date_start" optional="hide"/>
+                    <field name="date_end"   optional="hide"/>
+                    <field name="base" invisible="1"/>
+                    <field name="applied_on" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="is_prix_achat" optional="show"/>
+                    <field name="is_taux_marge" optional="show"/>
+                    <button 
+                        name="is_alerte_action" type="object" class="oe_stat_button" 
+                        icon="fa-exclamation-triangle"
+                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                        title="Alertes"
+                    />
+                    <field name="is_alerte"   optional="show"/>
+                    <field name="create_date" optional="hide" string="Créé le"/>
+                    <field name="create_uid"  optional="hide" string="Créé par"/>
+                    <field name="write_date"  optional="hide" string="Modifié le"/>
+                    <field name="write_uid"   optional="hide" string="Modifié par"/>
+                    <field name="active"      optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        <record id="is_product_pricelist_item_view_search" model="ir.ui.view">
+            <field name="name">is_product_pricelist_item_view_search</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_view_search"/>
+            <field name="arch" type="xml">
+                <field name="pricelist_id" position="after">
+                    <field name="product_tmpl_id"/>
+                </field>
+            </field>
+        </record>
+        <record  id="is_product_pricelist_item_action" model="ir.actions.act_window">
+            <field name="name">Lignes</field>
+            <field name="res_model">product.pricelist.item</field>
+            <field name="limit">100</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="is_fromtome14.is_product_pricelist_item_tree"/>
+            <field name="domain">[('pricelist_id','=',active_id),('active','in',[0,1])]</field>
+            <field name="context">{'default_pricelist_id': active_id}</field>
+        </record>
+
+
+        <!-- product.pricelist -->
+        <record id="is_product_pricelist_view_tree" model="ir.ui.view">
+            <field name="name">is_product_pricelist_view_tree</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="discount_policy" position="replace"/>
+                <field name="company_id" position="after">
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="write_uid"/>
+                    <field name="write_date"/>
+                </field>
+            </field>
+        </record>
+        <record id="is_product_pricelist_view" model="ir.ui.view">
+            <field name="name">is_product_pricelist_view</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet[1]" position="inside">
+                    <style>
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet{
+                            max-width: 1800px;
+                        }
+                        .o_form_label{
+                            white-space: nowrap;
+                        }
+                    </style>
+                </xpath>
+
+
+                <sheet position="before">
+                    <header>
+                        <button 
+                            name="%(is_product_pricelist_item_action)d"
+                            type="action"
+                            string="Voir les lignes"
+                        />
+                    </header>
+                </sheet>
+                <field name="currency_id" position="before">
+                    <field name="partner_id"/>
+                    <field name="is_pricelist_id"/>
+                </field>
+                <xpath expr="//group[1]" position="after">
+                    <group string="Ajouter des articles" attrs="{'invisible':[('is_pricelist_id','=',False)]}">
+                        <field name="is_existing_product_tmpl_ids" invisible="1"/>
+                        <field name="is_product_ids" domain="[('id', 'not in', is_existing_product_tmpl_ids)]" options="{'no_create': True}" nolabel="1" colspan="2">
+                            <tree>
+                                <button name="is_voir_article_action" type="object" icon="fa-search" title="Voir l'article"/>
+                                <field name="name" string="Article"/>
+                                <field name="default_code" string="Réf. interne"/>
+                                <field name="is_ref_fournisseur" string="Réf. fournisseur"/>
+                            </tree>
+                        </field>
+                        <div>
+                            <button
+                                name="ajouter_articles_action"
+                                type="object"
+                                string="Ajouter ces articles"
+                                class="oe_highlight"
+                                attrs="{'invisible':[('is_product_ids','=',[])]}"
+                            />
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='item_ids']/tree/field[@name='date_end']" position="after">
+                    <field name="is_prix_achat" optional="show"/>
+                    <field name="is_taux_marge" optional="show"/>
+                    <button 
+                        name="is_alerte_action" type="object" class="oe_stat_button" 
+                        icon="fa-exclamation-triangle"
+                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                        title="Alertes"
+                    />
+                    <field name="is_alerte"     optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

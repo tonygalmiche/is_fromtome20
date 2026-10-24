@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="update_pricelist_ir_cron" model="ir.cron">
+        <field name="name">Mise à jour des listes de prix</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">model.with_context(lang='fr_FR').update_pricelist_ir_cron()</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <record id="init_emplacement_inventaire_action_server" model="ir.actions.server">
+        <field name="name">Init emplacement d'inventaire</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">action = records.init_emplacement_inventaire_action()</field>
+    </record>
+
+    <record id="recalcule_colis_stock_scans_action_server" model="ir.actions.server">
+        <field name="name">Recalcule les colis en stock d’après les scans</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">action = records.recalcule_colis_stock_scans_action()</field>
+    </record>
+    <record id="recalcule_colis_stock_scans_ir_cron" model="ir.cron">
+        <field name="name">Recalcul quotidien des colis en stock (scans)</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">model.recalcule_colis_stock_scans_ir_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="download_photos_zip_action_server" model="ir.actions.server">
+        <field name="name">Télécharger les photos en ZIP</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">action = records.download_photos_zip_action()</field>
+    </record>
+
+    <record id="creer_article_echantillon_action_server" model="ir.actions.server">
+        <field name="name">Créer un article échantillon à partir de cet article</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">action = records.creer_article_echantillon_action()</field>
+    </record>
+
+
+
+
+    <record id="is_product_template_form_view" model="ir.ui.view">
+        <field name="name">is_product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="is_ref_fournisseur"/>
+                <field name="is_gtin_13"/>
+                <field name="is_rayon_magasin_id"/>
+                <field name="is_calcul_besoins_historique"/>
+            </field>
+            <field name="type" position="after">
+                <field name="is_stock_mini"/>
+                <!-- <field name="is_stock_mini_lc"/> -->
+            </field>
+            <xpath expr="//page/group[@name='purchase']" position="before">
+                <group>
+                    <field name="is_fournisseur_id"/>
+                    <field name="is_date_fin"/>
+                    <field name="is_discount"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="is_product_template_tree_view" model="ir.ui.view">
+        <field name="name">is_product_template_tree_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="is_fournisseur_id"  optional="hide" widget="many2one_clickable"/>
+                <field name="is_ref_fournisseur" optional="show"/>
+                <field name="is_date_fin"        optional="show"/>
+                <field name="is_gtin_13" optional="show"/>
+                <field name="is_rayon_magasin_id" optional="hide"/>
+            </field>
+             <field name="uom_id" position="after">
+                <field name="is_stock_mini" optional="hide"/>
+                <field name="is_colisage" optional="hide"/>
+                <field name="is_nb_pieces_par_colis" optional="hide"/>
+                <field name="is_poids_net_colis" optional="hide"/>
+                <field name="is_enseigne_id" optional="hide"/>
+
+                <field name="milk_type_ids" optional="hide" widget="many2many_tags"/>
+
+
+            </field>
+            <field name="responsible_id" position="replace">
+                <field name="responsible_id" optional="hide"/>
+                <field name="is_note_importation" optional="hide"/>
+                <field name="property_account_income_id"  optional="hide"/>
+                <field name="property_account_expense_id" optional="hide"/>
+                <field name="property_stock_inventory" optional="hide"/>
+            </field>
+
+            <field name="qty_available" position="before">
+                <field name="is_colis_en_stock"       optional="show"/>
+                <field name="is_colis_en_stock_scan"  optional="show"/>
+                <field name="is_colis_ecart"          optional="show"/>
+            </field>
+
+
+            <field name="uom_id" position="before">
+                <button 
+                    title="Lignes commandes en cours" 
+                    name="lignes_commandes_action" 
+                    type="object" icon="fa-list" 
+                />
+               <button 
+                    title="Mouvements de stocks en cours" 
+                    name="mouvements_stock_action" 
+                    type="object" icon="fa-list" 
+                />
+            </field>
+        </field>
+    </record>
+    <record id="is_product_template_search_view" model="ir.ui.view">
+        <field name="name">is_product_template_search_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+             <field name="name" position="after">
+                <field name="is_ref_fournisseur"/>
+                <field name="barcode"/>
+                <field name="is_gtin_13"/>
+                <field name="is_rayon_magasin_id"/>
+            </field>
+            <filter name="filter_to_sell" position="after">
+                <filter string="Avec image" name="avec_image" domain="[('image_1920', '!=', False)]"/>
+                <filter string="Sans image" name="sans_image" domain="[('image_1920', '=', False)]"/>
+                <filter string="Échantillons" name="echantillons" domain="[('categ_id.name', '=', 'ECHANTILLON')]"/>
+            </filter>
+        </field>
+    </record>
+    <record id="is_product_normal_form_view" model="ir.ui.view">
+        <field name="name">is_product_normal_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+             <field name="type" position="before">
+                <field name="product_tmpl_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_product_supplier_inherit" model="ir.ui.view">
+        <field name="name">is_view_product_supplier_inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_supplier_inherit"/>
+        <field name="priority">0</field>
+        <field name="arch" type="xml">
+            <field name="seller_ids" position="attributes">
+                <attribute name="context">
+                    {
+                        'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 
+                        'product_template_invisible_variant': True, 
+                        'form_view_ref':'is_fromtome14.product_supplierinfo_form_view',
+                        'tree_view_ref':'product.product_supplierinfo_tree_view'
+                    }
+                </attribute>
+            </field>
+        </field>
+    </record>
+    <record id="product_normal_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+             <field name="uom_id" position="before">
+                <hr/>
+                <hr/>
+            </field>
+             <field name="uom_id" position="attributes">
+                <attribute name="string">Unité de Stockage</attribute>
+            </field>
+             <field name="uom_po_id" position="attributes">
+                <attribute name="string">Unité d'achat</attribute>
+            </field>
+            <field name="barcode" position="attributes">
+                <attribute name="string">GTIN 14 (EAN128) </attribute>
+            </field>
+        </field>
+    </record>
+    <record id="product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                     .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+            </xpath>
+            <field name="barcode" position="attributes">
+                <attribute name="string">GTIN 14 (EAN128) </attribute>
+            </field>
+            <field name="uom_id" position="before">
+                <hr/><hr/>
+            </field>
+            <field name="uom_id" position="attributes">
+                <attribute name="string">Unité de Stockage</attribute>
+            </field>
+             <field name="uom_po_id" position="attributes">
+                <attribute name="string">Unité d'achat</attribute>
+            </field>
+            <field name="uom_po_id" position="after">
+                <hr/><hr/>
+                <field name="is_colisage"/>
+                <field name="is_nb_pieces_par_colis"/>
+                <field name="is_poids_net_colis"/>
+                <field name="is_forcer_poids_colis"/>
+            </field>
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group string="Contrat Date ">
+                    <field name="contrat_date_id">
+                        <tree editable="top">
+                            <field name="partner_id"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+            <xpath expr="//form//sheet//notebook//page[1]" position="after">
+                <page string="Fiche technique">
+
+                    <field name="has_prompt_ia" invisible="1"/>
+                    <group col="3">
+                        <field name="is_fiche_technique_ids" widget="many2many_binary"/>
+                        <!-- <button
+                            string="Importer cette fiche techinque" 
+                            name="importer_fiche_technique_action" 
+                            type="object" 
+                            attrs="{'invisible': [('is_fiche_technique_ids', '=', [])]}"
+                        /> -->
+                        <button
+                            string="Analyse IA de la fiche technique" 
+                            name="analyse_ia_fiche_technique_action" 
+                            type="object" 
+                            class="btn btn-primary"
+                            attrs="{'invisible': ['|', ('is_fiche_technique_ids', '=', []), ('has_prompt_ia', '=', False)]}"
+                            confirm="Lancer l'analyse IA de la fiche technique ? Cela va mettre à jour les champs de l'onglet."
+                        />
+                    </group>
+                    <group attrs="{'invisible': [('is_fiche_technique_import', '=', False)]}">
+                        <div style="background:gainsboro;font-weight:normal;padding-left:5pt;font-family:courier, courier new, serif;">
+                            <field name="is_fiche_technique_import"  nolabel="1"/>
+                        </div>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="is_creation_le"/>
+                            <field name="is_enseigne_id"/>
+                        </group>
+                        <group>
+                            <field name="is_mis_a_jour_le"/>
+                            <field name="is_bio_id"/>
+                            <field name="is_mise_en_avant"/>
+                            <field name="is_preco"/>
+                        </group>
+                    </group>
+                    <group string="Présentation">
+                        <field name="is_presentation" nolabel="1"/>
+                    </group>
+                    <group string="Conseils">
+                        <field name="is_conseils" nolabel="1"/>
+                    </group>
+                    <group string="Caractéristiques générales du produit">
+                        <group>
+                            <field name="is_region_id"/>
+                            <field name="milk_type_ids" widget="many2many_tags"/>
+                            <field name="is_type_article"/>
+                            <field name="traitement_thermique"/>
+                            <field name="is_famille_fromage_id"/>
+                            <field name="duree_affinage"/>
+                            <field name="is_croute_comestible"/>
+                        </group>
+                        <group>
+                            <field name="is_type_tracabilite"/>
+                            <field name="is_dluo"/>
+                            <field name="is_type_conditionnement"/>
+                            <field name="is_poids_brut"/>
+                            <field name="is_atelier_transformation"/>
+                            <field name="no_agrement_sanitaire"/>
+                            <field name="temperature_stock"/>
+                            <field name="is_ogm_ionisation"/>
+                        </group>
+                    </group>
+                    <group string="Caractéristiques Organoleptiques">
+                        <group>
+                            <field name="is_forme"/>
+                            <field name="is_couleur"/>
+                            <field name="texture"/>
+                        </group>
+                       <group>
+                            <field name="degustation"/>
+                            <field name="odeur"/>
+                        </group>
+                    </group>
+                    <group string="Ingrédients"/>
+                    <group>
+                        <field name="is_ingredient_import"/>
+                        <field name="is_allergene_import"/>
+                    </group>
+                    <!-- <group>
+                        <field name="is_ingredient_ids" nolabel="1" >
+                            <tree editable="bottom">
+                                <field name="ordre" widget="handle"/>
+                                <field name="ingredient_id"/>
+                                <field name="allergene"/>
+                            </tree>
+                        </field>
+                    </group> -->
+                    <!-- <group>
+                        <field name="is_ingredient"/>
+                    </group> -->
+                    <group string="Germes"/>
+                    <group>
+                        <field name="is_germe_import"/>
+                    </group>
+                    <!-- <field name="is_germe_ids" nolabel="1" >
+                        <tree editable="bottom">
+                            <field name="ordre" widget="handle"/>
+                            <field name="germe_id"/>
+                            <field name="critere"/>
+                        </tree>
+                    </field>
+                    <button string="Recharger les germes" name="recharger_germes_action" type="object" confirm="Cela va remplacer les données ci-dessus"/> -->
+                    <group string="Valeurs Nutritionnelles Moyennes pour 100g"/>
+                    <group>
+                        <field name="is_valeur_nutritionnelle_import"/>
+                    </group>
+                    <!-- 
+                    <field name="is_valeur_nutritionnelle_ids" nolabel="1" >
+                        <tree editable="bottom">
+                            <field name="ordre" widget="handle"/>
+                            <field name="valeur_id"/>
+                            <field name="valeur"/>
+                        </tree>
+                    </field>
+                    <button string="Recharger les valeurs" name="recharger_valeurs_action" type="object" confirm="Cela va remplacer les données ci-dessus"/> -->
+                </page>
+                <page string="Analyse IA" attrs="{'invisible': [('is_llm_prompt', '=', False)]}">
+                    <group string="Prompt envoyé">
+                        <field name="is_llm_prompt" nolabel="1"/>
+                    </group>
+                    <group string="Réponse IA">
+                        <field name="is_llm_reponse" nolabel="1"/>
+                    </group>
+                    <group>
+                        <field name="is_llm_etat"/>
+                        <field name="is_llm_temps"/>
+                        <field name="is_llm_taille_envoi"/>
+                    </group>
+                </page>
+                <page string="Gestion des tarifs">
+                    <group string="Prix d'achat">
+                        <group>
+                            <field name="is_prix_achat_actuel"/>
+                        </group>
+                        <group>
+                            <field name="is_prix_achat_futur"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Prix de vente actuel">
+                            <field name="is_prix_vente_actuel_cdf_quai"/>
+                            <field name="is_prix_vente_actuel_cdf_franco"/>
+                            <field name="is_prix_vente_actuel_ft"/>
+                        </group>
+                        <group string="Taux de marge actuel forcé">
+                            <field name="is_prix_vente_actuel_marge_cdf_quai"/>
+                            <field name="is_prix_vente_actuel_marge_cdf_franco"/>
+                            <field name="is_prix_vente_actuel_marge_ft"/>
+                            <button
+                                name="update_prix_actuel_action"
+                                type="object"
+                                string="Mise à jour prix actuel"
+                            />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Prix de vente futur">
+                            <field name="is_prix_vente_futur_cdf_quai"/>
+                            <field name="is_prix_vente_futur_cdf_franco"/>
+                            <field name="is_prix_vente_futur_ft"/>
+                        </group>
+                        <group string="Taux de marge futur forcé">
+                            <field name="is_prix_vente_futur_marge_cdf_quai"/>
+                            <field name="is_prix_vente_futur_marge_cdf_franco"/>
+                            <field name="is_prix_vente_futur_marge_ft"/>
+                        </group>
+                    </group>
+                    <group string="Listes de prix">
+                        <field name="is_pricelist_item_ids" nolabel="1" domain="[('active','in',[0,1]),('pricelist_id.active','in',[0,1])]">
+                            <tree>
+                                <field name="pricelist_id" string="Liste de prix" widget="many2one_clickable" />
+                                <field name="fixed_price"  string="Prix de vente"/>
+                                <field name="date_start" optional="hide" />
+                                <field name="date_end"   optional="hide" />
+
+                                <field name="is_prix_achat" optional="show"/>
+                                <field name="is_taux_marge" optional="show"/>
+                                <button 
+                                    name="is_alerte_action" type="object" class="oe_stat_button" 
+                                    icon="fa-exclamation-triangle"
+                                    attrs="{'invisible': [('is_alerte', '=', False)]}"
+                                    title="Alertes"
+                                />
+                                <field name="is_alerte"   optional="show"/>
+                                <field name="create_date" optional="hide" string="Créé le"/>
+                                <field name="create_uid"  optional="hide" string="Créé par"/>
+                                <field name="write_date"  optional="show" string="Modifié le"/>
+                                <field name="write_uid"   optional="show" string="Modifié par"/>
+                            </tree>
+                        </field>
+                    </group>
+    
+                    <button
+                        name="voir_prix_archives"
+                        type="object" class="btn btn-secondary"
+                        string="Voir également les prix archivés"
+                    />
+
+
+                </page>
+            </xpath>
+            <field name="description" position="after">
+                <field name="_barcode_scanned" widget="barcode_handler"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_analyse_ruptures_action" model="ir.actions.act_window" >
+        <field name="name">Analyse des ruptures</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="is_fromtome14.is_product_template_tree_view"/>
+        <field name="context">{'search_default_real_stock_negative':1}</field>
+        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+    </record>
+
+
+    <!-- Gestion des tarifs (vue Formulaire) -->
+    <record id="is_gestion_tarif_product_tree_view" model="ir.ui.view">
+        <field name="name">is_gestion_tarif_product_tree_view</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" optional="show"/>
+                <field name="default_code" optional="show"/>
+                <field name="is_date_bascule_tarif" optional="show"/>
+                <field name="is_prix_achat_actuel" optional="show"/>
+                <field name="is_prix_achat_futur" optional="show"/>
+
+                <field name="is_prix_vente_actuel_cdf_quai" optional="show"/>
+                <field name="is_prix_vente_actuel_marge_cdf_quai" optional="show"/>
+                <field name="is_prix_vente_futur_cdf_quai" optional="show"/>
+                <field name="is_prix_vente_futur_marge_cdf_quai" optional="show"/>
+
+                <field name="is_prix_vente_actuel_cdf_franco" optional="show"/>
+                <field name="is_prix_vente_actuel_marge_cdf_franco" optional="show"/>
+                <field name="is_prix_vente_futur_cdf_franco" optional="show"/>
+                <field name="is_prix_vente_futur_marge_cdf_franco" optional="show"/>
+
+                <!-- <field name="is_prix_vente_actuel_lf" optional="show"/>
+                <field name="is_prix_vente_actuel_marge_lf" optional="show"/>
+                <field name="is_prix_vente_futur_lf" optional="show"/>
+                <field name="is_prix_vente_futur_marge_lf" optional="show"/>
+
+                <field name="is_prix_vente_actuel_lf_coll" optional="show"/>
+                <field name="is_prix_vente_actuel_marge_lf_coll" optional="show"/>
+                <field name="is_prix_vente_futur_lf_coll" optional="show"/>
+                <field name="is_prix_vente_futur_marge_lf_coll" optional="show"/>
+
+                <field name="is_prix_vente_actuel_lf_franco" optional="show"/>
+                <field name="is_prix_vente_actuel_marge_lf_franco" optional="show"/>
+                <field name="is_prix_vente_futur_lf_franco" optional="show"/>
+                <field name="is_prix_vente_futur_marge_lf_franco" optional="show"/> -->
+
+                <field name="is_prix_vente_actuel_ft" optional="show"/>
+                <field name="is_prix_vente_actuel_marge_ft" optional="show"/>
+                <field name="is_prix_vente_futur_ft" optional="show"/>
+                <field name="is_prix_vente_futur_marge_ft" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_gestion_tarif_product_action" model="ir.actions.act_window" >
+        <field name="name">Gestion des tarifs</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="is_fromtome14.is_gestion_tarif_product_tree_view"/>
+    </record>
+    <menuitem 
+        id="is_gestion_tarif_product_menu" 
+        name="Gestion des tarifs" 
+        parent="sale.product_menu_catalog" sequence="10"
+        action="is_gestion_tarif_product_action"
+    />
+
+    <!-- Gestion des tarifs (Liste modifiable) -->
+    <record id="is_gestion_tarif_product_editable_tree_view" model="ir.ui.view">
+        <field name="name">is_gestion_tarif_product_tree_view</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <button 
+                    title="Article" 
+                    name="voir_article_action" 
+                    type="object" icon="fa-search-plus" 
+                />
+                <field name="name"                  optional="show" readonly="1"/>
+                <field name="default_code"          optional="show" readonly="1" string="Référence"/>
+                <field name="is_ref_fournisseur"    optional="show" readonly="1"/>
+                <field name="is_date_bascule_tarif" optional="show"/>
+                <field name="is_prix_achat_actuel"  optional="show"/>
+                <field name="is_prix_achat_futur"   optional="show"/>
+
+                <field name="is_prix_vente_actuel_cdf_quai"         optional="show" class="fond_gris prix_vente_actuel"/>
+                <field name="is_prix_vente_actuel_marge_cdf_quai"   optional="show" class="fond_gris prix_vente_force"/>
+                <field name="is_prix_vente_futur_cdf_quai"          optional="show" class="fond_gris prix_vente_futur"/>
+                <field name="is_prix_vente_futur_marge_cdf_quai"    optional="show" class="fond_gris prix_vente_futur_force"/>
+
+                <field name="is_prix_vente_actuel_cdf_franco"       optional="show" class="prix_vente_actuel "/>
+                <field name="is_prix_vente_actuel_marge_cdf_franco" optional="show" class="prix_vente_force"/>
+                <field name="is_prix_vente_futur_cdf_franco"        optional="show" class="prix_vente_futur"/>
+                <field name="is_prix_vente_futur_marge_cdf_franco"  optional="show" class="prix_vente_futur_force"/>
+
+                <!-- 
+                <field name="is_prix_vente_actuel_lf"               optional="show" class="fond_gris prix_vente_actuel"/>
+                <field name="is_prix_vente_actuel_marge_lf"         optional="show" class="fond_gris prix_vente_force"/>
+                <field name="is_prix_vente_futur_lf"                optional="show" class="fond_gris prix_vente_futur"/>
+                <field name="is_prix_vente_futur_marge_lf"          optional="show" class="fond_gris prix_vente_futur_force"/>
+
+                <field name="is_prix_vente_actuel_lf_coll"          optional="show" class="prix_vente_actuel"/>
+                <field name="is_prix_vente_actuel_marge_lf_coll"    optional="show" class="prix_vente_force"/>
+                <field name="is_prix_vente_futur_lf_coll"           optional="show" class="prix_vente_futur"/>
+                <field name="is_prix_vente_futur_marge_lf_coll"     optional="show" class="prix_vente_futur_force"/>
+
+                <field name="is_prix_vente_actuel_lf_franco"          optional="show" class="prix_vente_actuel"/>
+                <field name="is_prix_vente_actuel_marge_lf_franco"    optional="show" class="prix_vente_force"/>
+                <field name="is_prix_vente_futur_lf_franco"           optional="show" class="prix_vente_futur"/>
+                <field name="is_prix_vente_futur_marge_lf_franco"     optional="show" class="prix_vente_futur_force"/> 
+                -->
+
+                <field name="is_prix_vente_actuel_ft"               optional="show" class="fond_gris prix_vente_actuel"/>
+                <field name="is_prix_vente_actuel_marge_ft"         optional="show" class="fond_gris prix_vente_force"/>
+                <field name="is_prix_vente_futur_ft"                optional="show" class="fond_gris prix_vente_futur"/>
+                <field name="is_prix_vente_futur_marge_ft"          optional="show" class="fond_gris prix_vente_futur_force"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_gestion_tarif_product_editable_action" model="ir.actions.act_window" >
+        <field name="name">Gestion des tarifs (Liste modifiable)</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="is_fromtome14.is_gestion_tarif_product_editable_tree_view"/>
+    </record>
+    <menuitem 
+        id="is_gestion_tarif_product_editable_menu" 
+        name="Gestion des tarifs (Liste modifiable)" 
+        parent="sale.product_menu_catalog" sequence="20"
+        action="is_gestion_tarif_product_editable_action"
+    />
+
+
+    <!-- milk.type -->
+    <record model="ir.actions.act_window" id="milk_type_act">
+        <field name="name">Type article</field>
+        <field name="res_model">milk.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="menu_milk_type" name="Type article" parent="stock.menu_product_in_config_stock" sequence="4"
+              action="milk_type_act"/>
+    <record model="ir.actions.act_window" id="product_label_category_act">
+        <field name="name">Categories Labels Produit</field>
+        <field name="res_model">product.label.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="menu_product_label_category" name="Categories labels" parent="stock.menu_product_in_config_stock" sequence="5"
+              action="product_label_category_act"/>
+
+    <record model="ir.actions.act_window" id="product_label_act">
+        <field name="name">Label Produit</field>
+        <field name="res_model">product.label</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="menu_product_label" name="labels produits" parent="stock.menu_product_in_config_stock" sequence="5"
+              action="product_label_act"/>
+
+    <record model="ir.actions.act_window" id="mois_fromage_act">
+        <field name="name">Mois du fromage</field>
+        <field name="res_model">mois.fromage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem id="menu_mois_fromage" name="Mois du fromage" parent="stock.menu_product_in_config_stock" sequence="5"
+              action="mois_fromage_act"/>
+
+    <!-- is.ingredient -->
+    <record id="is_ingredient_tree_view" model="ir.ui.view">
+        <field name="name">is_ingredient_tree_view</field>
+        <field name="model">is.ingredient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_ingredient_form_view" model="ir.ui.view">
+        <field name="name">is_ingredient_form_view</field>
+        <field name="model">is.ingredient</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="active"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_ingredient_search_view" model="ir.ui.view">
+        <field name="name">is_ingredient_search_view</field>
+        <field name="model">is.ingredient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_ingredient_action" model="ir.actions.act_window" >
+        <field name="name">Ingrédients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.ingredient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_ingredient_menu" 
+        name="Ingrédients" 
+        parent="sale.prod_config_main" 
+        sequence="900"
+        action="is_ingredient_action"
+    />
+
+    <!-- is.germe -->
+    <record id="is_germe_tree_view" model="ir.ui.view">
+        <field name="name">is_germe_tree_view</field>
+        <field name="model">is.germe</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="ordre" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_germe_form_view" model="ir.ui.view">
+        <field name="name">is_germe_form_view</field>
+        <field name="model">is.germe</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="active"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_germe_search_view" model="ir.ui.view">
+        <field name="name">is_germe_search_view</field>
+        <field name="model">is.germe</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_germe_action" model="ir.actions.act_window" >
+        <field name="name">Germes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.germe</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_germe_menu" 
+        name="Germes" 
+        parent="sale.prod_config_main" 
+        sequence="910"
+        action="is_germe_action"
+    />
+
+    <!-- is.valeur.nutritionnelle -->
+    <record id="is_valeur_nutritionnelle_tree_view" model="ir.ui.view">
+        <field name="name">is_valeur_nutritionnelle_tree_view</field>
+        <field name="model">is.valeur.nutritionnelle</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="ordre" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_valeur_nutritionnelle_form_view" model="ir.ui.view">
+        <field name="name">is_valeur_nutritionnelle_form_view</field>
+        <field name="model">is.valeur.nutritionnelle</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="active"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_valeur_nutritionnelle_search_view" model="ir.ui.view">
+        <field name="name">is_valeur_nutritionnelle_search_view</field>
+        <field name="model">is.valeur.nutritionnelle</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_valeur_nutritionnelle_action" model="ir.actions.act_window" >
+        <field name="name">Valeur Nutritionnelle</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.valeur.nutritionnelle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem 
+        id="is_valeur_nutritionnelle_menu" 
+        name="Valeur Nutritionnelle" 
+        parent="sale.prod_config_main" 
+        sequence="920"
+        action="is_valeur_nutritionnelle_action"
+    />
+
+    <!-- is.bio -->
+    <record id="is_bio_tree_view" model="ir.ui.view">
+        <field name="name">is_bio_tree_view</field>
+        <field name="model">is.bio</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_bio_form_view" model="ir.ui.view">
+        <field name="name">is_bio_form_view</field>
+        <field name="model">is.bio</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_bio_search_view" model="ir.ui.view">
+        <field name="name">is_bio_search_view</field>
+        <field name="model">is.bio</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_bio_action" model="ir.actions.act_window" >
+        <field name="name">BIO</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.bio</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="is_bio_menu"
+        name="BIO"
+        parent="sale.prod_config_main"
+        sequence="930"
+        action="is_bio_action"
+    />
+
+    <!-- is.rayon.magasin -->
+    <record id="is_rayon_magasin_tree_view" model="ir.ui.view">
+        <field name="name">is_rayon_magasin_tree_view</field>
+        <field name="model">is.rayon.magasin</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_rayon_magasin_form_view" model="ir.ui.view">
+        <field name="name">is_rayon_magasin_form_view</field>
+        <field name="model">is.rayon.magasin</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+    <record id="is_rayon_magasin_search_view" model="ir.ui.view">
+        <field name="name">is_rayon_magasin_search_view</field>
+        <field name="model">is.rayon.magasin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record id="is_rayon_magasin_action" model="ir.actions.act_window" >
+        <field name="name">Rayon magasin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">is.rayon.magasin</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="is_rayon_magasin_menu"
+        name="Rayon magasin"
+        parent="sale.prod_config_main"
+        sequence="940"
+        action="is_rayon_magasin_action"
+    />
+</odoo>

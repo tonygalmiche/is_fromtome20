@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_picking_inherit" inherit_id="stock.report_picking">
+            <xpath expr="//t[@t-foreach='docs']" position="attributes">
+                <attribute name="t-lang">'fr_FR'</attribute>
+            </xpath>
+            <div name="right_box" position="replace"/>
+            <h1 t-field="o.name" position="replace"/>
+            <div name="div_sched_date" position="replace">
+                <div class="col-auto" name="div_sched_date">
+                    <strong>Date de livraison prévue:</strong>
+                    <p t-field="o.is_date_livraison"/>
+                </div>
+                <div class="col-auto">
+                    <strong>Transporteur:</strong>
+                    <p t-field="o.is_transporteur_id"/>
+                </div>
+            </div>
+            <xpath expr="//table[1]" position="replace">
+            <style>
+                .table{
+                    font-size:10pt;
+                }
+                .table-sm th, .table-sm td {
+                    padding: 0.1rem;
+                }
+            </style>
+               <table class="table table-sm mt48">
+                    <thead>
+                        <tr>
+                            <th class="text-left"> <strong></strong></th>
+                            <th class="text-left"> <strong>Désignation</strong></th>
+                            <th class="text-left"> <strong>Réf</strong></th>
+                            <th class="text-right"> <strong>Colis Cde</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.move_ids_without_package" t-as="line">
+                            <td style="width: 2mm"   class="text-center"><span t-field="line.is_emplacement_fournisseur"/></td>
+                            <td style="width: 150mm" class="text-left">
+                                <div><strong><span t-field="line.is_description_prepa"/></strong></div>
+                            </td>
+                            <td style="width: 10mm" class="text-left"><span t-field="line.is_ref_fournisseur"/></td>
+                            <td style="width: 10mm" class="text-right"><b><span t-field="line.is_nb_colis_cde"/></b></td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="text-left">  <strong>Total : </strong></th>
+                            <th class="text-right"><strong><span t-field="o.is_nb_colis"/></strong></th>
+                        </tr>
+                    </thead>
+                </table>
+            </xpath>
+        </template>
+    </data>
+</odoo>

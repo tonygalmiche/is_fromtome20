@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="is_view_company_form" model="ir.ui.view" >
+        <field name="name">is_view_company_form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+            </xpath>
+            <field name="website" position="before">
+                <field name="is_gln"/>
+                <field name="is_regroupe_cde"/>
+            </field>
+            <page name="general_info" position="after">
+                <page string="Fromtome">
+                    <!-- <group string="Paramètres">
+                        <group>
+                            <field name="is_mini_cde_franco"/>
+                        </group>
+                    </group> -->
+                    <group>
+                        <group string="Taux de marge">
+                            <field name="is_coef_cdf_quai"/>
+                            <field name="is_coef_cdf_franco"/>
+                            <field name="is_coef_ft"/>
+                        </group>
+                        <group string="Frais de port">
+                            <field name="is_port_cdf_quai"/>
+                            <field name="is_port_cdf_franco"/>
+                            <field name="is_port_ft"/>
+                        </group>
+                    </group>
+
+
+
+                    <!-- 
+                    <button
+                        name="actualiser_tarif_action"
+                        type="object" class="btn-warning"
+                        string="Actualiser tous les tarifs en fonction du prix du fournisseur, du taux de marge et des frais de port"
+                        confirm="ATTENTION : Cela va actualiser tous les tarifs en cours"
+                    />
+                    <button
+                        name="actualiser_tarif_ft_action"
+                        type="object" class="btn-warning"
+                        string="Actualiser Liste de prix Fromtome (FT) uniquement"
+                        confirm="ATTENTION : Cela va actualiser tous les tarifs en cours de la liste de prix Fromtome (FT)"
+                    />
+                    <br />
+                    <br />
+                    <button
+                        name="actualiser_tarif_lf_franco_action"
+                        type="object" class="btn-warning"
+                        string="Actualiser Liste de prix 'LF Franco' uniquement"
+                        confirm="ATTENTION : Cela va actualiser tous les tarifs en cours de la liste de prix 'LF Franco'"
+                    /> 
+                    -->
+                    <button
+                        name="actualiser_tarif_futur_action"
+                        type="object" class="btn-warning"
+                        string="Actualiser le tarif future des articles en fonction du prix du fournisseur, du taux de marge et des frais de port"
+                        confirm="ATTENTION : Cela va actualiser le tarif future de tous les articles"
+                    />
+                    <br />
+                    <br />
+                    <button
+                        name="appliquer_nouveaux_tarifs_action"
+                        type="object" class="btn-danger"
+                        string="Archiver les listes de prix et appliquer les nouveaux tarifs (copie du nouveau tarif dans le tarif actuel)"
+                        confirm="ATTENTION : Cela va actualiser tous les tarifs en cours"
+                    />
+                </page>
+                <page string="Import tarif xlsx">
+                    <group string="Fichier à importer">
+                        <field name="is_import_excel_ids" widget="many2many_binary" nolabel="1"/>
+                    </group>
+                    <group>
+                        <button 
+                            name="import_fichier_xlsx" 
+                            string="Importer le fichier xlsx" type="object" 
+                            confirm="ATTENTION : Cela va remplacer les taux de marge des tarifs future"
+                        />
+                    </group>
+                    <group string="Alertes importation" attrs="{'invisible':[('is_import_alerte','=',False)]}" >
+                        <div style="background:orange;font-weight:bold;padding-left:5pt">
+                            <field name="is_import_alerte" nolabel="1"/>
+                        </div>
+                    </group>
+                </page>
+
+            </page>
+        </field>
+    </record>
+</odoo>
