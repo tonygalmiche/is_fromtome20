@@ -107,7 +107,7 @@
                         nolabel="1"
                         readonly="1" invisible="not fnc_associees_ids">
                         <list>
-                            <button name="voir_fnc_action" type="object" icon="zoom_in"/>
+                            <button name="voir_fnc_action" type="object" icon="zoom_in" title="Voir FNC"/>
                             <field name="name"/>
                             <field name="origine"/>
                             <field name="partner_id"/>
