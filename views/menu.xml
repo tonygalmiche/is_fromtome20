@@ -39,7 +39,7 @@
         sequence="15"
     />
 
-    <!-- res.bank -->
+    <!-- v20 : res.bank supprimé (nom et BIC de la banque sur res.partner.bank) : action et menu Banques retirés
     <record  id="is_res_bank_action" model="ir.actions.act_window">
         <field name="name">Banques</field>
         <field name="res_model">res.bank</field>
@@ -52,6 +52,7 @@
         sequence="10"
         action="is_res_bank_action"
     />
+    -->
 
     <!-- res.partner.bank -->
     <record  id="is_res_partner_bank_action" model="ir.actions.act_window">
