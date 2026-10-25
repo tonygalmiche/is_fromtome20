@@ -148,11 +148,11 @@ class ResPartner(models.Model):
     is_commentaire_commande       = fields.Char(string="Commentaire commande", tracking=True)
     is_emplacement_fournisseur    = fields.Integer(string="Emplacement palette fournisseur", tracking=True)
     is_mini_cde_franco            = fields.Integer(string='Mini de commande franco (€)', tracking=True)
-    mobile                        = fields.Char('Mobile')  # Supprimé d'Odoo en v20, remis pour les rapports et le suivi des commandes
+    mobile                        = fields.Char('Mobile', tracking=True)  # Supprimé d'Odoo en v20, remis pour les rapports et le suivi des commandes
 
     # En v20, is_company est calculé (sans parent et avec un n° de TVA) : la plupart des sociétés
     # de Fromtome n'ont pas de TVA. Comme en v14, c'est une case à cocher, la valeur saisie est conservée
-    is_company = fields.Boolean(string='Société', readonly=False)
+    is_company = fields.Boolean(string='Société', readonly=False, tracking=True)
 
     def _compute_is_company(self):
         for partner in self:
