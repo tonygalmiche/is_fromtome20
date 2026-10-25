@@ -274,7 +274,7 @@
                 <field name="is_enseigne_id"/>
             </xpath>
             <!-- v20 : mobile supprimé d'Odoo, remis sous le téléphone -->
-            <xpath expr="//field[@name='phone' and @placeholder='Phone']/.." position="after">
+            <xpath expr="(//field[@name='phone'])[1]/.." position="after">
                 <label for="mobile" class="d-md-none"/>
                 <div class="d-flex align-items-baseline w-md-50 gap-2">
                     <i class="oi oi-filled d-none d-md-inline-flex" data-icon="smartphone" title="Mobile"/>
