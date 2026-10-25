@@ -18,7 +18,7 @@ class SaleOrderLine(models.Model):
     def get_nb_colis(self):
         nb        = self.product_id.is_nb_pieces_par_colis
         poids_net = self.product_id.is_poids_net_colis
-        unite     = self.product_uom_id.category_id.name
+        unite     = self.product_uom_id.is_categorie_unite()
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
@@ -87,7 +87,7 @@ class SaleOrderLine(models.Model):
         for obj in self:
             nb_colis = obj.get_nb_colis()
             obj.is_nb_colis = nb_colis
-            unite = obj.product_uom_id.category_id.name
+            unite = obj.product_uom_id.is_categorie_unite()
             if unite=="Poids":
                 poids = obj.product_uom_qty
             else:
@@ -221,7 +221,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('is_colis_cde')
     def onchange_is_colis_cde(self):
-        unite = self.product_uom_id.category_id.name
+        unite = self.product_uom_id.is_categorie_unite()
         if unite=="Poids":
             self.product_uom_qty =  self.is_colis_cde * self.product_id.is_poids_net_colis
         else:

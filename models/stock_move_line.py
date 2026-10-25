@@ -19,7 +19,7 @@ class StockMoveLine(models.Model):
     def get_nb_colis(self):
         nb        = self.product_id.is_nb_pieces_par_colis
         poids_net = self.product_id.is_poids_net_colis
-        unite     = self.uom_id.category_id.name
+        unite     = self.uom_id.is_categorie_unite()
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
@@ -35,7 +35,7 @@ class StockMoveLine(models.Model):
         for obj in self:
             nb_colis = obj.get_nb_colis()
             obj.is_nb_colis = nb_colis
-            unite = self.uom_id.category_id.name
+            unite = self.uom_id.is_categorie_unite()
             if unite=="Poids":
                 poids = obj.quantity
             else:

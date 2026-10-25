@@ -376,7 +376,7 @@ class ProductTemplate(models.Model):
             stock     = obj.qty_available
             nb        = obj.is_nb_pieces_par_colis
             poids_net = obj.is_poids_net_colis
-            unite     = obj.uom_id.category_id.name
+            unite     = obj.uom_id.is_categorie_unite()
             nb_colis  = 0
             if unite=="Poids":
                 if poids_net>0:
@@ -539,7 +539,7 @@ class ProductTemplate(models.Model):
     def get_frais_port(self,port=0):
         for obj in self:
             res = 0
-            unite = obj.uom_id.category_id.name
+            unite = obj.uom_id.is_categorie_unite()
             if unite=="Poids":
                 res=port
             else:
@@ -737,7 +737,7 @@ class ProductTemplate(models.Model):
         colisage  = int(self.is_colisage or 1)
         nb        = self.is_nb_pieces_par_colis
         poids_net = self.is_poids_net_colis
-        unite     = self.uom_id.category_id.name
+        unite     = self.uom_id.is_categorie_unite()
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
@@ -769,7 +769,7 @@ class ProductTemplate(models.Model):
     def colis2uom(self,colis):
         nb        = self.is_nb_pieces_par_colis
         poids_net = self.is_poids_net_colis
-        unite     = self.uom_id.category_id.name
+        unite     = self.uom_id.is_categorie_unite()
         if unite=="Poids":
             uom = colis * poids_net
         else:

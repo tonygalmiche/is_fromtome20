@@ -50,7 +50,7 @@ class IsImprimerEtiquetteGS1(models.Model):
         for obj in self:
             vsb=False
             if obj.product_id:
-                unite = obj.product_id.uom_id.category_id.name
+                unite = obj.product_id.uom_id.is_categorie_unite()
                 if unite=="Poids":
                     vsb=True
             obj.poids_vsb = vsb

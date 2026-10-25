@@ -315,7 +315,7 @@ class IsScanPicking(models.Model):
                     obj.on_barcode_scanned(barcode_reste)
 
             if not barcode_reste:
-                    unite = obj.product_id.uom_id.category_id.name
+                    unite = obj.product_id.uom_id.is_categorie_unite()
                     test=False
                     if unite=="Poids" and obj.poids>0:
                         test=True
@@ -403,7 +403,7 @@ class IsScanPicking(models.Model):
             poids_net_total=0
             for line in obj.line_ids:
                 poids_net_total+=line.poids
-                unite = line.uom_id.category_id.name
+                unite = line.uom_id.is_categorie_unite()
                 if unite=="Poids":
                     qty=line.poids
                 else:
@@ -459,7 +459,7 @@ class IsScanPicking(models.Model):
                 if test:
                     #** Calcul du poids si frais de port au kg ****************
                     product_uom = obj.picking_id.sale_id.partner_id.is_frais_port_id.uom_id
-                    unite = product_uom.category_id.name
+                    unite = product_uom.is_categorie_unite()
                     if unite=="Poids":
                         qty_done = poids_net_total
                     else:
@@ -500,7 +500,7 @@ class IsScanPicking(models.Model):
     #             product = self.env['product.product'].search(filtre,limit=1)
     #             qty=row[2]
     #             if product:
-    #                 unite = product.uom_id.category_id.name
+    #                 unite = product.uom_id.is_categorie_unite()
     #                 if unite=="Poids":
     #                     qty=row[3]
     #             vals={
@@ -587,13 +587,13 @@ class Picking(models.Model):
                 if date_scan<scan.write_date:
                     date_scan=scan.write_date
                 for line in scan.line_ids:
-                    unite = line.product_id.uom_id.category_id.name
+                    unite = line.product_id.uom_id.is_categorie_unite()
                     if unite=="Poids":
                         poids_scan+=line.poids
             date_picking=False
             poids_picking=False
             for line in obj.move_ids:
-                unite = line.product_id.uom_id.category_id.name
+                unite = line.product_id.uom_id.is_categorie_unite()
                 if unite=="Poids":
                     poids_picking+=line.quantity
                     if round(line.quantity,4)!=round(line.is_poids_net_reel,4):

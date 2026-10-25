@@ -19,6 +19,7 @@ from . import stock_picking
 from . import stock_production_lot
 from . import stock_quant
 from . import supplier_discount
+from . import uom_uom
 from . import is_account_invoice_line
 from . import is_analyse_facturation
 from . import is_analyse_marge_lot

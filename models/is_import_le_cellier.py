@@ -48,9 +48,10 @@ class IsImportLeCellier(models.Model):
 
             ws = wb['Sheet1']
             cells = list(ws)
-            taxe_achat_id = self.env['ir.model.data'].xmlid_to_res_id('l10n_fr.1_tva_acq_reduite') # TVA déductible (achat) 5,5%
-            taxe_vente_id = self.env['ir.model.data'].xmlid_to_res_id('l10n_fr.1_tva_reduite')     # TVA collectée (vente) 5,5%
-            uom_id   = self.env['ir.model.data'].xmlid_to_res_id('uom.product_uom_kgm') # Kg
+            # v20 : xmlid_to_res_id → _xmlid_to_res_id ; taxes du plan comptable dans le module account (account.<société>_<taxe>)
+            taxe_achat_id = self.env['ir.model.data']._xmlid_to_res_id('account.1_tva_acq_reduite') # TVA déductible (achat) 5,5%
+            taxe_vente_id = self.env['ir.model.data']._xmlid_to_res_id('account.1_tva_reduite')     # TVA collectée (vente) 5,5%
+            uom_id   = self.env['ir.model.data']._xmlid_to_res_id('uom.product_uom_kgm') # Kg
             lig=0
             ct=1
             for row in ws.rows:
