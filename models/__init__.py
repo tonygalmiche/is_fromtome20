@@ -12,8 +12,6 @@ from . import res_partner
 from . import res_users
 from . import sale_order
 from . import stock
-# stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
-# from . import stock_inventory
 from . import stock_move_line
 from . import stock_picking
 from . import stock_production_lot

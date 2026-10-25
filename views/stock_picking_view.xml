@@ -189,16 +189,15 @@
                                 class="oe_inline btn btn-primary"
                             />
                         </group>
-                        <!-- stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
+                        <!-- v20 : stock.inventory supprimé, quantités comptées sur les quants (inventaire physique) -->
                         <group  invisible="type != 'inventory'">
                             <button
                                 name="maj_inventory_action"
                                 type="object" string="Mise à jour Inventaire"
-                                confirm2="Attention, cela va supprimer et remplacer les lignes de l'inventaire"
+                                confirm2="Attention, cela va remplacer les quantités comptées de l'inventaire physique pour les articles scannés"
+                                class="oe_inline btn btn-primary"
                             />
-                            <field name="inventory_id"/>
                         </group>
-                        -->
                     </group>
 
                     <!-- v20 : barcode_handler supprimé, remplacé par is_barcode_widget -->
@@ -216,9 +215,6 @@
                 <field name="id"/>
                 <field name="type"/>
                 <field name="picking_id"/>
-                <!-- stock.inventory supprimé en v15 : à réécrire (étape « inventaire sur stock.quant »)
-                <field name="inventory_id"/>
-                -->
                 <field name="create_date"/>
                 <field name="write_date"/>
                 <field name="is_alerte"/>
@@ -232,9 +228,6 @@
             <search>
                 <field name="id"/>
                 <field name="picking_id"/>
-                <!-- stock.inventory supprimé en v15 : à réécrire (étape « inventaire sur stock.quant »)
-                <field name="inventory_id"/>
-                -->
            </search>
         </field>
     </record>
@@ -249,6 +242,21 @@
         parent="stock.menu_stock_warehouse_mgmt"
         sequence="900"
         action="is_scan_picking_action"
+    />
+    <!-- v20 : stock.inventory supprimé, le scan d'inventaire n'est plus créé depuis l'inventaire (bouton « Scan ») -->
+    <record  id="is_scan_inventaire_action" model="ir.actions.act_window">
+        <field name="name">Scan inventaire</field>
+        <field name="res_model">is.scan.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('type','=','inventory')]</field>
+        <field name="context">{'default_type': 'inventory'}</field>
+    </record>
+    <menuitem
+        id="is_scan_inventaire_menu"
+        name="Scan inventaire"
+        parent="stock.menu_stock_adjustments"
+        sequence="11"
+        action="is_scan_inventaire_action"
     />
 
 

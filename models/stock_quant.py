@@ -16,6 +16,32 @@ class StockQuant(models.Model):
     quantity           = fields.Float(digits="Product Unit")
     reserved_quantity  = fields.Float(digits="Product Unit")
 
+    # v20 : stock.inventory supprimé : stock valorisé au dernier prix facturé (en v14 sur stock.inventory.line)
+    @api.depends('product_id','quantity')
+    def compute_is_dernier_prix(self):
+        cr,uid,context,su = self.env.args
+        for obj in self:
+            SQL="""
+                SELECT ail.price_unit,ail.product_uom_id
+                FROM account_move_line ail inner join account_move ai on ail.move_id=ai.id
+                WHERE ail.product_id=%s  and ai.state='posted' and ai.move_type='in_invoice'
+                ORDER BY ail.id desc
+                limit 1
+            """
+            cr.execute(SQL,[obj.product_id.id])
+            prix=0
+            uom_id = obj.uom_id.id
+            for row in cr.fetchall():
+                prix = row[0]
+                uom_id=row[1]
+            obj.is_dernier_prix   = prix
+            obj.is_stock_valorise = prix*obj.quantity
+            obj.is_uom_facture_id = uom_id
+
+    is_dernier_prix    = fields.Float("Dernier prix facturé"       , compute=compute_is_dernier_prix, store=False)
+    is_stock_valorise  = fields.Float("Stock valorisé"             , compute=compute_is_dernier_prix, store=False)
+    is_uom_facture_id  = fields.Many2one('uom.uom', 'Unité facture', compute=compute_is_dernier_prix, store=False)
+
 
     #Tony le 03/11/2023 : J'ai supprimé ce verrou car il bloquait les livraisons
     @api.model

@@ -172,9 +172,7 @@ class IsScanPicking(models.Model):
     type         = fields.Selection(string='Type', selection=[('picking', 'Picking'), ('inventory', 'Inventaire')], required=True, default='picking')
     picking_id   = fields.Many2one('stock.picking', 'Picking'     , required=False)
     partner_id   = fields.Many2one(related="picking_id.partner_id")
-    # stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
-    # inventory_id = fields.Many2one('stock.inventory', 'Inventaire', required=False)
-    ean          = fields.Char("EAN")
+    ean         = fields.Char("EAN")
     product_id   = fields.Many2one('product.product', 'Article')
     lot          = fields.Char("Lot scanné")
     lot_id       = fields.Many2one('stock.lot', 'Lot')
@@ -481,37 +479,44 @@ class IsScanPicking(models.Model):
             obj.picking_id._compute_is_alerte()
 
 
-    # stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
-    # def maj_inventory_action(self):
-    #     cr,uid,context,su = self.env.args
-    #     for obj in self:
-    #         obj.inventory_id.line_ids.unlink()
-    #         SQL="""
-    #             SELECT product_id, lot_id, sum(nb_pieces), sum(poids)
-    #             FROM is_scan_picking_line
-    #             WHERE scan_id=%s
-    #             GROUP BY product_id, lot_id
-    #         """
-    #         cr.execute(SQL,[obj.id])
-    #         for row in cr.fetchall():
-    #             filtre=[
-    #                 ('id','=', row[0]),
-    #             ]
-    #             product = self.env['product.product'].search(filtre,limit=1)
-    #             qty=row[2]
-    #             if product:
-    #                 unite = product.uom_id.is_categorie_unite()
-    #                 if unite=="Poids":
-    #                     qty=row[3]
-    #             vals={
-    #                 "inventory_id"      : obj.inventory_id.id,
-    #                 "product_id"        : row[0],
-    #                 "prod_lot_id"       : row[1],
-    #                 "company_id"        : 1,
-    #                 "location_id"       : 8,
-    #                 "product_qty"       : qty,
-    #             }
-    #             res = self.env['stock.inventory.line'].create(vals)
+    def maj_inventory_action(self):
+        """v20 : stock.inventory supprimé (inventaire sur stock.quant) : le scan renseigne la quantité comptée
+        des quants de l'emplacement de stock, appliquée ensuite par « Appliquer » dans l'inventaire physique.
+        Les autres lots des articles scannés sont comptés à 0 (en v14, lignes de l'inventaire remises à 0 au début du scan)"""
+        cr,uid,context,su = self.env.args
+        location = self.env.ref('stock.stock_location_stock')
+        Quant = self.env['stock.quant'].with_context(inventory_mode=True)
+        for obj in self:
+            SQL="""
+                SELECT product_id, lot_id, sum(nb_pieces), sum(poids)
+                FROM is_scan_picking_line
+                WHERE scan_id=%s
+                GROUP BY product_id, lot_id
+            """
+            cr.execute(SQL,[obj.id])
+            quants = Quant
+            for row in cr.fetchall():
+                product = self.env['product.product'].browse(row[0])
+                qty=row[2]
+                if product:
+                    unite = product.uom_id.is_categorie_unite()
+                    if unite=="Poids":
+                        qty=row[3]
+                vals={
+                    "product_id"        : row[0],
+                    "lot_id"            : row[1],
+                    "location_id"       : location.id,
+                    "inventory_quantity": qty or 0,
+                }
+                quants |= Quant.create(vals)
+            filtre=[
+                ('location_id','=',location.id),
+                ('product_id','in',quants.product_id.ids),
+                ('id','not in',quants.ids),
+            ]
+            Quant.search(filtre).write({'inventory_quantity': 0})
+        # Ouvre l'inventaire physique pour vérifier les écarts et appliquer
+        return self.env['stock.quant'].action_view_inventory()
 
 
     def maj_code_ean_article_action(self):
