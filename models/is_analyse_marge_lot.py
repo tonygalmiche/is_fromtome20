@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _  # pyright: ignore[reportMissingImports] (Odoo absent de l'environnement Python de VSCode)
 from datetime import timedelta
 import time
-from odoo.addons.is_fromtome20.models.account_move import _TYPE_AVOIR
+from odoo.addons.is_fromtome20.models.account_move import _TYPE_AVOIR  # pyright: ignore[reportMissingImports]
 
 import logging
 _logger = logging.getLogger(__name__)
