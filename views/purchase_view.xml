@@ -65,15 +65,15 @@
                     type="object"
                     string="Créer commande dans Fromtome"
                     class="oe_highlight"
-                    attrs="{'invisible': [('is_fromtome_order_vsb', '=', False)]}"
+                    invisible="not is_fromtome_order_vsb"
                 />
- 
+
                 <field name="is_maj_commande_client_vsb" invisible="1"/>
                 <button
                     name="maj_commande_client_action"
                     type="object"
                     string="MAJ commandes clients"
-                    attrs="{'invisible': [('is_maj_commande_client_vsb', '=', False)]}"
+                    invisible="not is_maj_commande_client_vsb"
                 />
             </button>
             <field name="partner_id" position="after">
@@ -88,14 +88,15 @@
             <xpath expr="//field[@name='order_line']//list" position='attributes'>
                 <attribute name="decoration-danger">is_alerte!=""</attribute>
             </xpath>
-             <xpath expr="//field[@name='order_line']//list//field[@name='product_id']" position='before'>
-                <field name="is_sale_order_line_id" invisible="1"/>
-                <button 
-                    title="Cde client" 
-                    name="acceder_commande_client" 
-                    type="object" icon="fa-search-plus" 
-                    class="oe_stat_button" 
-                    attrs="{'invisible': [('is_sale_order_line_id', '=', False)]}"
+            <!-- v20 : article et description regroupés dans la colonne product_and_description -->
+             <xpath expr="//field[@name='order_line']/list/column[@name='product_and_description']" position='before'>
+                <field name="is_sale_order_line_id" column_invisible="True"/>
+                <button
+                    title="Cde client"
+                    name="acceder_commande_client"
+                    type="object" icon="zoom_in"
+                    class="oe_stat_button"
+                    invisible="not is_sale_order_line_id"
                 />
             </xpath>
 
@@ -105,9 +106,9 @@
                 <attribute name="sum">Total</attribute>
             </xpath>
 
-             <xpath expr="//field[@name='order_line']//list//field[@name='product_id']" position='before'>
+             <xpath expr="//field[@name='order_line']/list/column[@name='product_and_description']" position='before'>
                 <field name="is_client_id" optional="hide"/>
-                <field name="is_picking_id" optional="show" readonly="1" attrs="{'column_invisible': [('parent.is_transporteur', '=', False)]}"/>
+                <field name="is_picking_id" optional="show" readonly="1" column_invisible="not parent.is_transporteur"/>
             </xpath>
 
              <xpath expr="//field[@name='order_line']//list//field[@name='price_unit']" position='before'>
@@ -118,25 +119,23 @@
 
              <xpath expr="//field[@name='order_line']//list//field[@name='price_subtotal']" position='after'>
                 <field name="is_alerte" optional="hide"/>            </xpath>
-             <xpath expr="//field[@name='order_line']//list//field[@name='name']" position='after'>
+             <xpath expr="//field[@name='order_line']/list/column[@name='product_and_description']" position='after'>
                 <field name="is_default_code"    optional="show"/>
                 <field name="is_ref_fournisseur" optional="show"/>
             </xpath>
             <xpath expr="//field[@name='order_line']//list//field[@name='date_planned']" position='attributes'>
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <div name="date_approve" position="attributes">
+            <!-- v20 : plus de div ni de label date_approve, seulement le champ -->
+            <field name="date_approve" position="attributes">
                  <attribute name="invisible">1</attribute>
-             </div>
-            <label for="date_approve" position="attributes">
-                 <attribute name="invisible">1</attribute>
-             </label>
+            </field>
             <field name="origin" position="before">
                 <field name="is_date_enlevement"/>
-                <field name="is_commande_transporteur_id" attrs="{'invisible': [('is_commande_transporteur_id', '=', False)]}"/>
+                <field name="is_commande_transporteur_id" invisible="not is_commande_transporteur_id"/>
                 <field name="is_heure_envoi_mail"/>
-                <field name="is_total_colis_livraisons" attrs="{'invisible': [('is_transporteur', '=', False)]}"/>
-                <field name="is_total_poids_livraisons" attrs="{'invisible': [('is_transporteur', '=', False)]}"/>
+                <field name="is_total_colis_livraisons" invisible="not is_transporteur"/>
+                <field name="is_total_poids_livraisons" invisible="not is_transporteur"/>
             </field>
             <field name="picking_type_id" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -144,36 +143,29 @@
             <xpath expr="//field[@name='partner_ref']" position="after">
                 <field name="is_adresse_livraison_id"/>
                 <field name="picking_type_id"/>
-                <field name="is_fromtome_order_id" attrs="{'invisible': [('is_fromtome_order_id', '=', False)]}"/>
-                <field name="is_fusion_order_id"   attrs="{'invisible': [('is_fusion_order_id', '=', False)]}"/>
+                <field name="is_fromtome_order_id" invisible="not is_fromtome_order_id"/>
+                <field name="is_fusion_order_id"   invisible="not is_fusion_order_id"/>
                 <field name="is_heure_envoi_id"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']//list//field[@name='product_uom']" position='attributes'>
+            <!-- v20 : product_uom → uom_id -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='uom_id']" position='attributes'>
                 <attribute name="readonly">1</attribute>
             </xpath>
 
-            <xpath
-                expr="//field[@name='order_line']/list/field[@name='price_unit']"
-                position="after"
-            >
-                <field name="discount" />
-            </xpath>
-            <xpath
-                expr="//field[@name='order_line']/form//field[@name='price_unit']"
-                position="after"
-            >
-                <field name="discount" />
+            <!-- v20 : remise native, déjà dans la ligne (liste et formulaire) : colonne affichée comme en v14 -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='discount']" position="attributes">
+                <attribute name="optional">show</attribute>
             </xpath>
 
             <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
-                <page string="Livraisons clients associées" attrs="{'invisible': [('is_transporteur', '=', False)]}">
+                <page string="Livraisons clients associées" invisible="not is_transporteur">
                     <field name="is_transporteur" invisible="1"/>
                     <field name="is_livraison_ids" nolabel="1">
                         <list limit="200">
-                            <button 
-                                name="ouvrir_picking_action" 
-                                type="object" 
-                                icon="fa-search-plus" 
+                            <button
+                                name="ouvrir_picking_action"
+                                type="object"
+                                icon="zoom_in"
                                 class="oe_stat_button"
                                 title="Accéder au picking"
                             />
@@ -199,7 +191,7 @@
         <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="is_fusion_order_id" optional="show" widget="many2one_clickable" />
+                <field name="is_fusion_order_id" optional="show" widget="many2one" />
             </field>
             <field name="partner_id" position="after">
                 <field name="is_enseigne_id" optional="show"/>
@@ -218,14 +210,15 @@
         <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="is_fusion_order_id" optional="show" widget="many2one_clickable" />
+                <field name="is_fusion_order_id" optional="show" widget="many2one" />
             </field>
             <field name="partner_id" position="after">
                 <field name="is_enseigne_id"          optional="show"/>
                 <field name="is_adresse_livraison_id" optional="hide"/>
             </field>
-            <field name="date_order" position="after">
-                <field name="date_planned"        optional="show"/>
+            <!-- v20 : date_planned déjà dans la liste (masquée par défaut) : affichée comme en v14 -->
+            <field name="date_planned" position="attributes">
+                <attribute name="optional">show</attribute>
             </field>
             <field name="state" position="before">
                 <field name="is_heure_envoi_id"   optional="hide"/>
@@ -282,7 +275,7 @@
                 <field name="product_qty"        readonly="1" optional="show" sum="Total"/>
                 <field name="qty_received"       readonly="1" optional="show" sum="Total"/>
                 <field name="qty_invoiced"       readonly="1" optional="show" sum="Total"/>
-                <field name="product_uom"        readonly="1" optional="show"/>
+                <field name="uom_id"             readonly="1" optional="show"/>
                 <field name="is_nb_pieces_par_colis" readonly="1" optional="hide"/>
                 <field name="is_nb_colis"            readonly="1" optional="hide" sum="Total"/>
                 <field name="is_poids_net"           readonly="1" optional="hide" sum="Total"/>
