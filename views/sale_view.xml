@@ -63,33 +63,25 @@
                 </style>
             </xpath>
             <div name="button_box" position="after">
-                <div style="background:orange;font-weight: bold;" attrs="{'invisible':[('is_alerte_client','=',False)]}">
+                <div style="background:orange;font-weight: bold;" invisible="not is_alerte_client">
                     <field
                         name="is_alerte_client"
                         readonly="1" nolabel="1"
-                        attrs="{'invisible': [('is_alerte_client', '=', False)]}"
+                        invisible="not is_alerte_client"
                     />
                 </div>
             </div>
             <field name="partner_id" position="after">
                 <field name="is_encours_client"/>
-                <field 
-                    name="is_modele_commande_id" 
-                    attrs="{'invisible': ['|','|',
-                        ('is_modele_commande_id', '=', False),
-                        ('state', 'not in', ['draft','sent']),
-                        ('order_line', '!=', []),
-                    ]}"
+                <field
+                    name="is_modele_commande_id"
+                    invisible="not is_modele_commande_id or state not in ['draft','sent'] or order_line"
                 />
                 <button
                     name="initialiser_depuis_modele_commande"
                     type="object"
                     string="Initialiser la commande à partir de ce modèle"
-                    attrs="{'invisible': ['|','|',
-                        ('is_modele_commande_id', '=', False),
-                        ('state', 'not in', ['draft','sent']),
-                        ('order_line', '!=', []),
-                    ]}"
+                    invisible="not is_modele_commande_id or state not in ['draft','sent'] or order_line"
                 />
                 <field name="is_enseigne_id"/>
                 <field name="warehouse_id"/>
@@ -108,8 +100,8 @@
                 <field name="is_total_colis_manquant"/>
                 <field name="is_nb_lignes"/>
                 <field name="is_heure_envoi_id"/>
-                <field name="is_fusion_order_id" attrs="{'invisible': [('is_fusion_order_id', '=', False)]}"/>
-                <field name="is_frais_port_id"   attrs="{'invisible': [('is_frais_port_id', '=', False)]}"/>
+                <field name="is_fusion_order_id" invisible="not is_fusion_order_id"/>
+                <field name="is_frais_port_id"   invisible="not is_frais_port_id"/>
             </field>
             <field name="validity_date" position="attributes">
                  <attribute name="invisible">1</attribute>
@@ -121,7 +113,7 @@
                     type="object"
                     string="Créer les commandes des fournisseurs"
                     class="oe_highlight"
-                    attrs="{'invisible': [('is_creer_commande_fournisseur_vsb', '=', False)]}"
+                    invisible="not is_creer_commande_fournisseur_vsb"
                 />
             </xpath>
             <field name="order_line" position="before">
@@ -169,63 +161,64 @@
                         class="oe_inline btn btn-sm btn-danger"
                         style="margin-right:10px"
                         confirm="Réaffecter les mouvements livrés en priorité sur les lignes avec la remise la plus élevée ?"
-                        attrs="{'invisible': [('is_reaffecter_remise_vsb', '=', False)]}"
+                        invisible="not is_reaffecter_remise_vsb"
                     />
                 </div>
             </field>
             <xpath expr="//notebook/page/field/list" position="attributes">
                  <attribute name="limit">1000</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_id']" position="before">
-                <field name="is_calcul_besoins_purchase_line_id" invisible="1"/>
-                <button 
-                    title="Ligne de commande fournisseur créée par le calcul des besoins" 
-                    name="acceder_commande_fournisseur_calcul" 
-                    type="object" icon="fa-calculator" 
-                    class="oe_stat_button" 
-                    attrs="{'invisible': [('is_calcul_besoins_purchase_line_id', '=', False)]}"
+            <!-- v20 : champs des lignes regroupés dans des colonnes (product_and_description, sol_qty, sol_uom, price_unit) : ajouts ancrés sur les colonnes -->
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='product_and_description']" position="before">
+                <field name="is_calcul_besoins_purchase_line_id" column_invisible="True"/>
+                <button
+                    title="Ligne de commande fournisseur créée par le calcul des besoins"
+                    name="acceder_commande_fournisseur_calcul"
+                    type="object" icon="calculate"
+                    class="oe_stat_button"
+                    invisible="not is_calcul_besoins_purchase_line_id"
                 />
-                <field name="is_purchase_line_id" invisible="1"/>
-                <button 
-                    title="Cde fournisseur" 
-                    name="acceder_commande_fournisseur" 
-                    type="object" icon="fa-search-plus" 
-                    class="oe_stat_button" 
-                    attrs="{'invisible': [('is_purchase_line_id', '=', False)]}"
+                <field name="is_purchase_line_id" column_invisible="True"/>
+                <button
+                    title="Cde fournisseur"
+                    name="acceder_commande_fournisseur"
+                    type="object" icon="zoom_in"
+                    class="oe_stat_button"
+                    invisible="not is_purchase_line_id"
                 />
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='name']" position="after">
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='product_and_description']" position="after">
                 <field name="is_default_code"      optional="show"/>
                 <field name="is_ref_fournisseur"   optional="show"/>
                 <field name="is_livraison_directe" optional="show"/>
                 <field name="is_date_reception"    optional="show"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="attributes">
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='sol_qty']/field[@name='product_uom_qty']" position="attributes">
                 <attribute name="sum">Total</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_packaging']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="before">
+            <!-- v20 : product_packaging supprimé -->
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='sol_qty']" position="before">
                 <field name="is_qt_cde"            optional="show"    sum="Total"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="after">
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='sol_qty']" position="after">
                 <field name="is_ecart_qt_cde_prepa" optional="hide"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom']" position="after">
+            <!-- v20 : product_uom → product_uom_id, dans la colonne sol_uom -->
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='sol_uom']" position="after">
                 <field name="is_colis_cde_origine"  optional="show" sum="Total"/>
                 <field name="is_colis_cde"          optional="show" sum="Total"/>
                 <field name="is_colis_liv"          optional="show" sum="Total"/>
                 <field name="is_colis_manquant"     optional="show" sum="Total"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="attributes">
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='sol_qty']/field[@name='product_uom_qty']" position="attributes">
                 <attribute name="string">Qt Prépa</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='price_unit']" position="before">
+            <xpath expr="//form/sheet/notebook/page/field/list/column[@name='price_unit']" position="before">
                 <field name="is_nb_pieces_par_colis" optional="hide"/>
                 <field name="is_poids_net"  sum="Total" optional="hide"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/form/group/group/field[@name='tax_id']" position="before">
+            <!-- v20 : tax_id → tax_ids -->
+            <xpath expr="//form/sheet/notebook/page/field/form//field[@name='tax_ids']" position="before">
                 <field name="is_purchase_line_id"/>
             </xpath>
             <field name="validity_date" position="before">
@@ -249,7 +242,7 @@
                             confirm="ATTENTION : Désormais l'importation d'un fichier ajoute de nouvelles lignes sans modifier les lignes précédentes"
                         />
                     </group>
-                    <group string="Alertes importation" attrs="{'invisible':[('is_import_alerte','=',False)]}" >
+                    <group string="Alertes importation" invisible="not is_import_alerte" >
                         <div style="background:orange;font-weight:bold;padding-left:5pt">
                             <field name="is_import_alerte" nolabel="1"/>
                         </div>
@@ -258,22 +251,7 @@
             </xpath>
         </field>
     </record>
-    <record id="is_sale_stock_view_order_tree" model="ir.ui.view">
-        <field name="name">is_sale_stock_view_order_tree</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale_stock.view_order_tree"/>
-        <field name="arch" type="xml">
-            <field name="warehouse_id" position="replace"/>
-        </field>
-    </record>
-    <record id="is_sale_stock_view_quotation_tree" model="ir.ui.view">
-        <field name="name">is_sale_stock_view_quotation_tree</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale_stock.view_quotation_tree"/>
-        <field name="arch" type="xml">
-            <field name="warehouse_id" position="replace"/>
-        </field>
-    </record>
+    <!-- v20 : sale_stock n'ajoute plus warehouse_id aux listes des commandes et des devis : vues qui le retiraient supprimées (is_sale_stock_view_order_tree, is_sale_stock_view_quotation_tree) -->
     <record id="is_view_order_tree" model="ir.ui.view">
         <field name="name">is_view_order_tree</field>
         <field name="model">sale.order</field>
@@ -319,7 +297,8 @@
                 <field name="is_transporteur_id" optional="hide"/>
                 <field name="warehouse_id"   optional="show"/>
             </field>
-            <field name="create_date" position="after">
+            <!-- v20 : plus de colonne create_date dans la liste des devis -->
+            <field name="date_order" position="after">
                 <field name="is_date_livraison"  optional="show"/>
                 <field name="is_nb_lignes"       optional="hide"/>
                 <field name="is_heure_envoi_id"  optional="hide"/>
@@ -406,7 +385,7 @@
                 <field name="product_uom_qty" readonly="1" optional="show" sum="Total"/>
                 <field name="qty_delivered"   readonly="1" optional="show" sum="Total"/>
                 <field name="qty_invoiced"    readonly="1" optional="show" sum="Total"/>
-                <field name="product_uom"     readonly="1" optional="show"/>
+                <field name="product_uom_id"  readonly="1" optional="show"/>
                 <field name="is_correction_prix_achat"     optional="show"/>
                 <field name="price_unit" string="Prix de vente"/>
                 <field name="discount"        readonly="1" optional="show"/>
@@ -419,9 +398,9 @@
         <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
             <list editable="top">
-                <field name="company_id" invisible="1" readonly="1"/>
-                <field name="order_id" invisible="1" readonly="1"/>
-                <field name="product_uom_category_id" invisible="1" readonly="1"/>
+                <field name="company_id" column_invisible="True" readonly="1"/>
+                <field name="order_id" column_invisible="True" readonly="1"/>
+                <!-- v20 : product_uom_category_id supprimé (plus de catégories d'unités) -->
                 <field name="product_id" optional="show"/>
                 <field name="name" optional="hide"/>
                 <field name="is_default_code" optional="hide" readonly="1"/>
@@ -431,7 +410,7 @@
                 <field name="is_qt_cde" sum="Total" optional="show" readonly="1"/>
                 <field name="product_uom_qty" sum="Total" optional="show" string="Qt Prépa"/>
                 <field name="is_ecart_qt_cde_prepa" optional="show" readonly="1"/>
-                <field name="product_uom" optional="hide"/>
+                <field name="product_uom_id" optional="hide"/>
                 <field name="is_colis_cde_origine" sum="Total" optional="hide" readonly="1"/>
                 <field name="is_colis_cde" sum="Total" optional="hide"/>
                 <field name="is_colis_liv" sum="Total" optional="hide" readonly="1"/>
