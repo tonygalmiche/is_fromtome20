@@ -220,10 +220,16 @@
 
 
 
-    <!-- Déplacement des menus inutiles : remis en place par un -u en v20, à remplacer par le groupe vide is_afficher_menus_non_utilises_group (étape « menus non utilisés masqués »)
-    <menuitem id="mail.menu_root_discuss"     parent="base.menu_custom" sequence="900"/>
-    <menuitem id="utm.menu_link_tracker_root" parent="base.menu_custom" sequence="901"/>
-    -->
+    <!-- Menus non utilisés, réservés au groupe vide « Afficher les menus non utilisés » (en v14, déplacés dans base.menu_custom) -->
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="group_ids" eval="[Command.set([ref('is_afficher_menus_non_utilises_group')])]"/>
+    </record>
+    <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+        <field name="group_ids" eval="[Command.set([ref('is_afficher_menus_non_utilises_group')])]"/>
+    </record>
+    <record id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" model="ir.ui.menu">
+        <field name="group_ids" eval="[Command.set([ref('is_afficher_menus_non_utilises_group')])]"/>
+    </record>
     <menuitem id="contacts.menu_contacts"     parent=""                 sequence="1"/>
 
 </odoo>

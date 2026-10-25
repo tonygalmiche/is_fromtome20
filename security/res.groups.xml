@@ -28,6 +28,11 @@
         <field name="sequence">40</field>
         <field name="category_id" ref="is_groupe_fromtome_module_category"/>
     </record>
+    <record model="res.groups.privilege" id="privilege_afficher_menus_non_utilises">
+        <field name="name">Afficher les menus non utilisés</field>
+        <field name="sequence">50</field>
+        <field name="category_id" ref="is_groupe_fromtome_module_category"/>
+    </record>
 
 
     <record model="res.groups" id="gestionnaire_suivi_temps_group" >
@@ -51,6 +56,12 @@
         <field name="name">Analyse marge brute</field>
         <field name="comment">Ce groupe est le seul pouvant accèder aux menus d'analyse de la marge brute</field>
         <field name="privilege_id" ref="privilege_analyse_marge_brute"/>
+    </record>
+
+    <!-- Groupe volontairement vide : sert à masquer les menus standard non utilisés (Discussion...), y compris aux administrateurs -->
+    <record id="is_afficher_menus_non_utilises_group" model="res.groups">
+        <field name="name">Afficher les menus non utilisés</field>
+        <field name="privilege_id" ref="privilege_afficher_menus_non_utilises"/>
     </record>
 
 
