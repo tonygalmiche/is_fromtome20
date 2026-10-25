@@ -6,7 +6,6 @@
         <field name="state">code</field>
         <field name="code">model.with_context(lang='fr_FR').update_pricelist_ir_cron()</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
     </record>
     <record id="init_emplacement_inventaire_action_server" model="ir.actions.server">
         <field name="name">Init emplacement d'inventaire</field>
@@ -30,7 +29,6 @@
         <field name="code">model.recalcule_colis_stock_scans_ir_cron()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
         <field name="active">True</field>
     </record>
 
@@ -82,7 +80,7 @@
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
             <field name="default_code" position="after">
-                <field name="is_fournisseur_id"  optional="hide" widget="many2one_clickable"/>
+                <field name="is_fournisseur_id"  optional="hide" widget="many2one"/>
                 <field name="is_ref_fournisseur" optional="show"/>
                 <field name="is_date_fin"        optional="show"/>
                 <field name="is_gtin_13" optional="show"/>
@@ -118,12 +116,12 @@
                 <button 
                     title="Lignes commandes en cours" 
                     name="lignes_commandes_action" 
-                    type="object" icon="fa-list" 
+                    type="object" icon="format_list_bulleted"
                 />
-               <button 
-                    title="Mouvements de stocks en cours" 
-                    name="mouvements_stock_action" 
-                    type="object" icon="fa-list" 
+               <button
+                    title="Mouvements de stocks en cours"
+                    name="mouvements_stock_action"
+                    type="object" icon="format_list_bulleted"
                 />
             </field>
         </field>
@@ -143,6 +141,8 @@
                 <filter string="Avec image" name="avec_image" domain="[('image_1920', '!=', False)]"/>
                 <filter string="Sans image" name="sans_image" domain="[('image_1920', '=', False)]"/>
                 <filter string="Échantillons" name="echantillons" domain="[('categ_id.name', '=', 'ECHANTILLON')]"/>
+                <!-- v20 : filtre de stock.product_template_search_form_view_stock en v14, utilisé par is_analyse_ruptures_action, seulement sur product.product en v20 -->
+                <filter name="real_stock_negative" string="Negative Forecasted Quantity" domain="[('virtual_available','&lt;',0)]"/>
             </filter>
         </field>
     </record>
@@ -165,7 +165,7 @@
             <field name="seller_ids" position="attributes">
                 <attribute name="context">
                     {
-                        'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 
+                        'default_product_tmpl_id':context.get('product_tmpl_id',id),
                         'product_template_invisible_variant': True, 
                         'form_view_ref':'is_fromtome20.product_supplierinfo_form_view',
                         'list_view_ref':'product.product_supplierinfo_tree_view'
@@ -179,16 +179,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-             <field name="uom_id" position="before">
-                <hr/>
-                <hr/>
-            </field>
-             <field name="uom_id" position="attributes">
-                <attribute name="string">Unité de Stockage</attribute>
-            </field>
-             <field name="uom_po_id" position="attributes">
-                <attribute name="string">Unité d'achat</attribute>
-            </field>
+            <!-- v20 : unité d'achat (uom_po_id) supprimée, unité affichée à côté du prix : libellés des unités retirés (étape « Unités et colisage ») -->
             <field name="barcode" position="attributes">
                 <attribute name="string">GTIN 14 (EAN128) </attribute>
             </field>
@@ -209,22 +200,13 @@
             <field name="barcode" position="attributes">
                 <attribute name="string">GTIN 14 (EAN128) </attribute>
             </field>
-            <field name="uom_id" position="before">
-                <hr/><hr/>
-            </field>
-            <field name="uom_id" position="attributes">
-                <attribute name="string">Unité de Stockage</attribute>
-            </field>
-             <field name="uom_po_id" position="attributes">
-                <attribute name="string">Unité d'achat</attribute>
-            </field>
-            <field name="uom_po_id" position="after">
-                <hr/><hr/>
+            <!-- v20 : unité d'achat (uom_po_id) supprimée, unité affichée à côté du prix : colisage en fin du groupe des prix (étape « Unités et colisage ») -->
+            <group name="group_standard_price" position="inside">
                 <field name="is_colisage"/>
                 <field name="is_nb_pieces_par_colis"/>
                 <field name="is_poids_net_colis"/>
                 <field name="is_forcer_poids_colis"/>
-            </field>
+            </group>
             <xpath expr="//page[@name='sales']" position="inside">
                 <group string="Contrat Date ">
                     <field name="contrat_date_id">
@@ -246,11 +228,11 @@
                             name="analyse_ia_fiche_technique_action" 
                             type="object" 
                             class="btn btn-primary"
-                            attrs="{'invisible': ['|', ('is_fiche_technique_ids', '=', []), ('has_prompt_ia', '=', False)]}"
+                            invisible="not is_fiche_technique_ids or not has_prompt_ia"
                             confirm="Lancer l'analyse IA de la fiche technique ? Cela va mettre à jour les champs de l'onglet."
                         />
                     </group>
-                    <group attrs="{'invisible': [('is_fiche_technique_import', '=', False)]}">
+                    <group invisible="not is_fiche_technique_import">
                         <div style="background:gainsboro;font-weight:normal;padding-left:5pt;font-family:courier, courier new, serif;">
                             <field name="is_fiche_technique_import"  nolabel="1"/>
                         </div>
@@ -319,7 +301,7 @@
                         <field name="is_valeur_nutritionnelle_import"/>
                     </group>
                 </page>
-                <page string="Analyse IA" attrs="{'invisible': [('is_llm_prompt', '=', False)]}">
+                <page string="Analyse IA" invisible="not is_llm_prompt">
                     <group string="Prompt envoyé">
                         <field name="is_llm_prompt" nolabel="1"/>
                     </group>
@@ -371,9 +353,10 @@
                         </group>
                     </group>
                     <group string="Listes de prix">
-                        <field name="is_pricelist_item_ids" nolabel="1" domain="[('active','in',[0,1]),('pricelist_id.active','in',[0,1])]">
+                        <!-- v20 : plus de champ active sur product.pricelist.item, domaine (sans effet sur l'affichage) retiré -->
+                        <field name="is_pricelist_item_ids" nolabel="1">
                             <list>
-                                <field name="pricelist_id" string="Liste de prix" widget="many2one_clickable" />
+                                <field name="pricelist_id" string="Liste de prix" widget="many2one" />
                                 <field name="fixed_price"  string="Prix de vente"/>
                                 <field name="date_start" optional="hide" />
                                 <field name="date_end"   optional="hide" />
@@ -382,8 +365,8 @@
                                 <field name="is_taux_marge" optional="show"/>
                                 <button 
                                     name="is_alerte_action" type="object" class="oe_stat_button" 
-                                    icon="fa-exclamation-triangle"
-                                    attrs="{'invisible': [('is_alerte', '=', False)]}"
+                                    icon="warning"
+                                    invisible="not is_alerte"
                                     title="Alertes"
                                 />
                                 <field name="is_alerte"   optional="show"/>
@@ -405,7 +388,8 @@
                 </page>
             </xpath>
             <field name="description" position="after">
-                <field name="_barcode_scanned" widget="barcode_handler"/>
+                <!-- v20 : barcode_handler supprimé, remplacé par is_barcode_widget -->
+                <field name="is_barcode_scanned" widget="is_barcode_handler"/>
             </field>
         </field>
     </record>
@@ -472,7 +456,7 @@
                 <button 
                     title="Article" 
                     name="voir_article_action" 
-                    type="object" icon="fa-search-plus" 
+                    type="object" icon="zoom_in"
                 />
                 <field name="name"                  optional="show" readonly="1"/>
                 <field name="default_code"          optional="show" readonly="1" string="Référence"/>
@@ -591,10 +575,17 @@
         <field name="res_model">is.ingredient</field>
         <field name="view_mode">list,form</field>
     </record>
-    <menuitem 
-        id="is_ingredient_menu" 
-        name="Ingrédients" 
-        parent="sale.prod_config_main" 
+    <!-- v20 : menu Ventes / Configuration / Articles (sale.prod_config_main) supprimé : recréé dans le module -->
+    <menuitem
+        id="is_prod_config_main_menu"
+        name="Articles"
+        parent="sale.menu_sale_config"
+        sequence="5"
+    />
+    <menuitem
+        id="is_ingredient_menu"
+        name="Ingrédients"
+        parent="is_prod_config_main_menu"
         sequence="900"
         action="is_ingredient_action"
     />
@@ -642,7 +633,7 @@
     <menuitem 
         id="is_germe_menu" 
         name="Germes" 
-        parent="sale.prod_config_main" 
+        parent="is_prod_config_main_menu"
         sequence="910"
         action="is_germe_action"
     />
@@ -690,7 +681,7 @@
     <menuitem 
         id="is_valeur_nutritionnelle_menu" 
         name="Valeur Nutritionnelle" 
-        parent="sale.prod_config_main" 
+        parent="is_prod_config_main_menu"
         sequence="920"
         action="is_valeur_nutritionnelle_action"
     />
@@ -736,7 +727,7 @@
     <menuitem
         id="is_bio_menu"
         name="BIO"
-        parent="sale.prod_config_main"
+        parent="is_prod_config_main_menu"
         sequence="930"
         action="is_bio_action"
     />
@@ -782,7 +773,7 @@
     <menuitem
         id="is_rayon_magasin_menu"
         name="Rayon magasin"
-        parent="sale.prod_config_main"
+        parent="is_prod_config_main_menu"
         sequence="940"
         action="is_rayon_magasin_action"
     />
