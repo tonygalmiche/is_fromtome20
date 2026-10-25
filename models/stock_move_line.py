@@ -17,17 +17,7 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     def get_nb_colis(self):
-        nb        = self.product_id.is_nb_pieces_par_colis
-        poids_net = self.product_id.is_poids_net_colis
-        unite     = self.uom_id.is_categorie_unite()
-        nb_colis  = 0
-        if unite=="Poids":
-            if poids_net>0:
-                nb_colis = self.quantity/poids_net
-        else:
-            if nb>0:
-                nb_colis = self.quantity / nb
-        return round(nb_colis)
+        return round(self.product_id.product_tmpl_id.qty2nb_colis(self.quantity, self.uom_id))
 
 
     @api.onchange('product_id','quantity')

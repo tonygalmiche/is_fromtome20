@@ -16,17 +16,7 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     def get_nb_colis(self):
-        nb        = self.product_id.is_nb_pieces_par_colis
-        poids_net = self.product_id.is_poids_net_colis
-        unite     = self.product_uom_id.is_categorie_unite()
-        nb_colis  = 0
-        if unite=="Poids":
-            if poids_net>0:
-                nb_colis = self.product_uom_qty/poids_net
-        else:
-            if nb>0:
-                nb_colis = self.product_uom_qty / nb
-        return round(nb_colis)
+        return round(self.product_id.product_tmpl_id.qty2nb_colis(self.product_uom_qty, self.product_uom_id))
 
 
     def get_discount(self):
@@ -221,11 +211,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('is_colis_cde')
     def onchange_is_colis_cde(self):
-        unite = self.product_uom_id.is_categorie_unite()
-        if unite=="Poids":
-            self.product_uom_qty =  self.is_colis_cde * self.product_id.is_poids_net_colis
-        else:
-            self.product_uom_qty =  self.is_colis_cde * self.is_nb_pieces_par_colis
+        self.product_uom_qty = self.product_id.product_tmpl_id.colis2uom(self.is_colis_cde, self.product_uom_id)
 
 
     @api.onchange('product_uom_qty')

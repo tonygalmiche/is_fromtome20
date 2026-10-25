@@ -373,17 +373,7 @@ class ProductTemplate(models.Model):
 
     def _compute_is_colis_en_stock(self):
         for obj in self:
-            stock     = obj.qty_available
-            nb        = obj.is_nb_pieces_par_colis
-            poids_net = obj.is_poids_net_colis
-            unite     = obj.uom_id.is_categorie_unite()
-            nb_colis  = 0
-            if unite=="Poids":
-                if poids_net>0:
-                    nb_colis = stock/poids_net
-            else:
-                if nb>0:
-                    nb_colis = stock / nb
+            nb_colis = obj.qty2nb_colis(obj.qty_available)
             nb_colis = math.floor(nb_colis * 2) / 2  # Arrondir au 1/2 colis inférieur
             obj.is_colis_en_stock = round(nb_colis,1)
 
@@ -733,11 +723,13 @@ class ProductTemplate(models.Model):
             return res
 
 
-    def uom2colis(self,qty,arrondir="round"):
-        colisage  = int(self.is_colisage or 1)
+    def qty2nb_colis(self,qty,uom=False):
+        """Nombre de colis, sans arrondi, d'une quantité dans l'unité uom (par défaut celle de l'article) :
+        quantité / poids net du colis pour une unité de poids, quantité / nombre de pièces par colis sinon"""
+        uom       = uom or self.uom_id
         nb        = self.is_nb_pieces_par_colis
         poids_net = self.is_poids_net_colis
-        unite     = self.uom_id.is_categorie_unite()
+        unite     = uom.is_categorie_unite()
         nb_colis  = 0
         if unite=="Poids":
             if poids_net>0:
@@ -745,7 +737,13 @@ class ProductTemplate(models.Model):
         else:
             if nb>0:
                 nb_colis = qty / nb
-        nb_colis = round(nb_colis,2)                     # Arrondir à 2 decimales pour éviter les problèmes de virgules flotante
+        return nb_colis
+
+
+    def uom2colis(self,qty,arrondir="round"):
+        colisage  = int(self.is_colisage or 1)
+        nb_colis  = self.qty2nb_colis(qty)
+        nb_colis = round(nb_colis,2)                    # Arrondir à 2 decimales pour éviter les problèmes de virgules flotante
         if arrondir=="round":   
             nb_colis = round(colisage*nb_colis)/colisage # Arrondir à l'entier le plus proche en tenant compte du colisage
         if arrondir=="ceil":
@@ -766,10 +764,12 @@ class ProductTemplate(models.Model):
         return round(nb_colis,2)
 
 
-    def colis2uom(self,colis):
+    def colis2uom(self,colis,uom=False):
+        """Quantité, dans l'unité uom (par défaut celle de l'article), d'un nombre de colis"""
+        uom       = uom or self.uom_id
         nb        = self.is_nb_pieces_par_colis
         poids_net = self.is_poids_net_colis
-        unite     = self.uom_id.is_categorie_unite()
+        unite     = uom.is_categorie_unite()
         if unite=="Poids":
             uom = colis * poids_net
         else:

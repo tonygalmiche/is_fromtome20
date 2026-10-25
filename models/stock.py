@@ -101,16 +101,8 @@ class StockMove(models.Model):
                 poids+=line.is_poids_net_reel
             # Ajout du 06/07/22 pour Le Cellier
             if nb==0:
-                nb        = obj.product_id.is_nb_pieces_par_colis
                 poids_net = obj.product_id.is_poids_net_colis
-                unite     = obj.uom_id.is_categorie_unite()
-                nb_colis  = 0
-                if unite=="Poids":
-                    if poids_net>0:
-                        nb_colis = obj.quantity/poids_net
-                else:
-                    if nb>0:
-                        nb_colis = obj.quantity / nb
+                nb_colis  = obj.product_id.product_tmpl_id.qty2nb_colis(obj.quantity, obj.uom_id)
                 nb=nb_colis
                 poids = nb_colis * poids_net
             obj.is_nb_colis       = nb
@@ -120,17 +112,7 @@ class StockMove(models.Model):
     @api.depends('product_uom_qty','product_id')
     def _compute_is_nb_colis_cde(self):
         for obj in self:
-            nb        = obj.product_id.is_nb_pieces_par_colis
-            poids_net = obj.product_id.is_poids_net_colis
-            unite     = obj.uom_id.is_categorie_unite()
-            nb_colis  = 0
-            if unite=="Poids":
-                if poids_net>0:
-                    nb_colis = obj.product_uom_qty/poids_net
-            else:
-                if nb>0:
-                    nb_colis = obj.product_uom_qty / nb
-            obj.is_nb_colis_cde=nb_colis
+            obj.is_nb_colis_cde = obj.product_id.product_tmpl_id.qty2nb_colis(obj.product_uom_qty, obj.uom_id)
 
 
     @api.onchange('product_id')
@@ -220,17 +202,7 @@ class StockMove(models.Model):
 
 
     def get_nb_colis(self):
-        nb        = self.product_id.is_nb_pieces_par_colis
-        poids_net = self.product_id.is_poids_net_colis
-        unite     = self.uom_id.is_categorie_unite()
-        nb_colis  = 0
-        if unite=="Poids":
-            if poids_net>0:
-                nb_colis = self.product_uom_qty/poids_net
-        else:
-            if nb>0:
-                nb_colis = self.product_uom_qty / nb
-        return round(nb_colis)
+        return round(self.product_id.product_tmpl_id.qty2nb_colis(self.product_uom_qty, self.uom_id))
 
 
     def voir_mouvement_action(self):
