@@ -22,6 +22,8 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'purchase_stock',
         'board',
         'hr',
+        # Menu Contacts (installé en v14 sans être déclaré)
+        'contacts',
         'account_edi_ubl_cii',
         'l10n_fr_account',
         'is_llm2odoo',
@@ -37,6 +39,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # 'security/ir.model.access.xml',
         'security/ir.access.csv',
         # Vues, menus, rapports et données pas encore migrés : mis en commentaire pour installer d'abord les modèles, à réactiver un par un
+        # v20 : feuilles de style déclarées dans la clé assets ci-dessous (views/assets.xml n'est plus chargé)
         # 'views/assets.xml',
         'views/account_move_view.xml',
         # OCA 20.0 : account_payment_order (account_payment_batch_oca) non disponible en 20.0 (28/09/2026), à décommenter après son portage
@@ -83,7 +86,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'views/is_suivi_temps_views.xml',
         'views/is_modele_commande_views.xml',
         'views/is_prompt_ia_view.xml',
-        # "views/menu.xml",
+        "views/menu.xml",
         # 'views/report_invoice.xml',
         # 'report/is_promo_client_template.xml',
         # 'report/delivery_template.xml',
@@ -100,6 +103,15 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # 'report/report_account_payment_order.xml',
         # 'data/stock_picking_mail.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'is_fromtome20/static/src/css/style.css',
+            'is_fromtome20/static/src/scss/style.scss',
+        ],
+        'web.report_assets_common': [
+            'is_fromtome20/static/src/scss/report.scss',
+        ],
+    },
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
