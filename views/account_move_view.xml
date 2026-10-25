@@ -183,9 +183,7 @@
         <field name="model">account.payment</field>
         <field name="inherit_id" ref="account.view_account_payment_tree" />
         <field name="arch" type="xml">
-            <field name="date" position="after">
-                <field name="invoice_date" optional="hide"/>
-            </field>
+            <!-- v20 : invoice_date n'existe plus sur account.payment (en v14, champ de la pièce par _inherits sur move_id) -->
             <field name="state" position="before">
                 <field name="is_export_compta_id" optional="show"/>
             </field>
