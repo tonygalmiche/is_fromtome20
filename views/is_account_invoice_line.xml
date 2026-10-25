@@ -81,7 +81,7 @@
         <field name="name">is_account_invoice_line_graph</field>
         <field name="model">is.account.invoice.line</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="date_invoice"   type="row"/>
                 <field name="price_subtotal" type="measure"/>
             </graph>

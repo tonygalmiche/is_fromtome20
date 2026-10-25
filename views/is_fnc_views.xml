@@ -14,7 +14,6 @@
         <field name="state">code</field>
         <field name="code">model.fnc_update_ir_cron()</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
     </record>
     <record id="is_fnc_seq" model="ir.sequence">
         <field name="name">N°FNC</field>
@@ -199,7 +198,7 @@
         <field name="name">is_fnc_graph</field>
         <field name="model">is.fnc</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="date_creation"   type="row"/>
             </graph>
         </field>

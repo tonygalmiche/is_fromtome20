@@ -56,7 +56,7 @@
         <field name="name">is_suivi_temps_graph</field>
         <field name="model">is.suivi.temps</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="date"   type="row"/>
             </graph>
         </field>

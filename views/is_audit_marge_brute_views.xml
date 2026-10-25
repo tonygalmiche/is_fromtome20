@@ -144,7 +144,7 @@
         <field name="name">is.audit.marge.brute.graph</field>
         <field name="model">is.audit.marge.brute</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="semaine" type="row"/>
                 <field name="marge_brute_facturation" type="measure"/>
                 <field name="marge_brute_analyse_facturation" type="measure"/>
@@ -168,7 +168,6 @@
         <field name="code">model._cron_audit_marge_brute()</field>
         <field name="interval_type">days</field>
         <field name="interval_number">1</field>
-        <field name="numbercall">-1</field>
     </record>
 
 </odoo>
