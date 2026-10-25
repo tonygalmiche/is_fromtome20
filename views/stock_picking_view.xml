@@ -14,16 +14,17 @@
                 <field name="is_type_tracabilite" optional="show"/>
                 <field name="is_dlc_ddm" optional="show"/>
             </field>
-            <field name="product_uom_id" position="after">
+            <!-- v20 : product_uom_id → uom_id, qty_done → quantity -->
+            <field name="uom_id" position="after">
                 <field name="is_nb_pieces_par_colis"          optional="hide"/>
                 <field name="is_nb_colis"  sum="Total"        optional="show"/>
                 <field name="is_poids_net_estime" sum="Total" optional="show"/>
                 <field name="is_poids_net_reel"   sum="Total" optional="show"/>
-                <button 
-                    title="Correction de la ligne" 
-                    name="stock_move_line_edit_action" 
-                    type="object" icon="fa-edit" 
-                    class="oe_stat_button" 
+                <button
+                    title="Correction de la ligne"
+                    name="stock_move_line_edit_action"
+                    type="object" icon="edit"
+                    class="oe_stat_button"
                 />
                 <field name="status_move" optional="show"/>
                 <field name="create_date" optional="hide" string="Créé le"/>
@@ -31,7 +32,7 @@
                 <field name="write_date"  optional="hide" string="Modifié Le"/>
                 <field name="write_uid"   optional="hide" string="Modifié par"/>
             </field>
-            <field name="qty_done" position="attributes">
+            <field name="quantity" position="attributes">
                 <attribute name="sum">Total</attribute>
             </field>
         </field>
@@ -49,8 +50,8 @@
                         <field name="lot_id"                 readonly="1"/>
                         <field name="is_type_tracabilite"    readonly="1"/>
                         <field name="is_dlc_ddm"             readonly="1"/>
-                        <field name="qty_done"               readonly="1"/>
-                        <field name="product_uom_id"         readonly="1"/>
+                        <field name="quantity"               readonly="1"/>
+                        <field name="uom_id"                 readonly="1"/>
                         <field name="is_nb_pieces_par_colis" readonly="1"/>
                         <field name="is_poids_net_estime"    readonly="1"/>
                         <field name="is_poids_net_reel"/>
@@ -80,13 +81,13 @@
                         <group>
                             <field name="type" readonly="1"/>
                             <field name="maj_code_ean_article_vsb" invisible="1"/>
-                            <field name="ean" readonly="1" attrs="{'invisible': [('maj_code_ean_article_vsb', '!=', False)]}"/>
-                            <field name="ean"              attrs="{'invisible': [('maj_code_ean_article_vsb', '=', False)]}"/>
-                            <button 
-                                name="maj_code_ean_article_action" 
+                            <field name="ean" readonly="1" invisible="maj_code_ean_article_vsb"/>
+                            <field name="ean"              invisible="not maj_code_ean_article_vsb"/>
+                            <button
+                                name="maj_code_ean_article_action"
                                 type="object" string="Mettre ce code EAN sur l'article sélectionné"
                                 class="oe_inline btn btn-sm btn-secondary"
-                                attrs="{'invisible': [('maj_code_ean_article_vsb', '=', False)]}"
+                                invisible="not maj_code_ean_article_vsb"
                             />                            <field name="ajouter"/>
 
                             <label for="picking_id"/>
@@ -106,7 +107,7 @@
                         </group>
                        <group>
                             <field name="product_id"/>
-                            <field name="lot" attrs="{'invisible': [('lot','=', False)]}"/>
+                            <field name="lot" invisible="not lot"/>
                             <field 
                                 name="lot_id" 
                                 context="{
@@ -124,7 +125,7 @@
                     <field 
                         name="is_alerte"
                         style="background-color:orange;font-size:11pt" 
-                        attrs="{'invisible': [('is_alerte','=', False)],'readonly':True}"
+                        invisible="not is_alerte" readonly="True"
                     />
                     <field name="line_ids" nolabel="1" >
                         <list 
@@ -167,7 +168,7 @@
                             <button 
                                 title="Imprimer étiquette GS1" 
                                 name="imprimer_etiquette_action" 
-                                type="object" icon="fa-print" 
+                                type="object" icon="print"
                             />
                             <field name="product_id"/>
                             <field name="nb_pieces" sum="Total"/>
@@ -176,7 +177,7 @@
                         </list>
                     </field>
                     <group>
-                        <group  attrs="{'invisible': [('type','!=', 'picking'  )],'readonly':True}">
+                        <group  invisible="type != 'picking'">
                             <label for="picking_id"/>
                             <div class="o_row no-gutters d-flex">
                                 <field name="picking_id" readonly="1" class="oe_inline"/>
@@ -188,17 +189,20 @@
                                 class="oe_inline btn btn-primary"
                             />
                         </group>
-                        <group  attrs="{'invisible': [('type','!=', 'inventory'  )],'readonly':True}">
-                            <button 
-                                name="maj_inventory_action" 
-                                type="object" string="Mise à jour Inventaire" 
+                        <!-- stock.inventory supprimé en v15 (inventaire sur stock.quant) : à réécrire (étape « inventaire sur stock.quant »)
+                        <group  invisible="type != 'inventory'">
+                            <button
+                                name="maj_inventory_action"
+                                type="object" string="Mise à jour Inventaire"
                                 confirm2="Attention, cela va supprimer et remplacer les lignes de l'inventaire"
                             />
                             <field name="inventory_id"/>
                         </group>
+                        -->
                     </group>
 
-                    <field name="_barcode_scanned" widget="barcode_handler"/>
+                    <!-- v20 : barcode_handler supprimé, remplacé par is_barcode_widget -->
+                    <field name="is_barcode_scanned" widget="is_barcode_handler"/>
 
                 </sheet>
             </form>
@@ -212,7 +216,9 @@
                 <field name="id"/>
                 <field name="type"/>
                 <field name="picking_id"/>
+                <!-- stock.inventory supprimé en v15 : à réécrire (étape « inventaire sur stock.quant »)
                 <field name="inventory_id"/>
+                -->
                 <field name="create_date"/>
                 <field name="write_date"/>
                 <field name="is_alerte"/>
@@ -226,7 +232,9 @@
             <search>
                 <field name="id"/>
                 <field name="picking_id"/>
+                <!-- stock.inventory supprimé en v15 : à réécrire (étape « inventaire sur stock.quant »)
                 <field name="inventory_id"/>
+                -->
            </search>
         </field>
     </record>
@@ -250,14 +258,14 @@
         <field name="model">is.scan.picking.line</field>
         <field name="arch" type="xml">
             <list limit="200">
-                <field name="scan_id"             optional="show" widget="many2one_clickable"/>
-                <field name="picking_id"          optional="show" widget="many2one_clickable"/>
-                <field name="picking_type_id"     optional="show" widget="many2one_clickable"/>
-                <field name="product_id"          optional="show" widget="many2one_clickable"/>
+                <field name="scan_id"             optional="show" widget="many2one"/>
+                <field name="picking_id"          optional="show" widget="many2one"/>
+                <field name="picking_type_id"     optional="show" widget="many2one"/>
+                <field name="product_id"          optional="show" widget="many2one"/>
                 <field name="product_code"        optional="hide"/>
                 <field name="product_name"        optional="hide"/>
                 <field name="creation_lot"        optional="show"/>
-                <field name="lot_id"              optional="show" widget="many2one_clickable"/>
+                <field name="lot_id"              optional="show" widget="many2one"/>
                 <field name="type_tracabilite"    optional="show"/>
                 <field name="dlc_ddm"             optional="show"/>
                 <field name="nb_pieces"           optional="show" sum="Total"/>
@@ -280,7 +288,7 @@
         <field name="name">is_scan_picking_line_graph</field>
         <field name="model">is.scan.picking.line</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="write_date"   type="row" interval="week"/>
                 <field name="creation_lot" type="row"/>
             </graph>
@@ -361,7 +369,6 @@
         <field name="state">code</field>
         <field name="code">model.solde_commande_action()</field>
         <field name="interval_type">hours</field>
-        <field name="numbercall">-1</field>
     </record>
 
 
@@ -411,14 +418,14 @@ else:
                     name="action_print_prepa_and_palette_combined" 
                     string="Imprimer Prépa + Palette" 
                     type="object" 
-                    icon="fa-file-pdf-o"
+                    icon="picture_as_pdf"
                 />
             </button>
             <field name="state" position="before">
-                <button 
-                    name="action_picking_send" 
-                    string="Envoyer par mail" type="object" 
-                    attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}" 
+                <button
+                    name="action_picking_send"
+                    string="Envoyer par mail" type="object"
+                    invisible="picking_type_code != 'outgoing'"
                     groups="base.group_user"
                 /> 
             </field>
@@ -439,15 +446,15 @@ else:
                 <attribute name="invisible">1</attribute>
             </field>
             <field name="origin" position="after">
-                <field name="is_date_reception" readonly="1" attrs="{'invisible': [('is_date_reception', '=', False)]}"/>
-                <field name="is_date_livraison" attrs="{'invisible': [('sale_id', '=', False)]}"/>
-                <field name="sale_id"           readonly="1" attrs="{'invisible': [('sale_id', '=', False)]}"/>
-                <field name="purchase_id"       readonly="1" attrs="{'invisible': [('purchase_id', '=', False)]}"/>
+                <field name="is_date_reception" readonly="1" invisible="not is_date_reception"/>
+                <field name="is_date_livraison" invisible="not sale_id"/>
+                <field name="sale_id"           readonly="1" invisible="not sale_id"/>
+                <field name="purchase_id"       readonly="1" invisible="not purchase_id"/>
                 <field name="is_transporteur_id"/>
                 <field name="is_palette_europe"/>
                 <field name="is_palette_perdue"/>
                 <field name="is_palette_demie"/>
-                <field name="is_preparation_transfert_id" attrs="{'invisible': [('is_preparation_transfert_id', '=', False)]}"/>
+                <field name="is_preparation_transfert_id" invisible="not is_preparation_transfert_id"/>
                 <field name="is_nb_erreurs"/>
                 <field name="is_employe_id"/>
                 <field name="is_afficher_manquants"/>
@@ -461,11 +468,11 @@ else:
                 <button name="scan_picking_action" type="object" string="Scan"/>
             </field>
             <xpath expr="//notebook" position="before">
-                <div style="background:orange;font-size:11pt" attrs="{'invisible':[('is_alerte','=',False)]}">
-                    <field 
+                <div style="background:orange;font-size:11pt" invisible="not is_alerte">
+                    <field
                         name="is_alerte"
-                        readonly="1" nolabel="1" 
-                        attrs="{'invisible': [('is_alerte','=', False)],'readonly':True}"
+                        readonly="1" nolabel="1"
+                        invisible="not is_alerte"
                     />
                 </div>
             </xpath>
@@ -486,48 +493,47 @@ else:
                 <attribute name="decoration-muted">state == 'cancel'</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='operations']/field/list/field[@name='product_id']" position="attributes">
-                <attribute name="widget">many2one_clickable</attribute>
+            <!-- v20 : article et description dans une colonne (column[field[@name='description_picking']]) : ajouts ancrés sur la colonne -->
+            <xpath expr="//page[@name='operations']/field/list/column/field[@name='product_id']" position="attributes">
+                <attribute name="widget">many2one</attribute>
             </xpath>
-            <xpath expr="//page[@name='operations']/field/list/field[@name='product_id']" position="before">
-                <button name="voir_mouvement_action" type="object" title="Mouvement" icon="fa-search-plus"/>
+            <xpath expr="//page[@name='operations']/field/list/column[field[@name='description_picking']]" position="before">
+                <button name="voir_mouvement_action" type="object" title="Mouvement" icon="zoom_in"/>
                 <field name="is_emplacement_fournisseur" optional="hide"/>
-                <field name="is_fournisseur_id"          optional="hide" widget="many2one_clickable"/>
+                <field name="is_fournisseur_id"          optional="hide" widget="many2one"/>
                 <field name="is_poids_net_colis"         optional="hide"/>
-            </xpath> 
-            <xpath expr="//page[@name='operations']/field/list/field[@name='description_picking']" position="after">
+            </xpath>
+            <xpath expr="//page[@name='operations']/field/list/column[field[@name='description_picking']]" position="after">
+                <field name="is_lots" optional="hide"/>
                 <field name="is_description_prepa" optional="show"/>
                 <field name="is_description_cde" optional="hide"/>
                 <field name="is_ref_fournisseur" optional="show"/>
                 <field name="is_bio_id" optional="hide"/>
-            </xpath> 
-            <xpath expr="//page[@name='operations']/field/list/field[@name='product_id']" position="after">
-                <field name="is_lots" optional="hide"/>
-            </xpath> 
+            </xpath>
             <xpath expr="//page[@name='operations']/field/list/field[@name='product_uom_qty']" position="after">
                 <field name="is_nb_colis_cde"   optional="hide" sum="Total"/>
-            </xpath> 
-            <xpath expr="//page[@name='operations']/field/list/field[@name='quantity_done']" position="after">
+            </xpath>
+            <!-- v20 : quantity_done → quantity -->
+            <xpath expr="//page[@name='operations']/field/list/field[@name='quantity']" position="after">
                 <field name="is_ecart_demande_fait" optional="show"/>
                 <field name="is_nb_colis"           optional="hide" sum="Total"/>
                 <field name="is_poids_net_reel"     optional="hide" sum="Total"/>
-            </xpath> 
+            </xpath>
 
             <xpath expr="//page[@name='operations']/field/list/field[@name='lot_ids']" position="after">
-                <field name="purchase_line_id" optional="hide" widget="many2one_clickable"/>
-                <field name="sale_line_id"     optional="hide" widget="many2one_clickable"/>
+                <field name="purchase_line_id" optional="hide" widget="many2one"/>
+                <field name="sale_line_id"     optional="hide" widget="many2one"/>
                 <field name="write_date"       optional="hide" string="Modifié par"/>
                 <field name="write_uid"        optional="hide" string="Le"/>
                 <field name="state"            optional="hide"/>
-            </xpath> 
+            </xpath>
 
-            <xpath expr="//page[@name='operations']/field/list/field[@name='reserved_availability']" position="attributes">
-                 <attribute name="invisible">1</attribute>
-            </xpath>
+            <!-- v20 : reserved_availability supprimé -->
             <xpath expr="//page[@name='operations']/field/list/field[@name='forecast_availability']" position="attributes">
-                 <attribute name="invisible">1</attribute>
+                 <attribute name="column_invisible">1</attribute>
             </xpath>
-            <field name="move_ids_without_package" position="before">
+            <!-- v20 : move_ids_without_package → move_ids -->
+            <field name="move_ids" position="before">
                 <div style="margin-bottom:10px">
                     <button 
                         name="trier_par_emplacement_fournisseur" 
@@ -585,9 +591,12 @@ else:
                 <field name="is_nb_erreurs"      optional="hide"/>
                 <field name="is_employe_id"      optional="hide"/>
                 <field name="user_id"            optional="hide"/>
-                <field name="date_done"/>
-                <field name="is_date_reception" widget="remaining_days" optional="show"/>
-                <field name="is_date_livraison" widget="remaining_days" optional="show"/>            </field>
+                <field name="is_date_reception" widget="relative_date" optional="show"/>
+                <field name="is_date_livraison" widget="relative_date" optional="show"/>            </field>
+            <!-- v20 : date_done déjà dans la liste (masquée par défaut) : affichée comme en v14 -->
+            <field name="date_done" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
             <field name="scheduled_date" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
@@ -696,8 +705,8 @@ else:
         <field name="arch" type="xml">
             <list default_order='date_done desc'>
                 <field name="date_done"          optional="show"/>
-                <field name="partner_id"         optional="show" widget="many2one_clickable"/>
-                <field name="sale_id"            optional="show" widget="many2one_clickable"/>
+                <field name="partner_id"         optional="show" widget="many2one"/>
+                <field name="sale_id"            optional="show" widget="many2one"/>
                 <field name="name"               optional="show"/>                <field name="is_transporteur_par_ordre" optional="show"/>
                 <field name="is_nb_colis"        optional="show" sum="Total"/>
                 <field name="is_poids_net"       optional="show" sum="Total"/>

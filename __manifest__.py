@@ -55,7 +55,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'views/stock_views.xml',
         # 'views/stock_inventory_view.xml',
         'views/stock_move_view.xml',
-        # 'views/stock_picking_view.xml',
+        'views/stock_picking_view.xml',
         'views/stock_quant_view.xml',
         'views/product_supplierinfo_view.xml',
         'views/is_account_invoice_line.xml',

@@ -36,7 +36,7 @@
                 <field name="is_fournisseur_id" widget="many2one"/>
                 <field name="available_quantity" sum="Total"/>
                 <field name="quantity"           sum="Total"/>
-                <field name="product_uom_id"/>
+                <field name="uom_id"/>
             </list>
         </field>
     </record>
