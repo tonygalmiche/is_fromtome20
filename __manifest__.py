@@ -29,6 +29,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'is_llm2odoo',
         'is_barcode_widget',
         'is_theme_entreprise',  # couleur de l'entreprise (module générique)
+        'is_interface_epuree',  # page de connexion épurée, inscription sur invitation (module générique)
         # Menus masqués (views/menu.xml)
         'utm',
         'spreadsheet_dashboard',
