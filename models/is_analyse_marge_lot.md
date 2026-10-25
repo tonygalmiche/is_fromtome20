@@ -78,7 +78,7 @@ Signes : pour un avoir, la quantité et le montant de vente sont négatifs, ains
 
 ### 2. Rebuts (CDC 2.2)
 
-Rebuts `stock.scrap` faits dans la période :
+Rebuts (`stock.move` avec `is_scrap`, lot sur les lignes du mouvement) faits dans la période :
 
 1. Coût : quantité rebutée × prix d'achat net du lot (même recherche et même repli que ci-dessus, à la date du rebut).
 2. Répartition : quantités **facturées** sur ce lot par client (factures `out_invoice` validées, **toutes dates confondues**), calculées avec la même répartition par lot que ci-dessus. Une ligne par client au prorata de ces quantités, avec l'**enseigne de la facture client** (au moment de la vente) et le commercial du client.

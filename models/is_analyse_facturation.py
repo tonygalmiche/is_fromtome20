@@ -148,46 +148,48 @@ class IsAnalyseFacturationUpdate(models.TransientModel):
                         }
                         self.env['is.analyse.facturation'].create(vals)
 
+        # v20 : stock.scrap supprimé, un rebut est un stock.move avec is_scrap
         filtre=[
-            ('date_done','>=',date_debut),
-            ('date_done','<',date_fin+timedelta(1)),
+            ('is_scrap','=',True),
+            ('date','>=',date_debut),
+            ('date','<',date_fin+timedelta(1)),
             ('state','=','done'),
         ]
-        scraps = self.env['stock.scrap'].search(filtre)
+        scraps = self.env['stock.move'].search(filtre)
         nb=len(scraps)
         ct=0
         for scrap in scraps:
             if scrap.id not in scrap_ids:
                 ct+=1
-                _logger.info("%s/%s : %s"%(ct,nb,scrap.name))
+                _logger.info("%s/%s : %s"%(ct,nb,scrap.reference))
 
                 price_unit = 0
                 partner_id=enseigne_id=user_id=False
                 enseigne = False
-                for purchase in scrap.lot_id.purchase_order_ids:
+                for purchase in scrap.lot_ids[:1].purchase_order_ids:
                     partner_id  = purchase.partner_id.id
                     enseigne    = purchase.partner_id.is_enseigne_id.name.name
                     user_id     = purchase.partner_id.user_id.id
                     for line in purchase.order_line:
                         if line.product_id == scrap.product_id:
                             price_unit=line.price_unit
-                price_subtotal = -price_unit * scrap.scrap_qty
+                price_subtotal = -price_unit * scrap.quantity
 
                 nb_colis = 0
                 poids_net = 0
                 if scrap.product_id.is_nb_pieces_par_colis>0:
-                    nb_colis = scrap.scrap_qty / scrap.product_id.is_nb_pieces_par_colis
+                    nb_colis = scrap.quantity / scrap.product_id.is_nb_pieces_par_colis
                     poids_net = nb_colis * scrap.product_id.is_poids_net_colis
                 vals={
                     "scrap_id"      : scrap.id,
-                    "invoice_date"  : scrap.date_done,
+                    "invoice_date"  : scrap.date,
                     "partner_id"    : partner_id,
                     "user_id"       : user_id,
                     "enseigne"      : enseigne,
                     "product_id"    : scrap.product_id.id,
                     "product_uom_id": scrap.product_id.uom_id.id,
-                    "libelle"       : scrap.name+" / "+(scrap.origin or ''),
-                    "quantity"      : scrap.scrap_qty,
+                    "libelle"       : (scrap.reference or '')+" / "+(scrap.origin or ''),
+                    "quantity"      : scrap.quantity,
                     "nb_colis"      : nb_colis,
                     "poids_net"     : -poids_net,
                     "price_unit"    : price_unit,

@@ -221,31 +221,30 @@ class StockMove(models.Model):
 
 
 
-# stock.scrap supprimé en v20 (rebut = stock.move avec is_scrap) : à réécrire sur stock.move (étape « rebuts sur stock.move »)
-# class StockScrap(models.Model):
-#     _inherit = "stock.scrap"
-#
-#     @api.depends('product_id','lot_id','scrap_qty')
-#     def _compute_is_dernier_prix_achat(self):
-#         cr,uid,context,su = self.env.args
-#         for obj in self:
-#             x = 0
-#             montant = 0
-#             SQL="""
-#                 SELECT get_prix_achat(product_id,lot_id)
-#                 FROM stock_scrap
-#                 WHERE id=%s
-#             """
-#             cr.execute(SQL,[obj.id])
-#             for row in cr.fetchall():
-#                 x=row[0] or 0
-#                 montant = obj.scrap_qty * x
-#             obj.is_dernier_prix_achat = x
-#             obj.is_montant_rebut      = montant
-#
-#
-#     is_dernier_prix_achat = fields.Float(string="Dernier prix d'achat", compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
-#     is_montant_rebut      = fields.Float(string="Montant des rebuts"  , compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
+class StockMoveRebut(models.Model):
+    # v20 : stock.scrap supprimé, un rebut est un stock.move avec is_scrap (lot sur les lignes du mouvement)
+    _inherit = "stock.move"
+
+    @api.depends('product_id','lot_ids','quantity')
+    def _compute_is_dernier_prix_achat(self):
+        cr,uid,context,su = self.env.args
+        for obj in self:
+            x = 0
+            montant = 0
+            if obj.is_scrap and obj.product_id:
+                SQL="""
+                    SELECT get_prix_achat(%s,%s)
+                """
+                cr.execute(SQL,[obj.product_id.id, obj.lot_ids[:1].id or None])
+                for row in cr.fetchall():
+                    x=row[0] or 0
+                    montant = obj.quantity * x
+            obj.is_dernier_prix_achat = x
+            obj.is_montant_rebut      = montant
+
+
+    is_dernier_prix_achat = fields.Float(string="Dernier prix d'achat", compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
+    is_montant_rebut      = fields.Float(string="Montant des rebuts"  , compute='_compute_is_dernier_prix_achat', readonly=True, store=False)
 
 
 

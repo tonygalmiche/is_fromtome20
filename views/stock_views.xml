@@ -97,20 +97,19 @@
     />
 
 
-    <!-- stock.scrap supprimé en v20 (rebuts sur stock.move avec is_scrap) : à refaire à l'étape « rebuts sur stock.move »
+    <!-- v20 : stock.scrap supprimé, liste des rebuts sur stock.move (is_scrap) -->
     <record id="is_stock_scrap_tree_view" model="ir.ui.view">
         <field name="name">is_stock_scrap_tree_view</field>
-        <field name="model">stock.scrap</field>
-        <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_scrap_move_list"/>
         <field name="arch" type="xml">
             <field name="state" position="before">
                 <field name="is_dernier_prix_achat" optional="show"/>
                 <field name="is_montant_rebut"      optional="show" sum="Total"/>
-                <field name="lot_id"                optional="show"/>
+                <field name="lot_ids"               optional="show" widget="many2many_tags"/>
                 <field name="origin"                optional="show"/>
             </field>
         </field>
     </record>
-    -->
 
 </odoo>

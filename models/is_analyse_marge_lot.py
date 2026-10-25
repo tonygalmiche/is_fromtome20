@@ -517,9 +517,11 @@ class IsAnalyseMargeLot(models.Model):
 
     def _calcul_rebuts(self, cache):
         debut = time.time()
+        # v20 : stock.scrap supprimé, un rebut est un stock.move avec is_scrap (lot sur les lignes du mouvement)
         filtre=[
-            ('date_done','>=',self.date_debut),
-            ('date_done','<',self.date_fin+timedelta(1)),
+            ('is_scrap','=',True),
+            ('date','>=',self.date_debut),
+            ('date','<',self.date_fin+timedelta(1)),
             ('state','=','done'),
         ]
         if self.product_id:
@@ -527,14 +529,14 @@ class IsAnalyseMargeLot(models.Model):
         if self.exclure_hors_lot:
             filtre.append(('product_id.tracking','!=','none'))
         if self._has_filtre_client():
-            filtre.append(('lot_id','in',self._get_lots_factures_filtre()))
-        scraps = self.env['stock.scrap'].search(filtre, order='date_done,id')
+            filtre.append(('move_line_ids.lot_id','in',self._get_lots_factures_filtre()))
+        scraps = self.env['stock.move'].search(filtre, order='date,id')
         nb=len(scraps)
 
         #** Chargement en quelques requêtes des prix d'achat et des quantités facturées des lots
-        self._preload_achat_lots(cache, scraps.mapped('lot_id').ids)
+        self._preload_achat_lots(cache, scraps.mapped('move_line_ids.lot_id').ids)
         self._preload_achat_articles(cache, scraps.mapped('product_id').ids)
-        self._preload_quantites_facturees_lots(cache, scraps.mapped('lot_id').ids)
+        self._preload_quantites_facturees_lots(cache, scraps.mapped('move_line_ids.lot_id').ids)
         _logger.info("Analyse marge lot %s : chargement des lots des rebuts en %.1fs"%(self.name, time.time()-debut))
         #**********************************************************************
 
@@ -543,20 +545,21 @@ class IsAnalyseMargeLot(models.Model):
         for scrap in scraps:
             ct+=1
             if ct%100==0 or ct==nb:
-                _logger.info("Analyse marge lot %s : rebut %s/%s : %s (%.1fs)"%(self.name,ct,nb,scrap.name,time.time()-debut))
+                _logger.info("Analyse marge lot %s : rebut %s/%s : %s (%.1fs)"%(self.name,ct,nb,scrap.reference,time.time()-debut))
             product   = scrap.product_id
-            date      = scrap.date_done.date()
-            scrap_qty = scrap.product_uom_id._compute_quantity(scrap.scrap_qty, product.uom_id)
-            vals_achat, anomalie = self._get_prix_achat(cache, scrap.lot_id.id, product.id, date)
+            lot       = scrap.lot_ids[:1]
+            date      = scrap.date.date()
+            scrap_qty = scrap.uom_id._compute_quantity(scrap.quantity, product.uom_id)
+            vals_achat, anomalie = self._get_prix_achat(cache, lot.id, product.id, date)
             cout = vals_achat['prix_achat_net']*scrap_qty
 
             #** Répartition du coût par client ********************************
             repartition = []
-            if not scrap.lot_id:
+            if not lot:
                 anomalie = "Rebut sans lot"
             else:
-                repartition = self._get_repartition_clients(cache, scrap.lot_id.id)
-                if not sum(cache['qt_lot'][scrap.lot_id.id].values()):
+                repartition = self._get_repartition_clients(cache, lot.id)
+                if not sum(cache['qt_lot'][lot.id].values()):
                     anomalie = "Lot sans facture client"
             if not repartition and not self._has_filtre_client():
                 repartition = [((False, False, False), 1)]
@@ -574,8 +577,8 @@ class IsAnalyseMargeLot(models.Model):
                     "enseigne_id"    : enseigne_id,
                     "product_id"     : product.id,
                     "product_uom_id" : product.uom_id.id,
-                    "lot_id"         : scrap.lot_id.id,
-                    "libelle"        : scrap.name+" / "+(scrap.origin or ''),
+                    "lot_id"         : lot.id,
+                    "libelle"        : (scrap.reference or '')+" / "+(scrap.origin or ''),
                     "quantity"       : scrap_qty*ratio,
                     "montant_vente"  : 0,
                     "montant_achat"  : montant_achat,
