@@ -285,7 +285,8 @@
             <xpath expr="//div[@name='identifiers']" position="before">
                 <field name="is_company"/>
             </xpath>
-            <field name="vat" position="after">
+            <!-- v20 : vat est dans une ligne (div vat_div), les champs ajoutés après s'y affichaient sans libellé -->
+            <xpath expr="//div[@name='identifiers']" position="after">
                 <field name="is_gln"/>
                 <field name="is_code_fromtome"/>
                 <field name="is_code_interne"/>
@@ -301,7 +302,7 @@
                 <field name="is_heure_appel"             invisible="not is_customer or not is_company"/>
                 <field name="is_habitude_commande"       invisible="not is_customer or not is_company"/>
                 <field name="is_encours_client"          invisible="not is_customer or not is_company"/>
-            </field>
+            </xpath>
             <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='user_id']" position="before">
                 <field name="is_customer"/>
                 <field name="is_frequence_facturation"/>
