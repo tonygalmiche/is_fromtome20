@@ -10,12 +10,12 @@
                 <button 
                     title="Article" 
                     name="acceder_article_action" 
-                    type="object" icon="fa-search-plus" 
+                    type="object" icon="zoom_in"
                 />
-                <button 
-                    title="Mouvements de stock" 
-                    name="mouvement_stock_action" 
-                    type="object" icon="fa-list" 
+                <button
+                    title="Mouvements de stock"
+                    name="mouvement_stock_action"
+                    type="object" icon="format_list_bulleted"
                 />
                 <field name="designation"   optional="show"/>
                 <field name="default_code"  optional="show"/>
@@ -70,19 +70,19 @@
                         type="object"
                         string="Actualiser les lignes"
                         confirm="Confirmer ?"
-                        attrs="{'invisible': [('ligne_ids', '!=', [])]}"
+                        invisible="ligne_ids"
                     />
                     <button
                         name="voir_lignes_action"
                         type="object"
                         string="Voir les lignes"
-                        attrs="{'invisible': [('ligne_ids', '=', [])]}"
+                        invisible="not ligne_ids"
                     />
                     <button
                         name="creer_commandes"
                         type="object"
                         string="Créer les pickings inter-sites"
-                        attrs="{'invisible': ['|',('ligne_ids', '=', []),('picking_ids', '!=', [])]}"
+                        invisible="not ligne_ids or picking_ids"
                     />
                 </header>
                 <sheet>
@@ -99,10 +99,10 @@
                     <group>
                         <field name="commentaire"/>
                     </group>    
-                    <group attrs="{'invisible': [('picking_ids', '=', [])]}">
+                    <group invisible="not picking_ids">
                         <field name="picking_ids">
                             <list>
-                                <button name="voir_picking_action" type="object" title="Picking" icon="fa-search-plus"/>
+                                <button name="voir_picking_action" type="object" title="Picking" icon="zoom_in"/>
                                 <field name="name"/>
                                 <field name="location_id"/>
                                 <field name="location_dest_id"/>

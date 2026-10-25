@@ -10,8 +10,8 @@
             <xpath expr="//label[@for='price']" position="before">
                 <field name="prix_brut"/>
                 <field name="discount_ids">
-                    <list editable="Bottom">
-                        <field name="promo_id" widget="many2one_clickable" readonly="1"/>
+                    <list editable="bottom">
+                        <field name="promo_id" widget="many2one" readonly="1"/>
                         <field name="name"     string="Remises %"/>
                     </list>
                 </field>
@@ -25,11 +25,7 @@
             <xpath expr="//field[@name='company_id']" position="attributes">
                  <attribute name="invisible">1</attribute>
             </xpath>
-
-            <xpath expr="//div[field[@name='price']]" position="after">
-                <field name="discount" />
-            </xpath>
-
+            <!-- v20 : remise native, déjà dans le formulaire standard -->
 
         </field>
     </record>
@@ -44,11 +40,12 @@
         <field name="model">product.supplierinfo</field>
         <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
         <field name="arch" type="xml">
-            <field name="name" position="before">
-                <button title="Dupliquer" name= "dupliquer_action" type="object" icon="fa-copy"/>
+            <!-- v20 : name → partner_id ; remise native, masquée par défaut dans la liste standard -->
+            <field name="partner_id" position="before">
+                <button title="Dupliquer" name= "dupliquer_action" type="object" icon="content_copy"/>
             </field>
-            <field name="price" position="after">
-                <field name="discount" />
+            <field name="discount" position="attributes">
+                <attribute name="optional">show</attribute>
             </field>
         </field>
     </record>

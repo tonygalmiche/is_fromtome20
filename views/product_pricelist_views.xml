@@ -7,23 +7,23 @@
             <field name="model">product.pricelist.item</field>
             <field name="arch" type="xml">
                 <list default_order="product_tmpl_id">
-                    <field name="pricelist_id" optional="show"  widget="many2one_clickable"/>
-                    <field name="product_tmpl_id" string="Article" required="1"  widget="many2one_clickable"/>
+                    <field name="pricelist_id" optional="show"  widget="many2one"/>
+                    <field name="product_tmpl_id" string="Article" required="1"  widget="many2one"/>
                     <field name="product_id" string="Variante" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create':1}"/>
                     <field name="min_quantity" optional="hide"/>
                     <field name="fixed_price" string="Prix de vente"/>
-                    <field name="currency_id" invisible="1"/>
+                    <field name="currency_id" column_invisible="True"/>
                     <field name="date_start" optional="hide"/>
                     <field name="date_end"   optional="hide"/>
-                    <field name="base" invisible="1"/>
-                    <field name="applied_on" invisible="1"/>
-                    <field name="company_id" invisible="1"/>
+                    <field name="base" column_invisible="True"/>
+                    <field name="applied_on" column_invisible="True"/>
+                    <field name="company_id" column_invisible="True"/>
                     <field name="is_prix_achat" optional="show"/>
                     <field name="is_taux_marge" optional="show"/>
-                    <button 
-                        name="is_alerte_action" type="object" class="oe_stat_button" 
-                        icon="fa-exclamation-triangle"
-                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                    <button
+                        name="is_alerte_action" type="object" class="oe_stat_button"
+                        icon="warning"
+                        invisible="not is_alerte"
                         title="Alertes"
                     />
                     <field name="is_alerte"   optional="show"/>
@@ -31,7 +31,7 @@
                     <field name="create_uid"  optional="hide" string="Créé par"/>
                     <field name="write_date"  optional="hide" string="Modifié le"/>
                     <field name="write_uid"   optional="hide" string="Modifié par"/>
-                    <field name="active"      optional="hide"/>
+                    <!-- v20 : plus de champ active sur product.pricelist.item -->
                 </list>
             </field>
         </record>
@@ -51,7 +51,7 @@
             <field name="limit">100</field>
             <field name="view_mode">list,form</field>
             <field name="view_id" ref="is_fromtome20.is_product_pricelist_item_tree"/>
-            <field name="domain">[('pricelist_id','=',active_id),('active','in',[0,1])]</field>
+            <field name="domain">[('pricelist_id','=',active_id)]</field>
             <field name="context">{'default_pricelist_id': active_id}</field>
         </record>
 
@@ -62,7 +62,7 @@
             <field name="model">product.pricelist</field>
             <field name="inherit_id" ref="product.product_pricelist_view_tree"/>
             <field name="arch" type="xml">
-                <field name="discount_policy" position="replace"/>
+                <!-- v20 : discount_policy supprimé -->
                 <field name="company_id" position="after">
                     <field name="create_uid"/>
                     <field name="create_date"/>
@@ -89,25 +89,25 @@
                 </xpath>
 
 
-                <sheet position="before">
-                    <header>
-                        <button 
-                            name="%(is_product_pricelist_item_action)d"
-                            type="action"
-                            string="Voir les lignes"
-                        />
-                    </header>
-                </sheet>
-                <field name="currency_id" position="before">
+                <!-- v20 : le formulaire a déjà un header (bouton Imprimer) -->
+                <header position="inside">
+                    <button
+                        name="%(is_product_pricelist_item_action)d"
+                        type="action"
+                        string="Voir les lignes"
+                    />
+                </header>
+                <!-- v20 : currency_id réservé au multi-devise, ancrage sur le groupe -->
+                <group name="pricelist_settings" position="inside">
                     <field name="partner_id"/>
                     <field name="is_pricelist_id"/>
-                </field>
-                <xpath expr="//group[1]" position="after">
-                    <group string="Ajouter des articles" attrs="{'invisible':[('is_pricelist_id','=',False)]}">
+                </group>
+                <xpath expr="//sheet/group[1]" position="after">
+                    <group string="Ajouter des articles" invisible="not is_pricelist_id">
                         <field name="is_existing_product_tmpl_ids" invisible="1"/>
                         <field name="is_product_ids" domain="[('id', 'not in', is_existing_product_tmpl_ids)]" options="{'no_create': True}" nolabel="1" colspan="2">
                             <list>
-                                <button name="is_voir_article_action" type="object" icon="fa-search" title="Voir l'article"/>
+                                <button name="is_voir_article_action" type="object" icon="search" title="Voir l'article"/>
                                 <field name="name" string="Article"/>
                                 <field name="default_code" string="Réf. interne"/>
                                 <field name="is_ref_fournisseur" string="Réf. fournisseur"/>
@@ -119,18 +119,19 @@
                                 type="object"
                                 string="Ajouter ces articles"
                                 class="oe_highlight"
-                                attrs="{'invisible':[('is_product_ids','=',[])]}"
+                                invisible="not is_product_ids"
                             />
                         </div>
                     </group>
                 </xpath>
-                <xpath expr="//field[@name='item_ids']/list/field[@name='date_end']" position="after">
+                <!-- v20 : date_end dans le widget daterange de date_start -->
+                <xpath expr="//field[@name='item_ids']/list/field[@name='date_start']" position="after">
                     <field name="is_prix_achat" optional="show"/>
                     <field name="is_taux_marge" optional="show"/>
-                    <button 
-                        name="is_alerte_action" type="object" class="oe_stat_button" 
-                        icon="fa-exclamation-triangle"
-                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                    <button
+                        name="is_alerte_action" type="object" class="oe_stat_button"
+                        icon="warning"
+                        invisible="not is_alerte"
                         title="Alertes"
                     />
                     <field name="is_alerte"     optional="show"/>

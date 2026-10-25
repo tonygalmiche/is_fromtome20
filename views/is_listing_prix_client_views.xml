@@ -45,7 +45,7 @@
                     </group>
                     <field name="product_ids" nolabel="1" >
                         <list editable="bottom">
-                            <button name="voir_product_template_action" title="Voir article" type="object" icon="fa-search-plus"/>
+                            <button name="voir_product_template_action" title="Voir article" type="object" icon="zoom_in"/>
                             <field name="default_code"/>
                             <field name="name"/>
                             <field name="uom_id"/>

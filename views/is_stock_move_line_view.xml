@@ -58,18 +58,18 @@
                 <field name="product_uom_id"         optional="show"/>
                 <field name="create_date"            optional="hide"/>
                 <field name="write_date"             optional="hide"/>
-                <field name="creer_fnc_vsb" invisible="1"/>
-                <button 
-                    title="Créer FNC" 
-                    name="creer_fnc_action" 
-                    type="object" icon="fa-plus" 
-                    attrs="{'invisible': [('creer_fnc_vsb', '=', False)]}"
+                <field name="creer_fnc_vsb" column_invisible="True"/>
+                <button
+                    title="Créer FNC"
+                    name="creer_fnc_action"
+                    type="object" icon="add"
+                    invisible="not creer_fnc_vsb"
                 />
-               <button 
-                    title="Accès FNC" 
-                    name="acces_fnc_action" 
-                    type="object" icon="fa-search-plus" 
-                    attrs="{'invisible': [('creer_fnc_vsb', '=', True)]}"
+               <button
+                    title="Accès FNC"
+                    name="acces_fnc_action"
+                    type="object" icon="zoom_in"
+                    invisible="creer_fnc_vsb"
                 />
                 <field name="status_move" optional="show"/>
                 <field name="state" optional="show"/>
@@ -110,7 +110,7 @@
         <field name="name">is_stock_move_line_graph</field>
         <field name="model">is.stock.move.line</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="date_done"         type="row"/>
                 <field name="is_poids_net_reel" type="measure"/>
             </graph>
@@ -248,7 +248,7 @@
         <field name="name">is_stock_move_line_valorise_graph</field>
         <field name="model">is.stock.move.line.valorise</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="date_done"         type="row"/>
                 <field name="is_poids_net_reel" type="measure"/>
             </graph>

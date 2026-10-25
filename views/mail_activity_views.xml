@@ -14,15 +14,16 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet/group/field[@name='activity_category']/.." position="before">
                 <field name="active" invisible="1"/>
-                <widget name="web_ribbon" title="Terminée" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                <widget name="web_ribbon" title="Terminée" bg_color="bg-danger" invisible="active"/>
             </xpath>
-            <field name="activity_type_id" position="after">
-                <field name="partner_id"/>
-                <field name="is_attachment_ids" widget="many2many_binary"/>
-            </field>
-            <field name="user_id" position="after">
-                <field name="is_retour_client"/>
-            </field>
+            <!-- v20 : type d'activité en badges et détails sans libellés : champs Fromtome dans un groupe sous les détails -->
+            <div name="activity_details" position="after">
+                <group>
+                    <field name="partner_id"/>
+                    <field name="is_attachment_ids" widget="many2many_binary"/>
+                    <field name="is_retour_client"/>
+                </group>
+            </div>
         </field>
     </record>
     <record id="is_mail_activity_tree" model="ir.ui.view">
@@ -34,7 +35,7 @@
                 <field name="res_model"                    optional="hide"/>
                 <field name="res_id"                       optional="hide"/>
                 <field name="res_name"                     optional="show"/>
-                <field name="partner_id"                   optional="show" widget="many2one_clickable"/>
+                <field name="partner_id"                   optional="show" widget="many2one"/>
                 <field name="is_customer"                  optional="hide"/>
                 <field name="is_supplier"                  optional="hide"/>
                 <field name="activity_type_id"             optional="show"/>
@@ -43,9 +44,7 @@
                 <field name="automated"                    optional="hide"/>
                 <field name="user_id"                      optional="show"/>
                 <field name="is_retour_client"             optional="show"/>
-                <field name="request_partner_id"           optional="hide"/>
-                <field name="recommended_activity_type_id" optional="hide"/>
-                <field name="previous_activity_type_id"    optional="hide"/>
+                <!-- request_partner_id, recommended_activity_type_id et previous_activity_type_id supprimés en v20 -->
                 <field name="create_date"                  optional="show"/>
                 <field name="create_uid"                   optional="hide"/>
                 <field name="write_uid"                    optional="hide"/>
@@ -90,7 +89,7 @@
         <field name="name">is_mail_activity_graph</field>
         <field name="model">mail.activity</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" stacked="False">
+            <graph type="bar" stacked="False">
                 <field name="res_model"   type="row"/>
             </graph>
         </field>

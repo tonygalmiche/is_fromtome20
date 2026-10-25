@@ -29,13 +29,13 @@
                         }
                     </style>
                     <div class="oe_button_box" name="button_box">
-                        <button name="lignes_action" type="object" class="oe_stat_button" icon="fa-list">
+                        <button name="lignes_action" type="object" class="oe_stat_button" icon="format_list_bulleted">
                             <field name="nb_lignes" widget="statinfo" string="Lignes"/>
                         </button>
-                        <button name="anomalies_action" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                        <button name="anomalies_action" type="object" class="oe_stat_button" icon="warning">
                             <field name="nb_anomalies" widget="statinfo" string="Anomalies"/>
                         </button>
-                        <button name="anomalies_lot_action" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                        <button name="anomalies_lot_action" type="object" class="oe_stat_button" icon="shopping_cart">
                             <field name="nb_lots_sans_facture" widget="statinfo" string="Lots sans facture d'achat"/>
                         </button>
                     </div>
@@ -67,7 +67,7 @@
                                     <field name="taux_marge"/>
                                 </group>
                                 <group string="Chiffres comptables"
-                                       attrs="{'invisible': ['|', '|', '|', '|', ('client', '!=', False), ('enseigne_id', '!=', False), ('user_id', '!=', False), ('product_id', '!=', False), ('invoice_id', '!=', False)]}">
+                                       invisible="client or enseigne_id or user_id or product_id or invoice_id">
                                     <field name="vente_facturee"/>
                                     <field name="achat_facture"/>
                                     <field name="marge_brute_comptable"/>
@@ -118,9 +118,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -299,7 +297,7 @@
         <field name="name">is.analyse.marge.lot.ligne.graph</field>
         <field name="model">is.analyse.marge.lot.ligne</field>
         <field name="arch" type="xml">
-            <graph type="bar" orientation="vertical" order="desc">
+            <graph type="bar" order="desc">
                 <field name="enseigne_id" type="row"/>
                 <field name="marge_brute" type="measure"/>
             </graph>

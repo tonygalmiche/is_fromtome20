@@ -72,3 +72,5 @@ access_is_marge_brute_article,access_is_marge_brute_article,is.marge.brute.artic
 access_is_marge_brute_article_manager,access_is_marge_brute_article_manager,is.marge.brute.article,base.group_system,crud,
 access_is_prompt_ia,access_is_prompt_ia,is.prompt.ia,base.group_user,r,
 access_is_prompt_ia_manager,access_is_prompt_ia_manager,is.prompt.ia,base.group_system,crud,
+is_sale_order_line_rule,is_sale_order_line_rule,is.sale.order.line,,crud,"[('company_id', '=', user.company_id.id)]"
+is_stock_production_lot_contrat_rule,is_stock_production_lot_contrat_rule,is.stock.production.lot.contrat,,crud,"[('company_id', '=', user.company_id.id)]"
