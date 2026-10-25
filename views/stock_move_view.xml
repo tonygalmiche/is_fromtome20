@@ -6,18 +6,18 @@
         <field name="model">stock.move</field>
         <field name="inherit_id" ref="stock.view_stock_move_operations"/>
         <field name="arch" type="xml">
+            <!-- v20 : stock.move.note supprimé (jamais renseigné dans fromtome14) -->
              <xpath expr="//group[1]" position="inside">
                 <group>
-                    <field name="note" />
                     <field name="lot_ids" invisible="1"/>
                 </group>
              </xpath>
             <field name="move_line_ids" position="before">
-                <div style="background:orange" attrs="{'invisible':[('is_alerte','=',False)]}">
-                    <field 
+                <div style="background:orange" invisible="not is_alerte">
+                    <field
                         name="is_alerte"
-                        readonly="1" nolabel="1" 
-                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                        readonly="1" nolabel="1"
+                        invisible="not is_alerte"
                     />
                 </div>
             </field>
@@ -37,14 +37,13 @@
                 </style>
             </xpath>
             <field name="procure_method" position="after">
-                <field name="sale_line_id" attrs="{'invisible':[('sale_line_id','=',False)]}"/>
+                <field name="sale_line_id" invisible="not sale_line_id"/>
             </field>
             <group name="linked_group" position="attributes">
                 <attribute name="invisible">1</attribute>
             </group>
-            <field name="group_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
+            <!-- v20 : group_id (procurement.group) n'est plus dans le formulaire -->
+
         </field>
     </record>
 
@@ -55,11 +54,11 @@
         <field name="arch" type="xml">
             <field name="product_id" position="after">
                 <field name="is_bio_id"        optional="show"/>
-                <field name="purchase_line_id" optional="show" widget="many2one_clickable"/>
-                <field name="sale_line_id"     optional="show" widget="many2one_clickable"/>
+                <field name="purchase_line_id" optional="show" widget="many2one"/>
+                <field name="sale_line_id"     optional="show" widget="many2one"/>
             </field>
             <field name="product_id" position="attributes">
-                <attribute name="widget">many2one_clickable</attribute>
+                <attribute name="widget">many2one</attribute>
             </field>
         </field>
     </record>
@@ -76,8 +75,7 @@
         <field name="arch" type="xml">
             <field name="lot_id" position="replace">
                 <field name="lot_id"/>
-                <field name="product_uom_qty"        readonly="1"/>
-                <field name="qty_done"               readonly="1"/>
+                <!-- v20 : product_uom_qty (réservé) et qty_done (fait) remplacés par quantity, déjà dans le formulaire -->
                 <field name="is_type_tracabilite"    readonly="1"/>
                 <field name="is_dlc_ddm"             readonly="1"/>
                 <field name="status_move"            readonly="1"/>
@@ -105,9 +103,7 @@
             <field name="lot_id" position="after">
                 <field name="is_dlc_ddm" optional="show"/>
             </field>
-            <field name="qty_done" position="before">
-                <field name="product_uom_qty" optional="show"/>
-            </field>
+            <!-- v20 : product_uom_qty (réservé) et qty_done (fait) remplacés par quantity, déjà dans la liste -->
             <field name="state" position="before">
                 <field name="create_date" optional="hide" string="Créé le"/>
                 <field name="create_uid"  optional="hide" string="Créé par"/>

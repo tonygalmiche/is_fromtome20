@@ -29,11 +29,11 @@
         <field name="priority">100</field>
         <field name="arch" type="xml">
             <list create="0" delete="0">
-                <field name="product_id"  widget="many2one_clickable"/>
+                <field name="product_id"  widget="many2one"/>
                 <field name="location_id"/>
-                <field name="lot_id"      widget="many2one_clickable"/>
+                <field name="lot_id"      widget="many2one"/>
                 <field name="is_dlc_ddm"/>
-                <field name="is_fournisseur_id" widget="many2one_clickable"/>
+                <field name="is_fournisseur_id" widget="many2one"/>
                 <field name="available_quantity" sum="Total"/>
                 <field name="quantity"           sum="Total"/>
                 <field name="product_uom_id"/>
@@ -49,7 +49,7 @@
                 <field name="location_id"/>
                 <field name="lot_id"/>
                 <field name="is_fournisseur_id"/>
-                <group expand="0" string="Grouper par">
+                <group>
                     <filter name="group_by_fournisseur" string="Fournisseur par défaut" context="{'group_by':'is_fournisseur_id'}"/>
                     <filter name="group_by_product" string="Article" context="{'group_by':'product_id'}"/>
                 </group>
