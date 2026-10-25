@@ -25,7 +25,7 @@
                     />
                 </header>
                 <sheet>
-                    <div style="background:orange;font-size:11pt" attrs="{'invisible':[('alerte','=',False)]}">
+                    <div style="background:orange;font-size:11pt" invisible="not alerte">
                         <field name="alerte" readonly="1" nolabel="1"/>
                     </div>
                     <group>
@@ -34,17 +34,17 @@
                         <field name="commentaire"/>
                     </group>
                     <field name="order_ids" nolabel="1">
-                        <tree>
+                        <list>
                             <button
                                 name="ouvrir_commande_action"
                                 type="object"
-                                icon="fa-search-plus"
+                                icon="zoom_in"
                                 title="Accéder à la commande"
                             />
                             <button
                                 name="voir_livraisons_action"
                                 type="object"
-                                icon="fa-truck"
+                                icon="local_shipping"
                                 title="Voir les livraisons de la commande"
                             />
                             <field name="name"/>
@@ -54,7 +54,7 @@
                             <field name="is_total_poids_livraisons" sum="Total"/>
                             <field name="amount_untaxed"            sum="Total"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -64,11 +64,11 @@
         <field name="name">is_commande_transporteur_tree</field>
         <field name="model">is.commande.transporteur</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="date_debut"/>
                 <field name="date_fin"/>
                 <field name="commentaire" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_commande_transporteur_search" model="ir.ui.view">
@@ -86,7 +86,7 @@
         <field name="name">Commandes transporteurs</field>
         <field name="res_model">is.commande.transporteur</field>
         <field name="limit">100</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
     </record>
     <menuitem

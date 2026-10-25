@@ -34,14 +34,14 @@
         <field name="name">is_promo_fournisseur_tree_view</field>
         <field name="model">is.promo.fournisseur</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="partner_id" widget="many2one_clickable"/>
                 <field name="date_debut_promo"/>
                 <field name="date_fin_promo"/>
                 <field name="intitule"/>
                 <field name="taux_remise"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_promo_fournisseur_form_view" model="ir.ui.view">
@@ -75,12 +75,12 @@
                         </div>
                     </group>
                     <field  name="ligne_ids" nolabel="1">
-                        <tree editable="bottom" limit="1000">
+                        <list editable="bottom" limit="1000">
                             <field name="product_id" domain="[('is_fournisseur_id','=',parent.partner_id)]" widget="many2one_clickable"/>
                             <field name="redistribue_client"/>
                             <field name="taux_remise"/>
                             <field name="taux_remise_actuel"/>
-                        </tree>
+                        </list>
                     </field>
                     <button
                         name="appliquer_promo_action"
@@ -121,13 +121,13 @@
         <field name="name">Promos</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.promo.fournisseur</field>
-        <field name="view_mode">tree,form,calendar</field>
+        <field name="view_mode">list,form,calendar</field>
     </record>
     <record id="is_promo_fournisseur_calendar_action" model="ir.actions.act_window">
         <field name="name">Agenda des promos</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.promo.fournisseur</field>
-        <field name="view_mode">calendar,tree,form</field>
+        <field name="view_mode">calendar,list,form</field>
     </record>
 
      
@@ -159,20 +159,20 @@
         <field name="model">product.template</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"                 optional="show"/>
                 <field name="default_code"         optional="show"/>
                 <field name="is_fournisseur_id"    optional="show" widget="many2one_clickable"/>
                 <field name="is_ref_fournisseur"   optional="show"/>
                 <field name="is_prix_achat_actuel" optional="show"/>
                 <field name="is_discount"          optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_promo_fournisseur_product_action" model="ir.actions.act_window" >
         <field name="name">Articles en promo</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="view_id" ref="is_fromtome20.is_promo_fournisseur_product_tree_view"/>
         <field name="domain">[('is_discount','&gt;',0)]</field>
     </record>

@@ -49,7 +49,7 @@
         <field name="name">is.imprimer.etiquette.gs1.tree</field>
         <field name="model">is.imprimer.etiquette.gs1</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="product_id"/>
                 <field name="code_ean"      optional="show" />
                 <field name="lot"           optional="show" />
@@ -61,7 +61,7 @@
                 <field name="create_date"   optional="show" string="Créée le"/>
                 <field name="write_date"    optional="show" string="Modifiée le"/>
                 <field name="imprimante_id" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_imprimer_etiquette_gs1_search" model="ir.ui.view">
@@ -101,7 +101,7 @@
     <record  id="is_imprimer_etiquette_gs1_action" model="ir.actions.act_window">
         <field name="name">Impression étiquette GS1</field>
         <field name="res_model">is.imprimer.etiquette.gs1</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
     <menuitem
@@ -141,12 +141,12 @@
         <field name="name">is.imprimante.etiquette.tree</field>
         <field name="model">is.imprimante.etiquette</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="name_cups"/>
                 <field name="dimension"/>
                 <field name="default"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_imprimante_etiquette_search" model="ir.ui.view">
@@ -163,7 +163,7 @@
     <record  id="is_imprimante_etiquette_action" model="ir.actions.act_window">
         <field name="name">Imprimantes étiquettes</field>
         <field name="res_model">is.imprimante.etiquette</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
     <menuitem

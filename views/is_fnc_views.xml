@@ -38,11 +38,7 @@
                         name="creer_fnc_fournisseur_action"
                         type="object"
                         string="Créer FNC fournisseur associée"
-                        attrs="{'invisible': ['|','|',
-                            ('origine', '!=', 'client'),
-                            ('state'  , '!=', 'en_cours'),
-                            ('fnc_associees_ids', '!=', []),
-                        ]}"
+                        invisible="origine != 'client' or state != 'en_cours' or fnc_associees_ids"
                     />
                     <field name="state" widget="statusbar" clickable="true"/>
                 </header>
@@ -104,26 +100,22 @@
                     <group string="FNC associées">
                         <field 
                             name="fnc_origine_id"
-                            attrs="{'invisible': [('origine', '==', 'client')]}"
+                            invisible="origine == 'client'"
                         />
                     </group>
-                    <field 
+                    <field
                         name="fnc_associees_ids"
                         nolabel="1"
-                        attrs="{'readonly': 1, 'invisible': [('fnc_associees_ids', '==', [])]}">
-                        <tree>
-                            <button name="voir_fnc_action" type="object" icon="fa-search-plus"/>
+                        readonly="1" invisible="not fnc_associees_ids">
+                        <list>
+                            <button name="voir_fnc_action" type="object" icon="zoom_in"/>
                             <field name="name"/>
                             <field name="origine"/>
-                            <field name="partner_id"/>    
-                        </tree>
+                            <field name="partner_id"/>
+                        </list>
                     </field>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -131,7 +123,7 @@
         <field name="name">is.fnc.tree</field>
         <field name="model">is.fnc</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="origine"/>
                 <field name="fnc_origine_id" optional="hide"/>
@@ -169,7 +161,7 @@
 
                 <field name="date_cloture" optional="show"/>
                 <field name="state" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_fnc_search" model="ir.ui.view">
@@ -218,7 +210,7 @@
     <record  id="is_fnc_action" model="ir.actions.act_window">
         <field name="name">FNC</field>
         <field name="res_model">is.fnc</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
     <menuitem

@@ -173,10 +173,10 @@
                     />
                 </div>
             </field>
-            <xpath expr="//notebook/page/field/tree" position="attributes">
+            <xpath expr="//notebook/page/field/list" position="attributes">
                  <attribute name="limit">1000</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_id']" position="before">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_id']" position="before">
                 <field name="is_calcul_besoins_purchase_line_id" invisible="1"/>
                 <button 
                     title="Ligne de commande fournisseur créée par le calcul des besoins" 
@@ -194,34 +194,34 @@
                     attrs="{'invisible': [('is_purchase_line_id', '=', False)]}"
                 />
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='name']" position="after">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='name']" position="after">
                 <field name="is_default_code"      optional="show"/>
                 <field name="is_ref_fournisseur"   optional="show"/>
                 <field name="is_livraison_directe" optional="show"/>
                 <field name="is_date_reception"    optional="show"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_uom_qty']" position="attributes">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="attributes">
                 <attribute name="sum">Total</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_packaging']" position="attributes">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_packaging']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_uom_qty']" position="before">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="before">
                 <field name="is_qt_cde"            optional="show"    sum="Total"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_uom_qty']" position="after">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="after">
                 <field name="is_ecart_qt_cde_prepa" optional="hide"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_uom']" position="after">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom']" position="after">
                 <field name="is_colis_cde_origine"  optional="show" sum="Total"/>
                 <field name="is_colis_cde"          optional="show" sum="Total"/>
                 <field name="is_colis_liv"          optional="show" sum="Total"/>
                 <field name="is_colis_manquant"     optional="show" sum="Total"/>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_uom_qty']" position="attributes">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='product_uom_qty']" position="attributes">
                 <attribute name="string">Qt Prépa</attribute>
             </xpath>
-            <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='price_unit']" position="before">
+            <xpath expr="//form/sheet/notebook/page/field/list/field[@name='price_unit']" position="before">
                 <field name="is_nb_pieces_par_colis" optional="hide"/>
                 <field name="is_poids_net"  sum="Total" optional="hide"/>
             </xpath>
@@ -375,7 +375,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
-            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="view_mode">list,kanban,form,calendar,pivot,graph,activity</field>
             <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
             <field name="domain">[('is_type_doc', '=', 'offre')]</field>
             <field name="context">{'default_is_type_doc': 'offre'}</field>
@@ -399,7 +399,7 @@
         <field name="name">is_edit_sale_order_line_tree_view</field>
         <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <field name="order_id"        readonly="1"/>
                 <field name="product_id"      readonly="1" optional="hide"/>
                 <field name="name"            readonly="1" optional="show"/>
@@ -411,14 +411,14 @@
                 <field name="price_unit" string="Prix de vente"/>
                 <field name="discount"        readonly="1" optional="show"/>
                 <field name="price_subtotal"  readonly="1" optional="show" sum="Total"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_sale_order_line_editable_tree_view" model="ir.ui.view">
         <field name="name">is_sale_order_line_editable_tree_view</field>
         <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <field name="company_id" invisible="1" readonly="1"/>
                 <field name="order_id" invisible="1" readonly="1"/>
                 <field name="product_uom_category_id" invisible="1" readonly="1"/>
@@ -444,14 +444,14 @@
                 <field name="qty_delivered" sum="Total" optional="hide" readonly="1"/>
                 <field name="qty_invoiced" sum="Total" optional="hide" readonly="1"/>
                 <field name="is_correction_prix_achat" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record  id="is_edit_sale_order_line_action" model="ir.actions.act_window">
         <field name="name">Modif lignes de commandes</field>
         <field name="res_model">sale.order.line</field>
         <field name="limit">100</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="is_fromtome20.is_edit_sale_order_line_tree_view"/>
     </record>
     <menuitem

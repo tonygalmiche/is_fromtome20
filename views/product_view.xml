@@ -168,7 +168,7 @@
                         'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 
                         'product_template_invisible_variant': True, 
                         'form_view_ref':'is_fromtome20.product_supplierinfo_form_view',
-                        'tree_view_ref':'product.product_supplierinfo_tree_view'
+                        'list_view_ref':'product.product_supplierinfo_tree_view'
                     }
                 </attribute>
             </field>
@@ -228,10 +228,10 @@
             <xpath expr="//page[@name='sales']" position="inside">
                 <group string="Contrat Date ">
                     <field name="contrat_date_id">
-                        <tree editable="top">
+                        <list editable="top">
                             <field name="partner_id"/>
                             <field name="name"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
             </xpath>
@@ -372,7 +372,7 @@
                     </group>
                     <group string="Listes de prix">
                         <field name="is_pricelist_item_ids" nolabel="1" domain="[('active','in',[0,1]),('pricelist_id.active','in',[0,1])]">
-                            <tree>
+                            <list>
                                 <field name="pricelist_id" string="Liste de prix" widget="many2one_clickable" />
                                 <field name="fixed_price"  string="Prix de vente"/>
                                 <field name="date_start" optional="hide" />
@@ -391,7 +391,7 @@
                                 <field name="create_uid"  optional="hide" string="Créé par"/>
                                 <field name="write_date"  optional="show" string="Modifié le"/>
                                 <field name="write_uid"   optional="show" string="Modifié par"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
     
@@ -412,7 +412,7 @@
     <record id="is_analyse_ruptures_action" model="ir.actions.act_window" >
         <field name="name">Analyse des ruptures</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="view_id" ref="is_fromtome20.is_product_template_tree_view"/>
         <field name="context">{'search_default_real_stock_negative':1}</field>
         <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
@@ -425,7 +425,7 @@
         <field name="model">product.template</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" optional="show"/>
                 <field name="default_code" optional="show"/>
                 <field name="is_date_bascule_tarif" optional="show"/>
@@ -446,13 +446,13 @@
                 <field name="is_prix_vente_actuel_marge_ft" optional="show"/>
                 <field name="is_prix_vente_futur_ft" optional="show"/>
                 <field name="is_prix_vente_futur_marge_ft" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_gestion_tarif_product_action" model="ir.actions.act_window" >
         <field name="name">Gestion des tarifs</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="view_id" ref="is_fromtome20.is_gestion_tarif_product_tree_view"/>
     </record>
     <menuitem 
@@ -468,7 +468,7 @@
         <field name="model">product.template</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <button 
                     title="Article" 
                     name="voir_article_action" 
@@ -495,13 +495,13 @@
                 <field name="is_prix_vente_actuel_marge_ft"         optional="show" class="fond_gris prix_vente_force"/>
                 <field name="is_prix_vente_futur_ft"                optional="show" class="fond_gris prix_vente_futur"/>
                 <field name="is_prix_vente_futur_marge_ft"          optional="show" class="fond_gris prix_vente_futur_force"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_gestion_tarif_product_editable_action" model="ir.actions.act_window" >
         <field name="name">Gestion des tarifs (Liste modifiable)</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="view_id" ref="is_fromtome20.is_gestion_tarif_product_editable_tree_view"/>
     </record>
     <menuitem 
@@ -516,7 +516,7 @@
     <record model="ir.actions.act_window" id="milk_type_act">
         <field name="name">Type article</field>
         <field name="res_model">milk.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
@@ -525,7 +525,7 @@
     <record model="ir.actions.act_window" id="product_label_category_act">
         <field name="name">Categories Labels Produit</field>
         <field name="res_model">product.label.category</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
@@ -535,7 +535,7 @@
     <record model="ir.actions.act_window" id="product_label_act">
         <field name="name">Label Produit</field>
         <field name="res_model">product.label</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
@@ -545,7 +545,7 @@
     <record model="ir.actions.act_window" id="mois_fromage_act">
         <field name="name">Mois du fromage</field>
         <field name="res_model">mois.fromage</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
     </record>
@@ -557,9 +557,9 @@
         <field name="name">is_ingredient_tree_view</field>
         <field name="model">is.ingredient</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_ingredient_form_view" model="ir.ui.view">
@@ -589,7 +589,7 @@
         <field name="name">Ingrédients</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.ingredient</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem 
         id="is_ingredient_menu" 
@@ -604,10 +604,10 @@
         <field name="name">is_germe_tree_view</field>
         <field name="model">is.germe</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="ordre" widget="handle"/>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_germe_form_view" model="ir.ui.view">
@@ -637,7 +637,7 @@
         <field name="name">Germes</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.germe</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem 
         id="is_germe_menu" 
@@ -652,10 +652,10 @@
         <field name="name">is_valeur_nutritionnelle_tree_view</field>
         <field name="model">is.valeur.nutritionnelle</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="ordre" widget="handle"/>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_valeur_nutritionnelle_form_view" model="ir.ui.view">
@@ -685,7 +685,7 @@
         <field name="name">Valeur Nutritionnelle</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.valeur.nutritionnelle</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem 
         id="is_valeur_nutritionnelle_menu" 
@@ -700,9 +700,9 @@
         <field name="name">is_bio_tree_view</field>
         <field name="model">is.bio</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_bio_form_view" model="ir.ui.view">
@@ -731,7 +731,7 @@
         <field name="name">BIO</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.bio</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="is_bio_menu"
@@ -746,9 +746,9 @@
         <field name="name">is_rayon_magasin_tree_view</field>
         <field name="model">is.rayon.magasin</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_rayon_magasin_form_view" model="ir.ui.view">
@@ -777,7 +777,7 @@
         <field name="name">Rayon magasin</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.rayon.magasin</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="is_rayon_magasin_menu"

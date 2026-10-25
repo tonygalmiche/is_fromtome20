@@ -7,7 +7,7 @@
     <field name="arch" type="xml">
          <xpath expr="//field[@name='computation_line_ids']" position="replace">
 <field name="computation_line_ids" context="{'type': type, 'reporting_level': reporting_level}" nolabel="1">
-            <tree string="Transactions">
+            <list string="Transactions">
           <field name="parent_id"
             invisible="not context.get('intrastat_product_computation_line_main_view')"/>
           <field name="product_id"/>
@@ -27,13 +27,13 @@
                 <field name="date_invoice"/>
           <field name="type" invisible="1"/>
           <field name="reporting_level" invisible="1"/>
-        </tree>
+        </list>
 </field>
 
         </xpath>
   <xpath expr="//field[@name='declaration_line_ids']" position="replace">
  <field name="declaration_line_ids" context="{'type': type, 'reporting_level': reporting_level}" nolabel="1">
-          <tree string="Intrastat Declaration Lines">
+          <list string="Intrastat Declaration Lines">
           <field name="parent_id"
             invisible="not context.get('intrastat_product_declaration_line_main_view')"/>
           <field name="hs_code_id"/>
@@ -51,7 +51,7 @@
           <field name="region_id" invisible="1"/>
           <field name="incoterm_id" invisible="1"/>
           <field name="product_origin_country_id" invisible="1" string="Product C/O"/>
-        </tree>
+        </list>
  </field>
 
   </xpath>

@@ -3,7 +3,7 @@
     <record  id="is_mail_mail_action" model="ir.actions.act_window">
         <field name="name">Courriels</field>
         <field name="res_model">mail.mail</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="is_mail_mail_menu"

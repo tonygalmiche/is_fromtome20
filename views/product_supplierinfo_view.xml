@@ -10,10 +10,10 @@
             <xpath expr="//label[@for='price']" position="before">
                 <field name="prix_brut"/>
                 <field name="discount_ids">
-                    <tree editable="Bottom">
+                    <list editable="Bottom">
                         <field name="promo_id" widget="many2one_clickable" readonly="1"/>
                         <field name="name"     string="Remises %"/>
-                    </tree>
+                    </list>
                 </field>
             </xpath>
              <xpath expr="//field[@name='delay']" position="attributes">
@@ -35,7 +35,7 @@
     </record>
 
     <record id="product.product_supplierinfo_type_action" model="ir.actions.act_window">
-        <field name="view_mode">tree,form,kanban,pivot,graph</field>
+        <field name="view_mode">list,form,kanban,pivot,graph</field>
     </record>
 
 

@@ -85,10 +85,10 @@
             <field name="date_order" position="after">
                 <field name="is_commande_soldee" readonly="1"/>
             </field>
-            <xpath expr="//field[@name='order_line']//tree" position='attributes'>
+            <xpath expr="//field[@name='order_line']//list" position='attributes'>
                 <attribute name="decoration-danger">is_alerte!=""</attribute>
             </xpath>
-             <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position='before'>
+             <xpath expr="//field[@name='order_line']//list//field[@name='product_id']" position='before'>
                 <field name="is_sale_order_line_id" invisible="1"/>
                 <button 
                     title="Cde client" 
@@ -101,28 +101,28 @@
 
 
 
-            <xpath expr="//field[@name='order_line']//tree//field[@name='product_qty']" position='attributes'>
+            <xpath expr="//field[@name='order_line']//list//field[@name='product_qty']" position='attributes'>
                 <attribute name="sum">Total</attribute>
             </xpath>
 
-             <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position='before'>
+             <xpath expr="//field[@name='order_line']//list//field[@name='product_id']" position='before'>
                 <field name="is_client_id" optional="hide"/>
                 <field name="is_picking_id" optional="show" readonly="1" attrs="{'column_invisible': [('parent.is_transporteur', '=', False)]}"/>
             </xpath>
 
-             <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position='before'>
+             <xpath expr="//field[@name='order_line']//list//field[@name='price_unit']" position='before'>
                 <field name="is_nb_pieces_par_colis" optional="hide"/>
                 <field name="is_nb_colis"            optional="show" sum="Total"/>
                 <field name="is_poids_net"  sum="Total" optional="hide"/>
             </xpath>
 
-             <xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position='after'>
+             <xpath expr="//field[@name='order_line']//list//field[@name='price_subtotal']" position='after'>
                 <field name="is_alerte" optional="hide"/>            </xpath>
-             <xpath expr="//field[@name='order_line']//tree//field[@name='name']" position='after'>
+             <xpath expr="//field[@name='order_line']//list//field[@name='name']" position='after'>
                 <field name="is_default_code"    optional="show"/>
                 <field name="is_ref_fournisseur" optional="show"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']//tree//field[@name='date_planned']" position='attributes'>
+            <xpath expr="//field[@name='order_line']//list//field[@name='date_planned']" position='attributes'>
                 <attribute name="invisible">1</attribute>
             </xpath>
             <div name="date_approve" position="attributes">
@@ -148,12 +148,12 @@
                 <field name="is_fusion_order_id"   attrs="{'invisible': [('is_fusion_order_id', '=', False)]}"/>
                 <field name="is_heure_envoi_id"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom']" position='attributes'>
+            <xpath expr="//field[@name='order_line']//list//field[@name='product_uom']" position='attributes'>
                 <attribute name="readonly">1</attribute>
             </xpath>
 
             <xpath
-                expr="//field[@name='order_line']/tree/field[@name='price_unit']"
+                expr="//field[@name='order_line']/list/field[@name='price_unit']"
                 position="after"
             >
                 <field name="discount" />
@@ -169,7 +169,7 @@
                 <page string="Livraisons clients associées" attrs="{'invisible': [('is_transporteur', '=', False)]}">
                     <field name="is_transporteur" invisible="1"/>
                     <field name="is_livraison_ids" nolabel="1">
-                        <tree limit="200">
+                        <list limit="200">
                             <button 
                                 name="ouvrir_picking_action" 
                                 type="object" 
@@ -185,7 +185,7 @@
                             <field name="is_nb_colis"            string="Nb colis livrés"    sum="Total"/>
                             <field name="is_poids_net"           string="Poids net livré"    sum="Total"/>
                             <field name="state" string="Statut"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -272,7 +272,7 @@
         <field name="name">is_edit_purchase_order_line_tree_view</field>
         <field name="model">purchase.order.line</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <field name="order_id"           readonly="1"/>
                 <field name="partner_id"         readonly="1" optional="show"/>
                 <field name="is_date_planned"    readonly="1" optional="hide"/>
@@ -291,14 +291,14 @@
                 <field name="price_subtotal"        readonly="1" optional="show" sum="Total"/>
                 <field name="state"                 readonly="1" optional="hide"/>
                 <field name="is_sale_order_line_id" readonly="1" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record  id="is_edit_purchase_order_line_action" model="ir.actions.act_window">
         <field name="name">Modif lignes de commandes</field>
         <field name="res_model">purchase.order.line</field>
         <field name="limit">100</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="is_fromtome20.is_edit_purchase_order_line_tree_view"/>
     </record>
     <menuitem

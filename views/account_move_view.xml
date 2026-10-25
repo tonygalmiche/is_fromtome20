@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- Correction bug account_edi : decoration-danger="error" provoque une erreur JS -->
-    <record id="is_view_move_form_edi_fix" model="ir.ui.view">
-        <field name="name">is_view_move_form_edi_fix</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account_edi.view_move_form_inherit"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='edi_document_ids']/tree" position="attributes">
-                <attribute name="decoration-danger"></attribute>
-            </xpath>
-        </field>
-    </record>
-
     <!-- account.move -->
     <record id="is_view_move_form" model="ir.ui.view">
         <field name="name">is_view_move_form</field>
@@ -40,36 +28,42 @@
                 <field name="is_enseigne_id"/>
             </field>
             <div name="journal_div" position="after">
-                <field name="is_motif_avoir_id" attrs="{'invisible':[('move_type','not in',['in_refund','out_refund'])]}"/>
-                <field name="is_type_avoir"     attrs="{'invisible':[('move_type','not in',['in_refund','out_refund'])]}"/>
+                <field name="is_motif_avoir_id" invisible="move_type not in ['in_refund','out_refund']"/>
+                <field name="is_type_avoir"     invisible="move_type not in ['in_refund','out_refund']"/>
                 <field name="is_export_compta_id" readonly="1"/>
-                <field name="is_date_relance" attrs="{'invisible':[('is_date_relance','=',False)]}"/>
-                <field name="is_date_releve"  attrs="{'invisible':[('is_date_releve','=',False)]}"/>
-                <field name="is_date_paiement"   attrs="{'invisible':[('is_date_paiement','=',False)]}"/>
-                <field name="is_delai_paiement"  attrs="{'invisible':[('is_delai_paiement','=',0)]}"/>
+                <field name="is_date_relance" invisible="not is_date_relance"/>
+                <field name="is_date_releve"  invisible="not is_date_releve"/>
+                <field name="is_date_paiement"   invisible="not is_date_paiement"/>
+                <field name="is_delai_paiement"  invisible="is_delai_paiement == 0"/>
 
                 <field name="is_date_derniere_commande"/>
-                <field name="is_sale_order_id"     attrs="{'invisible':[('move_type','not in',['out_invoice','out_refund'])]}"/>
-                <field name="is_purchase_order_id" attrs="{'invisible':[('move_type','not in',['in_invoice','in_refund'])]}"/>
+                <field name="is_sale_order_id"     invisible="move_type not in ['out_invoice','out_refund']"/>
+                <field name="is_purchase_order_id" invisible="move_type not in ['in_invoice','in_refund']"/>
 
             </div>
 
-            <label for="invoice_payment_term_id" position="replace"/>
-            <xpath expr="//field[@name='invoice_date_due']/.." position="replace">
-                <field name="invoice_payment_term_id"/>
-                <field name="invoice_date_due"/>
+            <!-- v20 : une seule ligne « échéance ou conditions de paiement » ; comme en v14, les deux sur des lignes séparées -->
+            <xpath expr="//label[@for='invoice_date_due']/.." position="replace"/>
+            <xpath expr="//div[@name='due_date']" position="replace">
+                <field name="invoice_payment_term_id"
+                       context="{'example_date': invoice_date, 'example_amount': tax_totals['total_amount_currency']}"
+                       options="{'no_quick_create':True}" readonly="state in ['cancel', 'posted']"
+                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"/>
+                <field name="invoice_date_due" force_save="1"
+                       invisible="move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"
+                       decoration-danger="invoice_date_due and invoice_date_due &lt; context_today().strftime('%Y-%m-%d') and payment_state not in ('paid', 'in_payment', 'reversed')"/>
             </xpath>
             <field name="payment_reference" position="before">
                 <field name="is_ref_int_cde"/>
                 <field name="is_ref_client"/>
                 <field name="is_bl"/>
             </field>
-            <xpath expr="//page[1]/field[@name='invoice_line_ids']/tree/field[@name='name']" position="before">
+            <xpath expr="//field[@name='invoice_line_ids']/list/column[@name='product_and_description']" position="before">
                 <field name="is_picking_id" readonly="1" optional="hide"/>
                 <field name="is_bio_id" optional="hide"/>
             </xpath>
 
-            <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="before">
+            <xpath expr="//field[@name='line_ids']/list/field[@name='name']" position="before">
                 <field name="is_picking_id" optional="hide"/>
                 <field name="is_bio_id" optional="hide"/>
             </xpath>
@@ -77,31 +71,31 @@
 
 
 
-            <xpath expr="//page[1]/field[@name='invoice_line_ids']/tree/field[@name='product_uom_id']" position="after">
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='product_uom_id']" position="after">
                 <field name="is_lots"                optional="hide"/>
                 <field name="is_nb_pieces_par_colis" optional="hide"/>
                 <field name="is_nb_colis" sum="Total"/>
-                <button 
-                    title="Lignes des mouvemments" 
-                    name="stock_move_line_action" 
-                    type="object" icon="fa-search-plus" 
-                    class="oe_stat_button" 
+                <button
+                    title="Lignes des mouvemments"
+                    name="stock_move_line_action"
+                    type="object" icon="zoom_in"
+                    class="oe_stat_button"
                 />
                 <field name="is_poids_net"  sum="Total" optional="hide"/>
             </xpath>
             <notebook position="before">
-                <div style="background:orange;font-weight: bold;" attrs="{'invisible':[('is_alerte','=',False)]}">
-                    <field 
+                <div style="background:orange;font-weight: bold;" invisible="not is_alerte">
+                    <field
                         name="is_alerte"
-                        readonly="1" nolabel="1" 
-                        attrs="{'invisible': [('is_alerte', '=', False)]}"
+                        readonly="1" nolabel="1"
+                        invisible="not is_alerte"
                     />
                 </div>
             </notebook>
-            <xpath expr="//page[1]/field[@name='invoice_line_ids']/tree" position="attributes">
+            <xpath expr="//field[@name='invoice_line_ids']/list" position="attributes">
                 <attribute name="limit">1000</attribute>
             </xpath>
-            <xpath expr="//page/field[@name='line_ids']/tree" position="attributes">
+            <xpath expr="//page/field[@name='line_ids']/list" position="attributes">
                 <attribute name="limit">1000</attribute>
             </xpath>
         </field>
@@ -111,8 +105,9 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="is_type_avoir"  optional="show" invisible="context.get('default_move_type') not in ('out_refund', 'in_refund')"/>
+            <!-- v20 : deux colonnes partner_id (fournisseur, client) : après les deux -->
+            <field name="journal_id" position="before">
+                <field name="is_type_avoir"  optional="show" column_invisible="context.get('default_move_type') not in ('out_refund', 'in_refund')"/>
                 <field name="is_enseigne_id" optional="show"/>
             </field>
 
@@ -122,7 +117,8 @@
                 <field name="is_date_derniere_commande" optional="show"/>
             </field>
 
-            <field name="state" position="before">
+            <!-- v20 : plus de colonne state, remplacée par status_in_payment -->
+            <field name="status_in_payment" position="before">
                 <field name="is_date_paiement"    optional="show"/>
                 <field name="is_delai_paiement"   optional="show"/>
                 <field name="is_export_compta_id" optional="show"/>
@@ -200,7 +196,8 @@
         <field name="model">account.payment</field>
         <field name="inherit_id" ref="account.view_account_payment_form" />
         <field name="arch" type="xml">
-            <field name="move_id" position="after">
+            <!-- v20 : move_id n'est plus dans le formulaire -->
+            <field name="memo" position="after">
                 <field name="is_export_compta_id"/>
             </field>
         </field>
@@ -212,9 +209,9 @@
         <field name="name">is_motif_avoir_tree_view</field>
         <field name="model">is.motif.avoir</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_motif_avoir_form_view" model="ir.ui.view">
@@ -243,7 +240,7 @@
         <field name="name">Motif avoir</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">is.motif.avoir</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem 
         id="is_motif_avoir_menu" 

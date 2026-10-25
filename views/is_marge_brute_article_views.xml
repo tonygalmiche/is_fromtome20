@@ -32,7 +32,7 @@
         <field name="name">is.marge.brute.article.tree</field>
         <field name="model">is.marge.brute.article</field>
         <field name="arch" type="xml">
-            <tree create="false">
+            <list create="false">
                 <field name="product_id"/>
                 <field name="default_code" optional="show"/>
                 <field name="categ_id" optional="show"/>
@@ -41,7 +41,7 @@
                 <field name="facturation_client" sum="Total"/>
                 <field name="facturation_fournisseur" sum="Total"/>
                 <field name="marge_brute_facturation" sum="Total"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -94,7 +94,7 @@
     <record id="is_marge_brute_article_action" model="ir.actions.act_window">
         <field name="name">Marge brute par article</field>
         <field name="res_model">is.marge.brute.article</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
     </record>
 
     <!-- Tâche planifiée -->

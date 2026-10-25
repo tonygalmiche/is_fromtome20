@@ -32,7 +32,7 @@
         <field name="name">is.account.invoice.line.tree</field>
         <field name="model">is.account.invoice.line</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="quantity &lt; 0">
+            <list decoration-danger="quantity &lt; 0">
                 <field name="invoice_id" optional="hide"/>
                 <field name="number" optional="show"/>
                 <field name="date_invoice" optional="show"/>
@@ -48,7 +48,7 @@
                 <field name="discount"       sum="Total" optional="show"/>
                 <field name="price_subtotal" sum="Total" optional="show"/>
                 <field name="invoice_type" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_account_invoice_line_search" model="ir.ui.view">
@@ -91,7 +91,7 @@
         <field name="name">Lignes des factures</field>
         <field name="res_model">is.account.invoice.line</field>
         <field name="limit">100</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
     </record>
     <menuitem
         id="is_account_invoice_line_menu"

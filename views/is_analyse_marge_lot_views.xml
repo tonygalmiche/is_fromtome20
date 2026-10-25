@@ -128,7 +128,7 @@
         <field name="name">is.analyse.marge.lot.tree</field>
         <field name="model">is.analyse.marge.lot</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="date_debut"/>
                 <field name="date_fin"/>
@@ -151,13 +151,13 @@
                 <field name="marge_brute_comptable" optional="show"/>
                 <field name="taux_marge_comptable"  optional="show"/>
                 <field name="ecart_marge_brute"     optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_analyse_marge_lot_action" model="ir.actions.act_window">
         <field name="name">Analyse marge brute sur les lots facturés</field>
         <field name="res_model">is.analyse.marge.lot</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
 
@@ -218,7 +218,7 @@
         <field name="name">is.analyse.marge.lot.ligne.tree</field>
         <field name="model">is.analyse.marge.lot.ligne</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="anomalie" decoration-warning="type_ligne=='Rebut'" class="o_is_analyse_marge_lot_ligne_list" limit="200">
+            <list decoration-danger="anomalie" decoration-warning="type_ligne=='Rebut'" class="o_is_analyse_marge_lot_ligne_list" limit="200">
                 <field name="date"/>
                 <field name="type_ligne"      optional="show"/>
                 <field name="is_type_avoir"   optional="hide"/>
@@ -247,7 +247,7 @@
                 <field name="montant_achat"         optional="show" sum="Total"/>
                 <field name="marge_brute"           optional="show" sum="Total"/>
                 <field name="anomalie"              optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_analyse_marge_lot_ligne_search" model="ir.ui.view">

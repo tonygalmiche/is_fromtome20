@@ -44,7 +44,7 @@
                          </group>
                     </group>
                     <field name="product_ids" nolabel="1" >
-                        <tree editable="bottom">
+                        <list editable="bottom">
                             <button name="voir_product_template_action" title="Voir article" type="object" icon="fa-search-plus"/>
                             <field name="default_code"/>
                             <field name="name"/>
@@ -54,7 +54,7 @@
                             <field name="is_mise_en_avant"/>
                             <field name="is_bio_id"/>
                             <field name="is_preco"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -64,7 +64,7 @@
         <field name="name">is.listing.prix.client.tree</field>
         <field name="model">is.listing.prix.client</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="nom_listing"/>
                 <field name="partner_id"/>
                 <field name="enseigne_id"/>
@@ -73,7 +73,7 @@
                 <field name="prix_futur"/>
                 <field name="name"/>
                 <field name="lang"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_listing_prix_client_search" model="ir.ui.view">
@@ -92,7 +92,7 @@
     <record  id="is_listing_prix_client_action" model="ir.actions.act_window">
         <field name="name">Listing prix client</field>
         <field name="res_model">is.listing.prix.client</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
     </record>
     <menuitem

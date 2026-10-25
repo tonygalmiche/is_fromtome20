@@ -26,7 +26,7 @@
                         name="generer_relance_action"
                         type="object"
                         string="Envoyer les mails"
-                        attrs="{'invisible': [('state', '=', 'envoye')]}"
+                        invisible="state == 'envoye'"
                         confirm="Confirmer l'envoi des mails ?"
                     />
                     <button
@@ -42,9 +42,9 @@
                             <field name="name"/>
                             <field name="type_document"/>
                             <field name="partner_id"/>
-                            <field name="nb_jours"          attrs="{'invisible': [('type_document', '!=', 'relance_facture')]}"/>
-                            <field name="nb_jours_relance"  attrs="{'invisible': [('type_document', '!=', 'relance_facture')]}"/>
-                            <field name="nb_jours_echeance" attrs="{'invisible': [('type_document', '!=', 'releve_facture')]}"/>
+                            <field name="nb_jours"          invisible="type_document != 'relance_facture'"/>
+                            <field name="nb_jours_relance"  invisible="type_document != 'relance_facture'"/>
+                            <field name="nb_jours_echeance" invisible="type_document != 'releve_facture'"/>
                         </group>
                         <group>
                             <field name="currency_id" invisible="1"/>
@@ -53,19 +53,19 @@
                         </group>
                     </group>
                     <field name="ligne_ids">
-                        <tree editable="Bottom" limit="1000">
+                        <list editable="bottom" limit="1000">
                             <field name="sequence" widget="handle"/>
-                            <button name="voir_facture_action" type="object" icon="fa-search-plus" title="Voir facture"/>
+                            <button name="voir_facture_action" type="object" icon="zoom_in" title="Voir facture"/>
                             <field name="invoice_id"/>
                             <field name="partner_id"/>
                             <field name="invoice_date"/>
                             <field name="invoice_date_due"/>
-                            <field name="invoice_date_due" widget="remaining_days"/>
+                            <field name="invoice_date_due" widget="relative_date"/>
                             <field name="is_date_relance"/>
                             <field name="is_date_releve"/>
                             <field name="amount_residual" sum="Total"/>
-                            <field name="currency_id" invisible="1"/>
-                        </tree>
+                            <field name="currency_id" column_invisible="True"/>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -75,15 +75,15 @@
         <field name="name">is.relance.facture.tree</field>
         <field name="model">is.relance.facture</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="type_document"/>
                 <field name="create_date" string="Date relance"/>
                 <field name="partner_id"/>
                 <field name="nb_jours"/>
-                <field name="currency_id" invisible="1"/>
+                <field name="currency_id" column_invisible="True"/>
                 <field name="amount_residual" sum="Total"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_relance_facture_search" model="ir.ui.view">
@@ -99,7 +99,7 @@
     <record  id="is_relance_facture_action" model="ir.actions.act_window">
         <field name="name">Relance ou relevé de facture</field>
         <field name="res_model">is.relance.facture</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
     </record>
     <menuitem

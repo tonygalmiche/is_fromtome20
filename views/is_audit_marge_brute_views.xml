@@ -17,7 +17,7 @@
         <field name="arch" type="xml">
             <form create="false" edit="false">
                 <header>
-                    <button name="action_actualiser" string="Actualiser" type="object" class="oe_highlight" icon="fa-refresh"/>
+                    <button name="action_actualiser" string="Actualiser" type="object" class="oe_highlight" icon="refresh"/>
                 </header>
                 <sheet>
                     <style>
@@ -38,12 +38,12 @@
                         <group string="Facturation (account.move)">
                             <label for="facturation_client"/>
                             <div class="o_row">
-                                <button name="action_voir_facturation_client" type="object" icon="fa-search-plus" class="btn btn-link btn-sm p-0" title="Voir le détail"/>
+                                <button name="action_voir_facturation_client" type="object" icon="zoom_in" class="btn btn-link btn-sm p-0" title="Voir le détail"/>
                                 <field name="facturation_client" class="oe_inline"/>
                             </div>
                             <label for="facturation_fournisseur"/>
                             <div class="o_row">
-                                <button name="action_voir_facturation_fournisseur" type="object" icon="fa-search-plus" class="btn btn-link btn-sm p-0" title="Voir le détail"/>
+                                <button name="action_voir_facturation_fournisseur" type="object" icon="zoom_in" class="btn btn-link btn-sm p-0" title="Voir le détail"/>
                                 <field name="facturation_fournisseur" class="oe_inline"/>
                             </div>
                             <field name="marge_brute_facturation"/>
@@ -51,7 +51,7 @@
                         <group string="Analyse facturation (is.analyse.facturation)">
                             <label for="analyse_facturation_client"/>
                             <div class="o_row">
-                                <button name="action_voir_analyse_facturation_client" type="object" icon="fa-search-plus" class="btn btn-link btn-sm p-0" title="Voir le détail"/>
+                                <button name="action_voir_analyse_facturation_client" type="object" icon="zoom_in" class="btn btn-link btn-sm p-0" title="Voir le détail"/>
                                 <field name="analyse_facturation_client" class="oe_inline"/>
                             </div>
                             <field name="analyse_facturation_fournisseur"/>
@@ -62,7 +62,7 @@
                         <group string="Écarts">
                             <label for="ecart_facturation_client"/>
                             <div class="o_row">
-                                <button name="action_recalculer_analyse_facturation" type="object" icon="fa-cogs" class="btn btn-link btn-sm p-0" title="Recalculer analyse facturation" attrs="{'invisible': [('ecart_facturation_client', '=', 0)]}"/>
+                                <button name="action_recalculer_analyse_facturation" type="object" icon="settings" class="btn btn-link btn-sm p-0" title="Recalculer analyse facturation" invisible="ecart_facturation_client == 0"/>
                                 <field name="ecart_facturation_client" class="oe_inline"/>
                             </div>
                             <field name="ecart_facturation_fournisseur"/>
@@ -79,25 +79,25 @@
         <field name="name">is.audit.marge.brute.tree</field>
         <field name="model">is.audit.marge.brute</field>
         <field name="arch" type="xml">
-            <tree create="false">
+            <list create="false">
                 <field name="semaine"/>
                 <field name="date_lundi" optional="show"/>
                 <field name="annee" optional="show"/>
                 <field name="annee_comptable" optional="show"/>
                 <field name="champ_date" optional="show"/>
-                <button name="action_voir_facturation_client" type="object" icon="fa-search-plus" title="Voir le détail"/>
+                <button name="action_voir_facturation_client" type="object" icon="zoom_in" title="Voir le détail"/>
                 <field name="facturation_client" sum="Total"/>
-                <button name="action_voir_facturation_fournisseur" type="object" icon="fa-search-plus" title="Voir le détail"/>
+                <button name="action_voir_facturation_fournisseur" type="object" icon="zoom_in" title="Voir le détail"/>
                 <field name="facturation_fournisseur" sum="Total"/>
                 <field name="marge_brute_facturation" sum="Total"/>
-                <button name="action_voir_analyse_facturation_client" type="object" icon="fa-search-plus" title="Voir le détail"/>
+                <button name="action_voir_analyse_facturation_client" type="object" icon="zoom_in" title="Voir le détail"/>
                 <field name="analyse_facturation_client" sum="Total"/>
                 <field name="analyse_facturation_fournisseur" sum="Total"/>
                 <field name="marge_brute_analyse_facturation" sum="Total"/>
                 <field name="ecart_facturation_client" sum="Total"/>
                 <field name="ecart_facturation_fournisseur" sum="Total"/>
                 <field name="ecart_marge_brute" sum="Total"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -156,7 +156,7 @@
     <record id="is_audit_marge_brute_action" model="ir.actions.act_window">
         <field name="name">Audit marge brute</field>
         <field name="res_model">is.audit.marge.brute</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
 

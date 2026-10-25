@@ -7,9 +7,9 @@
         <field name="model">stock.move.line</field>
         <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="limit">500</attribute>
-            </tree>
+            </list>
             <field name="lot_id" position="after">
                 <field name="is_type_tracabilite" optional="show"/>
                 <field name="is_dlc_ddm" optional="show"/>
@@ -127,7 +127,7 @@
                         attrs="{'invisible': [('is_alerte','=', False)],'readonly':True}"
                     />
                     <field name="line_ids" nolabel="1" >
-                        <tree 
+                        <list 
                             string="Lots avec DLC" 
                             editable="bottom" 
                             limit="5"
@@ -160,10 +160,10 @@
                             <field name="info"        style="color:gray" optional="show"/>
                             <field name="write_uid"                      optional="hide" string="Modifié par"/>
                             <field name="write_date"                     optional="hide" string="Le"/>
-                        </tree>
+                        </list>
                     </field>
                     <field name="product_ids" nolabel="1" readonly="1">
-                        <tree editable="bottom" limit="500">
+                        <list editable="bottom" limit="500">
                             <button 
                                 title="Imprimer étiquette GS1" 
                                 name="imprimer_etiquette_action" 
@@ -173,7 +173,7 @@
                             <field name="nb_pieces" sum="Total"/>
                             <field name="uom_id"/>
                             <field name="nb_colis" sum="Total"/>
-                        </tree>
+                        </list>
                     </field>
                     <group>
                         <group  attrs="{'invisible': [('type','!=', 'picking'  )],'readonly':True}">
@@ -208,7 +208,7 @@
         <field name="name">is_scan_picking_tree</field>
         <field name="model">is.scan.picking</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="is_alerte!=False" limit="200">
+            <list decoration-danger="is_alerte!=False" limit="200">
                 <field name="id"/>
                 <field name="type"/>
                 <field name="picking_id"/>
@@ -216,7 +216,7 @@
                 <field name="create_date"/>
                 <field name="write_date"/>
                 <field name="is_alerte"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_scan_picking_search" model="ir.ui.view">
@@ -233,7 +233,7 @@
     <record  id="is_scan_picking_action" model="ir.actions.act_window">
         <field name="name">Scan</field>
         <field name="res_model">is.scan.picking</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="is_scan_picking_menu"
@@ -249,7 +249,7 @@
         <field name="name">is_scan_picking_line_tree</field>
         <field name="model">is.scan.picking.line</field>
         <field name="arch" type="xml">
-            <tree limit="200">
+            <list limit="200">
                 <field name="scan_id"             optional="show" widget="many2one_clickable"/>
                 <field name="picking_id"          optional="show" widget="many2one_clickable"/>
                 <field name="picking_type_id"     optional="show" widget="many2one_clickable"/>
@@ -271,7 +271,7 @@
                 <field name="info"                optional="show"/>
                 <field name="write_uid"           optional="hide" string="Modifié par"/>
                 <field name="write_date"          optional="hide" string="Le"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -326,7 +326,7 @@
     <record  id="is_scan_picking_line_action" model="ir.actions.act_window">
         <field name="name">Lignes des Scan</field>
         <field name="res_model">is.scan.picking.line</field>
-        <field name="view_mode">tree,graph,pivot</field>
+        <field name="view_mode">list,graph,pivot</field>
     </record>
     <menuitem
         id="is_scan_picking_line_menu"
@@ -469,51 +469,51 @@ else:
                     />
                 </div>
             </xpath>
-            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list" position="attributes">
                 <attribute name="limit">500</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list" position="attributes">
                 <attribute name="decoration-danger">is_ecart_demande_fait != 0 and state != 'cancel'</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list" position="attributes">
                 <attribute name="decoration-success">is_ecart_demande_fait == 0 and state != 'cancel'</attribute>
             </xpath>
 
 
-            <xpath expr="//page[@name='operations']/field/tree" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list" position="attributes">
                 <attribute name="decoration-muted">state == 'cancel'</attribute>
             </xpath>
 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='product_id']" position="attributes">
                 <attribute name="widget">many2one_clickable</attribute>
             </xpath>
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="before">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='product_id']" position="before">
                 <button name="voir_mouvement_action" type="object" title="Mouvement" icon="fa-search-plus"/>
                 <field name="is_emplacement_fournisseur" optional="hide"/>
                 <field name="is_fournisseur_id"          optional="hide" widget="many2one_clickable"/>
                 <field name="is_poids_net_colis"         optional="hide"/>
             </xpath> 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='description_picking']" position="after">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='description_picking']" position="after">
                 <field name="is_description_prepa" optional="show"/>
                 <field name="is_description_cde" optional="hide"/>
                 <field name="is_ref_fournisseur" optional="show"/>
                 <field name="is_bio_id" optional="hide"/>
             </xpath> 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_id']" position="after">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='product_id']" position="after">
                 <field name="is_lots" optional="hide"/>
             </xpath> 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='product_uom_qty']" position="after">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='product_uom_qty']" position="after">
                 <field name="is_nb_colis_cde"   optional="hide" sum="Total"/>
             </xpath> 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='quantity_done']" position="after">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='quantity_done']" position="after">
                 <field name="is_ecart_demande_fait" optional="show"/>
                 <field name="is_nb_colis"           optional="hide" sum="Total"/>
                 <field name="is_poids_net_reel"     optional="hide" sum="Total"/>
             </xpath> 
 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='lot_ids']" position="after">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='lot_ids']" position="after">
                 <field name="purchase_line_id" optional="hide" widget="many2one_clickable"/>
                 <field name="sale_line_id"     optional="hide" widget="many2one_clickable"/>
                 <field name="write_date"       optional="hide" string="Modifié par"/>
@@ -521,10 +521,10 @@ else:
                 <field name="state"            optional="hide"/>
             </xpath> 
 
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='reserved_availability']" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='reserved_availability']" position="attributes">
                  <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='operations']/field/tree/field[@name='forecast_availability']" position="attributes">
+            <xpath expr="//page[@name='operations']/field/list/field[@name='forecast_availability']" position="attributes">
                  <attribute name="invisible">1</attribute>
             </xpath>
             <field name="move_ids_without_package" position="before">
@@ -694,7 +694,7 @@ else:
         <field name="model">stock.picking</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree default_order='date_done desc'>
+            <list default_order='date_done desc'>
                 <field name="date_done"          optional="show"/>
                 <field name="partner_id"         optional="show" widget="many2one_clickable"/>
                 <field name="sale_id"            optional="show" widget="many2one_clickable"/>
@@ -706,7 +706,7 @@ else:
                 <field name="is_palette_demie"   optional="show" sum="Total"/>
                 <field name="picking_type_id"    optional="hide"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_suivi_transporteur_pivot" model="ir.ui.view">
@@ -729,7 +729,7 @@ else:
     <record  id="is_suivi_transporteur_action" model="ir.actions.act_window">
         <field name="name">Suivi transporteur</field>
         <field name="res_model">stock.picking</field>
-        <field name="view_mode">tree,pivot,form</field>
+        <field name="view_mode">list,pivot,form</field>
         <field name="view_id" ref="is_fromtome20.is_suivi_transporteur_tree"/>
         <field name="domain">[('state','!=','cancel'),('picking_type_id.code','=','outgoing')]</field>
         <field name="limit">200</field>

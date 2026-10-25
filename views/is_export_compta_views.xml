@@ -36,7 +36,7 @@
         <field name="name">is.export.compta.ligne.tree</field>
         <field name="model">is.export.compta.ligne</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="ligne"/>
                 <field name="journal_code"/>
                 <field name="journal_lib"   optional="hide"/>
@@ -54,7 +54,7 @@
                 <field name="credit"        optional="show" sum="Total"/>
                 <field name="invoice_id"    optional="hide"/>
 
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_export_compta_ligne_search" model="ir.ui.view">
@@ -81,7 +81,7 @@
         <field name="name">Détail des lignes à exporter</field>
         <field name="res_model">is.export.compta.ligne</field>
         <field name="limit">1000</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('export_compta_id','=',active_id)]</field>
         <field name="context">{'default_export_compta_id': active_id}</field>
     </record>
@@ -116,7 +116,7 @@
                         name="%(is_export_compta_ligne_action)d"
                         type="action"
                         string="Voir les lignes"
-                        attrs="{'invisible': [('ligne_ids', '=', [])]}"
+                        invisible="not ligne_ids"
                     />
                     <button
                         name="generer_fichier_action"
@@ -148,11 +148,11 @@
         <field name="name">is.export.compta.tree</field>
         <field name="model">is.export.compta</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="format_export"/>
                 <field name="date_fin"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_export_compta_search" model="ir.ui.view">
@@ -169,7 +169,7 @@
     <record  id="is_export_compta_action" model="ir.actions.act_window">
         <field name="name">Export Compta</field>
         <field name="res_model">is.export.compta</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
     </record>
     <menuitem

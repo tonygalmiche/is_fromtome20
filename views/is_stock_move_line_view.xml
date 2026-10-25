@@ -40,7 +40,7 @@
         <field name="name">is.stock.move.line.tree</field>
         <field name="model">is.stock.move.line</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="date_done"              optional="show"/>
                 <field name="picking_id"             optional="show"/>
                 <field name="picking_type_id"        optional="hide"/>
@@ -73,7 +73,7 @@
                 />
                 <field name="status_move" optional="show"/>
                 <field name="state" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_stock_move_line_search" model="ir.ui.view">
@@ -120,7 +120,7 @@
         <field name="name">Lignes des mouvements</field>
         <field name="res_model">is.stock.move.line</field>
         <field name="limit">100</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
     <menuitem
@@ -185,7 +185,7 @@
         <field name="name">is.stock.move.line.valorise.tree</field>
         <field name="model">is.stock.move.line.valorise</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="alerte!=False">
+            <list decoration-danger="alerte!=False">
                 <field name="date_done"              optional="show"/>
                 <field name="picking_id"             optional="show"/>
                 <field name="picking_type_id"        optional="hide"/>
@@ -209,7 +209,7 @@
                 <field name="status_move"            optional="hide"/>
                 <field name="state"                  optional="hide"/>
                 <field name="alerte"                 optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_stock_move_line_valorise_search" model="ir.ui.view">
@@ -258,7 +258,7 @@
         <field name="name">Lignes des mouvements valorisés</field>
         <field name="res_model">is.stock.move.line.valorise</field>
         <field name="limit">100</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[]</field>
     </record>
 

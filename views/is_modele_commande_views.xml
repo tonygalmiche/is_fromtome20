@@ -32,7 +32,7 @@
                         <field name="prix_futur"/>
                         <field 
                             name="prix_futur_a_partir_du"  
-                            attrs="{'invisible': [('prix_futur', '=', False)], 'required': [('prix_futur', '!=', False)]}"/>
+                            invisible="not prix_futur" required="prix_futur"/>
                         <field name="modele_commande_ids" widget="many2many_binary"/>
                         <field name="product_ids" widget="many2many_tags"/>
                         <label for="product_ids" string=" "/>
@@ -42,21 +42,21 @@
                                 type="object"
                                 string="Ajouter ces articles"
                                 class="oe_inline oe_highlight"
-                                attrs="{'invisible':[('product_ids','=',[])]}"
+                                invisible="not product_ids"
                             />
                         </div>
                     </group>
                     <field name="ligne_ids">
-                        <tree decoration-danger="weight==0" editable="bottom" limit="200">
+                        <list decoration-danger="weight==0" editable="bottom" limit="200">
                             <field name="sequence"     widget="handle"/>
-                            <field name="alerte" invisible="1"/>
-                            <button 
-                                name="alerte_action" type="object" class="oe_stat_button" 
-                                icon="fa-exclamation-triangle"
-                                attrs="{'invisible': [('alerte', '=', False)]}"
+                            <field name="alerte" column_invisible="True"/>
+                            <button
+                                name="alerte_action" type="object" class="oe_stat_button"
+                                icon="warning"
+                                invisible="not alerte"
                                 title="Articles désactivés"
                             />
-                            <field name="product_id"   widget="many2one_clickable"/>
+                            <field name="product_id"   widget="many2one"/>
                             <field name="product_name" optional="hide"/>
                             <field name="is_mise_en_avant" optional="hide"/>
                             <field name="is_preco"         optional="hide"/>
@@ -66,7 +66,7 @@
                             <field name="price_unit"      optional="show"/>
                             <field name="qt_livree"       optional="show"/>
                             <field name="weight"          optional="show"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -76,12 +76,12 @@
         <field name="name">is.modele.commande.tree</field>
         <field name="model">is.modele.commande</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="alerte" invisible="1"/>
-                <button 
-                    name="alerte_action" type="object" class="oe_stat_button" 
-                    icon="fa-exclamation-triangle"
-                    attrs="{'invisible': [('alerte', '=', False)]}"
+            <list>
+                <field name="alerte" column_invisible="True"/>
+                <button
+                    name="alerte_action" type="object" class="oe_stat_button"
+                    icon="warning"
+                    invisible="not alerte"
                     title="Articles désactivés"
                 />
                 <field name="name"/>
@@ -90,7 +90,7 @@
                 <field name="prix_futur"/>
                 <field name="prix_futur_a_partir_du"/>
                 <field name="modele_commande_ids" widget="many2many_binary" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_modele_commande_search" model="ir.ui.view">
@@ -109,7 +109,7 @@
         <field name="name">Modèle de commande</field>
         <field name="res_model">is.modele.commande</field>
         <field name="limit">200</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="is_modele_commande_menu"

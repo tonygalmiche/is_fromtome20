@@ -6,7 +6,7 @@
             <field name="name">is_product_pricelist_item_tree</field>
             <field name="model">product.pricelist.item</field>
             <field name="arch" type="xml">
-                <tree default_order="product_tmpl_id">
+                <list default_order="product_tmpl_id">
                     <field name="pricelist_id" optional="show"  widget="many2one_clickable"/>
                     <field name="product_tmpl_id" string="Article" required="1"  widget="many2one_clickable"/>
                     <field name="product_id" string="Variante" groups="product.group_product_variant" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create':1}"/>
@@ -32,7 +32,7 @@
                     <field name="write_date"  optional="hide" string="Modifié le"/>
                     <field name="write_uid"   optional="hide" string="Modifié par"/>
                     <field name="active"      optional="hide"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="is_product_pricelist_item_view_search" model="ir.ui.view">
@@ -49,7 +49,7 @@
             <field name="name">Lignes</field>
             <field name="res_model">product.pricelist.item</field>
             <field name="limit">100</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="view_id" ref="is_fromtome20.is_product_pricelist_item_tree"/>
             <field name="domain">[('pricelist_id','=',active_id),('active','in',[0,1])]</field>
             <field name="context">{'default_pricelist_id': active_id}</field>
@@ -106,12 +106,12 @@
                     <group string="Ajouter des articles" attrs="{'invisible':[('is_pricelist_id','=',False)]}">
                         <field name="is_existing_product_tmpl_ids" invisible="1"/>
                         <field name="is_product_ids" domain="[('id', 'not in', is_existing_product_tmpl_ids)]" options="{'no_create': True}" nolabel="1" colspan="2">
-                            <tree>
+                            <list>
                                 <button name="is_voir_article_action" type="object" icon="fa-search" title="Voir l'article"/>
                                 <field name="name" string="Article"/>
                                 <field name="default_code" string="Réf. interne"/>
                                 <field name="is_ref_fournisseur" string="Réf. fournisseur"/>
-                            </tree>
+                            </list>
                         </field>
                         <div>
                             <button
@@ -124,7 +124,7 @@
                         </div>
                     </group>
                 </xpath>
-                <xpath expr="//field[@name='item_ids']/tree/field[@name='date_end']" position="after">
+                <xpath expr="//field[@name='item_ids']/list/field[@name='date_end']" position="after">
                     <field name="is_prix_achat" optional="show"/>
                     <field name="is_taux_marge" optional="show"/>
                     <button 

@@ -29,7 +29,7 @@
         <field name="name">is_mail_activity_tree</field>
         <field name="model">mail.activity</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="res_model_id"                 optional="show"/>
                 <field name="res_model"                    optional="hide"/>
                 <field name="res_id"                       optional="hide"/>
@@ -51,7 +51,7 @@
                 <field name="write_uid"                    optional="hide"/>
                 <field name="write_date"                   optional="hide"/>
                 <field name="active"                       optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_mail_activity_search" model="ir.ui.view">
@@ -101,7 +101,7 @@
     <record  id="is_mail_activity_action" model="ir.actions.act_window">
         <field name="name">Activités</field>
         <field name="res_model">mail.activity</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">['|',('active','=',True),('active','=',False)]</field>
     </record>
 
@@ -109,7 +109,7 @@
     <record  id="activites_a_faire_action" model="ir.actions.act_window">
         <field name="name">Activités à faire</field>
         <field name="res_model">mail.activity</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain">[('active','=',True),('activity_type_id.name','!=','Exception')]</field>
     </record>
 

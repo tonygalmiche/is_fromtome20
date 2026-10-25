@@ -56,7 +56,7 @@
                             confirm="ATTENTION : Cela va remplacer les taux de marge des tarifs future"
                         />
                     </group>
-                    <group string="Alertes importation" attrs="{'invisible':[('is_import_alerte','=',False)]}" >
+                    <group string="Alertes importation" invisible="not is_import_alerte" >
                         <div style="background:orange;font-weight:bold;padding-left:5pt">
                             <field name="is_import_alerte" nolabel="1"/>
                         </div>

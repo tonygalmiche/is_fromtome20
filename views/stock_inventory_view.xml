@@ -63,7 +63,7 @@
         <field name="name">is_stock_inventory_line_tree</field>
         <field name="model">stock.inventory.line</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="company_id" invisible="1"/>
                 <field name="product_tracking" invisible="1"/>
                 <field name="is_editable" invisible="1"/>
@@ -84,7 +84,7 @@
                 <field name="state" invisible="1"/>
                 <field name="is_dernier_prix"/>
                 <field name="is_stock_valorise" sum="Total"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

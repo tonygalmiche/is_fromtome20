@@ -6,7 +6,7 @@
         <field name="name">is.preparation.transfert.entrepot.ligne.tree</field>
         <field name="model">is.preparation.transfert.entrepot.ligne</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <button 
                     title="Article" 
                     name="acceder_article_action" 
@@ -38,7 +38,7 @@
                 <field name="livraison_lc"  optional="show" sum="Total"/>
                 <field name="solde_lc"      optional="show" sum="Total"/>
                 <field name="solde"         optional="show" sum="Total"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_preparation_transfert_entrepot_ligne_search" model="ir.ui.view">
@@ -101,13 +101,13 @@
                     </group>    
                     <group attrs="{'invisible': [('picking_ids', '=', [])]}">
                         <field name="picking_ids">
-                            <tree>
+                            <list>
                                 <button name="voir_picking_action" type="object" title="Picking" icon="fa-search-plus"/>
                                 <field name="name"/>
                                 <field name="location_id"/>
                                 <field name="location_dest_id"/>
                                 <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state not in ('done', 'cancel')"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>    
                 </sheet>
@@ -118,13 +118,13 @@
         <field name="name">is.preparation.transfert.entrepot.tree</field>
         <field name="model">is.preparation.transfert.entrepot</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="date"/>
                 <field name="date_debut"/>
                 <field name="date_fin"/>
                 <field name="calcul_en_colis"/>
                 <field name="commentaire"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="is_preparation_transfert_entrepot_search" model="ir.ui.view">
@@ -139,7 +139,7 @@
     <record  id="is_preparation_transfert_entrepot_action" model="ir.actions.act_window">
         <field name="name">Préparation transfert entrepôt</field>
         <field name="res_model">is.preparation.transfert.entrepot</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[]</field>
     </record>
     <menuitem
