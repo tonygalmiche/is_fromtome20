@@ -48,7 +48,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # 'views/product_tech_template.xml',
         'views/purchase_view.xml',
         'views/res_company_view.xml',
-        # 'views/res_partner_view.xml',
+        'views/res_partner_view.xml',
         # 'views/partner_map_template.xml',
         'views/res_users_view.xml',
         # 'views/sale_view.xml',

@@ -213,7 +213,8 @@
             <field name="email" position="after">
                 <field name="is_contact_relance_facture_id" optional="hide"/>
             </field>
-           <field name="parent_id" position="after">
+            <!-- v20 : plus de colonne parent_id dans la liste : colonnes en fin de liste -->
+            <xpath expr="//list" position="inside">
                 <field name="is_gln"                            optional="hide"/>
                 <field name="is_code_fromtome"                  optional="hide"/>
                 <field name="is_code_interne"                   optional="hide"/>
@@ -241,7 +242,7 @@
                 <field name="is_date_fin_nouveau_tarif"         optional="hide"/>
                 <field name="zip"                               optional="hide"/>
                 <field name="is_localisation"                   optional="hide"/>
-            </field>
+            </xpath>
         </field>
     </record>
     <record id="is_view_partner_form" model="ir.ui.view" >
@@ -260,39 +261,38 @@
                 </style>
             </xpath>
             <xpath expr="//sheet/group/group/field[@name='website']" position="before">
-                 <field 
-                    name="is_contact_relance_facture_id" 
-                    attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"
+                 <field
+                    name="is_contact_relance_facture_id"
+                    invisible="not is_customer or not is_company"
 
                     domain="[('parent_id','=',id)]"
 
 
 
                 />
+                <!-- v20 : plus de champ type dans le formulaire principal (seulement pour les contacts enfants) -->
+                <field name="is_enseigne_id"/>
             </xpath>
             <field name="vat" position="after">
                 <field name="is_gln"/>
                 <field name="is_code_fromtome"/>
                 <field name="is_code_interne"/>
                 <field name="is_localisation"/>
-                <field name="is_localisation_google_maps_url" widget="url" string="📍 Maps" attrs="{'invisible': [('is_localisation', '=', False)]}"/>
+                <field name="is_localisation_google_maps_url" widget="url" string="📍 Maps" invisible="not is_localisation"/>
                 <field name="is_transporteur_id" widget="selection"/>
                 <field name="is_warehouse_id"    widget="selection"/>
                 <field name="is_frais_port_id"/>
-                <field name="is_mini_cde_franco"         attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
-                <field name="is_heure_envoi_id"          attrs="{'invisible': ['|',('is_supplier', '=', False),('is_company', '=', False)]}"/>
-                <field name="is_emplacement_fournisseur" attrs="{'invisible': ['|',('is_supplier', '=', False),('is_company', '=', False)]}"/>
-                <field name="is_mini_cde"                attrs="{'invisible': ['|',('is_supplier', '=', False),('is_company', '=', False)]}"/>
-                <field name="is_heure_appel"             attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
-                <field name="is_habitude_commande"       attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
-                <field name="is_encours_client"          attrs="{'invisible': ['|',('is_customer', '=', False),('is_company', '=', False)]}"/>
+                <field name="is_mini_cde_franco"         invisible="not is_customer or not is_company"/>
+                <field name="is_heure_envoi_id"          invisible="not is_supplier or not is_company"/>
+                <field name="is_emplacement_fournisseur" invisible="not is_supplier or not is_company"/>
+                <field name="is_mini_cde"                invisible="not is_supplier or not is_company"/>
+                <field name="is_heure_appel"             invisible="not is_customer or not is_company"/>
+                <field name="is_habitude_commande"       invisible="not is_customer or not is_company"/>
+                <field name="is_encours_client"          invisible="not is_customer or not is_company"/>
             </field>
             <xpath expr="//page[@name='sales_purchases']/group/group/field[@name='user_id']" position="before">
                 <field name="is_customer"/>
                 <field name="is_frequence_facturation"/>
-            </xpath>
-            <xpath expr="//group/group/field[@name='type']" position="after">
-                <field name="is_enseigne_id"/>
             </xpath>
             <xpath expr="//notebook" position="after">
                 <group>
@@ -312,12 +312,12 @@
             <xpath expr="//group[@name='purchase']" position="inside">
                 <field
                     name="default_supplierinfo_discount"
-                    attrs="{'invisible': [('is_company', '=', False), ('parent_id', '!=', False)]}"
+                    invisible="not is_company and parent_id"
                 />
                 <div
                     name="supplierinfo_discount_disabled"
                     colspan="2"
-                    attrs="{'invisible': ['|',('is_company', '=', True), ('parent_id', '=', False)]}"
+                    invisible="is_company or not parent_id"
                 >
                     <p>Discount-related settings are managed on <button
                             name="open_commercial_entity"
@@ -331,7 +331,7 @@
 
             <xpath expr="//field[@name='child_ids']" position="attributes">
                 <attribute name="context">{
-                    'default_parent_id': active_id, 
+                    'default_parent_id': id,
                     'default_street': street, 
                     'default_street2': street2, 
                     'default_city': city, 
@@ -344,14 +344,17 @@
                     'default_is_enseigne_id': is_enseigne_id
                 }</attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/form/sheet/group/group/field[@name='name']" position="after">
-                <field name="is_enseigne_id"/>
+            <!-- v20 : nom du contact enfant dans un titre (h3), enseigne dans un groupe sous l'en-tête -->
+            <xpath expr="//field[@name='child_ids']/form/sheet/div" position="after">
+                <group>
+                    <field name="is_enseigne_id"/>
+                </group>
             </xpath>
             <field name="category_id" position="after">
                 <field name="is_commentaire_commande"/>
             </field>
             <page name="sales_purchases" position="after" >
-                <page string="Remises particulières" attrs="{'invisible': ['|',('is_company', '=', False), ('is_customer', '=', False)]}">
+                <page string="Remises particulières" invisible="not is_company or not is_customer">
                     <group>
                         <group>
                             <field name="is_remise_particuliere_ids" nolabel="1">
@@ -382,7 +385,7 @@
                     name="creer_modele_commande"
                     type="object"
                     string="Créer un modèle de commande"
-                    attrs="{'invisible': [('is_modele_commande_id', '!=', False)]}"
+                    invisible="is_modele_commande_id"
                 />
             </field>
         </field>
@@ -430,7 +433,8 @@
                 <field name="is_heure_appel"/>
                 <field name="is_heure_envoi_id"/>
             </field>
-            <filter name="type_company" position="after">
+            <!-- v20 : plus de filtre type_company (Sociétés) -->
+            <filter name="inactive" position="before">
                 <filter string="Clients"      name="is_customer" domain="[('is_customer', '=', True)]"/>
                 <filter string="Fournisseurs" name="is_supplier" domain="[('is_supplier', '=', True)]"/>
                 <filter string="Transporteurs" name="is_transporteur" domain="[('is_transporteur', '=', True)]"/>
