@@ -28,7 +28,7 @@
                     <span t-field="doc.partner_id.phone"/>
                 </t>
 
-                <p t-if="doc.partner_id.vat"><t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>:
+                <p t-if="doc.partner_id.vat"><t t-out="doc.company_id.country_id.vat_label or 'Tax ID'"/>:
                     <span t-field="doc.partner_id.vat"/>
                 </p>
             </t>
@@ -74,9 +74,9 @@
                         <tr>
                             <!-- TODO: remove in master -->
                             <t t-set="colspan" t-value="5"/>
-                            <th class="text-left">Désignation</th>
-                            <th class="text-right">Unité</th>
-                            <th class="text-right">PU H.T. en €</th>
+                            <th class="text-start">Désignation</th>
+                            <th class="text-end">Unité</th>
+                            <th class="text-end">PU H.T. en €</th>
                         </tr>
                     </thead>
                     <tbody class="sale_tbody">
@@ -85,19 +85,19 @@
 
                         <t t-foreach="doc.order_line" t-as="line">
 
-                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                            <!-- v20 : groupes « sous-totaux HT / TTC » supprimés => company_price_include -->
+                            <t t-set="current_subtotal" t-value="current_subtotal + (line.price_total if doc.company_price_include == 'tax_included' else line.price_subtotal)"/>
 
-                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                            <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                                 <t t-if="not line.display_type">
                                     <td>
                                         <span t-field="line.name"/>
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-end">
 
-                                        <span t-field="line.product_uom"/>
+                                        <span t-field="line.product_uom_id"/>
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-end">
                                         <span t-field="line.price_unit"/>
                                     </td>
 
@@ -142,7 +142,6 @@
         <field name="model">sale.order</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">is_fromtome20.report_offre</field>
-        <field name="report_file">is_fromtome20.report_offre</field>
         <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_type">report</field>
     </record>

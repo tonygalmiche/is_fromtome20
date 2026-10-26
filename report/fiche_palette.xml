@@ -6,7 +6,7 @@
                 <t t-foreach="docs" t-as="doc">
                     <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
                         <t t-call="web.address_layout"/>
-                        <t t-raw="0"/>
+                        <t t-out="0"/>
                         <style>
                         </style>
                         <div class="page">
@@ -65,7 +65,6 @@
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">is_fromtome20.report_fiche_palette_document</field>
-            <field name="report_file">is_fromtome20.report_fiche_palette_document</field>
             <field name="paperformat_id" ref="is_fromtome20.fiche_palette_paperformat"/>
         </record>
 
