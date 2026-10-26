@@ -2,9 +2,11 @@
 <odoo>
     <!-- v20 : agencement « Boxed » de la v14 supprimé ; en-tête et pied de page Fromtome reportés sur « Light »
          (web.external_layout_standard, mis par le script de reprise) : logo et nom de l'enseigne du client, RIB de l'enseigne.
-         Classes de l'en-tête dans t-attf-class : contains(), pas hasclass -->
+         Classes de l'en-tête dans t-attf-class : contains(), pas hasclass. Le table de l'en-tête est gardé (remplacé
+         à son tour par account_edi_ubl_cii.layout_invoices_generated_by_odoo, copie de Light) : en-tête Fromtome dedans -->
     <template id="is_external_layout_boxed" inherit_id="web.external_layout_standard">
         <xpath expr="//div[contains(@t-attf-class, ' header')]/table" position="replace">
+            <table class="table-borderless w-100"><tr><td>
             <div class="row mb8" t-if="o and 'partner_id' in o._fields">
                 <div class="col-6">
                     <img t-if="o and o.partner_id.is_enseigne_id.name.image_1920" t-att-src="image_data_uri(o.partner_id.is_enseigne_id.name.image_1920)" alt="Logo"/>
@@ -40,6 +42,7 @@
                     </div>
                 </div>
             </div>
+            </td></tr></table>
         </xpath>
     </template>
 
