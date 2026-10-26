@@ -119,4 +119,11 @@
         </xpath>
     </template>
 
+    <!-- PDF en français comme en v14 (langue du client en v20 : libellés de la facture standard) -->
+    <template id="is_report_invoice" inherit_id="account.report_invoice">
+        <xpath expr="//t[@t-set='lang']" position="attributes">
+            <attribute name="t-value">'fr_FR'</attribute>
+        </xpath>
+    </template>
+
 </odoo>

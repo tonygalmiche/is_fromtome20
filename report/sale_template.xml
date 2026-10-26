@@ -2,7 +2,10 @@
 <odoo>
 
     <template id="is_report_saleorder_document" inherit_id="sale.report_saleorder_document">
-
+        <!-- PDF en français comme en v14 -->
+        <xpath expr="//t[@t-set='doc']" position="attributes">
+            <attribute name="t-value">doc.with_context(lang='fr_FR')</attribute>
+        </xpath>
 
         <div class="page" position="replace">
 
@@ -166,5 +169,17 @@
             </p>
         </div>
         </div>
+    </template>
+
+    <!-- PDF en français comme en v14 (langue du client en v20 : totaux et taxes, en-tête) -->
+    <template id="is_report_saleorder_raw" inherit_id="sale.report_saleorder_raw">
+        <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="attributes">
+            <attribute name="t-lang">'fr_FR'</attribute>
+        </xpath>
+    </template>
+    <template id="is_report_saleorder_pro_forma" inherit_id="sale.report_saleorder_pro_forma">
+        <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="attributes">
+            <attribute name="t-lang">'fr_FR'</attribute>
+        </xpath>
     </template>
 </odoo>

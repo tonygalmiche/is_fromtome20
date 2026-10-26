@@ -9,6 +9,10 @@
         <xpath expr="//t[@t-set='information_block']" position="replace">
             <t t-set="information_block"/>
         </xpath>
+        <!-- PDF en français comme en v14 (langue du client en v20 : en-tête, unités, pied de page) -->
+        <xpath expr="//t[@t-set='o']" position="attributes">
+            <attribute name="t-value">o.with_context(lang='fr_FR')</attribute>
+        </xpath>
         <div class="page" position="replace">
             <style>
                 .page{
@@ -245,5 +249,12 @@
                 </t>
             </div>
         </div>
+    </template>
+
+    <!-- PDF en français comme en v14 -->
+    <template id="is_report_deliveryslip" inherit_id="stock.report_deliveryslip">
+        <xpath expr="//t[@t-call='stock.report_delivery_document']" position="attributes">
+            <attribute name="t-lang">'fr_FR'</attribute>
+        </xpath>
     </template>
 </odoo>
