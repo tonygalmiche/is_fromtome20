@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, tools, _
+from markupsafe import Markup, escape
 import codecs
 import unicodedata
 import base64
@@ -123,7 +124,7 @@ class IsListingPrixClient(models.Model):
                 products = self.env['product.product'].search([('id','in',ids)], order="name")
                 if products:
                     html+='<div style="height:2mm"></div>'
-                    html+="<h1>%s</h1>"%(milk.name)
+                    html+="<h1>%s</h1>"%(escape(milk.name))
                     html+="<table>"
                     html+='<thead><tr style="height:0">'
                     html+='<th style="width:25%"></th>'
@@ -170,7 +171,7 @@ class IsListingPrixClient(models.Model):
                         translate_product = p.with_context(lang=obj.lang)
                         #******************************************************
 
-                        html+='<div style="font-weight:bold;text-align:center;height:16mm">['+p.default_code+'] '+translate_product.name+'</div>'
+                        html+='<div style="font-weight:bold;text-align:center;height:16mm">['+str(escape(p.default_code))+'] '+str(escape(translate_product.name))+'</div>'
                         if img:
                             html+='<div style="text-align:center;height:30mm"><img src="'+img+'" alt="Logo" style="max-height:30mm;max-width:35mm"/></div>'
                         else:
@@ -206,7 +207,8 @@ class IsListingPrixClient(models.Model):
                     html+="</tbody>"
                     html+="</table>"
                     html+='<div style="page-break-after: always;"></div>'
-            return html
+            # v20 : t-raw supprimé, t-out n'insère tel quel que du Markup (saisies échappées ci-dessus)
+            return Markup(html)
 
 
     def get_products(self):

@@ -10,7 +10,7 @@
                         <t t-foreach="res" t-as="type">
                             <table class="table table-sm o_main_table">
                                 <thead>
-                                    <tr><th colspan="100" style="color:black;background-color:Gainsboro;font-size:12pt"><t t-esc="type"/></th></tr>
+                                    <tr><th colspan="100" style="color:black;background-color:Gainsboro;font-size:12pt"><t t-out="type"/></th></tr>
                                     <tr>
                                         <th class="text-center">Référence<br />Interne</th>
                                         <th class="text-center">Nom<br />Article</th>
@@ -26,20 +26,20 @@
                                 <tbody>
                                     <tr t-foreach="res[type]" t-as="product">
                                         <td class="text-center"><span t-field="product.default_code"/></td>
-                                        <td class="text-left"><span t-field="product.name"/></td>
-                                        <td class="text-left"><span t-field="product.is_fournisseur_id.name"/></td>
-                                        <td class="text-right text-nowrap"><span t-esc='str(round(product.is_poids_net_colis/(product.is_nb_pieces_par_colis or 1),3)).replace(".",",")'/> Kg</td>
+                                        <td class="text-start"><span t-field="product.name"/></td>
+                                        <td class="text-start"><span t-field="product.is_fournisseur_id.name"/></td>
+                                        <td class="text-end text-nowrap"><span t-out='str(round(product.is_poids_net_colis/(product.is_nb_pieces_par_colis or 1),3)).replace(".",",")'/> Kg</td>
                                         <td class="text-center"><span t-field="product.is_nb_pieces_par_colis"/></td>
-                                        <td class="text-center text-nowrap"><span t-field="product.traitement_thermique"/></td>                               
-                                        <td t-if="o.afficher_prix" class="text-right">
-                                            <t 
-                                                t-esc="product.get_product_pricelist(o.pricelist_id)"
+                                        <td class="text-center text-nowrap"><span t-field="product.traitement_thermique"/></td>
+                                        <td t-if="o.afficher_prix" class="text-end">
+                                            <t
+                                                t-out="product.get_product_pricelist(o.pricelist_id)"
                                                 t-options='{"widget": "monetary", "display_currency": o.enseigne_id.name.currency_id}'
                                             />
                                         </td>
-                                        <td t-if="o.prix_futur" class="text-right">
-                                            <t 
-                                                t-esc="product.get_prix_futur(o.prix_futur)"
+                                        <td t-if="o.prix_futur" class="text-end">
+                                            <t
+                                                t-out="product.get_prix_futur(o.prix_futur)"
                                                 t-options='{"widget": "monetary", "display_currency": o.enseigne_id.name.currency_id}'
                                             />
                                         </td>
@@ -73,7 +73,6 @@
         <field name="model">is.listing.prix.client</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">is_fromtome20.listing_prix_client_liste_report</field>
-        <field name="report_file">is_fromtome20.listing_prix_client_liste_report</field>
         <field name="paperformat_id" ref="is_fromtome20.listing_prix_client_liste_paperformat"/>
         <field name="binding_model_id" ref="model_is_listing_prix_client"/>
         <field name="binding_type">report</field>

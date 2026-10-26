@@ -8,7 +8,7 @@
                     <div class="col-3">
                         <img t-if="o.enseigne_id.name.image_256" t-att-src="image_data_uri(o.enseigne_id.name.image_256)" alt="Logo"/>
                     </div>
-                    <div class="col-9 text-right mb4">
+                    <div class="col-9 text-end mb4">
                         <div name="res_company" class="mb4">
                             <div t-if="o.promo_generique==False" style="font-size:13pt;font-weight:700 !important;">
                                 Promos pour '<span t-field="o.partner_id.name"/>'
@@ -17,14 +17,14 @@
                                 VOS PROMOTIONS
                             </div>
                             <div style="font-size:11pt;font-weight:700 !important;" t-field="o.enseigne_id.name.name"/>
-                            <span t-field="res_company.street"/> - 
-                            <span t-field="res_company.zip"/>
+                            <span t-field="company.street"/> -
+                            <span t-field="company.zip"/>
                             <![CDATA[
                             &nbsp;
                             ]]>
-                            <span t-field="res_company.city"/> - <span t-field="res_company.country_id"/>
+                            <span t-field="company.city"/> - <span t-field="company.country_id"/>
                            <div t-if="o.enseigne_id">
-                                Tél: <span t-esc="o.enseigne_id.name.mobile or o.enseigne_id.name.phone"/>
+                                Tél: <span t-out="o.enseigne_id.name.mobile or o.enseigne_id.name.phone"/>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <t t-raw="0"/>
+            <t t-out="0"/>
         </div>
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="text-center" style="border-top: 1px solid black;">
@@ -52,13 +52,14 @@
                 <t t-set="company" t-value="o.company_id.sudo()"/>
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="env.company"/>
             </t>
         </t>
         <t t-call="is_fromtome20.is_promo_client_external_layout_standard">
-            <t t-raw="0"/>
+            <t t-out="0"/>
         </t>
     </template>
+    <!-- v20 : comme web.report_layout (web.assets_common supprimé) -->
     <template id="is_promo_client_report_layout" name="Report layout">&lt;!DOCTYPE html&gt;
         <html t-att-lang="lang and lang.replace('_', '-')"
               t-att-data-report-margin-top="data_report_margin_top"
@@ -69,15 +70,13 @@
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="initial-scale=1"/>
-                <title><t t-esc="title or 'Odoo Report'"/></title>
-                <t t-call-assets="web.report_assets_common" t-js="false"/>
-                <t t-call-assets="web.assets_common" t-css="false"/>
-                <t t-call-assets="web.report_assets_common" t-css="false"/>
+                <title><t t-out="title or 'Odoo Report'"/></title>
+                <t t-call-assets="web.report_assets_common" t-autoprefix="true"/>
             </head>
             <body t-att-class="'container' if not full_width else 'container-fluid'">
                 <div id="wrapwrap">
                     <main>
-                        <t t-raw="0"/>
+                        <t t-out="0"/>
                     </main>
                 </div>
             </body>
@@ -86,7 +85,7 @@
     <template id="is_promo_client_html_container">
         <t t-set="body_classname" t-value="'container'"/>
         <t t-call="is_fromtome20.is_promo_client_report_layout">
-            <t t-raw="0"/>
+            <t t-out="0"/>
         </t>
     </template>
 
@@ -103,17 +102,17 @@
                                 <thead>
                                     <tr>
                                         <th colspan="100" style="color:black;background-color:Gainsboro;font-size:12pt">
-                                            Promo fournisseur '<t t-esc="promo.partner_id.name"/>' 
-                                            du <t t-esc="promo.date_debut_promo" t-options="{'widget': 'date'}"/>
-                                            au <t t-esc="promo.date_fin_promo"   t-options="{'widget': 'date'}"/>
+                                            Promo fournisseur '<t t-out="promo.partner_id.name"/>'
+                                            du <t t-out="promo.date_debut_promo" t-options="{'widget': 'date'}"/>
+                                            au <t t-out="promo.date_fin_promo"   t-options="{'widget': 'date'}"/>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th style="width:15%" class="text-center">Référence Interne</th>
-                                        <th style="width:50%" class="text-left">Nom Article</th>
-                                        <th t-if="o.afficher_prix" style="width:15%" class="text-right">Prix non remisé</th>
-                                        <th style="width:15%" class="text-right">Remise (%)</th>
-                                        <th t-if="o.afficher_prix" style="width:15%" class="text-right">Prix remisé</th>
+                                        <th style="width:50%" class="text-start">Nom Article</th>
+                                        <th t-if="o.afficher_prix" style="width:15%" class="text-end">Prix non remisé</th>
+                                        <th style="width:15%" class="text-end">Remise (%)</th>
+                                        <th t-if="o.afficher_prix" style="width:15%" class="text-end">Prix remisé</th>
                                         <th t-if="o.afficher_prix" style="width:10%" class="text-center">Unité</th>
                                         <th t-if="o.afficher_image" style="width:15%" class="text-center">Photo</th>
                                     </tr>
@@ -121,10 +120,10 @@
                                 <tbody>
                                     <tr t-foreach="res[promo]" t-as="line">
                                         <td class="text-center align-middle"><span t-field="line.product_id.default_code"/></td>
-                                        <td class="text-left align-middle"><span t-field="line.product_id.name"/></td>
-                                        <td t-if="o.afficher_prix" class="text-right align-middle"><span t-field="line.prix_non_remise"/></td>
-                                        <td class="text-right align-middle"><span t-field="line.remise_client"/></td>
-                                        <td t-if="o.afficher_prix" class="text-right align-middle"><span t-field="line.prix_remise"/></td>
+                                        <td class="text-start align-middle"><span t-field="line.product_id.name"/></td>
+                                        <td t-if="o.afficher_prix" class="text-end align-middle"><span t-field="line.prix_non_remise"/></td>
+                                        <td class="text-end align-middle"><span t-field="line.remise_client"/></td>
+                                        <td t-if="o.afficher_prix" class="text-end align-middle"><span t-field="line.prix_remise"/></td>
                                         <td t-if="o.afficher_prix" class="text-center align-middle"><span t-field="line.uom_id"/></td>
                                         <td t-if="o.afficher_image" class="text-center align-middle">
                                             <img 
@@ -162,7 +161,6 @@
         <field name="model">is.promo.client</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">is_fromtome20.is_promo_client_report</field>
-        <field name="report_file">is_fromtome20.is_promo_client_report</field>
         <field name="paperformat_id" ref="is_fromtome20.is_promo_client_paperformat"/>
         <field name="binding_model_id" ref="model_is_promo_client"/>
         <field name="binding_type">report</field>

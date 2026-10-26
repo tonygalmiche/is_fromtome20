@@ -7,18 +7,18 @@
                     <div class="col-6">
                         <img t-if="o.enseigne_id.name.image_1920" t-att-src="image_data_uri(o.enseigne_id.name.image_1920)" alt="Logo"/>
                     </div>
-                    <div class="col-6 text-right mb4">
+                    <div class="col-6 text-end mb4">
                         <div name="res_company" class="mb4">
                             <div style="font-size:13pt;font-weight:700 !important;" t-field="o.nom_listing"/>
                             <div style="font-size:11pt;font-weight:700 !important;" t-field="o.enseigne_id.name.name"/>
-                            <span t-field="res_company.street"/> - 
-                            <span t-field="res_company.zip"/>
+                            <span t-field="company.street"/> -
+                            <span t-field="company.zip"/>
                             <![CDATA[
                             &nbsp;
                             ]]>
-                            <span t-field="res_company.city"/> - <span t-field="res_company.country_id"/>
+                            <span t-field="company.city"/> - <span t-field="company.country_id"/>
                            <div t-if="o.enseigne_id">
-                                Tél: <span t-esc="o.enseigne_id.name.mobile or o.enseigne_id.name.phone"/>
+                                Tél: <span t-out="o.enseigne_id.name.mobile or o.enseigne_id.name.phone"/>
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <t t-raw="0"/>
+            <t t-out="0"/>
         </div>
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="text-center" style="border-top: 1px solid black;">
@@ -46,13 +46,14 @@
                 <t t-set="company" t-value="o.company_id.sudo()"/>
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="env.company"/>
             </t>
         </t>
         <t t-call="is_fromtome20.external_layout_standard">
-            <t t-raw="0"/>
+            <t t-out="0"/>
         </t>
     </template>
+    <!-- v20 : comme web.report_layout (web.assets_common supprimé) -->
     <template id="report_layout" name="Report layout">&lt;!DOCTYPE html&gt;
         <html t-att-lang="lang and lang.replace('_', '-')"
               t-att-data-report-margin-top="data_report_margin_top"
@@ -63,15 +64,13 @@
             <head>
                 <meta charset="utf-8"/>
                 <meta name="viewport" content="initial-scale=1"/>
-                <title><t t-esc="title or 'Odoo Report'"/></title>
-                <t t-call-assets="web.report_assets_common" t-js="false"/>
-                <t t-call-assets="web.assets_common" t-css="false"/>
-                <t t-call-assets="web.report_assets_common" t-css="false"/>
+                <title><t t-out="title or 'Odoo Report'"/></title>
+                <t t-call-assets="web.report_assets_common" t-autoprefix="true"/>
             </head>
             <body t-att-class="'container' if not full_width else 'container-fluid'">
                 <div id="wrapwrap">
                     <main>
-                        <t t-raw="0"/>
+                        <t t-out="0"/>
                     </main>
                 </div>
             </body>
@@ -80,7 +79,7 @@
     <template id="html_container">
         <t t-set="body_classname" t-value="'container'"/>
         <t t-call="is_fromtome20.report_layout">
-            <t t-raw="0"/>
+            <t t-out="0"/>
         </t>
     </template>
     <template id="listing_prix_client_report">
@@ -98,7 +97,7 @@
 
                     <div class="page" style="background-color:#F2F2F5">
                         <div class="oe_structure"/>
-                        <div t-raw="o.get_html4()"/>
+                        <div t-out="o.get_html4()"/>
                     </div>
                 </t>
             </t>
@@ -124,7 +123,6 @@
         <field name="model">is.listing.prix.client</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">is_fromtome20.listing_prix_client_report</field>
-        <field name="report_file">is_fromtome20.listing_prix_client_report</field>
         <field name="paperformat_id" ref="is_fromtome20.listing_prix_client_paperformat"/>
         <field name="binding_model_id" ref="model_is_listing_prix_client"/>
         <field name="binding_type">report</field>
