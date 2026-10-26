@@ -61,5 +61,10 @@
                 </table>
             </xpath>
         </template>
+
+        <!-- Nom français de la v14 (« Opérations de transfert » en v20) ; nom traduisible : valeur française -->
+        <record id="stock.action_report_picking" model="ir.actions.report" context="{'lang': 'fr_FR'}">
+            <field name="name">Bon de préparation avec code barre</field>
+        </record>
     </data>
 </odoo>
