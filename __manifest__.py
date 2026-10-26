@@ -94,7 +94,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # 'views/report_invoice.xml',
         # 'report/is_promo_client_template.xml',
         # 'report/delivery_template.xml',
-        # 'report/fiche_prepa_template.xml',
+        'report/fiche_prepa_template.xml',
         # 'report/sale_template.xml',
         # 'report/purchase_order_templates.xml',
         # 'report/external_layout_boxed.xml',

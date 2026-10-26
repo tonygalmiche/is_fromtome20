@@ -6,18 +6,19 @@
                 <attribute name="t-lang">'fr_FR'</attribute>
             </xpath>
             <div name="right_box" position="replace"/>
-            <h1 t-field="o.name" position="replace"/>
-            <div name="div_sched_date" position="replace">
-                <div class="col-auto" name="div_sched_date">
+            <!-- v20 : titre en h2, date prévue dans div_picking_date, tableau principal o_main_table -->
+            <h2 t-field="o.name" position="replace"/>
+            <div name="div_picking_date" position="replace">
+                <div name="div_picking_date">
                     <strong>Date de livraison prévue:</strong>
                     <p t-field="o.is_date_livraison"/>
                 </div>
-                <div class="col-auto">
+                <div>
                     <strong>Transporteur:</strong>
                     <p t-field="o.is_transporteur_id"/>
                 </div>
             </div>
-            <xpath expr="//table[1]" position="replace">
+            <xpath expr="//table[hasclass('o_main_table')]" position="replace">
             <style>
                 .table{
                     font-size:10pt;
@@ -35,26 +36,26 @@
                <table class="table table-sm mt48">
                     <thead>
                         <tr>
-                            <th class="text-left"> <strong></strong></th>
-                            <th class="text-left"> <strong>Désignation</strong></th>
-                            <th class="text-left"> <strong>Réf</strong></th>
-                            <th class="text-right"> <strong>Colis Cde</strong></th>
+                            <th class="text-start"> <strong></strong></th>
+                            <th class="text-start"> <strong>Désignation</strong></th>
+                            <th class="text-start"> <strong>Réf</strong></th>
+                            <th class="text-end"> <strong>Colis Cde</strong></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr t-foreach="o.move_ids_without_package" t-as="line" t-att-class="'ligne_grise' if line_odd else None">
+                        <tr t-foreach="o.move_ids" t-as="line" t-att-class="'ligne_grise' if line_odd else None">
                             <td style="width: 2mm"   class="text-center"><span t-field="line.is_emplacement_fournisseur"/></td>
-                            <td style="width: 150mm" class="text-left">
+                            <td style="width: 150mm" class="text-start">
                                 <div><strong><span t-field="line.is_description_prepa"/></strong></div>
                             </td>
-                            <td style="width: 10mm" class="text-left"><span t-field="line.is_ref_fournisseur"/></td>
-                            <td style="width: 10mm" class="text-right"><b><span t-field="line.is_nb_colis_cde"/></b></td>
+                            <td style="width: 10mm" class="text-start"><span t-field="line.is_ref_fournisseur"/></td>
+                            <td style="width: 10mm" class="text-end"><b><span t-field="line.is_nb_colis_cde"/></b></td>
                         </tr>
                     </tbody>
                     <thead>
                         <tr>
-                            <th colspan="3" class="text-left">  <strong>Total : </strong></th>
-                            <th class="text-right"><strong><span t-field="o.is_nb_colis"/></strong></th>
+                            <th colspan="3" class="text-start">  <strong>Total : </strong></th>
+                            <th class="text-end"><strong><span t-field="o.is_nb_colis"/></strong></th>
                         </tr>
                     </thead>
                 </table>
