@@ -29,7 +29,8 @@
                             <div t-field="o.partner_id.street"/>
                             <div t-if="o.partner_id.street2"><span t-field="o.partner_id.street2"/></div>
                             <div><span t-field="o.partner_id.zip"/> <span t-field="o.partner_id.city"/></div>
-                            <div t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id.name"/></div>
+                            <!-- Pays dans la langue du client, comme en v14 (PDF forcé en français) -->
+                            <div t-if="o.partner_id.country_id"><span t-out="o.partner_id.country_id.with_context(lang=o.partner_id.lang).name"/></div>
                         </th>
                         <th class="text-start" style="border:none" t-if="o.sale_id">
                             <div style="text-decoration: underline">Adresse de facturation:</div>
@@ -45,7 +46,7 @@
                             <div t-field="o.sale_id.partner_invoice_id.street"/>
                             <div t-if="o.sale_id.partner_invoice_id.street2"><span t-field="o.sale_id.partner_invoice_id.street2"/></div>
                             <div><span t-field="o.sale_id.partner_invoice_id.zip"/> <span t-field="o.sale_id.partner_invoice_id.city"/></div>
-                            <div t-if="o.sale_id.partner_invoice_id.country_id"><span t-field="o.sale_id.partner_invoice_id.country_id.name"/></div>
+                            <div t-if="o.sale_id.partner_invoice_id.country_id"><span t-out="o.sale_id.partner_invoice_id.country_id.with_context(lang=o.partner_id.lang).name"/></div>
                         </th>
                     </tr>
                 </table>
