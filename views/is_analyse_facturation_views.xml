@@ -213,8 +213,8 @@
                 <filter name="2025" string="2025" domain="[('invoice_date', '&gt;=', '2025-01-01'),('invoice_date', '&lt;=', '2025-12-31')]"/>
                 <filter name="2026" string="2026" domain="[('invoice_date', '&gt;=', '2026-01-01'),('invoice_date', '&lt;=', '2026-12-31')]"/>
                 <filter name="depuis_2025" string="Depuis le 01/01/2025" domain="[('invoice_date', '&gt;=', '2025-01-01')]"/>
-                <filter name="last_18_months" string="18 derniers mois" domain="[('invoice_date', '&gt;=', (datetime.datetime.today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d'))]"/>
-                <filter name="last_18_months_no_transport" string="18 derniers mois hors transport" domain="[('invoice_date', '&gt;=', (datetime.datetime.today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d')), ('categ_id', 'not ilike', 'TRANSPORT')]"/>
+                <filter name="last_18_months" string="18 derniers mois" domain="[('invoice_date', '&gt;=', (context_today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d'))]"/>
+                <filter name="last_18_months_no_transport" string="18 derniers mois hors transport" domain="[('invoice_date', '&gt;=', (context_today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d')), ('categ_id', 'not ilike', 'TRANSPORT')]"/>
            </search>
         </field>
     </record>
@@ -574,7 +574,7 @@
                 <filter name="2025" string="2025" domain="[('invoice_date', '&gt;=', '2025-01-01'),('invoice_date', '&lt;=', '2025-12-31')]"/>
                 <filter name="2026" string="2026" domain="[('invoice_date', '&gt;=', '2026-01-01'),('invoice_date', '&lt;=', '2026-12-31')]"/>
                 <filter name="depuis_2025" string="Depuis le 01/01/2025" domain="[('invoice_date', '&gt;=', '2025-01-01')]"/>
-                <filter name="last_18_months" string="18 derniers mois" domain="[('invoice_date', '&gt;=', (datetime.datetime.today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d'))]"/>
+                <filter name="last_18_months" string="18 derniers mois" domain="[('invoice_date', '&gt;=', (context_today() - datetime.timedelta(days=548)).strftime('%Y-%m-%d'))]"/>
                 <separator/>
                 <filter name="group_by_move_type"    string="Type"       context="{'group_by': 'move_type'}"/>
                 <filter name="group_by_partner_id"   string="Partenaire" context="{'group_by': 'partner_id'}"/>
