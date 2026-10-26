@@ -1,222 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- v20 : la page de la facture v14 (remplacée en entier) est abandonnée au profit de la facture standard (mentions
+         obligatoires françaises de l10n_fr_account dont SIRET, Factur-X, totaux par taxe), complétée ici avec les
+         éléments de la v14 : adresses avec GLN et code fournisseur, références de commande et BL, code article, colis,
+         PCB et poids par ligne, lots, BIO, remise en texte, total colis et poids, mentions de pénalités -->
     <template id="is_report_invoice_document" inherit_id="account.report_invoice_document">
-        <t t-set="address" position="replace">
-        </t>
-        <div class="page" position="replace">
+
+        <!-- Adresse de livraison toujours affichée (v14), avec son GLN -->
+        <xpath expr="//t[@t-set='information_block']" position="replace">
+            <t t-set="information_block">
+                <div name="shipping_address_block">
+                    <strong class="d-block mt-3">Adresse de livraison</strong>
+                    <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                    <div t-if="o.partner_shipping_id.is_gln">GLN : <span t-field="o.partner_shipping_id.is_gln"/></div>
+                </div>
+            </t>
+        </xpath>
+
+        <!-- Adresse de facturation : GLN et code fournisseur -->
+        <xpath expr="//t[@t-set='address']" position="inside">
+            <div t-if="o.partner_id.is_gln">GLN : <span t-field="o.partner_id.is_gln"/></div>
+            <div t-if="o.partner_id.is_code_fromtome">Code Fournisseur : <span t-field="o.partner_id.is_code_fromtome"/></div>
+        </xpath>
+
+        <!-- Taille du texte de la v14 -->
+        <xpath expr="//div[@id='informations']" position="before">
             <style>
                 .page{
                     font-size:10pt;
                 }
             </style>
-            <div class="page">
-                <table style="border:none;width:100%">
-                    <tr>
-                        <th style="border:none;width:115mm">
-                            <div style="text-decoration: underline">Adresse de livraison:</div>
-                            <div><b><span t-field="o.partner_shipping_id.name"/></b></div>
-                            <div t-field="o.partner_shipping_id.street"/>
-                            <div t-if="o.partner_shipping_id.street2"><span t-field="o.partner_shipping_id.street2"/></div>
-                            <div><span t-field="o.partner_shipping_id.zip"/> <span t-field="o.partner_shipping_id.city"/></div>
-                            <div t-if="o.partner_shipping_id.country_id"><span t-field="o.partner_shipping_id.country_id.name"/></div>
-                            <div t-if="o.partner_shipping_id.is_gln">GLN:<span t-field="o.partner_shipping_id.is_gln"/></div>
-                            <div t-if="o.partner_id.vat">
-                                <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
-                                <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>
-                             <!-- OCA 20.0 : l10n_fr_siret non disponible en 20.0 (28/09/2026), à décommenter après son portage
-                             <div t-if="o.partner_id.siret">SIRET:<span t-field="o.partner_id.siret"/></div>
-                             -->
-                        </th>
-                        <th style="border:none">
-                            <div style="text-decoration: underline">Adresse de facturation:</div>
-                            <t t-if="o.partner_id.parent_id">
-                                <div><b><span t-field="o.partner_id.parent_id.name"/></b></div>
-                                <div><span t-field="o.partner_id.name"/></div>
-                            </t>
-                            <t t-else="">
-                                <div><b><span t-field="o.partner_id.name"/></b></div>
-                            </t>
-                            <div t-field="o.partner_id.street"/>
-                            <div t-if="o.partner_id.street2"><span t-field="o.partner_id.street2"/></div>
-                            <div><span t-field="o.partner_id.zip"/> <span t-field="o.partner_id.city"/></div>
-                            <div t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id.name"/></div>
- 
-                            <div t-if="o.partner_id.is_gln">GLN:<span t-field="o.partner_id.is_gln"/></div>
-                            <div t-if="o.partner_id.is_code_fromtome">Code Fournisseur:<span t-field="o.partner_id.is_code_fromtome"/></div>
-                         </th>
-                    </tr>
-                </table>
-                <br />
-                <table class="table table-sm o_main_table" name="invoice_line_table">
-                    <thead>
-                        <tr>
-                            <th class="text-center">DATE FACTURE</th>
-                            <th class="text-center">ÉCHÉANCE</th>
-                            <th class="text-center">CODE CLIENT</th>
-                            <th class="text-center">REF CDE CLIENT</th>
-                            <th class="text-center">REF CDE INT</th>
-                            <th class="text-center">BL</th>
-                        </tr>
-                    </thead>
-                    <tbody class="invoice_tbody">
-                        <tr>
-                            <td class="text-center"><span t-field="o.invoice_date"/></td>
-                            <td class="text-center"><span t-field="o.invoice_date_due"/></td>
-                            <td class="text-center"><span t-field="o.ref"/></td>
-                            <td class="text-center"><span t-field="o.is_ref_client"/></td>
-                            <td class="text-center"><span t-field="o.is_ref_int_cde"/></td>
-                            <td class="text-center"><span t-field="o.is_bl"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br />
-                <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
+        </xpath>
 
-                <table class="table table-sm o_main_table" name="invoice_line_table">
-                    <thead>
-                        <tr>
-                            <th class="text-left"><span>Code produit</span></th>
-                            <th class="text-left"><span>Désignation</span></th>
-                            <th t-if="o.move_type not in ['in_refund','out_refund']" class="text-right"><span>Colis</span></th>
-                            <th class="text-center"><span>PCB</span></th>
-                            <th class="text-center" colspan="2"><span>Qt</span></th>
-                            <th t-if="o.move_type not in ['in_refund','out_refund']" class="text-right"><span>Poids</span></th>
-                            <th class="text-right"><span>P.U.HT</span></th>
-                            <th class="text-right"><span>Montant net</span></th>
-                            <th class="text-center"><span>TVA</span></th>
-                        </tr>
-                    </thead>
-                    <tbody class="invoice_tbody">
-                        <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
-                        <t t-foreach="lines" t-as="line">
-                            <t t-if="line.display_type != 'line_section'">
-                                <tr>
-                                    <td class="text-left"><span t-field="line.product_id.default_code"/></td>
-                                    <td class="text-left">
-                                        <b><div t-field="line.name"/></b>
-                                        <div t-if="line.is_lots" t-field="line.is_lots"/>
-                                        <div t-if="line.is_bio_id"><i><span t-field="line.is_bio_id.name"/></i></div>
-                                        <div t-if="line.discount">Remise effectuée de <span t-field="line.discount"/>%</div>
-                                    </td>
-                                    <td t-if="o.move_type not in ['in_refund','out_refund']" class="text-right"><b><span t-field="line.is_nb_colis"/></b></td>
-                                    <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
-                                    <td class="text-right" style="border-right:none"><span t-if="o.move_type in ['in_refund','out_refund']">-</span><span t-field="line.quantity"/></td>
-                                    <td class="text-left"  style="border-left:none"><span t-field="line.product_uom_id"/></td>
-                                    <td t-if="o.move_type not in ['in_refund','out_refund']" class="text-right"><span t-field="line.is_poids_net"/></td>
-                                    <td class="text-right"><span t-field="line.price_unit"/></td>
-                                    <td class="text-right"><span t-if="o.move_type in ['in_refund','out_refund']">-</span><span t-field="line.price_subtotal"/></td>
-                                    <td class="text-center">
-                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))" id="line_tax_ids"/>
-                                    </td>
-                                </tr>
-                             </t>
-                            <t t-if="line.display_type == 'line_section'">
-                                <tr class="fondgris">
-                                    <td colspan="99">
-                                        <span t-field="line.name" t-options="{'widget': 'text'}"/>
-                                    </td>
-                                </tr>
-                            </t>
-                        </t>
-                    </tbody>
-                    <thead>
-                        <tr>
-                            <th class="text-left" colspan="2"> <strong>Total : </strong></th>
-                            <th t-if="o.move_type not in ['in_refund','out_refund']" class="text-right"> <strong><span t-field="o.is_nb_colis"/></strong></th>
-                            <th colspan="3"> </th>
-                            <th t-if="o.move_type not in ['in_refund','out_refund']" class="text-right"> <strong><span t-field="o.is_poids_net"/></strong></th>
-                            <th> </th>
-                            <th class="text-right"> <strong><span t-field="o.amount_untaxed_signed"/></strong></th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                </table>
-
-                <div class="clearfix">
-                    <div id="total" class="row">
-                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
-                            <table class="table table-sm" style="page-break-inside: avoid;">
-                                <tr class="border-black o_subtotal" style="">
-                                    <td><strong>Total H.T.</strong></td>
-                                    <td class="text-right">
-                                        <span t-field="o.amount_untaxed_signed"/>
-                                    </td>
-                                </tr>
-                                <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                                    <tr style="">
-                                        <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and o.amount_untaxed == amount_by_group[2]">
-                                            <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
-                                            <td class="text-right o_price_total">
-                                                <span t-if="o.move_type in ['in_refund','out_refund']">-</span><span class="text-nowrap" t-esc="amount_by_group[3]" />
-                                            </td>
-                                        </t>
-                                        <t t-else="">
-                                            <td>
-                                                <span t-if="o.move_type in ['in_refund','out_refund']">-</span><span t-esc="amount_by_group[0]"/>
-                                                <span class="text-nowrap"> on
-                                                    <t t-esc="amount_by_group[4]"/>
-                                                </span>
-                                            </td>
-                                            <td class="text-right o_price_total">
-                                                <span class="text-nowrap" t-esc="amount_by_group[3]"/>
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </t>
-                                <tr class="border-black o_total">
-                                    <td><strong>Total TTC</strong></td>
-                                    <td class="text-right">
-                                        <span class="text-nowrap" t-field="o.amount_total_signed"/>
-                                    </td>
-                                </tr>
-                                <t t-if="print_with_payments">
-                                    <t t-if="o.payment_state != 'invoicing_legacy'">
-                                        <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
-                                        <t t-foreach="payments_vals" t-as="payment_vals">
-                                            <tr>
-                                                <td>
-                                                    <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
-                                                </td>
-                                                <td class="text-right">
-                                                    <span t-if="o.move_type in ['in_refund','out_refund']">-</span><span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                                </td>
-                                            </tr>
-                                        </t>
-                                        <t t-if="len(payments_vals) > 0">
-                                            <tr class="border-black">
-                                                <td><strong>Montant du</strong></td>
-                                                <td class="text-right">
-                                                    <span t-field="o.amount_residual_signed"/>
-                                                </td>
-                                            </tr>
-                                        </t>
-                                    </t>
-                                </t>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <p t-if="o.invoice_payment_term_id" name="payment_term">
-                    <span t-field="o.invoice_payment_term_id.note"/>
-                    <!-- OCA 20.0 : account_payment_partner (payment_mode_id) non disponible en 20.0 (28/09/2026), à décommenter après son portage
-                    - <span t-field="o.payment_mode_id.name"/>
-                    -->
-                </p>
-                <p t-if="o.narration" name="comment">
-                    <span t-field="o.narration"/>
-                </p>
-                <p t-if="o.fiscal_position_id.note" name="note">
-                    <span t-field="o.fiscal_position_id.note"/>
-                </p>
-                <p t-if="o.invoice_incoterm_id" name="incoterm">
-                    <strong>Incoterm: </strong><span t-field="o.invoice_incoterm_id.code"/> - <span t-field="o.invoice_incoterm_id.name"/>
-                </p>
-                <p>
-                    Sans escompte. Pénalités en cas de retard de paiement : 3 fois le taux d’intérêt légal.<br />
-                    Indemnité forfaitaire pour frais de recouvrement : 40€ en cas de retard de paiement (Art L441-3 et L441-6 du Code de Commerce).
-                </p>
+        <!-- Informations : origine et code du partenaire masqués (absents en v14) ; la référence (o.ref) est le code
+             client ; références de commande client et interne, BL -->
+        <xpath expr="//div[@name='origin']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[@name='customer_code']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[@name='reference']/strong" position="replace">
+            <strong>Code client</strong>
+        </xpath>
+        <xpath expr="//div[@name='reference']" position="after">
+            <div class="col" t-if="o.is_ref_client" name="is_ref_client">
+                <strong>Réf cde client</strong>
+                <div t-field="o.is_ref_client"/>
             </div>
-        </div>
+            <div class="col" t-if="o.is_ref_int_cde" name="is_ref_int_cde">
+                <strong>Réf cde int</strong>
+                <div t-field="o.is_ref_int_cde"/>
+            </div>
+            <div class="col" t-if="o.is_bl" name="is_bl">
+                <strong>BL</strong>
+                <div t-field="o.is_bl"/>
+            </div>
+        </xpath>
+
+        <!-- Remise en texte dans la désignation (v14), pas de colonne -->
+        <xpath expr="//t[@t-set='display_discount']" position="attributes">
+            <attribute name="t-value">False</attribute>
+        </xpath>
+
+        <!-- Colonnes : code article, colis, PCB, poids (colis et poids absents des avoirs, comme en v14) -->
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="th_code" class="text-start"><span>Code produit</span></th>
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_colis" t-if="o.move_type not in ['in_refund','out_refund']" class="text-end"><span>Colis</span></th>
+            <th name="th_pcb" class="text-center"><span>PCB</span></th>
+        </xpath>
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_poids" t-if="o.move_type not in ['in_refund','out_refund']" class="text-end"><span>Poids</span></th>
+        </xpath>
+        <xpath expr="(//t[@t-set='line_colspan'])[1]" position="attributes">
+            <attribute name="t-value">3 + (1 if display_discount else 0) + (1 if display_taxes and not line.tax_ids else 0) + (2 if o.move_type in ['in_refund','out_refund'] else 4)</attribute>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+            <td name="td_code" class="text-start"><span t-field="line.product_id.default_code"/></td>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_name']" position="inside">
+            <div t-if="line.is_lots" t-field="line.is_lots"/>
+            <div t-if="line.is_bio_id"><i><span t-field="line.is_bio_id.name"/></i></div>
+            <div t-if="line.discount">Remise effectuée de <span t-field="line.discount"/>%</div>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_name']" position="after">
+            <td name="td_colis" t-if="o.move_type not in ['in_refund','out_refund']" class="text-end"><b><span t-field="line.is_nb_colis"/></b></td>
+            <td name="td_pcb" class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
+        </xpath>
+        <xpath expr="//td[@name='td_quantity']" position="after">
+            <td name="td_poids" t-if="o.move_type not in ['in_refund','out_refund']" class="text-end"><span t-field="line.is_poids_net"/></td>
+        </xpath>
+
+        <!-- Total colis et poids, à gauche des totaux -->
+        <xpath expr="//div[@id='right-elements']" position="before">
+            <div t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="float-start">
+                <strong>Total colis : </strong><span t-field="o.is_nb_colis"/>
+                <br/>
+                <strong>Total poids : </strong><span t-field="o.is_poids_net"/>
+            </div>
+        </xpath>
+
+        <!-- Absents en v14 : communication de paiement, QR code -->
+        <xpath expr="//p[@name='payment_communication']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='show_qr']" position="attributes">
+            <attribute name="t-value">False</attribute>
+        </xpath>
+
+        <!-- Mentions de la v14 -->
+        <xpath expr="//div[@id='payment_term']" position="inside">
+            <p>
+                Sans escompte. Pénalités en cas de retard de paiement : 3 fois le taux d’intérêt légal.<br />
+                Indemnité forfaitaire pour frais de recouvrement : 40€ en cas de retard de paiement (Art L441-3 et L441-6 du Code de Commerce).
+            </p>
+        </xpath>
     </template>
 
 </odoo>
