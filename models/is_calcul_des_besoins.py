@@ -247,7 +247,6 @@ class is_calcul_des_besoins(models.Model):
 
 
     def calcul_besoins_action(self):
-        cr,uid,context,su = self.env.args
         warehouses = self.env['stock.warehouse'].search([])
         for obj in self:
             start_time = fields.Datetime.now()

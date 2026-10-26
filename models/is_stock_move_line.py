@@ -149,7 +149,7 @@ class is_stock_move_line_valorise_update(models.TransientModel):
 
 
     def action_ok(self):
-        cr,uid,context,su = self.env.args
+        cr = self.env.cr
         filtre=[
             ('date_done','>=',self.date_debut),
             ('date_done','<=',self.date_fin),

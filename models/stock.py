@@ -227,7 +227,7 @@ class StockMoveRebut(models.Model):
 
     @api.depends('product_id','lot_ids','quantity')
     def _compute_is_dernier_prix_achat(self):
-        cr,uid,context,su = self.env.args
+        cr = self.env.cr
         for obj in self:
             x = 0
             montant = 0

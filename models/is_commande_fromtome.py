@@ -55,7 +55,7 @@ class IsCommandeFromtome(models.Model):
 
 
     def calcul_besoins_action(self):
-        cr,uid,context,su = self.env.args
+        cr = self.env.cr
         warehouses = self.env['stock.warehouse'].search([])
         for obj in self:
 

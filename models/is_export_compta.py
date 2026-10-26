@@ -62,7 +62,7 @@ class IsExportCompta(models.Model):
 
 
     def generer_lignes_action(self):
-        cr, user, context, su = self.env.args
+        cr = self.env.cr
         ct=0
 
         #Retourne le dictionnaire traduit du champ type de account.journal

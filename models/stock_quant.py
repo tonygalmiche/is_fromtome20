@@ -18,7 +18,7 @@ class StockQuant(models.Model):
     # v20 : stock.inventory supprimé : stock valorisé au dernier prix facturé (en v14 sur stock.inventory.line)
     @api.depends('product_id','quantity')
     def compute_is_dernier_prix(self):
-        cr,uid,context,su = self.env.args
+        cr = self.env.cr
         for obj in self:
             SQL="""
                 SELECT ail.price_unit,ail.product_uom_id

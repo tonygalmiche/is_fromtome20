@@ -1302,7 +1302,7 @@ class ProductProduct(models.Model):
         lang_after = self.env.context.get('lang', 'Non définie')
         _logger.info("update_pricelist_ir_cron : Langue du contexte après with_context : %s", lang_after)
         
-        cr, user, context, su = self.env.args
+        cr = self.env.cr
         products = self.env['product.template'].search([
             ('categ_id.name', '!=', 'ECHANTILLON')
         ])

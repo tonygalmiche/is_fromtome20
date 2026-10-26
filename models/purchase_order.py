@@ -12,7 +12,6 @@ class PurchaseOrder(models.Model):
 
     @api.depends('partner_id','is_fromtome_order_id')
     def _compute_is_fromtome_order_vsb(self):
-        cr,uid,context,su = self.env.args
         for obj in self:
             vsb=True
             if self.env.user.company_id.partner_id!=obj.partner_id:
@@ -204,12 +203,11 @@ class PurchaseOrder(models.Model):
 
 
     def creer_commande_fromtome_action(self):
-        cr,uid,context,su = self.env.args
         date_reception = date.today()+timedelta(days=2)
         for obj in self:
             vals={
                 'partner_id': obj.partner_id.id,
-                'user_id'   : uid,
+                'user_id'   : self.env.uid,
             }
             order=self.env['sale.order'].create(vals)
             obj.is_fromtome_order_id=order.id

@@ -483,7 +483,7 @@ class IsScanPicking(models.Model):
         """v20 : stock.inventory supprimé (inventaire sur stock.quant) : le scan renseigne la quantité comptée
         des quants de l'emplacement de stock, appliquée ensuite par « Appliquer » dans l'inventaire physique.
         Les autres lots des articles scannés sont comptés à 0 (en v14, lignes de l'inventaire remises à 0 au début du scan)"""
-        cr,uid,context,su = self.env.args
+        cr = self.env.cr
         location = self.env.ref('stock.stock_location_stock')
         Quant = self.env['stock.quant'].with_context(inventory_mode=True)
         for obj in self:

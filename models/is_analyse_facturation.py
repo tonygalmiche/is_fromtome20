@@ -29,7 +29,7 @@ class IsAnalyseFacturationUpdate(models.TransientModel):
 
 
     def update(self, date_debut, date_fin):
-        cr, user, context, su = self.env.args
+        cr = self.env.cr
         filtre=[
             ('invoice_date','>=',date_debut),
             ('invoice_date','<=',date_fin),
