@@ -65,7 +65,9 @@ class IsModeleCommandeLigne(models.Model):
                         date=datetime.date.today(), 
                         uom=obj.product_id.uom_id.id
                     )
-                    prix, rule_id = pricelist.with_context(product_context).get_product_price_rule(product, 1.0, partner)
+                    # v20 : get_product_price_rule(product, qty, partner) => _get_product_price_rule(product, qty, uom, date)
+                    prix, rule_id = pricelist.with_context(product_context)._get_product_price_rule(
+                        product, 1.0, uom=obj.product_id.uom_id, date=datetime.date.today())
 
             print(obj.modele_id.name,obj.default_code, obj.modele_id.prix_futur,prix)
 

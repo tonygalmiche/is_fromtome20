@@ -27,7 +27,7 @@ class StockProductionLot(models.Model):
             ('name', 'in', self.mapped('name')),
             ('is_dlc_ddm', 'in', self.mapped('is_dlc_ddm')),
         ]
-        groupby = ['company_id', 'product_id', 'name', 'is_dlc_ddm']
+        groupby = ['company_id', 'product_id', 'name', 'is_dlc_ddm:day'] # v20 : granularité obligatoire sur une date
         records = self._read_group(domain, groupby, ['__count'])
         error_message_lines = []
         for company, product, name, dlc_ddm, count in records:

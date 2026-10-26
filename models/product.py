@@ -503,7 +503,7 @@ class ProductTemplate(models.Model):
                     partner_id=obj.is_fournisseur_id,
                 )
                 if seller:
-                    discount = seller.discount
+                    discount = seller['discount'] # v20 : _select_seller renvoie un dictionnaire
             obj.is_discount = discount
 
 

@@ -174,7 +174,8 @@ class AccountMove(models.Model):
             date_paiement = False
             delai_paiement = False
             if obj.state == 'posted' and obj.is_invoice(include_receipts=True):
-                payments = obj._get_reconciled_info_JSON_values()
+                # v20 : _get_reconciled_info_JSON_values supprimé => paiements du widget de la facture (mêmes clés, dont date)
+                payments = (obj.invoice_payments_widget or {}).get('content', [])
                 for payment in payments:
                     if date_paiement==False:
                         date_paiement = payment['date']

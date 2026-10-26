@@ -89,7 +89,7 @@ class IsPromoFournisseur(models.Model):
                         partner_id=obj.partner_id,
                     )
                     if seller:
-                        seller.discount = l.taux_remise
+                        seller['supplierinfo'].discount = l.taux_remise # v20 : _select_seller renvoie un dictionnaire
 
 
     def desactiver_promo_action(self):
