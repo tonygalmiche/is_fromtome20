@@ -227,9 +227,8 @@
     <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
         <field name="group_ids" eval="[Command.set([ref('is_afficher_menus_non_utilises_group')])]"/>
     </record>
-    <record id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" model="ir.ui.menu">
-        <field name="group_ids" eval="[Command.set([ref('is_afficher_menus_non_utilises_group')])]"/>
-    </record>
+    <!-- Tableaux de bord : laissé visible, parent du menu My Dashboard (board), utilisé en v14 (11 tableaux de bord) -->
+
     <menuitem id="contacts.menu_contacts"     parent=""                 sequence="1"/>
 
 </odoo>
