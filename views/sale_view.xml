@@ -77,12 +77,15 @@
                     name="is_modele_commande_id"
                     invisible="not is_modele_commande_id or state not in ['draft','sent'] or order_line"
                 />
-                <button
-                    name="initialiser_depuis_modele_commande"
-                    type="object"
-                    string="Initialiser la commande à partir de ce modèle"
-                    invisible="not is_modele_commande_id or state not in ['draft','sent'] or order_line"
-                />
+                <!-- v20 : bouton seul dans un group = une case (libellé), valeurs suivantes décalées => div sur 2 colonnes -->
+                <div colspan="2" invisible="not is_modele_commande_id or state not in ['draft','sent'] or order_line">
+                    <button
+                        name="initialiser_depuis_modele_commande"
+                        type="object"
+                        string="Initialiser la commande à partir de ce modèle"
+                        class="btn btn-secondary"
+                    />
+                </div>
                 <field name="is_enseigne_id"/>
                 <field name="warehouse_id"/>
                 <field name="is_type_doc"/>

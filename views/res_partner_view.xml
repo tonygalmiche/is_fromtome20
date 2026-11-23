@@ -394,12 +394,15 @@
                 <field name="is_presentation_bl"/>
                 <field name="is_pourcent_promo_a_repercuter"/>
                 <field name="is_modele_commande_id"/>
-                <button
-                    name="creer_modele_commande"
-                    type="object"
-                    string="Créer un modèle de commande"
-                    invisible="is_modele_commande_id"
-                />
+                <!-- v20 : bouton seul dans un group = une case (libellé), valeurs suivantes décalées => div sur 2 colonnes -->
+                <div colspan="2" invisible="is_modele_commande_id">
+                    <button
+                        name="creer_modele_commande"
+                        type="object"
+                        string="Créer un modèle de commande"
+                        class="btn btn-secondary"
+                    />
+                </div>
             </field>
         </field>
     </record>
