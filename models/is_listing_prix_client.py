@@ -305,10 +305,11 @@ class IsListingPrixClient(models.Model):
             ).unlink()
             date = fields.Datetime.context_timestamp(obj, fields.Datetime.now())
             nom = "%s %s.pdf" % (prefixe, date.strftime('%Y-%m-%d %H:%M:%S'))
+            # v20 : contenu brut dans raw (datas refusé à la création : AssertionError)
             attachment = self.env['ir.attachment'].create({
                 'name'     : nom,
                 'type'     : 'binary',
-                'datas'    : base64.b64encode(pdf),
+                'raw'      : pdf,
                 'res_model': obj._name,
                 'res_id'   : obj.id,
                 'mimetype' : 'application/pdf',
