@@ -10,6 +10,12 @@
     color:white;
     white-space: nowrap;
     background-color:black;
+    // v20 (Bootstrap 5, tableaux Encadré) : en gras, aligné en bas et sans trait blanc entre les colonnes, comme en v14
+    font-weight:bold;
+    vertical-align:bottom;
+}
+.listing_prix_client thead tr + tr th{
+    border-color:black !important;
 }
 
 
