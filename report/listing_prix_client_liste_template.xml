@@ -74,7 +74,8 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">is_fromtome20.listing_prix_client_liste_report</field>
         <field name="paperformat_id" ref="is_fromtome20.listing_prix_client_liste_paperformat"/>
-        <field name="binding_model_id" ref="model_is_listing_prix_client"/>
+        <!-- Retiré du menu Imprimer : PDF généré par les boutons du listing, en pièce jointe -->
+        <field name="binding_model_id" eval="False"/>
         <field name="binding_type">report</field>
     </record>
 </odoo>
