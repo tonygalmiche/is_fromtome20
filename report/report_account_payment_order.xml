@@ -81,7 +81,6 @@
         <field name="model">account.payment.order</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">is_fromtome20.report_account_payment_order</field>
-        <field name="report_file">is_fromtome20.report_account_payment_order</field>
         <field name="paperformat_id" ref="is_fromtome20.report_account_payment_order_paperformat"/>
         <field name="binding_model_id" ref="account_payment_order.model_account_payment_order"/>
         <field name="binding_type">report</field>
