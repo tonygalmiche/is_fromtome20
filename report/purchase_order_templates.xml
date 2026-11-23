@@ -172,7 +172,8 @@
                     </div>
                 </t>
                 
-                <p t-field="o.notes"/>
+                <!-- v20 : notes → note (conditions générales) -->
+                <p t-field="o.note"/>
                 <div class="oe_structure"/>
             </div>
         </div>
