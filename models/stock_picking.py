@@ -680,18 +680,17 @@ class Picking(models.Model):
             'mail.email_compose_message_wizard_form',
             False,
         )
+        # v20 : default_res_id refusé par mail.compose.message (« Deprecated usage ») => default_res_ids ;
+        # default_use_template et view_type supprimés ; user_id inutile (le modèle utilise user)
         ctx = dict(
             default_model='stock.picking',
-            default_res_id=self.id,
-            default_use_template=bool(template),
+            default_res_ids=self.ids,
             default_template_id=template and template.id or False,
             default_composition_mode='comment',
-            user_id=self.env.user.id,
         )
         return {
             'name': _('Compose Email'),
             'type': 'ir.actions.act_window',
-            'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'mail.compose.message',
             'views': [(compose_form.id, 'form')],
