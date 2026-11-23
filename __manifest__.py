@@ -33,10 +33,13 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # Menus masqués (views/menu.xml)
         'utm',
         'spreadsheet_dashboard',
+        # Régions françaises des partenaires (OCA l10n-france, 20.0 depuis le 11/11/2026) : lien symbolique
+        # fromtome/l10n_fr_state => OCA/l10n-france-20.0/l10n_fr_state
+        'l10n_fr_state',
         # OCA 20.0 : modules non disponibles en 20.0 (28/09/2026), à remettre après leur portage
         # (bank-payment-alternative : account_payment_base_oca, account_payment_batch_oca, account_payment_base_oca_sale,
         # account_payment_sepa_credit_transfer, account_payment_fr_lcr ; l10n-france : l10n_fr_intrastat_product,
-        # l10n_fr_siret, l10n_fr_department, l10n_fr_state)
+        # l10n_fr_siret, l10n_fr_department)
     ],
     # Analyse IA de la fiche technique : conversion des PDF en images
     # (Ubuntu 26.04 : apt install python3-pip poppler-utils ; pip install --break-system-packages --no-deps pdf2image)
