@@ -53,6 +53,11 @@
                 .article{
                     font-size:10pt;
                 }
+                /* Adresse de facturation au milieu de la page comme en v14 (enveloppe à fenêtre) : sans la colonne vide
+                   (offset-1) laissée par la v20 entre les deux adresses, 12 mm plus à droite sinon */
+                .article .address div[name='address']{
+                    margin-left:0 !important;
+                }
                 .article .o_main_table td, .article .o_main_table th{
                     padding-top:1px !important;
                     padding-bottom:1px !important;
