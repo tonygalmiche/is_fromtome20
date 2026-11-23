@@ -47,28 +47,8 @@ class PartnerMapController(http.Controller):
         center_lat = sum(m['lat'] for m in markers) / len(markers)
         center_lng = sum(m['lng'] for m in markers) / len(markers)
 
-        # Calculer le zoom adapté
-        if len(markers) == 1:
-            zoom = 15
-        else:
-            lats = [m['lat'] for m in markers]
-            lngs = [m['lng'] for m in markers]
-            lat_diff = max(lats) - min(lats)
-            lng_diff = max(lngs) - min(lngs)
-            max_diff = max(lat_diff, lng_diff)
-
-            if max_diff > 5:
-                zoom = 7
-            elif max_diff > 2:
-                zoom = 8
-            elif max_diff > 1:
-                zoom = 9
-            elif max_diff > 0.5:
-                zoom = 10
-            elif max_diff > 0.1:
-                zoom = 11
-            else:
-                zoom = 12
+        # Zoom : 15 pour un seul contact ; sinon cadrage sur tous les marqueurs (fitBounds), selon la taille de la fenêtre
+        zoom = 15
 
         js_code = f"""
             var map = L.map('map').setView([{center_lat}, {center_lng}], {zoom});
@@ -106,6 +86,10 @@ class PartnerMapController(http.Controller):
                     .addTo(map)
                     .bindPopup(popupContent);
             }});
+
+            if (markers.length > 1) {{
+                map.fitBounds(markers.map(function(m) {{ return [m.lat, m.lng]; }}), {{padding: [40, 40]}});
+            }}
         """
 
         return request.render('is_fromtome20.partner_map_view', {
