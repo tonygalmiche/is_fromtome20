@@ -20,8 +20,8 @@
 
         <!-- Adresse de facturation comme en v14 : libellé, société en gras puis contact sur sa ligne (« Société, contact »
              en v20). Les 3 variantes standard (livraison identique ou non) sont identiques : remplacées par une seule.
-             Identifiant du client : n° de TVA seulement (SIRET sinon, en double avec l10n_fr_account) ; SIRET et SIREN
-             de l10n_fr_account repris (SIREN : mention obligatoire de la réforme) ; GLN et code fournisseur -->
+             Identifiant du client : n° de TVA seulement (SIRET sinon, en double avec l10n_fr_account) ; SIRET de
+             l10n_fr_account repris, ou SIREN à défaut (le SIRET contient le SIREN) ; GLN et code fournisseur -->
         <xpath expr="//t[@t-set='address']" position="replace">
             <t t-set="address">
                 <strong class="d-block">Adresse de facturation</strong>
@@ -35,7 +35,7 @@
                 <t t-set="partner_siret" t-value="o.partner_id.commercial_partner_id.l10n_fr_siret"/>
                 <t t-set="partner_siren" t-value="o.partner_id.commercial_partner_id.l10n_fr_siren"/>
                 <div t-if="o.l10n_fr_is_company_french and partner_siret">SIRET : <t t-out="partner_siret"/></div>
-                <div t-if="o.l10n_fr_is_company_french and partner_siren">SIREN : <t t-out="partner_siren"/></div>
+                <div t-elif="o.l10n_fr_is_company_french and partner_siren">SIREN : <t t-out="partner_siren"/></div>
                 <div t-if="o.partner_id.is_gln">GLN : <span t-field="o.partner_id.is_gln"/></div>
                 <div t-if="o.partner_id.is_code_fromtome">Code Fournisseur : <span t-field="o.partner_id.is_code_fromtome"/></div>
             </t>
