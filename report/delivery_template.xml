@@ -18,12 +18,17 @@
                 .page{
                     font-size:10pt;
                 }
+                /* v20 : fond gris de la dernière colonne, comme le style Boxed de la v14 (supprimé) */
+                .page .table td:last-child{
+                    background-color:#e9ecef !important;
+                }
             </style>
             <div class="page">
-                <!-- v20 : table-borderless et text-start (tableaux « Encadré » : bordure et centrage sinon) -->
+                <!-- v20 : table-borderless et text-start (tableaux « Encadré » : bordure et centrage sinon) ;
+                     en gras comme en v14 (th plus en gras en v20) -->
                 <table class="table-borderless" style="border:none;width:100%">
                     <tr>
-                        <th class="text-start" style="border:none;width:95mm">
+                        <th class="text-start fw-bold" style="border:none;width:95mm">
                             <div style="text-decoration: underline">Adresse de livraison:</div>
                             <div><b><span t-field="o.partner_id.name"/></b></div>
                             <div t-field="o.partner_id.street"/>
@@ -32,7 +37,7 @@
                             <!-- Pays dans la langue du client, comme en v14 (PDF forcé en français) -->
                             <div t-if="o.partner_id.country_id"><span t-out="o.partner_id.country_id.with_context(lang=o.partner_id.lang).name"/></div>
                         </th>
-                        <th class="text-start" style="border:none" t-if="o.sale_id">
+                        <th class="text-start fw-bold" style="border:none" t-if="o.sale_id">
                             <div style="text-decoration: underline">Adresse de facturation:</div>
 
 
@@ -105,7 +110,8 @@
                          </tr>
                     </tbody>
                 </table>
-               <table class="table table-sm mt48">
+               <!-- v20 : sans mt48 (espace plus grand qu'en v14) -->
+               <table class="table table-sm">
                     <thead>
                         <tr>
                             <th class="text-start"> <strong>Code</strong></th>
@@ -147,8 +153,9 @@
                                         </td>
                                         <td class="text-center"><b><span t-field="line.is_nb_colis"/></b></td>
                                         <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
-                                        <td class="text-end" style="border-right:none"><span t-field="line.quantity"/></td>
-                                        <td class="text-start"  style="border-left:none"><span t-field="line.uom_id"/></td>
+                                        <!-- v20 : !important, sinon trait des tableaux « Encadré » entre la quantité et l'unité -->
+                                        <td class="text-end" style="border-right:none !important"><span t-field="line.quantity"/></td>
+                                        <td class="text-start"  style="border-left:none !important"><span t-field="line.uom_id"/></td>
                                         <td class="text-end"><span t-field="line.is_poids_net_reel"/></td>
                                     </tr>
                                 </t>
@@ -177,8 +184,8 @@
 
                                     <td class="text-center"><span t-field="line.is_nb_colis"/></td>
                                     <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
-                                    <td class="text-end" style="border-right:none"><span t-field="line.quantity"/></td>
-                                    <td class="text-start"  style="border-left:none"><span t-field="line.uom_id"/></td>
+                                    <td class="text-end" style="border-right:none !important"><span t-field="line.quantity"/></td>
+                                    <td class="text-start"  style="border-left:none !important"><span t-field="line.uom_id"/></td>
                                     <td class="text-end"><span t-field="line.is_poids_net_reel"/></td>
                                 </tr>
                             </t>
@@ -187,7 +194,9 @@
 
 
 
-                    <thead>
+                    <!-- v20 : ligne TOTAL dans un tbody (un 2e thead est répété en haut des pages suivantes : TOTAL seul en
+                         page 2 avec un en-tête vide) -->
+                    <tbody>
                         <tr>
                             <th class="text-start" colspan="3"> <strong>Total : </strong></th>
                             <th class="text-center"> <strong><span t-field="o.is_nb_colis"/></strong></th>
@@ -200,7 +209,7 @@
                             </t>
                             <th class="text-end"> <strong><span t-field="o.is_poids_net"/></strong></th>
                         </tr>
-                    </thead>
+                    </tbody>
                 </table>
 
                 <!-- Tableau des manquants -->
