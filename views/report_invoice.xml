@@ -126,14 +126,19 @@
             <td name="td_poids" t-if="o.move_type not in ['in_refund','out_refund']" class="text-end"><span t-field="line.is_poids_net"/></td>
         </xpath>
 
-        <!-- Total colis et poids sous les lignes, séparé par un espace (flottant à gauche, il chevauchait la condition de
-             paiement) -->
+        <!-- Total colis et poids à gauche des totaux, séparé des lignes par un espace ; condition de paiement en dessous
+             (clear:left, sinon le texte se plaçait à côté du bloc flottant). Sans flottant, les totaux passaient sur une
+             autre page -->
         <xpath expr="//div[@id='right-elements']" position="before">
-            <div t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="mt-3 mb-3">
+            <div t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="float-start mt-3">
                 <strong>Total colis : </strong><span t-field="o.is_nb_colis"/>
                 <br/>
                 <strong>Total poids : </strong><span t-field="o.is_poids_net"/>
             </div>
+        </xpath>
+
+        <xpath expr="//div[@id='payment_term']" position="attributes">
+            <attribute name="style">clear:left</attribute>
         </xpath>
 
         <!-- Absents en v14 : communication de paiement, QR code -->
