@@ -1424,13 +1424,8 @@ class ProductProduct(models.Model):
         if pricelist:
             # Utilise la méthode standard d'Odoo pour calculer le prix
             # Cela gère automatiquement les listes de prix basées sur d'autres listes de prix
-            price = pricelist.get_product_price(
-                product=self,
-                quantity=1.0,
-                partner=None,
-                date=False,
-                uom_id=False
-            )
+            # v20 : get_product_price → _get_product_price(product, quantity), sans partner ni uom_id
+            price = pricelist._get_product_price(self, 1.0)
         return price
 
 
