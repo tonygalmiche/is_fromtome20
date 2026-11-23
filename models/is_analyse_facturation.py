@@ -89,7 +89,7 @@ class IsAnalyseFacturationUpdate(models.TransientModel):
                                         am.invoice_date<=%s and
                                         aml.product_id=%s and
                                         am.move_type='in_invoice'
-                                    ORDER BY am.invoice_date desc
+                                    ORDER BY am.invoice_date desc, aml.id desc
                                     limit 1
                                 """
                                 cr.execute(sql,[invoice.invoice_date, line.product_id.id])
