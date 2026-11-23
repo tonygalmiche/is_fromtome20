@@ -45,7 +45,7 @@ class IsMargeBruteArticle(models.Model):
             WHERE am.state = 'posted'
               AND am.move_type IN ('out_invoice', 'out_refund')
               AND aml.product_id IS NOT NULL
-              AND aml.exclude_from_invoice_tab = False
+              AND aml.display_type = 'product'
             GROUP BY aml.product_id, EXTRACT(YEAR FROM am.invoice_date)
         """
         cr.execute(sql_client)
@@ -69,7 +69,7 @@ class IsMargeBruteArticle(models.Model):
             WHERE am.state = 'posted'
               AND am.move_type IN ('in_invoice', 'in_refund')
               AND aml.product_id IS NOT NULL
-              AND aml.exclude_from_invoice_tab = False
+              AND aml.display_type = 'product'
             GROUP BY aml.product_id, EXTRACT(YEAR FROM am.invoice_date)
         """
         cr.execute(sql_fournisseur)

@@ -216,8 +216,7 @@ class IsAnalyseMargeLot(models.Model):
                     am.move_type in ('out_invoice','out_refund','in_invoice','in_refund') and
                     am.invoice_date>=%s and
                     am.invoice_date<=%s and
-                    aml.exclude_from_invoice_tab=false and
-                    aml.display_type is null and
+                    aml.display_type='product' and
                     (not %s or pt.type<>'service') and
                     (not %s or pt.tracking<>'none')
             """
@@ -651,8 +650,7 @@ class IsAnalyseMargeLot(models.Model):
             ('move_id.state','=','posted'),
             ('move_id.invoice_date','>=',self.date_debut),
             ('move_id.invoice_date','<=',self.date_fin),
-            ('exclude_from_invoice_tab','=',False),
-            ('display_type','=',False),
+            ('display_type','=','product'),
             ('product_id','!=',False),
         ]
         if self.product_id:
