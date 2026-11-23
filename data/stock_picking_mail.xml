@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo noupdate="1">
 
+        <!-- Bouton « Envoyer par mail » des BL (action_picking_send). v20 : syntaxe ${…} => {{ … }} (en-têtes) et QWeb
+             (corps) ; report_template => report_template_ids ; report_name supprimé (nom du PDF : celui du rapport).
+             Contenu de la base v14 (modifiée à la main : bon de livraison joint, pas le rapport « Picking » du fichier),
+             texte traduit en français (anglais en v14) -->
         <record id="email_template_stock_picking" model="mail.template">
-            <field name="name">Stock Picking - Send by Email</field>
-            <field name="email_from">${(ctx['user_id'].email or '')|safe}</field>
-            <field name="subject">${object.company_id.name|safe} Picking (Ref ${object.name or 'n/a' })</field>
-            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="name">Bon de livraison - Envoi par mail</field>
+            <field name="email_from">{{ user.email_formatted or '' }}</field>
+            <field name="subject">{{ object.company_id.name }} Bon de livraison (Réf. {{ object.name or 'n/a' }})</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
             <field name="auto_delete" eval="True"/>
-            <field name="report_template" ref="stock.action_report_picking"/>
-            <field name="report_name">${(object.name or '').replace('/','_')}</field>
-            <field name="lang">${object.partner_id.lang}</field>
-            <field name="body_html"><![CDATA[
+            <field name="report_template_ids" eval="[(4, ref('stock.action_report_delivery'))]"/>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="body_html" type="html">
 <div style="font-family: 'Lucida Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
 
-    <p>Hello ${object.partner_id.name},</p>
+    <p>Bonjour <t t-out="object.partner_id.name or ''"/>,</p>
 
-    <p>Here is your picking from ${object.company_id.name}: </p>
+    <p>Veuillez trouver ci-joint votre bon de livraison de <t t-out="object.company_id.name or ''"/> :</p>
 
     <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
-       &nbsp;&nbsp;<strong>REFERENCES</strong><br />
-       &nbsp;&nbsp;Picking number: <strong>${object.name}</strong><br />
-       &nbsp;&nbsp;Picking date: ${format_date(object.date)}<br />
-       % if object.origin:
-           &nbsp;&nbsp;Picking reference: ${object.origin}<br />
-       % endif
-       % if object.user_id:
-           &nbsp;&nbsp;Your contact: <a href="mailto:${object.user_id.email or ''}?subject=Picking%20${object.name}">${object.user_id.name}</a>
-       % endif
+       &#160;&#160;<strong>RÉFÉRENCES</strong><br/>
+       &#160;&#160;N° du bon de livraison : <strong t-out="object.name or ''"/><br/>
+       &#160;&#160;Date : <t t-out="format_date(object.date)"/><br/>
+       <t t-if="object.origin">
+           &#160;&#160;Votre commande : <t t-out="object.origin"/><br/>
+       </t>
+       <t t-if="object.user_id">
+           &#160;&#160;Votre contact : <a t-attf-href="mailto:{{ object.user_id.email or '' }}?subject=Bon%20de%20livraison%20{{ object.name }}" t-out="object.user_id.name"/>
+       </t>
     </p>
-    <p>If you have any question, do not hesitate to contact us.</p>
-    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>
+    <p>Pour toute question, n'hésitez pas à nous contacter.</p>
+    <p>Merci de votre confiance,</p>
+    <p><t t-out="object.company_id.name or ''"/></p>
     <br/>
     <br/>
     <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
         <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
-            <strong style="text-transform:uppercase;">${object.company_id.name}</strong></h3>
+            <strong style="text-transform:uppercase;" t-out="object.company_id.name or ''"/></h3>
     </div>
     <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
         <span style="color: #222; margin-bottom: 5px; display: block; ">
-        % if object.company_id.street:
-            ${object.company_id.street}<br/>
-        % endif
-        % if object.company_id.street2:
-            ${object.company_id.street2}<br/>
-        % endif
-        % if object.company_id.city or object.company_id.zip:
-            ${object.company_id.zip} ${object.company_id.city}<br/>
-        % endif
-        % if object.company_id.country_id:
-            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>
-        % endif
+        <t t-if="object.company_id.street">
+            <t t-out="object.company_id.street"/><br/>
+        </t>
+        <t t-if="object.company_id.street2">
+            <t t-out="object.company_id.street2"/><br/>
+        </t>
+        <t t-if="object.company_id.city or object.company_id.zip">
+            <t t-out="object.company_id.zip or ''"/> <t t-out="object.company_id.city or ''"/><br/>
+        </t>
+        <t t-if="object.company_id.country_id">
+            <t t-out="object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''"/> <t t-out="object.company_id.country_id.name or ''"/><br/>
+        </t>
         </span>
-        % if object.company_id.phone:
-            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
-                Phone:&nbsp; ${object.company_id.phone}
-            </div>
-        % endif
-        % if object.company_id.website:
-            <div>
-                Web :&nbsp;<a href="${object.company_id.website}">${object.company_id.website}</a>
-            </div>
-        %endif
+        <div t-if="object.company_id.phone" style="margin: 0px; padding: 0px;">
+            Tél. :&#160;<t t-out="object.company_id.phone"/>
+        </div>
+        <div t-if="object.company_id.website">
+            Web :&#160;<a t-att-href="object.company_id.website" t-out="object.company_id.website"/>
+        </div>
         <p></p>
     </div>
 </div>
-            ]]></field>
+            </field>
         </record>
 
 </odoo>

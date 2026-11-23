@@ -110,7 +110,7 @@ InfoSaône - Module Odoo 20 pour Fromtome
         'report/listing_prix_client_liste_template.xml',
         # OCA 20.0 : account_payment_order (account_payment_batch_oca) non disponible en 20.0 (28/09/2026), à décommenter après son portage
         # 'report/report_account_payment_order.xml',
-        # 'data/stock_picking_mail.xml',
+        'data/stock_picking_mail.xml',
         'data/ir_module_module.xml',
     ],
     'assets': {
