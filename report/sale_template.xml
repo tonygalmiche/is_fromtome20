@@ -25,6 +25,16 @@
                     padding-top:1px !important;
                     padding-bottom:1px !important;
                 }
+                /* Totaux comme sur la facture : bordure du haut, fond gris sur le total TTC plutôt que sur la TVA */
+                .article .o_total_table tr:first-child td{
+                    border-top:1px solid #495057 !important;
+                }
+                .article .o_total_table .o_taxes td{
+                    background-color:transparent !important;
+                }
+                .article .o_total_table .o_total td{
+                    background-color:rgba(233, 236, 239, .5) !important;
+                }
             </style>
 
             <h2 class="mt16">
