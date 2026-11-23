@@ -9,7 +9,8 @@
             <table class="table-borderless w-100"><tr><td>
             <div class="row mb8" t-if="o and 'partner_id' in o._fields">
                 <div class="col-6">
-                    <img t-if="o and o.partner_id.is_enseigne_id.name.image_1920" t-att-src="image_data_uri(o.partner_id.is_enseigne_id.name.image_1920)" alt="Logo"/>
+                    <!-- v20 : max-height de .o_boxed_header img (style Boxed de la v14, supprimé) -->
+                    <img t-if="o and o.partner_id.is_enseigne_id.name.image_1920" t-att-src="image_data_uri(o.partner_id.is_enseigne_id.name.image_1920)" style="max-height:100px" alt="Logo"/>
                 </div>
                 <div class="col-6 text-end mb4">
                     <h4 class="mt0" t-field="company.report_header"/>
