@@ -391,7 +391,8 @@ class IsAnalyseMargeLot(models.Model):
                 type_ligne = 'Avoir client'
                 is_type_avoir = invoice.is_type_avoir
             for line in invoice.invoice_line_ids:
-                if line.display_type or not line.product_id:
+                # v20 : display_type vaut 'product' sur les lignes d'article (vide en v14)
+                if line.display_type!='product' or not line.product_id:
                     continue
                 if line.price_subtotal==0.0 and line.quantity==0.0:
                     continue
