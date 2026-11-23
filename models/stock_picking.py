@@ -918,43 +918,33 @@ class PickingType(models.Model):
     _inherit = 'stock.picking.type'
 
 
+    def _get_filtre_retard(self):
+        "Filtre « En retard » de Fromtome : date de réception (type 1) ou de livraison (type 2) ; False pour les autres types"
+        champ = {1: 'is_date_reception', 2: 'is_date_livraison'}.get(self.id)
+        if not champ:
+            return False
+        now = time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)[:10]
+        return [
+            (champ, '<', now),
+            ('picking_type_id', '=', self.id),
+            ('state', 'in', ('assigned', 'waiting', 'confirmed')),
+        ]
+
+
     def _compute_picking_count(self):
-        "Compteurs standards, puis « En retard » calculé sur la date de réception (type 1) ou de livraison (type 2)"
+        """Compteurs standards, puis « En retard » calculé sur la date de réception (type 1) ou de livraison (type 2) ;
+        autres types (transferts internes...) : compteur standard (en v14, filtre vide => tous les transferts comptés)"""
         super()._compute_picking_count()
         for record in self:
-            now = time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)[:10]
-            filtre=[]
-            if record.id==1:
-                filtre=[
-                    ('is_date_reception'  ,'<', now),
-                    ('picking_type_id'  ,'=', record.id),
-                    ('state', 'in', ('assigned', 'waiting', 'confirmed')),
-                ]
-            if record.id==2:
-                filtre=[
-                    ('is_date_livraison'  ,'<', now),
-                    ('picking_type_id'  ,'=', record.id),
-                    ('state', 'in', ('assigned', 'waiting', 'confirmed')),
-                ]
-            pickings=self.env['stock.picking'].search(filtre)
-            record.count_picking_late = len(pickings)
+            filtre = record._get_filtre_retard()
+            if filtre:
+                record.count_picking_late = self.env['stock.picking'].search_count(filtre)
 
 
     def get_action_picking_tree_late(self):
-        now = time.strftime(DEFAULT_SERVER_DATETIME_FORMAT)[:10]
-        filtre=[]
-        if self.id==1:
-            filtre=[
-                ('is_date_reception'  ,'<', now),
-                ('picking_type_id'  ,'=', self.id),
-                ('state', 'in', ('assigned', 'waiting', 'confirmed')),
-            ]
-        if self.id==2:
-            filtre=[
-                ('is_date_livraison'  ,'<', now),
-                ('picking_type_id'  ,'=', self.id),
-                ('state', 'in', ('assigned', 'waiting', 'confirmed')),
-            ]
+        filtre = self._get_filtre_retard()
+        if not filtre:
+            return super().get_action_picking_tree_late()
         pickings=self.env['stock.picking'].search(filtre)
         ids=[]
         for picking in pickings:
