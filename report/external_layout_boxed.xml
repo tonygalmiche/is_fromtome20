@@ -57,7 +57,7 @@
         <xpath expr="//div[contains(@t-attf-class, 'o_footer_content')]" position="attributes">
             <attribute name="style">font-size:8pt</attribute>
         </xpath>
-        <xpath expr="//td[contains(@class, 'o_footer_content_text')]" position="attributes">
+        <xpath expr="//td[hasclass('o_footer_content_text')]" position="attributes">
             <attribute name="class" add="text-start" separator=" "/>
         </xpath>
         <xpath expr="//div[@t-out='o.name']" position="attributes">

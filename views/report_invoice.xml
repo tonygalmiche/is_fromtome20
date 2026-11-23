@@ -180,7 +180,7 @@
         <xpath expr="//table[@name='invoice_line_table']" position="attributes">
             <attribute name="class" remove="mb-0" add="mb-3" separator=" "/>
         </xpath>
-        <xpath expr="//tbody[@class='invoice_tbody']" position="inside">
+        <xpath expr="//tbody[hasclass('invoice_tbody')]" position="inside">
             <tr t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="fw-bold">
                 <td colspan="2">TOTAL :</td>
                 <td class="text-end"><span t-field="o.is_nb_colis"/></td>
