@@ -354,7 +354,7 @@
                     </group>
                     <group string="Listes de prix">
                         <!-- v20 : plus de champ active sur product.pricelist.item, domaine (sans effet sur l'affichage) retiré -->
-                        <field name="is_pricelist_item_ids" nolabel="1">
+                        <field name="is_pricelist_item_ids" nolabel="1" colspan="2">
                             <list>
                                 <field name="pricelist_id" string="Liste de prix" widget="many2one" />
                                 <field name="fixed_price"  string="Prix de vente"/>
