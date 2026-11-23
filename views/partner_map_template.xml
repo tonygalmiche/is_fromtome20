@@ -67,12 +67,12 @@
             <body>
                 <div class="header">
                     <a href="#" onclick="window.close(); return false;" class="back-button">← Retour</a>
-                    <h1>Carte des contacts (<t t-esc="len(markers)"/> contact<t t-if="len(markers) > 1">s</t>)</h1>
+                    <h1>Carte des contacts (<t t-out="len(markers)"/> contact<t t-if="len(markers) > 1">s</t>)</h1>
                 </div>
                 <div id="map"></div>
 
                 <script type="text/javascript">
-                    <t t-raw="js_code"/>
+                    <t t-out="js_code"/>
                 </script>
             </body>
         </html>

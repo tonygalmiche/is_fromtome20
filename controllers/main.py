@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+from markupsafe import Markup
 from odoo import http
 from odoo.http import request
 
@@ -109,5 +110,6 @@ class PartnerMapController(http.Controller):
 
         return request.render('is_fromtome20.partner_map_view', {
             'markers': markers,
-            'js_code': js_code,
+            # v20 : t-raw supprimé, t-out échappe une chaîne simple
+            'js_code': Markup(js_code),
         })
