@@ -546,7 +546,8 @@ class IsAnalyseMargeLot(models.Model):
             if ct%100==0 or ct==nb:
                 _logger.info("Analyse marge lot %s : rebut %s/%s : %s (%.1fs)"%(self.name,ct,nb,scrap.reference,time.time()-debut))
             product   = scrap.product_id
-            lot       = scrap.lot_ids[:1]
+            # v20 : lot par les lignes (lot_ids ignore les lots archivés)
+            lot       = scrap.move_line_ids.lot_id[:1]
             date      = scrap.date.date()
             scrap_qty = scrap.uom_id._compute_quantity(scrap.quantity, product.uom_id)
             vals_achat, anomalie = self._get_prix_achat(cache, lot.id, product.id, date)

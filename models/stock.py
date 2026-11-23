@@ -235,7 +235,8 @@ class StockMoveRebut(models.Model):
                 SQL="""
                     SELECT get_prix_achat(%s,%s)
                 """
-                cr.execute(SQL,[obj.product_id.id, obj.lot_ids[:1].id or None])
+                # v20 : lot par les lignes (lot_ids ignore les lots archivés, 90 952 sur 91 507, dont ceux des rebuts)
+                cr.execute(SQL,[obj.product_id.id, obj.move_line_ids.lot_id[:1].id or None])
                 for row in cr.fetchall():
                     x=row[0] or 0
                     montant = obj.quantity * x

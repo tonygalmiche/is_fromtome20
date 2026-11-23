@@ -166,7 +166,8 @@ class IsAnalyseFacturationUpdate(models.TransientModel):
                 price_unit = 0
                 partner_id=enseigne_id=user_id=False
                 enseigne = False
-                for purchase in scrap.lot_ids[:1].purchase_order_ids:
+                # v20 : lot par les lignes (lot_ids ignore les lots archivés)
+                for purchase in scrap.move_line_ids.lot_id[:1].purchase_order_ids:
                     partner_id  = purchase.partner_id.id
                     enseigne    = purchase.partner_id.is_enseigne_id.name.name
                     user_id     = purchase.partner_id.user_id.id
