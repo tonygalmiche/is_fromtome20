@@ -47,10 +47,21 @@
     </template>
 
     <!-- Pied de page (commun aux agencements en v20) : RIB de l'enseigne du client ; numéro de page déjà dans « Light ».
-         Texte à la taille de la v14 (8pt) : plus haut en v20, la ligne « Page x / y » sortait de la marge du bas -->
+         Texte à la taille de la v14 (8pt) : plus haut en v20, la ligne « Page x / y » sortait de la marge du bas.
+         Moins haut : texte de la société et RIB à gauche, numéro de page à droite (centré l'un sous l'autre en
+         standard) ; nom du document masqué (paramètre account.display_name_in_footer de l10n_fr_account, absent en v14) -->
     <template id="is_external_layout_footer_content" inherit_id="web.external_layout_footer_content">
+        <xpath expr="//div[contains(@t-attf-class, 'o_footer_content')]" position="before">
+            <t t-set="is_centered_footer" t-value="False"/>
+        </xpath>
         <xpath expr="//div[contains(@t-attf-class, 'o_footer_content')]" position="attributes">
             <attribute name="style">font-size:8pt</attribute>
+        </xpath>
+        <xpath expr="//td[contains(@class, 'o_footer_content_text')]" position="attributes">
+            <attribute name="class" add="text-start" separator=" "/>
+        </xpath>
+        <xpath expr="//div[@t-out='o.name']" position="attributes">
+            <attribute name="t-if">False</attribute>
         </xpath>
         <div t-field="company.report_footer" position="after">
             <t t-if="o and 'partner_id' in o._fields and o.partner_id and o.partner_id.is_enseigne_id and o.partner_id.is_enseigne_id.rib">
