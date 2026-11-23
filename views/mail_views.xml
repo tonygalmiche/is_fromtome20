@@ -12,4 +12,15 @@
         sequence="99"
         action="is_mail_mail_action"
     />
+    <!-- Adresses partagées (remplace smtp_by_user v14) : utilisateur qui envoie avec l'adresse de ce serveur -->
+    <record id="is_ir_mail_server_form" model="ir.ui.view">
+        <field name="name">is_ir_mail_server_form</field>
+        <field name="model">ir.mail_server</field>
+        <field name="inherit_id" ref="mail.ir_mail_server_view_form"/>
+        <field name="arch" type="xml">
+            <field name="owner_user_id" position="after">
+                <field name="is_user_id" invisible="owner_user_id" widget="many2one_avatar_user"/>
+            </field>
+        </field>
+    </record>
 </odoo>
