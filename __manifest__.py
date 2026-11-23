@@ -38,6 +38,12 @@ InfoSaône - Module Odoo 20 pour Fromtome
         # account_payment_sepa_credit_transfer, account_payment_fr_lcr ; l10n-france : l10n_fr_intrastat_product,
         # l10n_fr_siret, l10n_fr_department, l10n_fr_state)
     ],
+    # Analyse IA de la fiche technique : conversion des PDF en images
+    # (Ubuntu 26.04 : apt install python3-pip poppler-utils ; pip install --break-system-packages --no-deps pdf2image)
+    'external_dependencies': {
+        'python': ['pdf2image'],
+        'bin': ['pdftoppm'],
+    },
     'data' : [
         'security/res.groups.xml',
         # Droits standards modifiés par leur identifiant (contacts et articles en lecture seule) : à refaire en v20 (§ 4.4 de la doc)
