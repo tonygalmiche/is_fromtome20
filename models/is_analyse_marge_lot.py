@@ -218,7 +218,7 @@ class IsAnalyseMargeLot(models.Model):
                     am.invoice_date<=%s and
                     aml.display_type='product' and
                     (not %s or pt.type<>'service') and
-                    (not %s or pt.tracking<>'none')
+                    (not %s or pt.tracking is not null)
             """
             cr.execute(sql, [self.date_debut, self.date_fin, self.exclure_services, self.exclure_hors_lot])
             vente, achat = cr.fetchone()
@@ -400,18 +400,19 @@ class IsAnalyseMargeLot(models.Model):
                     continue
                 if self.exclure_services and line.product_id.type=='service':
                     continue
-                if self.exclure_hors_lot and line.product_id.tracking=='none':
+                # v20 : tracking à False pour un article sans lot ('none' supprimé)
+                if self.exclure_hors_lot and not line.product_id.tracking:
                     continue
 
                 # Articles non gérés par lot ou de type service (transport, ...) : jamais d'anomalie
-                sans_anomalie = line.product_id.tracking=='none' or line.product_id.type=='service'
+                sans_anomalie = not line.product_id.tracking or line.product_id.type=='service'
 
                 #** Répartition par lot ***************************************
                 repartition = []
                 anomalie_lot = False
                 if is_type_avoir!='avoir_prix':
                     repartition = self._get_repartition(cache, line.id, invoice.move_type, line.is_picking_id.id)
-                    if not repartition and line.product_id.tracking!='none':
+                    if not repartition and line.product_id.tracking:
                         anomalie_lot = "Aucun lot sur les livraisons"
                 if not repartition:
                     repartition = [(False, 1)]
@@ -527,7 +528,7 @@ class IsAnalyseMargeLot(models.Model):
         if self.product_id:
             filtre.append(('product_id','=',self.product_id.id))
         if self.exclure_hors_lot:
-            filtre.append(('product_id.tracking','!=','none'))
+            filtre.append(('product_id.tracking','!=',False))
         if self._has_filtre_client():
             filtre.append(('move_line_ids.lot_id','in',self._get_lots_factures_filtre()))
         scraps = self.env['stock.move'].search(filtre, order='date,id')
@@ -585,7 +586,7 @@ class IsAnalyseMargeLot(models.Model):
                     "montant_achat"  : montant_achat,
                     "marge_brute"    : -montant_achat,
                     # Articles non gérés par lot ou de type service : jamais d'anomalie
-                    "anomalie"       : product.tracking!='none' and product.type!='service' and anomalie or False,
+                    "anomalie"       : product.tracking and product.type!='service' and anomalie or False,
                 }
                 vals.update(vals_achat)
                 vals_list.append(vals)
@@ -660,7 +661,7 @@ class IsAnalyseMargeLot(models.Model):
         if self.exclure_services:
             filtre.append(('product_id.type','!=','service'))
         if self.exclure_hors_lot:
-            filtre.append(('product_id.tracking','!=','none'))
+            filtre.append(('product_id.tracking','!=',False))
         lines = self.env['account.move.line'].search(filtre, order='date,id')
         nb = len(lines.mapped('move_id'))
 
@@ -719,7 +720,7 @@ class IsAnalyseMargeLot(models.Model):
             #******************************************************************
 
             # Articles non gérés par lot ou de type service : jamais d'anomalie
-            sans_anomalie = product.tracking=='none' or product.type=='service'
+            sans_anomalie = not product.tracking or product.type=='service'
             for lot_id, (partner_id, enseigne_id, user_id), ratio, anomalie in repartition:
                 montant_achat = -montant*ratio
                 vals={
