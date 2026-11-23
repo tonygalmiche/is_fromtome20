@@ -46,13 +46,44 @@
             <attribute name="t-if">False</attribute>
         </xpath>
 
-        <!-- Taille du texte de la v14 -->
+        <!-- Taille du texte de la v14, adresses comprises (hors de .page en v20) ; cellules des lignes resserrées comme
+             en v14 (facture sur 1,5 page au lieu de 3) -->
         <xpath expr="//div[@id='informations']" position="before">
             <style>
-                .page{
+                .article{
                     font-size:10pt;
                 }
+                .article .o_main_table td, .article .o_main_table th{
+                    padding-top:1px !important;
+                    padding-bottom:1px !important;
+                }
             </style>
+        </xpath>
+
+        <!-- Titre « Facture FC… » au-dessus des informations masqué : déjà dans l'en-tête, absent en v14 -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+            <attribute name="hide_title">True</attribute>
+        </xpath>
+
+        <!-- En-têtes courts de la v14 et TVA en pourcentage (« 5,5% » au lieu de « TVA 5.5% ») : colonne désignation
+             plus large, moins de retours à la ligne -->
+        <xpath expr="//th[@name='th_description']/span" position="replace">
+            <span>Désignation</span>
+        </xpath>
+        <xpath expr="//th[@name='th_quantity']/span" position="replace">
+            <span>QT</span>
+        </xpath>
+        <xpath expr="//th[@name='th_priceunit']/span" position="replace">
+            <span>P.U.HT</span>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']/span" position="replace">
+            <span>TVA</span>
+        </xpath>
+        <xpath expr="//th[@name='th_subtotal']/span" position="replace">
+            <span>Montant net</span>
+        </xpath>
+        <xpath expr="//span[@id='line_tax_ids']" position="replace">
+            <span t-if="not hide_prices" id="line_tax_ids" t-out="', '.join(('%g' % tax.amount).replace('.', ',') + '%' for tax in line.tax_ids)"/>
         </xpath>
 
         <!-- Informations dans un tableau à bordures comme en v14, colonnes toujours affichées ; la référence (o.ref)
