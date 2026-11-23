@@ -153,9 +153,10 @@
                                         </td>
                                         <td class="text-center"><b><span t-field="line.is_nb_colis"/></b></td>
                                         <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
-                                        <!-- v20 : !important, sinon trait des tableaux « Encadré » entre la quantité et l'unité -->
-                                        <td class="text-end" style="border-right:none !important"><span t-field="line.quantity"/></td>
-                                        <td class="text-start"  style="border-left:none !important"><span t-field="line.uom_id"/></td>
+                                        <!-- v20 : trait de droite des tableaux « Encadré » dessiné en image de fond (pas une bordure) :
+                                             largeur à 0 pour ne pas séparer la quantité de l'unité, trait du bas gardé -->
+                                        <td class="text-end" style="background-size:0 100%, 100% 1px !important"><span t-field="line.quantity"/></td>
+                                        <td class="text-start"><span t-field="line.uom_id"/></td>
                                         <td class="text-end"><span t-field="line.is_poids_net_reel"/></td>
                                     </tr>
                                 </t>
@@ -184,8 +185,8 @@
 
                                     <td class="text-center"><span t-field="line.is_nb_colis"/></td>
                                     <td class="text-center"><span t-field="line.product_id.is_nb_pieces_par_colis"/></td>
-                                    <td class="text-end" style="border-right:none !important"><span t-field="line.quantity"/></td>
-                                    <td class="text-start"  style="border-left:none !important"><span t-field="line.uom_id"/></td>
+                                    <td class="text-end" style="background-size:0 100%, 100% 1px !important"><span t-field="line.quantity"/></td>
+                                    <td class="text-start"><span t-field="line.uom_id"/></td>
                                     <td class="text-end"><span t-field="line.is_poids_net_reel"/></td>
                                 </tr>
                             </t>
