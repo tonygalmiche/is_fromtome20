@@ -31,13 +31,14 @@
                             border: 0 none;
                         }
                         h1{
-                            font-size:14pt;
+                            /* v20 : titres resserrés pour tenir sur une page (v14 : 14pt, padding 4pt, marges 4mm / 2mm) */
+                            font-size:13pt;
                             font-weight:normal;
                             background-color:black;
                             color:#FA0000;
-                            padding:4pt;
-                            margin-top:4mm;
-                            margin-bottom:2mm;
+                            padding:3pt;
+                            margin-top:2mm;
+                            margin-bottom:1mm;
                         }
                     </style>
                     <div class="page">
