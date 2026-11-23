@@ -2,6 +2,8 @@
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
 from odoo.tools.pdf import merge_pdf
+# v20 : image_data_uri n'est plus exposé par odoo.tools
+from odoo.tools.image import image_data_uri
 from markupsafe import Markup, escape
 # v20 : pypdf au lieu de PyPDF2
 from pypdf import PdfReader, PdfWriter
@@ -418,7 +420,7 @@ class IsListingPrixClient(models.Model):
 
                         img=''
                         if p[champ_image]:
-                            img = tools.image_data_uri(p[champ_image])
+                            img = image_data_uri(p[champ_image])
                         colspan=1
                         border_width="1px"
                         if p.is_mise_en_avant:
