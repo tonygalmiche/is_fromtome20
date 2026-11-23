@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
-import codecs
+import os
+import subprocess
+import tempfile
 import unicodedata
 import base64
 from datetime import datetime
-from subprocess import check_output, STDOUT, CalledProcessError
 
 class IsImprimanteEtiquette(models.Model):
     _name = 'is.imprimante.etiquette'
@@ -230,22 +231,27 @@ class IsImprimerEtiquetteGS1(models.Model):
             obj.alerte=False
             ZPL = obj.get_ZPL()
             imprimante = obj.imprimante_id.name_cups or 'GX430T'
-            name='etiquette-gs1-%s-zpl'%(imprimante)
-            dest = '/tmp/'+name
-            f = codecs.open(dest,'wb',encoding='utf-8')
-            f.write(ZPL)
-            f.close()
-            cmd = "lpr -P %s %s "%(imprimante,dest)
-            for x in range(0, obj.qt_imprime):
-                try:
-                    output = check_output(cmd, shell=True, stderr=STDOUT)
-                except CalledProcessError as exc:
-                    msg="%s \n%s"%(cmd,exc.output.decode("utf-8"))
-                    alertes=[]
-                    if obj.alerte:
-                        alertes.append(obj.alerte)
-                    alertes.append(msg)
-                    obj.alerte="\n".join(alertes)
+            # v20 : fichier temporaire unique (nom fixe /tmp/etiquette-gs1-<imprimante>-zpl avant : deux impressions
+            # simultanées pouvaient s'écraser) et lpr lancé sans shell (arguments en liste)
+            fd, dest = tempfile.mkstemp(prefix='etiquette-gs1-', suffix='.zpl')
+            try:
+                with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                    f.write(ZPL)
+                cmd = ['lpr', '-P', imprimante, dest]
+                for x in range(0, obj.qt_imprime):
+                    try:
+                        res = subprocess.run(cmd, capture_output=True, text=True)
+                        erreur = res.returncode and (res.stdout + res.stderr)
+                    except OSError as exc:
+                        erreur = str(exc)
+                    if erreur:
+                        alertes=[]
+                        if obj.alerte:
+                            alertes.append(obj.alerte)
+                        alertes.append("%s \n%s"%(' '.join(cmd), erreur))
+                        obj.alerte="\n".join(alertes)
+            finally:
+                os.unlink(dest)
 
 
     def dupliquer_autre_poids_action(self):
