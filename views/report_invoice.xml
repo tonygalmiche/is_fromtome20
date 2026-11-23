@@ -160,6 +160,10 @@
         <!-- Total colis, poids et HT en dernière ligne du tableau, comme en v14 (un bloc flottant à côté des totaux
              standard chevauchait la condition de paiement ou renvoyait les totaux sur une autre page). Colonnes : code,
              désignation, colis, PCB, quantité, poids, prix unitaire, taxes (si affichées), montant -->
+        <!-- Espace entre le tableau des lignes et les totaux (mb-0 en standard) -->
+        <xpath expr="//table[@name='invoice_line_table']" position="attributes">
+            <attribute name="class" remove="mb-0" add="mb-3" separator=" "/>
+        </xpath>
         <xpath expr="//tbody[@class='invoice_tbody']" position="inside">
             <tr t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="fw-bold">
                 <td colspan="2">TOTAL :</td>
