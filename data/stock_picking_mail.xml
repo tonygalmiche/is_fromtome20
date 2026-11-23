@@ -4,7 +4,9 @@
         <!-- Bouton « Envoyer par mail » des BL (action_picking_send). v20 : syntaxe ${…} => {{ … }} (en-têtes) et QWeb
              (corps) ; report_template => report_template_ids ; report_name supprimé (nom du PDF : celui du rapport).
              Contenu de la base v14 (modifiée à la main : bon de livraison joint, pas le rapport « Picking » du fichier),
-             texte traduit en français (anglais en v14) -->
+             texte traduit en français (anglais en v14) ; stock.picking.date supprimé en v20 => date du transfert
+             (date_done), ou date prévue s'il n'est pas validé -->
+
         <record id="email_template_stock_picking" model="mail.template">
             <field name="name">Bon de livraison - Envoi par mail</field>
             <field name="email_from">{{ user.email_formatted or '' }}</field>
@@ -24,7 +26,7 @@
     <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
        &#160;&#160;<strong>RÉFÉRENCES</strong><br/>
        &#160;&#160;N° du bon de livraison : <strong t-out="object.name or ''"/><br/>
-       &#160;&#160;Date : <t t-out="format_date(object.date)"/><br/>
+       &#160;&#160;Date : <t t-out="format_date(object.date_done or object.scheduled_date)"/><br/>
        <t t-if="object.origin">
            &#160;&#160;Votre commande : <t t-out="object.origin"/><br/>
        </t>
