@@ -309,7 +309,7 @@
             </xpath>
             <xpath expr="//notebook" position="after">
                 <group>
-                    <field name="is_product_supplierinfo_ids" nolabel="1">
+                    <field name="is_product_supplierinfo_ids" nolabel="1" colspan="2">
                         <list default_order="product_tmpl_id">
                             <field name="product_tmpl_id"/>
                             <field name="product_code"/>
