@@ -83,12 +83,16 @@
                             <field name="maj_code_ean_article_vsb" invisible="1"/>
                             <field name="ean" readonly="1" invisible="maj_code_ean_article_vsb"/>
                             <field name="ean"              invisible="not maj_code_ean_article_vsb"/>
-                            <button
-                                name="maj_code_ean_article_action"
-                                type="object" string="Mettre ce code EAN sur l'article sélectionné"
-                                class="oe_inline btn btn-sm btn-secondary"
-                                invisible="not maj_code_ean_article_vsb"
-                            />                            <field name="ajouter"/>
+                            <!-- v20 : boutons dans un div sur 2 colonnes (seul dans un group : case du libellé, texte sur 2 lignes
+                                 et valeurs suivantes décalées) -->
+                            <div colspan="2" invisible="not maj_code_ean_article_vsb">
+                                <button
+                                    name="maj_code_ean_article_action"
+                                    type="object" string="Mettre ce code EAN sur l'article sélectionné"
+                                    class="oe_inline btn btn-sm btn-secondary"
+                                />
+                            </div>
+                            <field name="ajouter"/>
 
                             <label for="picking_id"/>
                             <div class="o_row no-gutters d-flex">
@@ -98,12 +102,14 @@
                             <div class="o_row no-gutters d-flex">
                                 <field name="partner_id" readonly="1" class="oe_inline"/>
                             </div>
-                            <button 
-                                name="maj_picking_action" 
-                                type="object" string="Mise à jour du Picking"   
-                                confirm2="Attention, cela va supprimer et remplacer les lignes du picking"
-                                class="oe_inline btn btn-primary"
-                            />
+                            <div colspan="2">
+                                <button
+                                    name="maj_picking_action"
+                                    type="object" string="Mise à jour du Picking"
+                                    confirm2="Attention, cela va supprimer et remplacer les lignes du picking"
+                                    class="oe_inline btn btn-primary"
+                                />
+                            </div>
                         </group>
                        <group>
                             <field name="product_id"/>
@@ -182,21 +188,25 @@
                             <div class="o_row no-gutters d-flex">
                                 <field name="picking_id" readonly="1" class="oe_inline"/>
                             </div>
-                            <button 
-                                name="maj_picking_action" 
-                                type="object" string="Mise à jour du Picking"   
-                                confirm2="Attention, cela va supprimer et remplacer les lignes du picking"
-                                class="oe_inline btn btn-primary"
-                            />
+                            <div colspan="2">
+                                <button
+                                    name="maj_picking_action"
+                                    type="object" string="Mise à jour du Picking"
+                                    confirm2="Attention, cela va supprimer et remplacer les lignes du picking"
+                                    class="oe_inline btn btn-primary"
+                                />
+                            </div>
                         </group>
                         <!-- v20 : stock.inventory supprimé, quantités comptées sur les quants (inventaire physique) -->
                         <group  invisible="type != 'inventory'">
-                            <button
-                                name="maj_inventory_action"
-                                type="object" string="Mise à jour Inventaire"
-                                confirm2="Attention, cela va remplacer les quantités comptées de l'inventaire physique pour les articles scannés"
-                                class="oe_inline btn btn-primary"
-                            />
+                            <div colspan="2">
+                                <button
+                                    name="maj_inventory_action"
+                                    type="object" string="Mise à jour Inventaire"
+                                    confirm2="Attention, cela va remplacer les quantités comptées de l'inventaire physique pour les articles scannés"
+                                    class="oe_inline btn btn-primary"
+                                />
+                            </div>
                         </group>
                     </group>
 
