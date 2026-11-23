@@ -126,22 +126,18 @@
             <td name="td_poids" t-if="o.move_type not in ['in_refund','out_refund']" class="text-end"><span t-field="line.is_poids_net"/></td>
         </xpath>
 
-        <!-- Total colis et poids à gauche des totaux, séparé des lignes par un espace ; condition de paiement en dessous
-             (clear:left, sinon le texte se plaçait à côté du bloc flottant). Sans flottant, les totaux passaient sur une
-             autre page -->
-        <xpath expr="//div[@id='right-elements']/.." position="attributes">
-            <attribute name="class" add="mt-3" separator=" "/>
-        </xpath>
-        <xpath expr="//div[@id='right-elements']" position="before">
-            <div t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="float-start">
-                <strong>Total colis : </strong><span t-field="o.is_nb_colis"/>
-                <br/>
-                <strong>Total poids : </strong><span t-field="o.is_poids_net"/>
-            </div>
-        </xpath>
-
-        <xpath expr="//div[@id='payment_term']" position="attributes">
-            <attribute name="style">clear:left</attribute>
+        <!-- Total colis, poids et HT en dernière ligne du tableau, comme en v14 (un bloc flottant à côté des totaux
+             standard chevauchait la condition de paiement ou renvoyait les totaux sur une autre page). Colonnes : code,
+             désignation, colis, PCB, quantité, poids, prix unitaire, taxes (si affichées), montant -->
+        <xpath expr="//tbody[@class='invoice_tbody']" position="inside">
+            <tr t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="fw-bold">
+                <td colspan="2">TOTAL :</td>
+                <td class="text-end"><span t-field="o.is_nb_colis"/></td>
+                <td colspan="2"/>
+                <td class="text-end"><span t-field="o.is_poids_net"/></td>
+                <td t-att-colspan="2 if display_taxes else 1"/>
+                <td class="text-end"><span t-field="o.amount_untaxed"/></td>
+            </tr>
         </xpath>
 
         <!-- Absents en v14 : communication de paiement, QR code -->
