@@ -453,7 +453,11 @@ else:
             </field>
            <label for="scheduled_date" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </label>           
+            </label>
+            <!-- v20 : date prévue dans un div (o_row), resté visible et vide : il prenait une case et décalait tout le groupe -->
+            <xpath expr="//field[@name='scheduled_date']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
             <field name="json_popover" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
