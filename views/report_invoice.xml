@@ -55,30 +55,35 @@
             </style>
         </xpath>
 
-        <!-- Informations : origine et code du partenaire masqués (absents en v14) ; la référence (o.ref) est le code
-             client ; références de commande client et interne, BL -->
-        <xpath expr="//div[@name='origin']" position="attributes">
+        <!-- Informations dans un tableau à bordures comme en v14, colonnes toujours affichées ; la référence (o.ref)
+             est le code client. Bloc standard masqué (nature de l'opération de l10n_fr_account : taxes sans portée,
+             jamais affichée) -->
+        <xpath expr="//div[@id='informations']" position="before">
+            <table class="table table-sm table-bordered mb-4" name="is_informations">
+                <thead>
+                    <tr>
+                        <th class="text-center">DATE FACTURE</th>
+                        <th class="text-center">ÉCHÉANCE</th>
+                        <th class="text-center">CODE CLIENT</th>
+                        <th class="text-center">REF CDE CLIENT</th>
+                        <th class="text-center">REF CDE INT</th>
+                        <th class="text-center">BL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center"><span t-field="o.invoice_date"/></td>
+                        <td class="text-center"><span t-field="o.invoice_date_due"/></td>
+                        <td class="text-center"><span t-field="o.ref"/></td>
+                        <td class="text-center"><span t-field="o.is_ref_client"/></td>
+                        <td class="text-center"><span t-field="o.is_ref_int_cde"/></td>
+                        <td class="text-center"><span t-field="o.is_bl"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="attributes">
             <attribute name="t-if">False</attribute>
-        </xpath>
-        <xpath expr="//div[@name='customer_code']" position="attributes">
-            <attribute name="t-if">False</attribute>
-        </xpath>
-        <xpath expr="//div[@name='reference']/strong" position="replace">
-            <strong>Code client</strong>
-        </xpath>
-        <xpath expr="//div[@name='reference']" position="after">
-            <div class="col" t-if="o.is_ref_client" name="is_ref_client">
-                <strong>Réf cde client</strong>
-                <div t-field="o.is_ref_client"/>
-            </div>
-            <div class="col" t-if="o.is_ref_int_cde" name="is_ref_int_cde">
-                <strong>Réf cde int</strong>
-                <div t-field="o.is_ref_int_cde"/>
-            </div>
-            <div class="col" t-if="o.is_bl" name="is_bl">
-                <strong>BL</strong>
-                <div t-field="o.is_bl"/>
-            </div>
         </xpath>
 
         <!-- Remise en texte dans la désignation (v14), pas de colonne -->
