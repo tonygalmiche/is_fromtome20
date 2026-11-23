@@ -180,7 +180,8 @@ class IsRelanceFacture(models.Model):
         compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
         ctx = dict(
             default_model="account.move",
-            default_res_id=invoice.id,
+            # v20 : default_res_id refusé par mail.compose.message => default_res_ids
+            default_res_ids=invoice.ids,
             default_composition_mode='comment',
             custom_layout='mail.mail_notification_light', #Permet de définir la mise en page du mail
         )

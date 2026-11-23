@@ -59,7 +59,8 @@ class Company(models.Model):
         """
         ctx = dict(
             default_model="res.company",
-            default_res_id=self.id,
+            # v20 : default_res_id refusé par mail.compose.message => default_res_ids
+            default_res_ids=self.ids,
             default_composition_mode='comment',
             custom_layout='mail.mail_notification_light', #Permet de définir la mise en page du mail
         )
