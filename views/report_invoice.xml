@@ -11,16 +11,39 @@
             <t t-set="information_block">
                 <div name="shipping_address_block">
                     <strong class="d-block mt-3">Adresse de livraison</strong>
-                    <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                    <div><b t-field="o.partner_shipping_id.name"/></div>
+                    <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
                     <div t-if="o.partner_shipping_id.is_gln">GLN : <span t-field="o.partner_shipping_id.is_gln"/></div>
                 </div>
             </t>
         </xpath>
 
-        <!-- Adresse de facturation : GLN et code fournisseur -->
-        <xpath expr="//t[@t-set='address']" position="inside">
-            <div t-if="o.partner_id.is_gln">GLN : <span t-field="o.partner_id.is_gln"/></div>
-            <div t-if="o.partner_id.is_code_fromtome">Code Fournisseur : <span t-field="o.partner_id.is_code_fromtome"/></div>
+        <!-- Adresse de facturation comme en v14 : libellé, société en gras puis contact sur sa ligne (« Société, contact »
+             en v20). Les 3 variantes standard (livraison identique ou non) sont identiques : remplacées par une seule.
+             Identifiant du client : n° de TVA seulement (SIRET sinon, en double avec l10n_fr_account) ; SIRET et SIREN
+             de l10n_fr_account repris (SIREN : mention obligatoire de la réforme) ; GLN et code fournisseur -->
+        <xpath expr="//t[@t-set='address']" position="replace">
+            <t t-set="address">
+                <strong class="d-block">Adresse de facturation</strong>
+                <t t-if="o.partner_id.parent_id">
+                    <div><b t-field="o.partner_id.parent_id.name"/></div>
+                    <div t-field="o.partner_id.name"/>
+                </t>
+                <div t-else=""><b t-field="o.partner_id.name"/></div>
+                <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                <div t-if="o.partner_id.vat" t-out="o._get_document_partner_ident_line()"/>
+                <t t-set="partner_siret" t-value="o.partner_id.commercial_partner_id.l10n_fr_siret"/>
+                <t t-set="partner_siren" t-value="o.partner_id.commercial_partner_id.l10n_fr_siren"/>
+                <div t-if="o.l10n_fr_is_company_french and partner_siret">SIRET : <t t-out="partner_siret"/></div>
+                <div t-if="o.l10n_fr_is_company_french and partner_siren">SIREN : <t t-out="partner_siren"/></div>
+                <div t-if="o.partner_id.is_gln">GLN : <span t-field="o.partner_id.is_gln"/></div>
+                <div t-if="o.partner_id.is_code_fromtome">Code Fournisseur : <span t-field="o.partner_id.is_code_fromtome"/></div>
+            </t>
+        </xpath>
+
+        <!-- Adresse de la société cliente (l10n_fr_account, facture adressée à un contact) : déjà en haut, absente en v14 -->
+        <xpath expr="//div[@name='customer_address']" position="attributes">
+            <attribute name="t-if">False</attribute>
         </xpath>
 
         <!-- Taille du texte de la v14 -->
@@ -76,6 +99,11 @@
         </xpath>
         <xpath expr="(//t[@t-set='line_colspan'])[1]" position="attributes">
             <attribute name="t-value">3 + (1 if display_discount else 0) + (1 if display_taxes and not line.tax_ids else 0) + (2 if o.move_type in ['in_refund','out_refund'] else 4)</attribute>
+        </xpath>
+        <!-- Désignation : libellé de la ligne seul, comme en v14 (v20 : nom de l'article ajouté devant quand le libellé
+             ne commence pas par lui, ex. « ECHANTILLON : … ») -->
+        <xpath expr="//td[@name='account_invoice_line_name']/span[@t-field='line.label']" position="replace">
+            <span t-if="line.name" t-field="line.name" t-options="{'widget': 'text'}" class="d-inline-block w-100 lh-sm"/>
         </xpath>
         <xpath expr="//td[@name='account_invoice_line_name']" position="before">
             <td name="td_code" class="text-start"><span t-field="line.product_id.default_code"/></td>

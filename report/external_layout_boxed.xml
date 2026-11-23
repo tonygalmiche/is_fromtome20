@@ -46,8 +46,12 @@
         </xpath>
     </template>
 
-    <!-- Pied de page (commun aux agencements en v20) : RIB de l'enseigne du client ; numéro de page déjà dans « Light » -->
+    <!-- Pied de page (commun aux agencements en v20) : RIB de l'enseigne du client ; numéro de page déjà dans « Light ».
+         Texte à la taille de la v14 (8pt) : plus haut en v20, la ligne « Page x / y » sortait de la marge du bas -->
     <template id="is_external_layout_footer_content" inherit_id="web.external_layout_footer_content">
+        <xpath expr="//div[contains(@t-attf-class, 'o_footer_content')]" position="attributes">
+            <attribute name="style">font-size:8pt</attribute>
+        </xpath>
         <div t-field="company.report_footer" position="after">
             <t t-if="o and 'partner_id' in o._fields and o.partner_id and o.partner_id.is_enseigne_id and o.partner_id.is_enseigne_id.rib">
                 <div t-field="o.partner_id.is_enseigne_id.rib"/>
