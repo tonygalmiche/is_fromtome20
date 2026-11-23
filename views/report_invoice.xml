@@ -57,6 +57,17 @@
                     padding-top:1px !important;
                     padding-bottom:1px !important;
                 }
+                /* Totaux (tableaux « encadrés ») : bordure du haut absente en standard ; fond gris sur le total TTC et le
+                   montant dû plutôt que sur les lignes de TVA */
+                .article .o_total_table tr:first-child td{
+                    border-top:1px solid #495057 !important;
+                }
+                .article .o_total_table .o_taxes td{
+                    background-color:transparent !important;
+                }
+                .article .o_total_table .o_total td, .article .o_total_table tr.fw-bold td{
+                    background-color:rgba(233, 236, 239, .5) !important;
+                }
             </style>
         </xpath>
 
