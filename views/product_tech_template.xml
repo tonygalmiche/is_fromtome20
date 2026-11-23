@@ -9,7 +9,7 @@
                 <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
                      t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
                     <t t-call="web.address_layout"/>
-                    <t t-raw="0"/>
+                    <t t-out="0"/>
                     <style>
                         .page{
                             font-size:10.5pt;
@@ -147,13 +147,13 @@
                                 <tr>
                                     <td style="width:48%;vertical-align:top">
                                         <b>Ingrédients:</b><br/>
-                                        <span t-raw="(doc.is_ingredient_import or '').replace('\n', '&lt;br/&gt;')"/>
+                                        <div style="white-space:pre-line" t-out="doc.is_ingredient_import"/>
                                     </td>
                                     <td style="width:4%;vertical-align:top">
                                     </td>
                                     <td style="width:48%;vertical-align:top">
                                         <b>Allergènes:</b><br/>
-                                        <span t-raw="(doc.is_allergene_import or '').replace('\n', '&lt;br/&gt;')"/>
+                                        <div style="white-space:pre-line" t-out="doc.is_allergene_import"/>
                                     </td>
                                 </tr>
                             </table>
@@ -161,12 +161,12 @@
 
 
                             <h1>CRITÈRES MICROBIOLOGIQUES ET PHYSICO-CHIMIQUE:</h1>
-                            <div t-raw="(doc.is_germe_import or '').replace('\n', '&lt;br/&gt;')"/>
+                            <div style="white-space:pre-line" t-out="doc.is_germe_import"/>
 
 
 
                             <h1>VALEURS NUTRITIONNELLES:</h1>
-                            <div t-raw="(doc.is_valeur_nutritionnelle_import or '').replace('\n', '&lt;br/&gt;')"/>
+                            <div style="white-space:pre-line" t-out="doc.is_valeur_nutritionnelle_import"/>
 
 
 
