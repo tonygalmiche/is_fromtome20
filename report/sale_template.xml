@@ -7,10 +7,25 @@
             <attribute name="t-value">doc.with_context(lang='fr_FR')</attribute>
         </xpath>
 
+        <!-- Titre de la mise en page v20 (« Commande # … ») masqué : titre de la v14 dans la page -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+            <attribute name="hide_title">True</attribute>
+        </xpath>
+
         <div class="page" position="replace">
 
         <div class="page">
             <div class="oe_structure"/>
+            <!-- Taille du texte et cellules resserrées comme en v14 (commande sur 1 page au lieu de 2) -->
+            <style>
+                .article{
+                    font-size:10pt;
+                }
+                .article .o_main_table td, .article .o_main_table th{
+                    padding-top:1px !important;
+                    padding-bottom:1px !important;
+                }
+            </style>
 
             <h2 class="mt16">
                 <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
@@ -23,28 +38,29 @@
                 <span t-field="doc.name"/>
             </h2>
 
+            <!-- Colonnes de même largeur comme en v14 (col-auto : informations collées en v20) -->
             <div class="row mt32 mb32" id="informations">
-                <div t-if="doc.client_order_ref" class="col-auto mw-100 mb-2">
+                <div t-if="doc.client_order_ref" class="col mb-2">
                     <strong>Your Reference:</strong>
                     <p class="m-0" t-field="doc.client_order_ref"/>
                 </div>
-                <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col-auto mw-100 mb-2">
+                <div t-if="doc.date_order and doc.state not in ['draft','sent']" class="col mb-2">
                     <strong>Order Date:</strong>
                     <p class="m-0" t-field="doc.date_order"/>
                 </div>
-                <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col-auto mw-100 mb-2">
+                <div t-if="doc.date_order and doc.state in ['draft','sent']" class="col mb-2">
                     <strong>Quotation Date:</strong>
                     <p class="m-0" t-field="doc.date_order" t-options='{"widget": "date"}'/>
                 </div>
-                <div t-if="doc.is_date_livraison" class="col-auto mw-100 mb-2">
+                <div t-if="doc.is_date_livraison" class="col mb-2">
                     <strong>Date livraison</strong>
                     <p class="m-0" t-field="doc.is_date_livraison" t-options='{"widget": "date"}'/>
                 </div>
-                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto mw-100 mb-2" name="expiration_date">
+                <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col mb-2" name="expiration_date">
                     <strong>Expiration:</strong>
                     <p class="m-0" t-field="doc.validity_date"/>
                 </div>
-                <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                <div t-if="doc.user_id.name" class="col mb-2">
                     <strong>Salesperson:</strong>
                     <p class="m-0" t-field="doc.user_id"/>
                 </div>
