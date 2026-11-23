@@ -119,6 +119,14 @@
         </xpath>
     </template>
 
+    <!-- Tableau des lots sous les totaux (réglage « Lots sur les factures » actif, sans effet en v14) masqué : lots déjà
+         dans la désignation. stock_account est chargé par purchase_stock -->
+    <template id="is_stock_account_report_invoice_document" inherit_id="stock_account.stock_account_report_invoice_document">
+        <xpath expr="//t[@groups='stock_account.group_lot_on_invoice']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+
     <!-- PDF en français comme en v14 (langue du client en v20 : libellés de la facture standard) -->
     <template id="is_report_invoice" inherit_id="account.report_invoice">
         <xpath expr="//t[@t-set='lang']" position="attributes">
