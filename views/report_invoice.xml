@@ -129,8 +129,11 @@
         <!-- Total colis et poids à gauche des totaux, séparé des lignes par un espace ; condition de paiement en dessous
              (clear:left, sinon le texte se plaçait à côté du bloc flottant). Sans flottant, les totaux passaient sur une
              autre page -->
+        <xpath expr="//div[@id='right-elements']/.." position="attributes">
+            <attribute name="class" add="mt-3" separator=" "/>
+        </xpath>
         <xpath expr="//div[@id='right-elements']" position="before">
-            <div t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="float-start mt-3">
+            <div t-if="o.move_type not in ['in_refund','out_refund']" name="is_total_colis_poids" class="float-start">
                 <strong>Total colis : </strong><span t-field="o.is_nb_colis"/>
                 <br/>
                 <strong>Total poids : </strong><span t-field="o.is_poids_net"/>

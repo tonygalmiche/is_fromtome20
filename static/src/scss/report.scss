@@ -29,5 +29,11 @@ Landscape
 
 .fondgris{
       background-color:Gainsboro;
-      font-weight:bold;  
+      font-weight:bold;
+}
+
+
+// Pied de page : pas de ligne vide entre le texte de la société (paragraphe) et le RIB de l'enseigne, comme en v14
+.o_footer_content p{
+    margin-bottom: 0;
 }
